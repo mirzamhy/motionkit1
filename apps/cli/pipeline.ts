@@ -13,6 +13,8 @@ import { media, propsFor, stills, type AspectId } from './render';
 import { departure, revealEnd } from '../../packages/core/src/engine/reveals';
 import { describeEnergy, frameDiffs, motionEnergy } from '../../packages/qa/src/motion';
 import { structureWarnings } from '../../packages/qa/src/structure';
+import { analyze, distance, type Dna } from '../../packages/dna/src/analyze';
+import { describeDna, dnaPatch } from '../../packages/dna/src/look';
 
 const read = (p: string) => (existsSync(p) ? readFileSync(p, 'utf8') : '');
 const log = (s: string) => console.log(s);
@@ -50,6 +52,43 @@ const REFERENCE = () => JSON.parse(read(path.join(ROOT, 'examples/mimo-v2.6-pro/
 const builderSystem = () => read(path.join(ROOT, 'prompts/builder.md'));
 
 // ---------------------------------------------------------------- plan: builder writes the spec
+// ---------------------------------------------------------------- style DNA (reference film)
+export const loadDna = (slug: string): Dna | null => (existsSync(proj(slug).dna) ? JSON.parse(read(proj(slug).dna)) : null);
+
+/** a skillry gallery page → its original mp4; any other http(s) URL is downloaded as-is */
+const mediaUrl = (u: string) => {
+  const m = u.match(/skillry\.dev\/ai-videos\/([a-z0-9-]+)\/([a-z0-9-]+-\d{6})/i);
+  return m ? `https://media.skillry.dev/${m[1]}/${m[2]}/original.mp4` : u;
+};
+
+export const dnaCmd = async (slug: string, src: string) => {
+  const P = proj(slug);
+  mkdirSync(P.ref, { recursive: true });
+  let file = src;
+  if (/^https?:\/\//i.test(src)) {
+    const url = mediaUrl(src);
+    file = path.join(P.ref, 'reference.mp4');
+    log(`▸ download ${url}`);
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`download failed: HTTP ${res.status} for ${url}`);
+    writeFileSync(file, Buffer.from(await res.arrayBuffer()));
+  } else if (!existsSync(file)) throw new Error(`${src} not found (give a local video file or an http(s) URL)`);
+  log(`▸ analyse ${path.relative(process.cwd(), file)}`);
+  const dna = analyze(file, src);
+  writeFileSync(P.dna, JSON.stringify(dna, null, 1));
+  describeDna(dna).forEach((l) => log(`  ${l}`));
+  log(`  ✓ ${path.relative(process.cwd(), P.dna)} — \`mk plan ${slug}\` will follow it`);
+  return dna;
+};
+
+/** render vs reference, when the project has a DNA */
+export const dnaDistance = (slug: string, file: string) => {
+  const ref = loadDna(slug);
+  if (!ref) return null;
+  const d = distance(ref, analyze(file));
+  return `palette ${d.paletteMatch}% · accent ${d.accentMatch}% · tempo ${d.tempo.out} vs ${d.tempo.ref} cuts/10 s · ground ${d.ground.out}${d.ground.same ? '' : ` (reference: ${d.ground.ref})`}`;
+};
+
 const lintLoop = async (slug: string, messages: Msg[], tag: string) => {
   const P = proj(slug);
   const facts = read(P.facts);
@@ -64,9 +103,21 @@ const lintLoop = async (slug: string, messages: Msg[], tag: string) => {
       continue;
     }
     raw.slug = slug;
+    const dna = loadDna(slug);
+    if (dna) Object.assign(raw, dnaPatch(dna)); // the reference decides look + transition
     mkdirSync(path.join(P.dir, 'attempts'), { recursive: true });
     writeFileSync(path.join(P.dir, 'attempts', `${tag.replace(/[^a-z0-9#-]/gi, '_')}-${attempt}.json`), JSON.stringify(raw, null, 1));
-    const res = lintSpec(raw, { facts, brief, recent: recentFor(slug), concept: loadConcept(slug), reference: REFERENCE(), words: loadWords(slug), durationSec: targetDuration(slug) });
+    const recent = recentFor(slug);
+    const c0 = loadConcept(slug);
+    const res = lintSpec(raw, {
+      facts,
+      brief,
+      recent: dna ? { ...recent, looks: [] } : recent,
+      concept: dna && c0 ? { ...c0, look: dnaPatch(dna).look } : c0,
+      reference: REFERENCE(),
+      words: loadWords(slug),
+      durationSec: targetDuration(slug),
+    });
     if (!res.errors.length && res.spec) {
       res.warnings.forEach((w) => log(`  ⚠ ${w}`));
       return res.spec;
@@ -139,6 +190,7 @@ export const plan = async (slug: string) => {
     `FACTS (the ONLY allowed source of numbers and claims):\n${facts.trim() || '(none — show no numbers except those written in the brief)'}`,
     `CONCEPT (from the creative director — follow engine, path, look, archetype exactly; follow the beat outline, hook and CTA):\n${JSON.stringify(c, null, 1)}`,
     budgetLine(targetDuration(slug)),
+    ...(loadDna(slug) ? [`STYLE DNA (from the reference film — look and transition are fixed to it; match its tempo with beat pacing):\n${describeDna(loadDna(slug)!).join('\n')}`] : []),
     `slug: "${slug}"${cfg.brandName ? `\nDefault brand: name "${cfg.brandName}", url "${cfg.brandUrl}"` : ''}`,
     'Return the spec JSON.',
   ].join('\n\n');
@@ -354,6 +406,8 @@ export const qaReport = (slug: string) => {
     const spikes = diffScan(file, aspect, spec, words);
     log(spikes.length ? `  ⚠ ${spikes.length} unexpected frame jump(s): ${spikes.slice(0, 6).map((s) => `f${s.frame}`).join(', ')}` : '  ✓ no unexpected frame jumps');
     for (const line of describeEnergy(energyOf(file, aspect, spec))) log(`  ${line}`);
+    const dd = dnaDistance(slug, file);
+    if (dd) log(`  ◆ vs reference: ${dd}`);
   }
   if (!rendered) log(`· no renders in ${path.relative(process.cwd(), P.out)} — run \`mk render ${slug}\` for motion checks`);
   return sw.length;
@@ -416,6 +470,8 @@ export const renderFinal = async (slug: string, aspects: AspectId[] = ['landscap
     if (spikes.length) log(`  ⚠ ${spikes.length} unexpected frame jump(s): ${spikes.slice(0, 6).map((s) => `f${s.frame}`).join(', ')} — inspect those frames`);
     else log('  ✓ no unexpected frame jumps');
     for (const line of describeEnergy(energyOf(output, aspect, spec))) log(`  ${line}`);
+    const dd = dnaDistance(slug, output);
+    if (dd) log(`  ◆ vs reference: ${dd}`);
     outs.push(output);
   }
   return outs;

@@ -133,9 +133,23 @@ const PRESETS: Record<string, Look> = {
   },
 };
 
+/** id / darkness / accent of every preset — used to map a reference's Style DNA onto the nearest preset */
+export const presetMeta = () => Object.values(PRESETS).map((p) => ({ id: p.id, dark: p.dark, accent: p.accent }));
+
 export const resolveLook = (l: Spec['look']): Look => {
   const base = PRESETS[l.preset];
-  return { ...base, accent: l.accent ?? base.accent, hot: l.hot ?? base.hot };
+  if (!l.accent && !l.hot) return base;
+  // an accent override (e.g. from a reference's Style DNA) recolours everything that carries the preset's accent:
+  // glow, hot particles and the caption's highlighted word — otherwise the old accent leaks through
+  const hot = l.hot ?? l.accent![0];
+  const rgbOf = (h: string) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16)).join(',');
+  return {
+    ...base,
+    accent: l.accent ?? base.accent,
+    hot,
+    world: { ...base.world, glow: rgbOf(hot), particles: { ...base.world.particles, hot } },
+    caption: { ...base.caption, hot },
+  };
 };
 
 export const grad = (look: Look, deg = 100) => `linear-gradient(${deg}deg, ${look.accent[0]} 0%, ${look.accent[1]} 100%)`;

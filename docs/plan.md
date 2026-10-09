@@ -63,8 +63,17 @@ brief + facts ────────────► concept (opener menu / arc
    - `mk qa <slug>`: structure + frame-jump + energy on existing renders.
    Still to do: text-level count per beat (needs widget metadata), feeding qa failures back into the
    `mk review` fix loop, a "something survives each cut" check for custom scenes (phase 5).
-3. **Style DNA.** `mk dna <video|url>` → palette (fix accent: most saturated small cluster, not mean),
-   cut tempo, ground, transition family. Generate a look from DNA. Report distance to reference after render.
+3. **Style DNA (done, first pass).** `packages/dna`:
+   - `mk dna <slug> <video|url>` (skillry gallery pages resolve to the original mp4) → `projects/<slug>/dna.json`:
+     palette, ground, accent pair, hard cuts / 10 s, flashes, colour-swap cuts, a transition guess.
+   - Accent is searched in vivid pixels at 240 px (sat > 0.5, bright), so thin neon type survives — verified on
+     techhalla (#B7FC01 lime + #F02BC8 pink), Claude/dheepanratnam (#CB7259), AI In Public (#4E51FB vs brand #3D40FE).
+   - `lookFromDna`: nearest preset by ground + accent hue, accent/hot overridden; `resolveLook` now recolours glow,
+     hot particles and caption highlight when an accent override is present (no override = unchanged).
+   - `mk plan` forces the DNA look + transition onto every attempt, lifts the recent-look rule, and gives the
+     builder the DNA summary. `mk render` / `mk qa` print palette / accent / tempo / ground vs the reference.
+   Still to do: generate a whole look (fonts, card language, ground texture) instead of mapping to a preset;
+   transition guess is a heuristic; detect type style (serif / condensed / mono) from the reference.
 4. **Widgets.** scramble, HUD frame, takeover echo + colour flash, before→after number, dot-matrix stat,
    strikethrough correction, leaderboard, notification, prompt composer, integrations grid, text ring.
 5. **Custom scenes.** ≤2 per video, agent-written component inside a fixed box/duration, must pass qa.

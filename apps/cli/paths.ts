@@ -15,6 +15,8 @@ export const proj = (slug: string) => {
     facts: path.join(dir, 'facts.md'),
     spec: path.join(dir, 'spec.json'),
     concept: path.join(dir, 'concept.json'),
+    dna: path.join(dir, 'dna.json'),
+    ref: path.join(dir, 'ref'),
     words: path.join(dir, 'words.json'),
     pub: path.join(dir, 'public'),
     vo: path.join(dir, 'public', 'vo'),
