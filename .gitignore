@@ -1,0 +1,12 @@
+node_modules/
+projects/
+out/
+.scratch/
+assets/sfx/
+.env
+*.log
+.DS_Store
+*.mp4
+*.wav
+*.mp3
+.cache/

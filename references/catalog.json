@@ -1,0 +1,8175 @@
+{
+ "source": "skillry.dev/ai-videos/opus-5-5 (originals), studied Oct 2026",
+ "fields": {
+  "hard_cuts": "ffmpeg scene>0.3 on 320px; soft transitions are not counted",
+  "palette": "k-means k=6 over 12 frames, sorted by share",
+  "accent": "most saturated of the top-5 palette colours",
+  "ground": "mean luminance of sampled frames: dark <70, light >170",
+  "label_confidence": "high = studied frame-by-frame / many frames; low = 6-frame strip only"
+ },
+ "videos": {
+  "0xlangeai-597929": {
+   "type": "explainer",
+   "theme": "light-minimal",
+   "transition": "fade-through-bg",
+   "notes": "CLIProxyAPI promo, white diagram slides, CN text, red callouts",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/0xlangeai-597929",
+   "duration_s": 57.0,
+   "width": 720,
+   "height": 1280,
+   "fps": 30,
+   "aspect": "9:16",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#FCFCFC",
+     "share": 0.818
+    },
+    {
+     "hex": "#FEFEFE",
+     "share": 0.075
+    },
+    {
+     "hex": "#DBDCE5",
+     "share": 0.033
+    },
+    {
+     "hex": "#B2B7C9",
+     "share": 0.031
+    },
+    {
+     "hex": "#938989",
+     "share": 0.023
+    },
+    {
+     "hex": "#3A3937",
+     "share": 0.02
+    }
+   ],
+   "accent": "#B2B7C9"
+  },
+  "0xsolty-735200": {
+   "type": "3d",
+   "theme": "dark-space",
+   "transition": "camera-orbit",
+   "notes": "Pocket Planet: Earth day/night terminator, clouds, UI sliders",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/0xsolty-735200",
+   "duration_s": 17.7,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#1C1F27",
+     "share": 0.313
+    },
+    {
+     "hex": "#0F131A",
+     "share": 0.281
+    },
+    {
+     "hex": "#06070B",
+     "share": 0.176
+    },
+    {
+     "hex": "#3E4249",
+     "share": 0.079
+    },
+    {
+     "hex": "#6D7177",
+     "share": 0.077
+    },
+    {
+     "hex": "#A0A6AE",
+     "share": 0.074
+    }
+   ],
+   "accent": "#1C1F27"
+  },
+  "1littlecoder-378066": {
+   "type": "story",
+   "theme": "dark-cinematic",
+   "transition": "shatter / flash",
+   "notes": "robot face \"EVERYONE WILL THINK ALIKE\", glass shatter, orange rebel figure",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/1littlecoder-378066",
+   "duration_s": 30.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 3,
+   "cut_times_s": [
+    19.17,
+    20.9,
+    20.93
+   ],
+   "cuts_per_10s": 1.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#040506",
+     "share": 0.507
+    },
+    {
+     "hex": "#161C20",
+     "share": 0.241
+    },
+    {
+     "hex": "#324249",
+     "share": 0.11
+    },
+    {
+     "hex": "#8E8985",
+     "share": 0.071
+    },
+    {
+     "hex": "#E6D7C8",
+     "share": 0.047
+    },
+    {
+     "hex": "#664132",
+     "share": 0.023
+    }
+   ],
+   "accent": "#E6D7C8"
+  },
+  "aayush4soni-644283": {
+   "type": "3d",
+   "theme": "warm-interior",
+   "transition": "camera-walkthrough",
+   "notes": "home interior walk-through, rooftop swing",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/aayush4soni-644283",
+   "duration_s": 38.0,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#E8C99F",
+     "share": 0.253
+    },
+    {
+     "hex": "#D1AD78",
+     "share": 0.203
+    },
+    {
+     "hex": "#A98853",
+     "share": 0.177
+    },
+    {
+     "hex": "#74624C",
+     "share": 0.156
+    },
+    {
+     "hex": "#553A1B",
+     "share": 0.126
+    },
+    {
+     "hex": "#8C8A99",
+     "share": 0.085
+    }
+   ],
+   "accent": "#D1AD78"
+  },
+  "adamdesgns-768014": {
+   "type": "kinetic",
+   "theme": "neon-brutal",
+   "transition": "hard-cut on beat",
+   "notes": "INSERT COIN arcade, scramble numbers, game tiles",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/adamdesgns-768014",
+   "duration_s": 15.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 16,
+   "cut_times_s": [
+    1.35,
+    4.0,
+    10.75,
+    10.77,
+    11.0,
+    11.25,
+    11.27,
+    11.5,
+    11.52,
+    11.75,
+    11.77,
+    12.0,
+    12.25,
+    12.27,
+    12.5,
+    13.0
+   ],
+   "cuts_per_10s": 10.62,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#010202",
+     "share": 0.798
+    },
+    {
+     "hex": "#1C1E1F",
+     "share": 0.064
+    },
+    {
+     "hex": "#947633",
+     "share": 0.044
+    },
+    {
+     "hex": "#E4AD34",
+     "share": 0.043
+    },
+    {
+     "hex": "#515352",
+     "share": 0.027
+    },
+    {
+     "hex": "#D2D5D7",
+     "share": 0.025
+    }
+   ],
+   "accent": "#E4AD34"
+  },
+  "alanschwegler-629665": {
+   "type": "launch",
+   "theme": "light-minimal",
+   "transition": "fade-through-bg",
+   "notes": "PlanningManager event app, vertical, ES text, illustrated staff",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/alanschwegler-629665",
+   "duration_s": 36.1,
+   "width": 720,
+   "height": 1280,
+   "fps": 30,
+   "aspect": "9:16",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#EBE2DC",
+     "share": 0.333
+    },
+    {
+     "hex": "#F4F2EF",
+     "share": 0.301
+    },
+    {
+     "hex": "#FDFDFD",
+     "share": 0.193
+    },
+    {
+     "hex": "#1C273D",
+     "share": 0.073
+    },
+    {
+     "hex": "#BCBCB5",
+     "share": 0.054
+    },
+    {
+     "hex": "#787D6A",
+     "share": 0.046
+    }
+   ],
+   "accent": "#1C273D"
+  },
+  "alexalbert-274839": {
+   "type": "story",
+   "theme": "vintage-film",
+   "transition": "none",
+   "notes": "B/W archival street/train footage look",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/alexalbert-274839",
+   "duration_s": 8.0,
+   "width": 960,
+   "height": 680,
+   "fps": 16,
+   "aspect": "4:3",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#F1F1F1",
+     "share": 0.254
+    },
+    {
+     "hex": "#484848",
+     "share": 0.192
+    },
+    {
+     "hex": "#898989",
+     "share": 0.186
+    },
+    {
+     "hex": "#686868",
+     "share": 0.164
+    },
+    {
+     "hex": "#2B2B2B",
+     "share": 0.106
+    },
+    {
+     "hex": "#AFAFAF",
+     "share": 0.097
+    }
+   ],
+   "accent": "#F1F1F1"
+  },
+  "allodev-069765": {
+   "type": "launch",
+   "theme": "dark-accent",
+   "transition": "hex-mask reveal",
+   "notes": "futurepost: orange hexagon mask, \"Know who's real\", NFT avatars",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/allodev-069765",
+   "duration_s": 24.6,
+   "width": 1280,
+   "height": 720,
+   "fps": 24,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#000000",
+     "share": 0.602
+    },
+    {
+     "hex": "#080402",
+     "share": 0.228
+    },
+    {
+     "hex": "#191110",
+     "share": 0.097
+    },
+    {
+     "hex": "#413430",
+     "share": 0.034
+    },
+    {
+     "hex": "#96614D",
+     "share": 0.022
+    },
+    {
+     "hex": "#B8B6B6",
+     "share": 0.017
+    }
+   ],
+   "accent": "#96614D"
+  },
+  "als-link-301108": {
+   "type": "kinetic",
+   "theme": "pop-collage",
+   "transition": "hard-cut",
+   "notes": "Spanish vertical: yellow/blue/magenta, halftone, sticker labels, \"¿Quieres el prompt?\"",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/als-link-301108",
+   "duration_s": 35.6,
+   "width": 720,
+   "height": 1280,
+   "fps": 30,
+   "aspect": "9:16",
+   "hard_cuts": 7,
+   "cut_times_s": [
+    2.93,
+    9.93,
+    15.43,
+    15.5,
+    20.93,
+    27.43,
+    31.43
+   ],
+   "cuts_per_10s": 1.97,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#DAD017",
+     "share": 0.302
+    },
+    {
+     "hex": "#200D2A",
+     "share": 0.275
+    },
+    {
+     "hex": "#494FE9",
+     "share": 0.168
+    },
+    {
+     "hex": "#DB2B7E",
+     "share": 0.125
+    },
+    {
+     "hex": "#7D7045",
+     "share": 0.069
+    },
+    {
+     "hex": "#EFE5E6",
+     "share": 0.061
+    }
+   ],
+   "accent": "#DAD017"
+  },
+  "amberpromptai-345137": {
+   "type": "art",
+   "theme": "ink-wash",
+   "transition": "ink-draw-on",
+   "notes": "mid-autumn sumi-e: mountains drawing on, vertical calligraphy, red seal",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/amberpromptai-345137",
+   "duration_s": 47.5,
+   "width": 960,
+   "height": 540,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#E8E2D6",
+     "share": 0.509
+    },
+    {
+     "hex": "#DFDACD",
+     "share": 0.253
+    },
+    {
+     "hex": "#CDCCC3",
+     "share": 0.146
+    },
+    {
+     "hex": "#B7B4AC",
+     "share": 0.053
+    },
+    {
+     "hex": "#88827A",
+     "share": 0.023
+    },
+    {
+     "hex": "#3B3936",
+     "share": 0.015
+    }
+   ],
+   "accent": "#E8E2D6"
+  },
+  "ambiguous-ai-389509": {
+   "type": "art",
+   "theme": "hud-terminal",
+   "transition": "blind-wipe",
+   "notes": "運 kanji + dice across styles (green grid, pastoral, pixel, mono)",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/ambiguous-ai-389509",
+   "duration_s": 15.1,
+   "width": 1024,
+   "height": 1280,
+   "fps": 60,
+   "aspect": "3:4",
+   "hard_cuts": 46,
+   "cut_times_s": [
+    1.0,
+    2.0,
+    3.0,
+    3.02,
+    3.82,
+    3.83,
+    4.63,
+    5.32,
+    5.98,
+    6.0,
+    7.08,
+    7.53,
+    8.0,
+    8.37,
+    8.73,
+    9.33,
+    9.35,
+    9.58,
+    9.83,
+    10.05,
+    10.25,
+    10.42,
+    10.58,
+    10.72,
+    10.87,
+    10.97,
+    11.08,
+    11.18,
+    11.27,
+    11.42,
+    11.43,
+    11.55,
+    11.65,
+    11.82,
+    11.9,
+    11.98,
+    12.07,
+    12.15,
+    12.23,
+    12.32,
+    12.4,
+    12.48,
+    12.57,
+    12.73,
+    12.82,
+    12.9
+   ],
+   "cuts_per_10s": 30.46,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#08100D",
+     "share": 0.378
+    },
+    {
+     "hex": "#1A392F",
+     "share": 0.222
+    },
+    {
+     "hex": "#F0E9DF",
+     "share": 0.16
+    },
+    {
+     "hex": "#2A5E5B",
+     "share": 0.105
+    },
+    {
+     "hex": "#A9A19B",
+     "share": 0.068
+    },
+    {
+     "hex": "#E7C010",
+     "share": 0.067
+    }
+   ],
+   "accent": "#2A5E5B"
+  },
+  "apoorvjain25-150112": {
+   "type": "launch",
+   "theme": "dark-accent",
+   "transition": "dissolve+scale",
+   "notes": "Synclify link-in-bio: phone mockups, pink/magenta accent, \"Nine looks, all free\"",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/apoorvjain25-150112",
+   "duration_s": 30.1,
+   "width": 720,
+   "height": 1280,
+   "fps": 30,
+   "aspect": "9:16",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#22151B",
+     "share": 0.325
+    },
+    {
+     "hex": "#110D0E",
+     "share": 0.294
+    },
+    {
+     "hex": "#3A1E29",
+     "share": 0.173
+    },
+    {
+     "hex": "#F7EFEC",
+     "share": 0.12
+    },
+    {
+     "hex": "#BEA9AA",
+     "share": 0.046
+    },
+    {
+     "hex": "#755E61",
+     "share": 0.043
+    }
+   ],
+   "accent": "#3A1E29"
+  },
+  "argbeknwn-466818": {
+   "type": "3d",
+   "theme": "dark-space",
+   "transition": "particle morph",
+   "notes": "abstract particle sculpture, \"inside your mind\", no words",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/argbeknwn-466818",
+   "duration_s": 15.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#05050C",
+     "share": 0.322
+    },
+    {
+     "hex": "#090913",
+     "share": 0.268
+    },
+    {
+     "hex": "#0E0E1F",
+     "share": 0.226
+    },
+    {
+     "hex": "#1B1A2D",
+     "share": 0.133
+    },
+    {
+     "hex": "#41404D",
+     "share": 0.041
+    },
+    {
+     "hex": "#8B8C98",
+     "share": 0.01
+    }
+   ],
+   "accent": "#1B1A2D"
+  },
+  "arthurkatcher-604161": {
+   "type": "explainer",
+   "theme": "dark-accent",
+   "transition": "fade-through-bg",
+   "notes": "How a coding agent works: terminal, loop diagram, token bar chart, orange accent",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/arthurkatcher-604161",
+   "duration_s": 40.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#040405",
+     "share": 0.327
+    },
+    {
+     "hex": "#0C090B",
+     "share": 0.306
+    },
+    {
+     "hex": "#181113",
+     "share": 0.247
+    },
+    {
+     "hex": "#2B292B",
+     "share": 0.069
+    },
+    {
+     "hex": "#705953",
+     "share": 0.035
+    },
+    {
+     "hex": "#A1A7AB",
+     "share": 0.015
+    }
+   ],
+   "accent": "#705953"
+  },
+  "aschapmann-724497": {
+   "type": "launch",
+   "theme": "dark-accent",
+   "transition": "dissolve+scale",
+   "notes": "RedShip: dark + red, Reddit posts as cards, \"Day 1 / Week 2+ / Month 3+\"",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/aschapmann-724497",
+   "duration_s": 30.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 1,
+   "cut_times_s": [
+    10.0
+   ],
+   "cuts_per_10s": 0.33,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#141518",
+     "share": 0.39
+    },
+    {
+     "hex": "#25252A",
+     "share": 0.35
+    },
+    {
+     "hex": "#3B373E",
+     "share": 0.151
+    },
+    {
+     "hex": "#512A2B",
+     "share": 0.067
+    },
+    {
+     "hex": "#B13A30",
+     "share": 0.023
+    },
+    {
+     "hex": "#948E91",
+     "share": 0.019
+    }
+   ],
+   "accent": "#B13A30"
+  },
+  "aylmerth-356252": {
+   "type": "data",
+   "theme": "dark-accent",
+   "transition": "match-position",
+   "notes": "bar chart race (UK asylum claims), year label ticking",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/aylmerth-356252",
+   "duration_s": 50.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#0A090D",
+     "share": 0.725
+    },
+    {
+     "hex": "#332F31",
+     "share": 0.088
+    },
+    {
+     "hex": "#6B6D61",
+     "share": 0.055
+    },
+    {
+     "hex": "#ABAA9B",
+     "share": 0.05
+    },
+    {
+     "hex": "#030307",
+     "share": 0.042
+    },
+    {
+     "hex": "#07070B",
+     "share": 0.04
+    }
+   ],
+   "accent": "#ABAA9B"
+  },
+  "blitast-studio-257328": {
+   "type": "story",
+   "theme": "retro-cartoon",
+   "transition": "flash + comic burst",
+   "notes": "RATED R for Recursion, retro TV salesman, BUT starburst",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/blitast-studio-257328",
+   "duration_s": 35.8,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 4,
+   "cut_times_s": [
+    2.42,
+    8.85,
+    13.02,
+    19.2
+   ],
+   "cuts_per_10s": 1.12,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#0B080B",
+     "share": 0.372
+    },
+    {
+     "hex": "#221B20",
+     "share": 0.252
+    },
+    {
+     "hex": "#413636",
+     "share": 0.134
+    },
+    {
+     "hex": "#6D5D52",
+     "share": 0.092
+    },
+    {
+     "hex": "#A3886E",
+     "share": 0.09
+    },
+    {
+     "hex": "#CBBEA9",
+     "share": 0.06
+    }
+   ],
+   "accent": "#A3886E"
+  },
+  "brenbuilds-386902": {
+   "type": "3d",
+   "theme": "naturalistic",
+   "transition": "camera-walkthrough",
+   "notes": "Yellowstone walk: boardwalk, geyser, prismatic spring",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/brenbuilds-386902",
+   "duration_s": 20.0,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 3,
+   "cut_times_s": [
+    2.0,
+    9.0,
+    15.5
+   ],
+   "cuts_per_10s": 1.5,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#C5C3C2",
+     "share": 0.3
+    },
+    {
+     "hex": "#A59B90",
+     "share": 0.23
+    },
+    {
+     "hex": "#232518",
+     "share": 0.165
+    },
+    {
+     "hex": "#736D5B",
+     "share": 0.118
+    },
+    {
+     "hex": "#48483A",
+     "share": 0.105
+    },
+    {
+     "hex": "#5D769E",
+     "share": 0.082
+    }
+   ],
+   "accent": "#736D5B"
+  },
+  "bridgemindai-286423": {
+   "type": "launch",
+   "theme": "dark-accent",
+   "transition": "hard-cut",
+   "notes": "BridgeMind, 69 -> 205 numbers",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/bridgemindai-286423",
+   "duration_s": 30.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 14,
+   "cut_times_s": [
+    1.6,
+    3.2,
+    6.4,
+    11.2,
+    12.8,
+    16.0,
+    19.2,
+    19.6,
+    20.8,
+    21.2,
+    21.6,
+    22.0,
+    22.4,
+    28.8
+   ],
+   "cuts_per_10s": 4.65,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#060809",
+     "share": 0.417
+    },
+    {
+     "hex": "#131414",
+     "share": 0.282
+    },
+    {
+     "hex": "#A0A09E",
+     "share": 0.101
+    },
+    {
+     "hex": "#323538",
+     "share": 0.096
+    },
+    {
+     "hex": "#6A572E",
+     "share": 0.066
+    },
+    {
+     "hex": "#125C9A",
+     "share": 0.038
+    }
+   ],
+   "accent": "#6A572E"
+  },
+  "builtbysketch-114092": {
+   "type": "launch",
+   "theme": "light-minimal",
+   "transition": "slide",
+   "notes": "vertical JP app (running): phones tilting, white ground",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/builtbysketch-114092",
+   "duration_s": 22.9,
+   "width": 664,
+   "height": 1280,
+   "fps": 60,
+   "aspect": "9:16",
+   "hard_cuts": 1,
+   "cut_times_s": [
+    10.38
+   ],
+   "cuts_per_10s": 0.44,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#1E222B",
+     "share": 0.255
+    },
+    {
+     "hex": "#697362",
+     "share": 0.189
+    },
+    {
+     "hex": "#414241",
+     "share": 0.186
+    },
+    {
+     "hex": "#0B0D0E",
+     "share": 0.165
+    },
+    {
+     "hex": "#95A393",
+     "share": 0.14
+    },
+    {
+     "hex": "#CED5CF",
+     "share": 0.065
+    }
+   ],
+   "accent": "#697362"
+  },
+  "cboyack-407181": {
+   "type": "kinetic",
+   "theme": "gold-noir",
+   "transition": "fade-through-bg",
+   "notes": "END THE FED: gold type on black, years, \"97% GONE\", halftone dollar",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/cboyack-407181",
+   "duration_s": 15.1,
+   "width": 720,
+   "height": 1280,
+   "fps": 60,
+   "aspect": "9:16",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#080A08",
+     "share": 0.363
+    },
+    {
+     "hex": "#0D110C",
+     "share": 0.362
+    },
+    {
+     "hex": "#231F17",
+     "share": 0.141
+    },
+    {
+     "hex": "#B87D51",
+     "share": 0.05
+    },
+    {
+     "hex": "#D9D2B0",
+     "share": 0.047
+    },
+    {
+     "hex": "#554533",
+     "share": 0.038
+    }
+   ],
+   "accent": "#B87D51"
+  },
+  "chapi13-131449": {
+   "type": "launch",
+   "theme": "light-gradient",
+   "transition": "fade-through-bg",
+   "notes": "vertical app: \"No accounts. Your data stays on your device\", soft gradient phones",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/chapi13-131449",
+   "duration_s": 27.3,
+   "width": 720,
+   "height": 1280,
+   "fps": 30,
+   "aspect": "9:16",
+   "hard_cuts": 2,
+   "cut_times_s": [
+    1.13,
+    3.43
+   ],
+   "cuts_per_10s": 0.73,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#F1F1F5",
+     "share": 0.348
+    },
+    {
+     "hex": "#F1E4DD",
+     "share": 0.215
+    },
+    {
+     "hex": "#D2D5EA",
+     "share": 0.177
+    },
+    {
+     "hex": "#10131A",
+     "share": 0.115
+    },
+    {
+     "hex": "#E4BEAC",
+     "share": 0.078
+    },
+    {
+     "hex": "#848187",
+     "share": 0.067
+    }
+   ],
+   "accent": "#E4BEAC"
+  },
+  "chudry223-081860": {
+   "type": "3d",
+   "theme": "dark-studio",
+   "transition": "camera-push",
+   "notes": "lens machine + terrarium diorama, depth of field",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/chudry223-081860",
+   "duration_s": 32.0,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 4,
+   "cut_times_s": [
+    9.0,
+    14.5,
+    21.0,
+    25.5
+   ],
+   "cuts_per_10s": 1.25,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#252528",
+     "share": 0.26
+    },
+    {
+     "hex": "#121215",
+     "share": 0.254
+    },
+    {
+     "hex": "#394042",
+     "share": 0.173
+    },
+    {
+     "hex": "#5D6859",
+     "share": 0.117
+    },
+    {
+     "hex": "#868F86",
+     "share": 0.106
+    },
+    {
+     "hex": "#AFBEC9",
+     "share": 0.09
+    }
+   ],
+   "accent": "#5D6859"
+  },
+  "chukinice-426722": {
+   "type": "3d",
+   "theme": "toy-pastel",
+   "transition": "camera-fly",
+   "notes": "colorful 3D platformer levels",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/chukinice-426722",
+   "duration_s": 41.1,
+   "width": 1280,
+   "height": 578,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 16,
+   "cut_times_s": [
+    4.92,
+    4.95,
+    5.65,
+    11.88,
+    11.93,
+    11.98,
+    13.33,
+    13.42,
+    13.48,
+    18.82,
+    18.87,
+    20.63,
+    21.65,
+    21.7,
+    22.3,
+    22.35
+   ],
+   "cuts_per_10s": 3.9,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#DDF2F5",
+     "share": 0.405
+    },
+    {
+     "hex": "#ADCCD7",
+     "share": 0.23
+    },
+    {
+     "hex": "#6B769A",
+     "share": 0.124
+    },
+    {
+     "hex": "#092987",
+     "share": 0.117
+    },
+    {
+     "hex": "#221928",
+     "share": 0.082
+    },
+    {
+     "hex": "#D0A232",
+     "share": 0.042
+    }
+   ],
+   "accent": "#092987"
+  },
+  "codestackr-328129": {
+   "type": "brand",
+   "theme": "hud-showreel",
+   "transition": "dot->line->fill",
+   "notes": "\"CLAUDE Motion Designer\" showreel, orange, HUD corners",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/codestackr-328129",
+   "duration_s": 15.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 12,
+   "cut_times_s": [
+    2.1,
+    2.5,
+    2.75,
+    3.0,
+    3.5,
+    4.0,
+    9.5,
+    12.17,
+    12.33,
+    12.5,
+    12.67,
+    12.83
+   ],
+   "cuts_per_10s": 7.97,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#090808",
+     "share": 0.486
+    },
+    {
+     "hex": "#E0D9D0",
+     "share": 0.167
+    },
+    {
+     "hex": "#EA4C19",
+     "share": 0.148
+    },
+    {
+     "hex": "#2A3AE0",
+     "share": 0.086
+    },
+    {
+     "hex": "#1E1E3D",
+     "share": 0.079
+    },
+    {
+     "hex": "#8E867E",
+     "share": 0.033
+    }
+   ],
+   "accent": "#EA4C19"
+  },
+  "codrops-340299": {
+   "type": "3d",
+   "theme": "dark-studio",
+   "transition": "slide-push",
+   "notes": "Codrops 3D/WebGL experiment",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/codrops-340299",
+   "duration_s": 15.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 7,
+   "cut_times_s": [
+    0.95,
+    2.82,
+    3.75,
+    5.63,
+    7.5,
+    8.45,
+    9.38
+   ],
+   "cuts_per_10s": 4.65,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#07050F",
+     "share": 0.287
+    },
+    {
+     "hex": "#1A1424",
+     "share": 0.247
+    },
+    {
+     "hex": "#33253B",
+     "share": 0.179
+    },
+    {
+     "hex": "#50544F",
+     "share": 0.142
+    },
+    {
+     "hex": "#818179",
+     "share": 0.087
+    },
+    {
+     "hex": "#C1C0CB",
+     "share": 0.058
+    }
+   ],
+   "accent": "#33253B"
+  },
+  "colecornelll-047465": {
+   "type": "3d",
+   "theme": "dark-studio",
+   "transition": "camera-push",
+   "notes": "glass refraction product shots for Shillz",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/colecornelll-047465",
+   "duration_s": 15.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 2,
+   "cut_times_s": [
+    5.03,
+    12.03
+   ],
+   "cuts_per_10s": 1.33,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#050504",
+     "share": 0.603
+    },
+    {
+     "hex": "#0F1507",
+     "share": 0.13
+    },
+    {
+     "hex": "#7B8455",
+     "share": 0.086
+    },
+    {
+     "hex": "#535E3B",
+     "share": 0.075
+    },
+    {
+     "hex": "#283213",
+     "share": 0.069
+    },
+    {
+     "hex": "#C6C9B7",
+     "share": 0.038
+    }
+   ],
+   "accent": "#7B8455"
+  },
+  "daniel-haida-636937": {
+   "type": "launch",
+   "theme": "light-minimal",
+   "transition": "fade-through-bg",
+   "notes": "product UI promo",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/daniel-haida-636937",
+   "duration_s": 14.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#050910",
+     "share": 0.337
+    },
+    {
+     "hex": "#0A0F18",
+     "share": 0.329
+    },
+    {
+     "hex": "#161B27",
+     "share": 0.166
+    },
+    {
+     "hex": "#232938",
+     "share": 0.14
+    },
+    {
+     "hex": "#6A6A5D",
+     "share": 0.014
+    },
+    {
+     "hex": "#D4CDC0",
+     "share": 0.014
+    }
+   ],
+   "accent": "#232938"
+  },
+  "danilowm-412022": {
+   "type": "launch",
+   "theme": "light-mint",
+   "transition": "match-position",
+   "notes": "Meu Pet Pode Ir: mint, map pins, \"1.315 lugares\", HUD frame",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/danilowm-412022",
+   "duration_s": 15.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 1,
+   "cut_times_s": [
+    2.6
+   ],
+   "cuts_per_10s": 0.66,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#F3F4F4",
+     "share": 0.629
+    },
+    {
+     "hex": "#DBEAE7",
+     "share": 0.187
+    },
+    {
+     "hex": "#FCFDFD",
+     "share": 0.092
+    },
+    {
+     "hex": "#F7F8F8",
+     "share": 0.042
+    },
+    {
+     "hex": "#9CBCB8",
+     "share": 0.031
+    },
+    {
+     "hex": "#405855",
+     "share": 0.019
+    }
+   ],
+   "accent": "#9CBCB8"
+  },
+  "dannyverkissen-101463": {
+   "type": "3d",
+   "theme": "naturalistic",
+   "transition": "camera-walkthrough",
+   "notes": "3D scene walk",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/dannyverkissen-101463",
+   "duration_s": 46.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 5,
+   "cut_times_s": [
+    5.2,
+    12.2,
+    17.68,
+    23.08,
+    23.78
+   ],
+   "cuts_per_10s": 1.08,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#030B08",
+     "share": 0.322
+    },
+    {
+     "hex": "#0D1D18",
+     "share": 0.269
+    },
+    {
+     "hex": "#1E2F2C",
+     "share": 0.184
+    },
+    {
+     "hex": "#E9ECEB",
+     "share": 0.122
+    },
+    {
+     "hex": "#5C6653",
+     "share": 0.054
+    },
+    {
+     "hex": "#99A095",
+     "share": 0.049
+    }
+   ],
+   "accent": "#5C6653"
+  },
+  "deedydas-252537": {
+   "type": "kinetic",
+   "theme": "color-block",
+   "transition": "hard-color-cut",
+   "notes": "muda: \"WASTE.\" on blue -> white, typed sentences, \"WAITING\", pastel diagonal gradient logo",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/deedydas-252537",
+   "duration_s": 26.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 2,
+   "cut_times_s": [
+    3.97,
+    4.47
+   ],
+   "cuts_per_10s": 0.77,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#FBFCFC",
+     "share": 0.771
+    },
+    {
+     "hex": "#DAE1F4",
+     "share": 0.122
+    },
+    {
+     "hex": "#F6DFDE",
+     "share": 0.056
+    },
+    {
+     "hex": "#B4BDC9",
+     "share": 0.023
+    },
+    {
+     "hex": "#132940",
+     "share": 0.015
+    },
+    {
+     "hex": "#6D7C8B",
+     "share": 0.013
+    }
+   ],
+   "accent": "#132940"
+  },
+  "demitiyageekzen-818523": {
+   "type": "art",
+   "theme": "shader-landscape",
+   "transition": "ring-pulse",
+   "notes": "Teng Wang Pavilion WebGL: sunset, moon, calligraphy",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/demitiyageekzen-818523",
+   "duration_s": 30.0,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#C27C88",
+     "share": 0.255
+    },
+    {
+     "hex": "#935E74",
+     "share": 0.194
+    },
+    {
+     "hex": "#E8A996",
+     "share": 0.191
+    },
+    {
+     "hex": "#664566",
+     "share": 0.133
+    },
+    {
+     "hex": "#1B1831",
+     "share": 0.115
+    },
+    {
+     "hex": "#402F4E",
+     "share": 0.112
+    }
+   ],
+   "accent": "#E8A996"
+  },
+  "dengent-412996": {
+   "type": "launch",
+   "theme": "light-minimal",
+   "transition": "slide / 3D opener",
+   "notes": "Cardilife: R3F 3D opener + 2D UI, JP/EN versions",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/dengent-412996",
+   "duration_s": 55.9,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 1,
+   "cut_times_s": [
+    11.5
+   ],
+   "cuts_per_10s": 0.18,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#EEF4F4",
+     "share": 0.645
+    },
+    {
+     "hex": "#0B1317",
+     "share": 0.157
+    },
+    {
+     "hex": "#687376",
+     "share": 0.071
+    },
+    {
+     "hex": "#B0B8B9",
+     "share": 0.053
+    },
+    {
+     "hex": "#FCFDFD",
+     "share": 0.043
+    },
+    {
+     "hex": "#F4F8F8",
+     "share": 0.032
+    }
+   ],
+   "accent": "#687376"
+  },
+  "designbyfusun-559069": {
+   "type": "brand",
+   "theme": "color-block",
+   "transition": "lens/iris wipe",
+   "notes": "Oto studio reel: pink full-bleed, \"DEVELOPMENT\", circle magnifier into marquee",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/designbyfusun-559069",
+   "duration_s": 15.0,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 2,
+   "cut_times_s": [
+    1.47,
+    1.5
+   ],
+   "cuts_per_10s": 1.33,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#EFEEEB",
+     "share": 0.653
+    },
+    {
+     "hex": "#EB3167",
+     "share": 0.165
+    },
+    {
+     "hex": "#FAFAFA",
+     "share": 0.078
+    },
+    {
+     "hex": "#C9BEC5",
+     "share": 0.051
+    },
+    {
+     "hex": "#686495",
+     "share": 0.031
+    },
+    {
+     "hex": "#2F1D24",
+     "share": 0.021
+    }
+   ],
+   "accent": "#EB3167"
+  },
+  "devarshukani-341827": {
+   "type": "launch",
+   "theme": "dark-accent",
+   "transition": "card-dolly",
+   "notes": "product UI cards, camera between cards",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/devarshukani-341827",
+   "duration_s": 22.2,
+   "width": 832,
+   "height": 464,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 2,
+   "cut_times_s": [
+    9.92,
+    9.93
+   ],
+   "cuts_per_10s": 0.9,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#F4F1ED",
+     "share": 0.407
+    },
+    {
+     "hex": "#DD623C",
+     "share": 0.212
+    },
+    {
+     "hex": "#1A0C09",
+     "share": 0.134
+    },
+    {
+     "hex": "#E58F5C",
+     "share": 0.124
+    },
+    {
+     "hex": "#E9C6AB",
+     "share": 0.089
+    },
+    {
+     "hex": "#9A4633",
+     "share": 0.034
+    }
+   ],
+   "accent": "#DD623C"
+  },
+  "dheepanratnam-706454": {
+   "type": "brand",
+   "theme": "dark-warm",
+   "transition": "blur-dissolve / roll",
+   "notes": "Claude: typed \"Ask me an|\", multilingual roll, graded art, serif",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/dheepanratnam-706454",
+   "duration_s": 58.0,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 2,
+   "cut_times_s": [
+    20.0,
+    24.0
+   ],
+   "cuts_per_10s": 0.34,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#0F0E0C",
+     "share": 0.347
+    },
+    {
+     "hex": "#1B1512",
+     "share": 0.338
+    },
+    {
+     "hex": "#2E201B",
+     "share": 0.179
+    },
+    {
+     "hex": "#493E38",
+     "share": 0.062
+    },
+    {
+     "hex": "#7A6760",
+     "share": 0.052
+    },
+    {
+     "hex": "#BCB5B2",
+     "share": 0.023
+    }
+   ],
+   "accent": "#7A6760"
+  },
+  "djadkison-394122": {
+   "type": "launch",
+   "theme": "dark-accent",
+   "transition": "fade-through-bg",
+   "notes": "\"One memory. Every AI tool.\" chat UIs, green logo",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/djadkison-394122",
+   "duration_s": 31.3,
+   "width": 1280,
+   "height": 640,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 4,
+   "cut_times_s": [
+    0.03,
+    7.63,
+    15.63,
+    21.63
+   ],
+   "cuts_per_10s": 1.28,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#0B0C0C",
+     "share": 0.39
+    },
+    {
+     "hex": "#F8F7F5",
+     "share": 0.35
+    },
+    {
+     "hex": "#171918",
+     "share": 0.181
+    },
+    {
+     "hex": "#3F423F",
+     "share": 0.038
+    },
+    {
+     "hex": "#040404",
+     "share": 0.024
+    },
+    {
+     "hex": "#ADADAA",
+     "share": 0.017
+    }
+   ],
+   "accent": "#F8F7F5"
+  },
+  "dustindavis-644806": {
+   "type": "launch",
+   "theme": "color-block",
+   "transition": "slide",
+   "notes": "EnvelopeBudget: navy/blue/purple scenes, colourful envelopes, \"INDIE BUILT.\"",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/dustindavis-644806",
+   "duration_s": 30.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 3,
+   "cut_times_s": [
+    3.0,
+    3.02,
+    21.0
+   ],
+   "cuts_per_10s": 1.0,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#DCE4EA",
+     "share": 0.284
+    },
+    {
+     "hex": "#0E77BA",
+     "share": 0.197
+    },
+    {
+     "hex": "#030D16",
+     "share": 0.192
+    },
+    {
+     "hex": "#0A578A",
+     "share": 0.132
+    },
+    {
+     "hex": "#082A45",
+     "share": 0.108
+    },
+    {
+     "hex": "#D12642",
+     "share": 0.088
+    }
+   ],
+   "accent": "#0E77BA"
+  },
+  "elliot-garreffa-446825": {
+   "type": "launch",
+   "theme": "light-minimal",
+   "transition": "slide",
+   "notes": "Simulados app UI on cream, cards sliding",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/elliot-garreffa-446825",
+   "duration_s": 39.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#F9FCF9",
+     "share": 0.515
+    },
+    {
+     "hex": "#E9F3EE",
+     "share": 0.129
+    },
+    {
+     "hex": "#10281F",
+     "share": 0.123
+    },
+    {
+     "hex": "#CBE0D7",
+     "share": 0.099
+    },
+    {
+     "hex": "#065CC4",
+     "share": 0.091
+    },
+    {
+     "hex": "#92A9B7",
+     "share": 0.043
+    }
+   ],
+   "accent": "#065CC4"
+  },
+  "emollick-019567": {
+   "type": "data",
+   "theme": "dark-accent",
+   "transition": "match-position",
+   "notes": "bar chart race, quarter labels",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/emollick-019567",
+   "duration_s": 75.0,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 22,
+   "cut_times_s": [
+    2.0,
+    2.6,
+    25.47,
+    28.37,
+    35.3,
+    37.5,
+    38.5,
+    38.87,
+    39.2,
+    40.77,
+    41.2,
+    42.47,
+    42.5,
+    43.8,
+    43.83,
+    44.4,
+    53.27,
+    53.8,
+    53.83,
+    55.43,
+    55.47,
+    61.5
+   ],
+   "cuts_per_10s": 2.93,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#121312",
+     "share": 0.422
+    },
+    {
+     "hex": "#F7F2F0",
+     "share": 0.177
+    },
+    {
+     "hex": "#5A6944",
+     "share": 0.162
+    },
+    {
+     "hex": "#9AABBD",
+     "share": 0.103
+    },
+    {
+     "hex": "#C26544",
+     "share": 0.073
+    },
+    {
+     "hex": "#40238E",
+     "share": 0.063
+    }
+   ],
+   "accent": "#C26544"
+  },
+  "envoldev-017555": {
+   "type": "launch",
+   "theme": "dark-accent",
+   "transition": "light-sweep + tilt",
+   "notes": "TopSlash: purple UI cards, laser sweep, particle -> icon",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/envoldev-017555",
+   "duration_s": 57.0,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#04060B",
+     "share": 0.382
+    },
+    {
+     "hex": "#0A0B11",
+     "share": 0.283
+    },
+    {
+     "hex": "#221F2E",
+     "share": 0.154
+    },
+    {
+     "hex": "#020408",
+     "share": 0.127
+    },
+    {
+     "hex": "#4B475E",
+     "share": 0.033
+    },
+    {
+     "hex": "#9894BA",
+     "share": 0.02
+    }
+   ],
+   "accent": "#4B475E"
+  },
+  "ewashoku-201053": {
+   "type": "launch",
+   "theme": "light-minimal",
+   "transition": "fade-through-bg",
+   "notes": "RAVEN-X e-bike, vertical JP, white product page",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/ewashoku-201053",
+   "duration_s": 48.5,
+   "width": 720,
+   "height": 1280,
+   "fps": 60,
+   "aspect": "9:16",
+   "hard_cuts": 2,
+   "cut_times_s": [
+    24.72,
+    33.97
+   ],
+   "cuts_per_10s": 0.41,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#F2F0F1",
+     "share": 0.654
+    },
+    {
+     "hex": "#F9F6F8",
+     "share": 0.186
+    },
+    {
+     "hex": "#DBD9DB",
+     "share": 0.061
+    },
+    {
+     "hex": "#37373A",
+     "share": 0.041
+    },
+    {
+     "hex": "#B1AFB1",
+     "share": 0.03
+    },
+    {
+     "hex": "#6F6E71",
+     "share": 0.028
+    }
+   ],
+   "accent": "#F9F6F8"
+  },
+  "explorations-iq-921682": {
+   "type": "launch",
+   "theme": "light-gradient",
+   "transition": "dissolve+scale",
+   "notes": "Muse/answers: orange blurred gradient, white UI, \"Answers you can cite.\"",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/explorations-iq-921682",
+   "duration_s": 35.9,
+   "width": 1280,
+   "height": 664,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#1B1A20",
+     "share": 0.481
+    },
+    {
+     "hex": "#413D42",
+     "share": 0.253
+    },
+    {
+     "hex": "#8C897B",
+     "share": 0.088
+    },
+    {
+     "hex": "#C7CAC1",
+     "share": 0.082
+    },
+    {
+     "hex": "#43107E",
+     "share": 0.058
+    },
+    {
+     "hex": "#AB31D4",
+     "share": 0.039
+    }
+   ],
+   "accent": "#43107E"
+  },
+  "falcong-j-277506": {
+   "type": "explainer",
+   "theme": "dark-accent",
+   "transition": "slanted-bar wipe",
+   "notes": "JP article opener: purple/orange slanted bars, kinetic JP text",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/falcong-j-277506",
+   "duration_s": 30.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#04060B",
+     "share": 0.511
+    },
+    {
+     "hex": "#0E101F",
+     "share": 0.291
+    },
+    {
+     "hex": "#A98EED",
+     "share": 0.102
+    },
+    {
+     "hex": "#474050",
+     "share": 0.052
+    },
+    {
+     "hex": "#8A8194",
+     "share": 0.033
+    },
+    {
+     "hex": "#C3851B",
+     "share": 0.011
+    }
+   ],
+   "accent": "#A98EED"
+  },
+  "fr-sorrentino-871017": {
+   "type": "launch",
+   "theme": "dark-accent",
+   "transition": "dissolve+scale",
+   "notes": "smartwatch + Claude Code: \"Staging is green. Deploy 2.8.0?\"",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/fr-sorrentino-871017",
+   "duration_s": 40.2,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#000000",
+     "share": 0.307
+    },
+    {
+     "hex": "#202432",
+     "share": 0.276
+    },
+    {
+     "hex": "#2D334B",
+     "share": 0.213
+    },
+    {
+     "hex": "#4C5066",
+     "share": 0.107
+    },
+    {
+     "hex": "#131419",
+     "share": 0.072
+    },
+    {
+     "hex": "#C4CEE4",
+     "share": 0.025
+    }
+   ],
+   "accent": "#2D334B"
+  },
+  "friskyggg-054427": {
+   "type": "brand",
+   "theme": "hud-showreel",
+   "transition": "mixed",
+   "notes": "\"CLAUDE Motion Designer\": TYPE in red, rings, particles",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/friskyggg-054427",
+   "duration_s": 15.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 9,
+   "cut_times_s": [
+    2.0,
+    2.5,
+    3.0,
+    3.5,
+    4.03,
+    4.07,
+    8.97,
+    9.07,
+    12.0
+   ],
+   "cuts_per_10s": 5.98,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#0A0A0C",
+     "share": 0.503
+    },
+    {
+     "hex": "#1A1319",
+     "share": 0.163
+    },
+    {
+     "hex": "#392A37",
+     "share": 0.114
+    },
+    {
+     "hex": "#7B535F",
+     "share": 0.076
+    },
+    {
+     "hex": "#2739D3",
+     "share": 0.074
+    },
+    {
+     "hex": "#C0ACAE",
+     "share": 0.07
+    }
+   ],
+   "accent": "#2739D3"
+  },
+  "garmdotcom-987439": {
+   "type": "story",
+   "theme": "paper-illustrated",
+   "transition": "fade",
+   "notes": "Headroom: hand-drawn room, robot + dev, paper texture",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/garmdotcom-987439",
+   "duration_s": 51.0,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#D8C8A6",
+     "share": 0.367
+    },
+    {
+     "hex": "#EDE3CD",
+     "share": 0.222
+    },
+    {
+     "hex": "#DDD3BA",
+     "share": 0.152
+    },
+    {
+     "hex": "#C6A278",
+     "share": 0.148
+    },
+    {
+     "hex": "#ACAB96",
+     "share": 0.081
+    },
+    {
+     "hex": "#5D5F50",
+     "share": 0.03
+    }
+   ],
+   "accent": "#C6A278"
+  },
+  "genelab-999-088672": {
+   "type": "brand",
+   "theme": "hud-showreel",
+   "transition": "mixed",
+   "notes": "\"CLAUDE.\" showreel: orange MOTION block, blue triangle, data cards",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/genelab-999-088672",
+   "duration_s": 15.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 8,
+   "cut_times_s": [
+    1.97,
+    2.5,
+    3.0,
+    3.5,
+    7.0,
+    9.0,
+    12.5,
+    12.53
+   ],
+   "cuts_per_10s": 5.3,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#0B0B0F",
+     "share": 0.338
+    },
+    {
+     "hex": "#E5E2D9",
+     "share": 0.266
+    },
+    {
+     "hex": "#2A3DED",
+     "share": 0.153
+    },
+    {
+     "hex": "#21192A",
+     "share": 0.143
+    },
+    {
+     "hex": "#DC5232",
+     "share": 0.083
+    },
+    {
+     "hex": "#796F61",
+     "share": 0.017
+    }
+   ],
+   "accent": "#2A3DED"
+  },
+  "georgejimenez98-431559": {
+   "type": "launch",
+   "theme": "glossy-3d",
+   "transition": "iris (white disc)",
+   "notes": "teal glossy spheres, video app, \"Autopilot is on\"",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/georgejimenez98-431559",
+   "duration_s": 30.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#051012",
+     "share": 0.293
+    },
+    {
+     "hex": "#E3F4F3",
+     "share": 0.292
+    },
+    {
+     "hex": "#1B5B7A",
+     "share": 0.189
+    },
+    {
+     "hex": "#2AA2B2",
+     "share": 0.175
+    },
+    {
+     "hex": "#9BD2D2",
+     "share": 0.03
+    },
+    {
+     "hex": "#836D5F",
+     "share": 0.021
+    }
+   ],
+   "accent": "#2AA2B2"
+  },
+  "groundcontrol-230877": {
+   "type": "story",
+   "theme": "paper-illustrated",
+   "transition": "none",
+   "notes": "3-minute illustrated story (box character)",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/groundcontrol-230877",
+   "duration_s": 180.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#D0C6B5",
+     "share": 0.268
+    },
+    {
+     "hex": "#DBD1BE",
+     "share": 0.23
+    },
+    {
+     "hex": "#E6DCC8",
+     "share": 0.218
+    },
+    {
+     "hex": "#C6BBAB",
+     "share": 0.193
+    },
+    {
+     "hex": "#B5AB9C",
+     "share": 0.082
+    },
+    {
+     "hex": "#87786F",
+     "share": 0.008
+    }
+   ],
+   "accent": "#E6DCC8"
+  },
+  "happycapyai-634965": {
+   "type": "3d",
+   "theme": "toy-pastel",
+   "transition": "none",
+   "notes": "Bomberman-style pastel game",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/happycapyai-634965",
+   "duration_s": 10.4,
+   "width": 1280,
+   "height": 742,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#F0EDE5",
+     "share": 0.259
+    },
+    {
+     "hex": "#E5DEBF",
+     "share": 0.256
+    },
+    {
+     "hex": "#C6F27E",
+     "share": 0.159
+    },
+    {
+     "hex": "#D9BAA1",
+     "share": 0.15
+    },
+    {
+     "hex": "#CD9670",
+     "share": 0.093
+    },
+    {
+     "hex": "#A1BDE5",
+     "share": 0.082
+    }
+   ],
+   "accent": "#C6F27E"
+  },
+  "henritoivar-445215": {
+   "type": "story",
+   "theme": "paper-illustrated",
+   "transition": "speed-lines cut",
+   "notes": "pixel dev vs bugs, ACCEPT ALL, rocket, comic burst",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/henritoivar-445215",
+   "duration_s": 42.6,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 10,
+   "cut_times_s": [
+    6.7,
+    6.77,
+    8.07,
+    8.13,
+    13.2,
+    13.27,
+    15.17,
+    18.47,
+    29.6,
+    29.67
+   ],
+   "cuts_per_10s": 2.34,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#E3DDCA",
+     "share": 0.311
+    },
+    {
+     "hex": "#D6CBB7",
+     "share": 0.277
+    },
+    {
+     "hex": "#C4BAA9",
+     "share": 0.234
+    },
+    {
+     "hex": "#783B40",
+     "share": 0.064
+    },
+    {
+     "hex": "#D9B06B",
+     "share": 0.062
+    },
+    {
+     "hex": "#84818C",
+     "share": 0.053
+    }
+   ],
+   "accent": "#D9B06B"
+  },
+  "heymrzak-349060": {
+   "type": "launch",
+   "theme": "color-block",
+   "transition": "hard-color-cut",
+   "notes": "gofy: peach/cream/yellow/indigo scenes, emoji stickers, \"Know before you go.\"",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/heymrzak-349060",
+   "duration_s": 30.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 10,
+   "cut_times_s": [
+    3.83,
+    4.43,
+    14.57,
+    16.37,
+    18.77,
+    20.6,
+    24.17,
+    24.73,
+    25.37,
+    25.97
+   ],
+   "cuts_per_10s": 3.32,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#F1F2ED",
+     "share": 0.392
+    },
+    {
+     "hex": "#2B117C",
+     "share": 0.291
+    },
+    {
+     "hex": "#D9EAFB",
+     "share": 0.14
+    },
+    {
+     "hex": "#E9D4D7",
+     "share": 0.102
+    },
+    {
+     "hex": "#887B7E",
+     "share": 0.038
+    },
+    {
+     "hex": "#FCFDFC",
+     "share": 0.037
+    }
+   ],
+   "accent": "#2B117C"
+  },
+  "humzaakhalid-537875": {
+   "type": "brand",
+   "theme": "hud-terminal",
+   "transition": "morph / flash",
+   "notes": "AI In Public: #3D40FE, particles torus, HUD, \"SHIP.\" stack",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/humzaakhalid-537875",
+   "duration_s": 24.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 6,
+   "cut_times_s": [
+    2.0,
+    2.98,
+    4.98,
+    12.48,
+    17.65,
+    19.12
+   ],
+   "cuts_per_10s": 2.49,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#4447F7",
+     "share": 0.281
+    },
+    {
+     "hex": "#3437D3",
+     "share": 0.247
+    },
+    {
+     "hex": "#B0B2F7",
+     "share": 0.197
+    },
+    {
+     "hex": "#2629AB",
+     "share": 0.149
+    },
+    {
+     "hex": "#6568F6",
+     "share": 0.095
+    },
+    {
+     "hex": "#0D0F43",
+     "share": 0.031
+    }
+   ],
+   "accent": "#4447F7"
+  },
+  "iammukeshm-421585": {
+   "type": "launch",
+   "theme": "dark-accent",
+   "transition": "hard-cut",
+   "notes": "product promo",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/iammukeshm-421585",
+   "duration_s": 35.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 16,
+   "cut_times_s": [
+    1.6,
+    6.2,
+    6.33,
+    6.63,
+    10.18,
+    10.33,
+    10.48,
+    10.63,
+    10.78,
+    10.93,
+    11.38,
+    26.85,
+    28.42,
+    28.43,
+    28.45,
+    30.63
+   ],
+   "cuts_per_10s": 4.56,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#07050E",
+     "share": 0.341
+    },
+    {
+     "hex": "#141227",
+     "share": 0.234
+    },
+    {
+     "hex": "#F0EEF6",
+     "share": 0.176
+    },
+    {
+     "hex": "#242149",
+     "share": 0.129
+    },
+    {
+     "hex": "#6C56D1",
+     "share": 0.074
+    },
+    {
+     "hex": "#5B567D",
+     "share": 0.046
+    }
+   ],
+   "accent": "#6C56D1"
+  },
+  "ideavim-986785": {
+   "type": "launch",
+   "theme": "light-minimal",
+   "transition": "match-position",
+   "notes": "IdeaVim: code panels on off-white, ends black",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/ideavim-986785",
+   "duration_s": 30.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 2,
+   "cut_times_s": [
+    10.0,
+    16.5
+   ],
+   "cuts_per_10s": 0.67,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#F2F2F3",
+     "share": 0.52
+    },
+    {
+     "hex": "#151719",
+     "share": 0.302
+    },
+    {
+     "hex": "#CBCCCC",
+     "share": 0.093
+    },
+    {
+     "hex": "#D8ECF2",
+     "share": 0.049
+    },
+    {
+     "hex": "#768888",
+     "share": 0.021
+    },
+    {
+     "hex": "#FCFCFC",
+     "share": 0.015
+    }
+   ],
+   "accent": "#D8ECF2"
+  },
+  "ik-builds-585923": {
+   "type": "launch",
+   "theme": "light-sketch",
+   "transition": "fade-through-bg",
+   "notes": "Mebbian: sketch arrows on paper -> dark glitch title -> curve",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/ik-builds-585923",
+   "duration_s": 15.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 1,
+   "cut_times_s": [
+    5.0
+   ],
+   "cuts_per_10s": 0.66,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#131B15",
+     "share": 0.371
+    },
+    {
+     "hex": "#F2F3ED",
+     "share": 0.263
+    },
+    {
+     "hex": "#E7E8E1",
+     "share": 0.215
+    },
+    {
+     "hex": "#DADCD4",
+     "share": 0.111
+    },
+    {
+     "hex": "#404C42",
+     "share": 0.022
+    },
+    {
+     "hex": "#8FA79B",
+     "share": 0.018
+    }
+   ],
+   "accent": "#404C42"
+  },
+  "imthatcarlos-133592": {
+   "type": "launch",
+   "theme": "dark-accent",
+   "transition": "card-dolly",
+   "notes": "Sherwood: \"Non-custodial. Onchain.\", green logo, cut to white",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/imthatcarlos-133592",
+   "duration_s": 59.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 4,
+   "cut_times_s": [
+    15.9,
+    44.97,
+    50.8,
+    51.33
+   ],
+   "cuts_per_10s": 0.68,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#F2F4EF",
+     "share": 0.412
+    },
+    {
+     "hex": "#0A0E0B",
+     "share": 0.268
+    },
+    {
+     "hex": "#253D2A",
+     "share": 0.132
+    },
+    {
+     "hex": "#507047",
+     "share": 0.094
+    },
+    {
+     "hex": "#CCE3D5",
+     "share": 0.064
+    },
+    {
+     "hex": "#7DAE87",
+     "share": 0.029
+    }
+   ],
+   "accent": "#507047"
+  },
+  "inoue-aix-234322": {
+   "type": "launch",
+   "theme": "light-lavender",
+   "transition": "fade-through-bg",
+   "notes": "LoreOS JP: service icons orbit, lavender UI",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/inoue-aix-234322",
+   "duration_s": 40.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 1,
+   "cut_times_s": [
+    21.0
+   ],
+   "cuts_per_10s": 0.25,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#ECE7DF",
+     "share": 0.618
+    },
+    {
+     "hex": "#D8D0DF",
+     "share": 0.125
+    },
+    {
+     "hex": "#FCFCFC",
+     "share": 0.117
+    },
+    {
+     "hex": "#463A61",
+     "share": 0.082
+    },
+    {
+     "hex": "#8D7E9F",
+     "share": 0.03
+    },
+    {
+     "hex": "#EFECF1",
+     "share": 0.028
+    }
+   ],
+   "accent": "#463A61"
+  },
+  "irinatoxi-962937": {
+   "type": "3d",
+   "theme": "dark-studio",
+   "transition": "zoom-through",
+   "notes": "phone teardown -> materials -> molecules",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/irinatoxi-962937",
+   "duration_s": 22.4,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 42,
+   "cut_times_s": [
+    5.23,
+    7.67,
+    7.77,
+    7.88,
+    7.98,
+    8.02,
+    9.03,
+    9.2,
+    9.9,
+    10.18,
+    10.22,
+    10.25,
+    10.32,
+    10.38,
+    10.43,
+    10.53,
+    10.58,
+    10.62,
+    10.67,
+    10.75,
+    10.85,
+    10.93,
+    11.97,
+    14.6,
+    14.63,
+    14.67,
+    14.77,
+    14.8,
+    14.87,
+    14.9,
+    14.93,
+    15.03,
+    15.37,
+    15.42,
+    15.48,
+    15.57,
+    15.62,
+    15.72,
+    15.85,
+    17.32,
+    18.45,
+    19.35
+   ],
+   "cuts_per_10s": 18.72,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#6F6F76",
+     "share": 0.292
+    },
+    {
+     "hex": "#503D38",
+     "share": 0.204
+    },
+    {
+     "hex": "#080A11",
+     "share": 0.167
+    },
+    {
+     "hex": "#242D38",
+     "share": 0.145
+    },
+    {
+     "hex": "#9F9EA3",
+     "share": 0.121
+    },
+    {
+     "hex": "#C9CDD1",
+     "share": 0.07
+    }
+   ],
+   "accent": "#503D38"
+  },
+  "itakahashikun-990109": {
+   "type": "explainer",
+   "theme": "color-block-illustrated",
+   "transition": "fade",
+   "notes": "shochu process: per-step colour block, serif JP, numbered",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/itakahashikun-990109",
+   "duration_s": 30.0,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#12121B",
+     "share": 0.234
+    },
+    {
+     "hex": "#332035",
+     "share": 0.181
+    },
+    {
+     "hex": "#D0A568",
+     "share": 0.175
+    },
+    {
+     "hex": "#B5442E",
+     "share": 0.153
+    },
+    {
+     "hex": "#E2DACB",
+     "share": 0.15
+    },
+    {
+     "hex": "#60423E",
+     "share": 0.108
+    }
+   ],
+   "accent": "#B5442E"
+  },
+  "itsahmedharoon-544194": {
+   "type": "data",
+   "theme": "dark-editorial",
+   "transition": "counter-bridge",
+   "notes": "Japan heat: grid icons, \"49,651 MW\" red unit",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/itsahmedharoon-544194",
+   "duration_s": 40.6,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#11110F",
+     "share": 0.638
+    },
+    {
+     "hex": "#050704",
+     "share": 0.153
+    },
+    {
+     "hex": "#3C312D",
+     "share": 0.067
+    },
+    {
+     "hex": "#0C0D0B",
+     "share": 0.058
+    },
+    {
+     "hex": "#926D64",
+     "share": 0.042
+    },
+    {
+     "hex": "#C9C7C1",
+     "share": 0.042
+    }
+   ],
+   "accent": "#926D64"
+  },
+  "itsolelehmann-762215": {
+   "type": "data",
+   "theme": "dark-editorial",
+   "transition": "fade",
+   "notes": "Electricity Trap infographic",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/itsolelehmann-762215",
+   "duration_s": 30.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#CFC9CC",
+     "share": 0.284
+    },
+    {
+     "hex": "#A1756D",
+     "share": 0.237
+    },
+    {
+     "hex": "#BCA58A",
+     "share": 0.177
+    },
+    {
+     "hex": "#562F5F",
+     "share": 0.137
+    },
+    {
+     "hex": "#764E57",
+     "share": 0.107
+    },
+    {
+     "hex": "#3A2049",
+     "share": 0.058
+    }
+   ],
+   "accent": "#A1756D"
+  },
+  "itsyashf-692347": {
+   "type": "kinetic",
+   "theme": "light-minimal",
+   "transition": "fade",
+   "notes": "scattered words \"designed in figma… made via Opus 5.5 with Remotion\"",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/itsyashf-692347",
+   "duration_s": 15.5,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 1,
+   "cut_times_s": [
+    8.0
+   ],
+   "cuts_per_10s": 0.65,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#EDECE8",
+     "share": 0.712
+    },
+    {
+     "hex": "#E0E1DA",
+     "share": 0.119
+    },
+    {
+     "hex": "#F2F0EB",
+     "share": 0.058
+    },
+    {
+     "hex": "#C6CBC1",
+     "share": 0.052
+    },
+    {
+     "hex": "#1A1C1E",
+     "share": 0.044
+    },
+    {
+     "hex": "#8B8C84",
+     "share": 0.014
+    }
+   ],
+   "accent": "#C6CBC1"
+  },
+  "jackfriks-338762": {
+   "type": "story",
+   "theme": "cartoon",
+   "transition": "flash",
+   "notes": "pigs/cats with love letters, vertical",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/jackfriks-338762",
+   "duration_s": 19.6,
+   "width": 720,
+   "height": 1280,
+   "fps": 30,
+   "aspect": "9:16",
+   "hard_cuts": 1,
+   "cut_times_s": [
+    11.97
+   ],
+   "cuts_per_10s": 0.51,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#F4E0E0",
+     "share": 0.311
+    },
+    {
+     "hex": "#E9BE4A",
+     "share": 0.195
+    },
+    {
+     "hex": "#29A2E6",
+     "share": 0.179
+    },
+    {
+     "hex": "#7BD4E4",
+     "share": 0.148
+    },
+    {
+     "hex": "#A78992",
+     "share": 0.091
+    },
+    {
+     "hex": "#2E374D",
+     "share": 0.076
+    }
+   ],
+   "accent": "#29A2E6"
+  },
+  "jake11moran-825416": {
+   "type": "story",
+   "theme": "cartoon",
+   "transition": "fade",
+   "notes": "cute computer character \"Jake's favorite agent\"",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/jake11moran-825416",
+   "duration_s": 52.7,
+   "width": 1280,
+   "height": 720,
+   "fps": 24,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#9D5E39",
+     "share": 0.2
+    },
+    {
+     "hex": "#A4ABA5",
+     "share": 0.192
+    },
+    {
+     "hex": "#E2D8BE",
+     "share": 0.184
+    },
+    {
+     "hex": "#3A3849",
+     "share": 0.159
+    },
+    {
+     "hex": "#BD8465",
+     "share": 0.14
+    },
+    {
+     "hex": "#7B7872",
+     "share": 0.125
+    }
+   ],
+   "accent": "#9D5E39"
+  },
+  "janlaywss-379361": {
+   "type": "3d",
+   "theme": "toy-pastel",
+   "transition": "none",
+   "notes": "vertical browser game",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/janlaywss-379361",
+   "duration_s": 23.5,
+   "width": 1218,
+   "height": 1280,
+   "fps": 30,
+   "aspect": "3:4",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#EAEEF8",
+     "share": 0.58
+    },
+    {
+     "hex": "#7B5E89",
+     "share": 0.178
+    },
+    {
+     "hex": "#42414E",
+     "share": 0.067
+    },
+    {
+     "hex": "#3E55AA",
+     "share": 0.065
+    },
+    {
+     "hex": "#9B90B4",
+     "share": 0.064
+    },
+    {
+     "hex": "#F5F7FB",
+     "share": 0.046
+    }
+   ],
+   "accent": "#3E55AA"
+  },
+  "jarvis11x-544635": {
+   "type": "3d",
+   "theme": "stylized-night",
+   "transition": "camera-walkthrough",
+   "notes": "night town walk, lit windows",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/jarvis11x-544635",
+   "duration_s": 10.0,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#502216",
+     "share": 0.318
+    },
+    {
+     "hex": "#1B1617",
+     "share": 0.254
+    },
+    {
+     "hex": "#8A4420",
+     "share": 0.133
+    },
+    {
+     "hex": "#282EBC",
+     "share": 0.13
+    },
+    {
+     "hex": "#76506C",
+     "share": 0.085
+    },
+    {
+     "hex": "#CF9B87",
+     "share": 0.08
+    }
+   ],
+   "accent": "#282EBC"
+  },
+  "jasperdeboer-157391": {
+   "type": "launch",
+   "theme": "gold-noir",
+   "transition": "fade",
+   "notes": "Antkeeper browser game trailer: gold type \"COMMAND YOUR ANTS\"",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/jasperdeboer-157391",
+   "duration_s": 40.6,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 7,
+   "cut_times_s": [
+    6.03,
+    22.6,
+    27.23,
+    28.13,
+    29.07,
+    32.83,
+    34.6
+   ],
+   "cuts_per_10s": 1.72,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#51361D",
+     "share": 0.273
+    },
+    {
+     "hex": "#030201",
+     "share": 0.217
+    },
+    {
+     "hex": "#332515",
+     "share": 0.188
+    },
+    {
+     "hex": "#705C3E",
+     "share": 0.14
+    },
+    {
+     "hex": "#A48F63",
+     "share": 0.093
+    },
+    {
+     "hex": "#19120A",
+     "share": 0.088
+    }
+   ],
+   "accent": "#A48F63"
+  },
+  "javi-llofriu-059888": {
+   "type": "explainer",
+   "theme": "light-orange-line",
+   "transition": "connector-line",
+   "notes": "ProcesoClaro: orange line snaking through steps 01-06, vertical",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/javi-llofriu-059888",
+   "duration_s": 59.0,
+   "width": 720,
+   "height": 1280,
+   "fps": 30,
+   "aspect": "9:16",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#F9F4EC",
+     "share": 0.747
+    },
+    {
+     "hex": "#FBFDFC",
+     "share": 0.082
+    },
+    {
+     "hex": "#E26E22",
+     "share": 0.055
+    },
+    {
+     "hex": "#D9BDA8",
+     "share": 0.051
+    },
+    {
+     "hex": "#FBF9F3",
+     "share": 0.043
+    },
+    {
+     "hex": "#957C68",
+     "share": 0.021
+    }
+   ],
+   "accent": "#E26E22"
+  },
+  "jayjohnsonai-117305": {
+   "type": "brand",
+   "theme": "dark-warm",
+   "transition": "light-streak wipe",
+   "notes": "Jay Johnson: strikethrough \"Too busy\", EXPIRED stamp, JAY JOHNSON letters",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/jayjohnsonai-117305",
+   "duration_s": 15.1,
+   "width": 720,
+   "height": 1280,
+   "fps": 30,
+   "aspect": "9:16",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#1F1811",
+     "share": 0.382
+    },
+    {
+     "hex": "#3F301C",
+     "share": 0.302
+    },
+    {
+     "hex": "#694B24",
+     "share": 0.24
+    },
+    {
+     "hex": "#CD8626",
+     "share": 0.036
+    },
+    {
+     "hex": "#7A8686",
+     "share": 0.022
+    },
+    {
+     "hex": "#EBE7DC",
+     "share": 0.018
+    }
+   ],
+   "accent": "#CD8626"
+  },
+  "jesscaroline7-955094": {
+   "type": "launch",
+   "theme": "dark-orange",
+   "transition": "fade",
+   "notes": "FICA vertical: orange type, data mesh, isometric room",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/jesscaroline7-955094",
+   "duration_s": 59.6,
+   "width": 720,
+   "height": 1280,
+   "fps": 60,
+   "aspect": "9:16",
+   "hard_cuts": 4,
+   "cut_times_s": [
+    1.52,
+    4.5,
+    5.0,
+    9.0
+   ],
+   "cuts_per_10s": 0.67,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#15110C",
+     "share": 0.494
+    },
+    {
+     "hex": "#F1F0E7",
+     "share": 0.225
+    },
+    {
+     "hex": "#E95307",
+     "share": 0.158
+    },
+    {
+     "hex": "#3E2D23",
+     "share": 0.058
+    },
+    {
+     "hex": "#715F52",
+     "share": 0.036
+    },
+    {
+     "hex": "#BDA994",
+     "share": 0.03
+    }
+   ],
+   "accent": "#E95307"
+  },
+  "jetbrains-754812": {
+   "type": "launch",
+   "theme": "dark-accent",
+   "transition": "fade",
+   "notes": "Kotlin: mascot, \"Fun.\", \"Any agent. Any tool.\"",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/jetbrains-754812",
+   "duration_s": 35.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#171818",
+     "share": 0.769
+    },
+    {
+     "hex": "#000000",
+     "share": 0.162
+    },
+    {
+     "hex": "#514562",
+     "share": 0.025
+    },
+    {
+     "hex": "#9675C9",
+     "share": 0.021
+    },
+    {
+     "hex": "#121611",
+     "share": 0.018
+    },
+    {
+     "hex": "#0A0A0D",
+     "share": 0.004
+    }
+   ],
+   "accent": "#9675C9"
+  },
+  "joao-felixl-809438": {
+   "type": "launch",
+   "theme": "light-mint",
+   "transition": "fade-through-bg",
+   "notes": "Kinai: serif italic, strikethrough \"papelada\", clinical UI",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/joao-felixl-809438",
+   "duration_s": 15.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#F2F5F4",
+     "share": 0.478
+    },
+    {
+     "hex": "#E5EFF1",
+     "share": 0.25
+    },
+    {
+     "hex": "#D6EBE1",
+     "share": 0.146
+    },
+    {
+     "hex": "#F9FBFB",
+     "share": 0.073
+    },
+    {
+     "hex": "#B4C4C3",
+     "share": 0.038
+    },
+    {
+     "hex": "#708D81",
+     "share": 0.015
+    }
+   ],
+   "accent": "#D6EBE1"
+  },
+  "joaquimcassano-778239": {
+   "type": "launch",
+   "theme": "dark-accent",
+   "transition": "slide",
+   "notes": "HyperFrames studio promo",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/joaquimcassano-778239",
+   "duration_s": 30.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#FAF9F5",
+     "share": 0.714
+    },
+    {
+     "hex": "#FDFDFC",
+     "share": 0.205
+    },
+    {
+     "hex": "#E3DEDA",
+     "share": 0.028
+    },
+    {
+     "hex": "#9F7E68",
+     "share": 0.023
+    },
+    {
+     "hex": "#C4B8AF",
+     "share": 0.022
+    },
+    {
+     "hex": "#443429",
+     "share": 0.008
+    }
+   ],
+   "accent": "#9F7E68"
+  },
+  "justinbuilds-412401": {
+   "type": "kinetic",
+   "theme": "mixed",
+   "transition": "hard-cut",
+   "notes": "fast edit, 23 cuts in 22s, ElevenLabs voice",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/justinbuilds-412401",
+   "duration_s": 22.5,
+   "width": 1280,
+   "height": 960,
+   "fps": 30,
+   "aspect": "4:3",
+   "hard_cuts": 23,
+   "cut_times_s": [
+    2.13,
+    2.23,
+    2.33,
+    6.0,
+    8.4,
+    8.53,
+    8.6,
+    8.7,
+    8.8,
+    8.83,
+    10.5,
+    11.3,
+    12.07,
+    12.67,
+    13.17,
+    14.1,
+    16.0,
+    18.03,
+    18.1,
+    18.4,
+    18.7,
+    19.0,
+    19.4
+   ],
+   "cuts_per_10s": 10.21,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#110E0E",
+     "share": 0.306
+    },
+    {
+     "hex": "#DCDDDB",
+     "share": 0.266
+    },
+    {
+     "hex": "#CFD0CE",
+     "share": 0.257
+    },
+    {
+     "hex": "#63646D",
+     "share": 0.077
+    },
+    {
+     "hex": "#999FA0",
+     "share": 0.055
+    },
+    {
+     "hex": "#D9541B",
+     "share": 0.038
+    }
+   ],
+   "accent": "#63646D"
+  },
+  "kenjiphang-750512": {
+   "type": "launch",
+   "theme": "retro-sport",
+   "transition": "slanted-stripe wipe",
+   "notes": "SEAL THE DAY: pink/white slanted stripes, italic caps, kanji stamps",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/kenjiphang-750512",
+   "duration_s": 24.0,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 2,
+   "cut_times_s": [
+    8.43,
+    18.23
+   ],
+   "cuts_per_10s": 0.83,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#1F1A17",
+     "share": 0.318
+    },
+    {
+     "hex": "#0E0C0E",
+     "share": 0.279
+    },
+    {
+     "hex": "#080709",
+     "share": 0.184
+    },
+    {
+     "hex": "#362F28",
+     "share": 0.144
+    },
+    {
+     "hex": "#A1786C",
+     "share": 0.047
+    },
+    {
+     "hex": "#EEE4E2",
+     "share": 0.03
+    }
+   ],
+   "accent": "#A1786C"
+  },
+  "kentcdodds-858193": {
+   "type": "kinetic",
+   "theme": "color-block",
+   "transition": "hard-color-cut",
+   "notes": "red \"EASY.\" punch",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/kentcdodds-858193",
+   "duration_s": 30.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 3,
+   "cut_times_s": [
+    7.5,
+    15.03,
+    26.25
+   ],
+   "cuts_per_10s": 1.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#090C0D",
+     "share": 0.468
+    },
+    {
+     "hex": "#1B2020",
+     "share": 0.26
+    },
+    {
+     "hex": "#4B442C",
+     "share": 0.118
+    },
+    {
+     "hex": "#7A796B",
+     "share": 0.077
+    },
+    {
+     "hex": "#AFA89F",
+     "share": 0.049
+    },
+    {
+     "hex": "#2B415E",
+     "share": 0.028
+    }
+   ],
+   "accent": "#4B442C"
+  },
+  "kgonia7-746268": {
+   "type": "3d",
+   "theme": "dark-space",
+   "transition": "zoom-out",
+   "notes": "ocean -> Earth -> solar system -> galaxy",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/kgonia7-746268",
+   "duration_s": 60.0,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#010101",
+     "share": 0.445
+    },
+    {
+     "hex": "#0C0E10",
+     "share": 0.141
+    },
+    {
+     "hex": "#66727F",
+     "share": 0.121
+    },
+    {
+     "hex": "#464244",
+     "share": 0.118
+    },
+    {
+     "hex": "#272525",
+     "share": 0.09
+    },
+    {
+     "hex": "#C7BE9F",
+     "share": 0.086
+    }
+   ],
+   "accent": "#66727F"
+  },
+  "kikelopezdesign-173471": {
+   "type": "story",
+   "theme": "cartoon-3d",
+   "transition": "circle reveal",
+   "notes": "Kody koala mascot, rings, \"One home. Every agent.\"",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/kikelopezdesign-173471",
+   "duration_s": 20.0,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#EAE8E4",
+     "share": 0.562
+    },
+    {
+     "hex": "#F9F8F6",
+     "share": 0.133
+    },
+    {
+     "hex": "#FDFDFC",
+     "share": 0.13
+    },
+    {
+     "hex": "#1F2023",
+     "share": 0.07
+    },
+    {
+     "hex": "#F2EFEC",
+     "share": 0.066
+    },
+    {
+     "hex": "#A59588",
+     "share": 0.038
+    }
+   ],
+   "accent": "#EAE8E4"
+  },
+  "kingokings-992769": {
+   "type": "launch",
+   "theme": "light->dark",
+   "transition": "camera-orbit",
+   "notes": "Reactive Resume: 3D paper page, \"CV -> Resume\"",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/kingokings-992769",
+   "duration_s": 48.0,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#0D0D0D",
+     "share": 0.503
+    },
+    {
+     "hex": "#F3F2EF",
+     "share": 0.174
+    },
+    {
+     "hex": "#1C1B1C",
+     "share": 0.161
+    },
+    {
+     "hex": "#BABABB",
+     "share": 0.056
+    },
+    {
+     "hex": "#818183",
+     "share": 0.055
+    },
+    {
+     "hex": "#4A4A4C",
+     "share": 0.05
+    }
+   ],
+   "accent": "#F3F2EF"
+  },
+  "koldo2k-778767": {
+   "type": "art",
+   "theme": "vintage-collage",
+   "transition": "object-portal",
+   "notes": "antique clock/camera/mirror/magnifier framing landscapes",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/koldo2k-778767",
+   "duration_s": 20.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#929284",
+     "share": 0.218
+    },
+    {
+     "hex": "#6F7166",
+     "share": 0.194
+    },
+    {
+     "hex": "#35342B",
+     "share": 0.154
+    },
+    {
+     "hex": "#B9B7A5",
+     "share": 0.15
+    },
+    {
+     "hex": "#1F1D1A",
+     "share": 0.15
+    },
+    {
+     "hex": "#525044",
+     "share": 0.135
+    }
+   ],
+   "accent": "#B9B7A5"
+  },
+  "kum1ta-740521": {
+   "type": "launch",
+   "theme": "3d-lowpoly",
+   "transition": "camera-dolly",
+   "notes": "Workspace: low-poly office for Claude Code sessions",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/kum1ta-740521",
+   "duration_s": 30.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 9,
+   "cut_times_s": [
+    3.47,
+    11.0,
+    15.0,
+    18.0,
+    22.0,
+    23.5,
+    24.0,
+    25.0,
+    26.0
+   ],
+   "cuts_per_10s": 2.99,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#0B0E10",
+     "share": 0.283
+    },
+    {
+     "hex": "#676C4B",
+     "share": 0.161
+    },
+    {
+     "hex": "#282926",
+     "share": 0.151
+    },
+    {
+     "hex": "#AFADA7",
+     "share": 0.148
+    },
+    {
+     "hex": "#49483C",
+     "share": 0.138
+    },
+    {
+     "hex": "#8A807A",
+     "share": 0.119
+    }
+   ],
+   "accent": "#676C4B"
+  },
+  "kzmucx-402052": {
+   "type": "kinetic",
+   "theme": "dark-accent",
+   "transition": "orbit",
+   "notes": "HyperFrames one-shot, icons orbiting a word",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/kzmucx-402052",
+   "duration_s": 23.6,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#060606",
+     "share": 0.61
+    },
+    {
+     "hex": "#101010",
+     "share": 0.199
+    },
+    {
+     "hex": "#191C1A",
+     "share": 0.094
+    },
+    {
+     "hex": "#040404",
+     "share": 0.071
+    },
+    {
+     "hex": "#474944",
+     "share": 0.016
+    },
+    {
+     "hex": "#859B83",
+     "share": 0.01
+    }
+   ],
+   "accent": "#474944"
+  },
+  "l3d1c-632524": {
+   "type": "launch",
+   "theme": "dark-serif",
+   "transition": "fade",
+   "notes": "newsletter vertical: serif italic on black, \"Same news.\"",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/l3d1c-632524",
+   "duration_s": 34.1,
+   "width": 720,
+   "height": 1280,
+   "fps": 30,
+   "aspect": "9:16",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#000000",
+     "share": 0.772
+    },
+    {
+     "hex": "#191D1A",
+     "share": 0.103
+    },
+    {
+     "hex": "#010406",
+     "share": 0.062
+    },
+    {
+     "hex": "#0A0E12",
+     "share": 0.028
+    },
+    {
+     "hex": "#545C62",
+     "share": 0.026
+    },
+    {
+     "hex": "#CDCDCB",
+     "share": 0.008
+    }
+   ],
+   "accent": "#545C62"
+  },
+  "leandroriviello-827135": {
+   "type": "kinetic",
+   "theme": "dark-accent",
+   "transition": "hard-cut",
+   "notes": "vertical HyperFrames one-shot",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/leandroriviello-827135",
+   "duration_s": 14.0,
+   "width": 720,
+   "height": 1280,
+   "fps": 60,
+   "aspect": "9:16",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#0C0C0C",
+     "share": 0.232
+    },
+    {
+     "hex": "#FBFBFC",
+     "share": 0.192
+    },
+    {
+     "hex": "#788F9F",
+     "share": 0.155
+    },
+    {
+     "hex": "#ABADBB",
+     "share": 0.154
+    },
+    {
+     "hex": "#56768A",
+     "share": 0.136
+    },
+    {
+     "hex": "#C9CBCD",
+     "share": 0.13
+    }
+   ],
+   "accent": "#56768A"
+  },
+  "leonkohli-191220": {
+   "type": "kinetic",
+   "theme": "mixed",
+   "transition": "hard-cut",
+   "notes": "9 cuts in 15s",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/leonkohli-191220",
+   "duration_s": 15.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 9,
+   "cut_times_s": [
+    1.9,
+    3.97,
+    6.63,
+    6.97,
+    7.03,
+    7.97,
+    8.97,
+    11.97,
+    12.0
+   ],
+   "cuts_per_10s": 5.96,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#0A0A12",
+     "share": 0.498
+    },
+    {
+     "hex": "#F1F0F5",
+     "share": 0.273
+    },
+    {
+     "hex": "#1435BD",
+     "share": 0.086
+    },
+    {
+     "hex": "#B8B482",
+     "share": 0.067
+    },
+    {
+     "hex": "#3F3435",
+     "share": 0.049
+    },
+    {
+     "hex": "#010109",
+     "share": 0.027
+    }
+   ],
+   "accent": "#1435BD"
+  },
+  "leowenai-125931": {
+   "type": "brand",
+   "theme": "halftone",
+   "transition": "iris from eye",
+   "notes": "LongCat: halftone xerox, cat eyes as anchor, beat-synced",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/leowenai-125931",
+   "duration_s": 25.0,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 5,
+   "cut_times_s": [
+    6.0,
+    6.03,
+    9.97,
+    16.93,
+    21.5
+   ],
+   "cuts_per_10s": 2.0,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#010301",
+     "share": 0.465
+    },
+    {
+     "hex": "#27D751",
+     "share": 0.196
+    },
+    {
+     "hex": "#FAFBFA",
+     "share": 0.161
+    },
+    {
+     "hex": "#1F8A39",
+     "share": 0.084
+    },
+    {
+     "hex": "#13411E",
+     "share": 0.081
+    },
+    {
+     "hex": "#96A39A",
+     "share": 0.013
+    }
+   ],
+   "accent": "#27D751"
+  },
+  "levon96-651291": {
+   "type": "launch",
+   "theme": "neon-brutal",
+   "transition": "hard-cut",
+   "notes": "FF Dispatch: \"EVERY LOAD.\" yellow, truck 3D, US map HUD, BOOKED stamp",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/levon96-651291",
+   "duration_s": 15.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#0A0D09",
+     "share": 0.353
+    },
+    {
+     "hex": "#121614",
+     "share": 0.245
+    },
+    {
+     "hex": "#2C2618",
+     "share": 0.172
+    },
+    {
+     "hex": "#4E432B",
+     "share": 0.113
+    },
+    {
+     "hex": "#857B58",
+     "share": 0.094
+    },
+    {
+     "hex": "#DBD7B7",
+     "share": 0.023
+    }
+   ],
+   "accent": "#857B58"
+  },
+  "linearuncle-971663": {
+   "type": "explainer",
+   "theme": "chalkboard",
+   "transition": "fade",
+   "notes": "derivative lesson CN: slate, chalk-colour plots, step titles",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/linearuncle-971663",
+   "duration_s": 457.0,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#0C111E",
+     "share": 0.798
+    },
+    {
+     "hex": "#272B30",
+     "share": 0.058
+    },
+    {
+     "hex": "#474A48",
+     "share": 0.048
+    },
+    {
+     "hex": "#080D19",
+     "share": 0.047
+    },
+    {
+     "hex": "#05080F",
+     "share": 0.031
+    },
+    {
+     "hex": "#73756F",
+     "share": 0.017
+    }
+   ],
+   "accent": "#0C111E"
+  },
+  "liu8in-891423": {
+   "type": "brand",
+   "theme": "dark-accent",
+   "transition": "fade",
+   "notes": "HyperFrames celebration: \"trending on GitHub again\"",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/liu8in-891423",
+   "duration_s": 16.6,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#090909",
+     "share": 0.657
+    },
+    {
+     "hex": "#0C1515",
+     "share": 0.241
+    },
+    {
+     "hex": "#233533",
+     "share": 0.044
+    },
+    {
+     "hex": "#000307",
+     "share": 0.03
+    },
+    {
+     "hex": "#C2DBD0",
+     "share": 0.014
+    },
+    {
+     "hex": "#5C847E",
+     "share": 0.014
+    }
+   ],
+   "accent": "#C2DBD0"
+  },
+  "llama3dstudio-012980": {
+   "type": "3d",
+   "theme": "cinematic",
+   "transition": "camera-path",
+   "notes": "cinematic 3D scenes",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/llama3dstudio-012980",
+   "duration_s": 44.0,
+   "width": 1280,
+   "height": 688,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#956649",
+     "share": 0.281
+    },
+    {
+     "hex": "#B19677",
+     "share": 0.24
+    },
+    {
+     "hex": "#72907B",
+     "share": 0.172
+    },
+    {
+     "hex": "#B3A6B0",
+     "share": 0.121
+    },
+    {
+     "hex": "#D7B59C",
+     "share": 0.101
+    },
+    {
+     "hex": "#533934",
+     "share": 0.086
+    }
+   ],
+   "accent": "#956649"
+  },
+  "lnkiai-544254": {
+   "type": "launch",
+   "theme": "light-lavender",
+   "transition": "confetti",
+   "notes": "M3E Canvas: purple Material, \"7,469 stars\" confetti",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/lnkiai-544254",
+   "duration_s": 32.2,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 11,
+   "cut_times_s": [
+    2.18,
+    3.2,
+    3.55,
+    3.88,
+    4.23,
+    4.92,
+    5.4,
+    15.55,
+    16.6,
+    18.8,
+    22.8
+   ],
+   "cuts_per_10s": 3.42,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#F5F5F5",
+     "share": 0.42
+    },
+    {
+     "hex": "#07050E",
+     "share": 0.232
+    },
+    {
+     "hex": "#EED6DC",
+     "share": 0.195
+    },
+    {
+     "hex": "#7D524F",
+     "share": 0.063
+    },
+    {
+     "hex": "#A09B99",
+     "share": 0.047
+    },
+    {
+     "hex": "#322F36",
+     "share": 0.042
+    }
+   ],
+   "accent": "#7D524F"
+  },
+  "localjulius-625706": {
+   "type": "launch",
+   "theme": "flat-illustrated",
+   "transition": "hard-cut",
+   "notes": "audivo.dev: yellow, flat podcast illustrations, waveform, sticker chips",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/localjulius-625706",
+   "duration_s": 52.6,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 11,
+   "cut_times_s": [
+    3.3,
+    5.5,
+    9.13,
+    11.9,
+    14.67,
+    16.63,
+    20.2,
+    23.9,
+    29.2,
+    39.63,
+    46.9
+   ],
+   "cuts_per_10s": 2.09,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#E3E0D7",
+     "share": 0.37
+    },
+    {
+     "hex": "#396091",
+     "share": 0.191
+    },
+    {
+     "hex": "#E9A044",
+     "share": 0.161
+    },
+    {
+     "hex": "#DFEBEA",
+     "share": 0.15
+    },
+    {
+     "hex": "#F7EEE0",
+     "share": 0.074
+    },
+    {
+     "hex": "#F6EAC9",
+     "share": 0.053
+    }
+   ],
+   "accent": "#E9A044"
+  },
+  "lribes4-742305": {
+   "type": "3d",
+   "theme": "stylized-day",
+   "transition": "camera-orbit",
+   "notes": "medieval village with lit windows",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/lribes4-742305",
+   "duration_s": 23.5,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#D8D5CC",
+     "share": 0.216
+    },
+    {
+     "hex": "#38401C",
+     "share": 0.2
+    },
+    {
+     "hex": "#807E44",
+     "share": 0.19
+    },
+    {
+     "hex": "#5D5E30",
+     "share": 0.187
+    },
+    {
+     "hex": "#15230B",
+     "share": 0.121
+    },
+    {
+     "hex": "#A99D7F",
+     "share": 0.086
+    }
+   ],
+   "accent": "#807E44"
+  },
+  "majidmanzarpour-927543": {
+   "type": "3d",
+   "theme": "pixel",
+   "transition": "none",
+   "notes": "pixel wizard casting spell",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/majidmanzarpour-927543",
+   "duration_s": 11.3,
+   "width": 1080,
+   "height": 890,
+   "fps": 60,
+   "aspect": "4:3",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#1B153F",
+     "share": 0.225
+    },
+    {
+     "hex": "#0F0A2A",
+     "share": 0.213
+    },
+    {
+     "hex": "#3B2B67",
+     "share": 0.213
+    },
+    {
+     "hex": "#241B54",
+     "share": 0.168
+    },
+    {
+     "hex": "#050218",
+     "share": 0.164
+    },
+    {
+     "hex": "#DACFC4",
+     "share": 0.017
+    }
+   ],
+   "accent": "#3B2B67"
+  },
+  "mandelduck-768972": {
+   "type": "3d",
+   "theme": "naturalistic",
+   "transition": "camera-path",
+   "notes": "3D scene",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/mandelduck-768972",
+   "duration_s": 33.6,
+   "width": 1280,
+   "height": 708,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#20283A",
+     "share": 0.38
+    },
+    {
+     "hex": "#0F1626",
+     "share": 0.206
+    },
+    {
+     "hex": "#1C3172",
+     "share": 0.142
+    },
+    {
+     "hex": "#444B48",
+     "share": 0.135
+    },
+    {
+     "hex": "#4165A4",
+     "share": 0.083
+    },
+    {
+     "hex": "#96A39D",
+     "share": 0.054
+    }
+   ],
+   "accent": "#4165A4"
+  },
+  "mappletour-334921": {
+   "type": "3d",
+   "theme": "neon-wave",
+   "transition": "none",
+   "notes": "vertical JP fish game, neon waves",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/mappletour-334921",
+   "duration_s": 32.0,
+   "width": 720,
+   "height": 1280,
+   "fps": 60,
+   "aspect": "9:16",
+   "hard_cuts": 24,
+   "cut_times_s": [
+    2.0,
+    2.05,
+    2.08,
+    3.45,
+    4.0,
+    6.0,
+    8.0,
+    10.0,
+    10.02,
+    11.0,
+    12.0,
+    16.0,
+    17.0,
+    18.25,
+    18.5,
+    18.75,
+    19.0,
+    19.25,
+    19.75,
+    22.0,
+    24.0,
+    25.0,
+    26.0,
+    28.0
+   ],
+   "cuts_per_10s": 7.49,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#0F1D2D",
+     "share": 0.298
+    },
+    {
+     "hex": "#050B15",
+     "share": 0.286
+    },
+    {
+     "hex": "#FAFAFC",
+     "share": 0.187
+    },
+    {
+     "hex": "#8693A4",
+     "share": 0.117
+    },
+    {
+     "hex": "#4E6069",
+     "share": 0.104
+    },
+    {
+     "hex": "#DBBF6E",
+     "share": 0.008
+    }
+   ],
+   "accent": "#0F1D2D"
+  },
+  "marklaunches-041046": {
+   "type": "launch",
+   "theme": "neon-brutal",
+   "transition": "fade",
+   "notes": "vertical race app: timer, mountain, \"EVERY STEP COUNTS.\" lime",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/marklaunches-041046",
+   "duration_s": 44.0,
+   "width": 1024,
+   "height": 1280,
+   "fps": 30,
+   "aspect": "3:4",
+   "hard_cuts": 1,
+   "cut_times_s": [
+    20.2
+   ],
+   "cuts_per_10s": 0.23,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#09090C",
+     "share": 0.363
+    },
+    {
+     "hex": "#13161D",
+     "share": 0.214
+    },
+    {
+     "hex": "#030306",
+     "share": 0.21
+    },
+    {
+     "hex": "#373B48",
+     "share": 0.11
+    },
+    {
+     "hex": "#847B65",
+     "share": 0.08
+    },
+    {
+     "hex": "#C9CFD1",
+     "share": 0.023
+    }
+   ],
+   "accent": "#847B65"
+  },
+  "maxhirsch13-600983": {
+   "type": "kinetic",
+   "theme": "dark-navy",
+   "transition": "diagonal wipe / glitch",
+   "notes": "LarpedIn parody: \"Ratios.\" \"Memes.\" chips, glitch slices",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/maxhirsch13-600983",
+   "duration_s": 20.3,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 9,
+   "cut_times_s": [
+    7.53,
+    7.57,
+    7.6,
+    7.63,
+    7.7,
+    7.73,
+    10.1,
+    10.9,
+    12.93
+   ],
+   "cuts_per_10s": 4.43,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#EEEAE4",
+     "share": 0.267
+    },
+    {
+     "hex": "#060914",
+     "share": 0.252
+    },
+    {
+     "hex": "#0C1329",
+     "share": 0.209
+    },
+    {
+     "hex": "#B3AAA0",
+     "share": 0.147
+    },
+    {
+     "hex": "#202842",
+     "share": 0.085
+    },
+    {
+     "hex": "#5B5E6D",
+     "share": 0.04
+    }
+   ],
+   "accent": "#202842"
+  },
+  "maxthelion-649723": {
+   "type": "3d",
+   "theme": "realistic-interior",
+   "transition": "camera-walkthrough",
+   "notes": "subway interior walk",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/maxthelion-649723",
+   "duration_s": 48.9,
+   "width": 1106,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#1D0D04",
+     "share": 0.308
+    },
+    {
+     "hex": "#040101",
+     "share": 0.244
+    },
+    {
+     "hex": "#221E16",
+     "share": 0.21
+    },
+    {
+     "hex": "#393326",
+     "share": 0.106
+    },
+    {
+     "hex": "#6D6044",
+     "share": 0.081
+    },
+    {
+     "hex": "#760207",
+     "share": 0.051
+    }
+   ],
+   "accent": "#6D6044"
+  },
+  "melvynx-638493": {
+   "type": "launch",
+   "theme": "light-minimal",
+   "transition": "dissolve+scale",
+   "notes": "Berry: \"Cómo depositar\", white cards on painted ground",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/melvynx-638493",
+   "duration_s": 45.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#F1EFEC",
+     "share": 0.508
+    },
+    {
+     "hex": "#EAE7E2",
+     "share": 0.285
+    },
+    {
+     "hex": "#FCFCFB",
+     "share": 0.071
+    },
+    {
+     "hex": "#C6C1BD",
+     "share": 0.061
+    },
+    {
+     "hex": "#1F1816",
+     "share": 0.047
+    },
+    {
+     "hex": "#936A66",
+     "share": 0.027
+    }
+   ],
+   "accent": "#C6C1BD"
+  },
+  "mgfeller-779161": {
+   "type": "3d",
+   "theme": "naturalistic",
+   "transition": "camera-follow",
+   "notes": "sailing game",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/mgfeller-779161",
+   "duration_s": 31.2,
+   "width": 1280,
+   "height": 842,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#1E444E",
+     "share": 0.309
+    },
+    {
+     "hex": "#B0C1CC",
+     "share": 0.262
+    },
+    {
+     "hex": "#3E5A64",
+     "share": 0.158
+    },
+    {
+     "hex": "#63777E",
+     "share": 0.136
+    },
+    {
+     "hex": "#8B9BA1",
+     "share": 0.125
+    },
+    {
+     "hex": "#000104",
+     "share": 0.01
+    }
+   ],
+   "accent": "#1E444E"
+  },
+  "miguel07code-091611": {
+   "type": "explainer",
+   "theme": "dark-math",
+   "transition": "fade",
+   "notes": "Fourier: circles drawing waves, yellow accent, vertical",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/miguel07code-091611",
+   "duration_s": 42.0,
+   "width": 720,
+   "height": 1280,
+   "fps": 30,
+   "aspect": "9:16",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#0B1017",
+     "share": 0.486
+    },
+    {
+     "hex": "#08090F",
+     "share": 0.229
+    },
+    {
+     "hex": "#10161F",
+     "share": 0.22
+    },
+    {
+     "hex": "#313231",
+     "share": 0.033
+    },
+    {
+     "hex": "#766C57",
+     "share": 0.022
+    },
+    {
+     "hex": "#CECCC8",
+     "share": 0.01
+    }
+   ],
+   "accent": "#766C57"
+  },
+  "monokern-613142": {
+   "type": "art",
+   "theme": "kaleidoscope",
+   "transition": "zoom-through + flash",
+   "notes": "eye kaleidoscope tunnel",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/monokern-613142",
+   "duration_s": 15.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 12,
+   "cut_times_s": [
+    3.5,
+    4.0,
+    4.98,
+    5.02,
+    6.5,
+    8.5,
+    9.5,
+    11.5,
+    11.75,
+    12.0,
+    12.25,
+    12.5
+   ],
+   "cuts_per_10s": 7.97,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#060505",
+     "share": 0.409
+    },
+    {
+     "hex": "#A0000E",
+     "share": 0.228
+    },
+    {
+     "hex": "#D7D7D4",
+     "share": 0.119
+    },
+    {
+     "hex": "#312020",
+     "share": 0.085
+    },
+    {
+     "hex": "#969193",
+     "share": 0.084
+    },
+    {
+     "hex": "#625D5B",
+     "share": 0.076
+    }
+   ],
+   "accent": "#A0000E"
+  },
+  "monokern-832979": {
+   "type": "story",
+   "theme": "cartoon",
+   "transition": "slide",
+   "notes": "train window seasons (autumn -> night -> winter)",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/monokern-832979",
+   "duration_s": 20.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 7,
+   "cut_times_s": [
+    4.0,
+    11.38,
+    15.5,
+    15.63,
+    15.88,
+    16.0,
+    16.02
+   ],
+   "cuts_per_10s": 3.49,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#0B050F",
+     "share": 0.322
+    },
+    {
+     "hex": "#181725",
+     "share": 0.251
+    },
+    {
+     "hex": "#342E46",
+     "share": 0.121
+    },
+    {
+     "hex": "#654668",
+     "share": 0.117
+    },
+    {
+     "hex": "#8F7D8E",
+     "share": 0.102
+    },
+    {
+     "hex": "#C7BCC7",
+     "share": 0.087
+    }
+   ],
+   "accent": "#654668"
+  },
+  "moritzkremb-466494": {
+   "type": "kinetic",
+   "theme": "color-block",
+   "transition": "hard-color-cut",
+   "notes": "\"how\" in red/yellow/white, halftone silhouette, pixel hearts",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/moritzkremb-466494",
+   "duration_s": 46.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 3,
+   "cut_times_s": [
+    31.97,
+    35.93,
+    35.97
+   ],
+   "cuts_per_10s": 0.65,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#F2F3EE",
+     "share": 0.574
+    },
+    {
+     "hex": "#171917",
+     "share": 0.157
+    },
+    {
+     "hex": "#FBFDFC",
+     "share": 0.112
+    },
+    {
+     "hex": "#F5F7F4",
+     "share": 0.086
+    },
+    {
+     "hex": "#BAC3C6",
+     "share": 0.042
+    },
+    {
+     "hex": "#637580",
+     "share": 0.028
+    }
+   ],
+   "accent": "#BAC3C6"
+  },
+  "motiondsgnr-313960": {
+   "type": "brand",
+   "theme": "hud-showreel",
+   "transition": "dot->line->fill",
+   "notes": "CLAUDE particles, orange circle, MOTION letters drop, cards squash",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/motiondsgnr-313960",
+   "duration_s": 15.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 2,
+   "cut_times_s": [
+    0.57,
+    4.5
+   ],
+   "cuts_per_10s": 1.33,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#0D0E12",
+     "share": 0.477
+    },
+    {
+     "hex": "#F97E1E",
+     "share": 0.165
+    },
+    {
+     "hex": "#EDE6DF",
+     "share": 0.151
+    },
+    {
+     "hex": "#2D53F3",
+     "share": 0.095
+    },
+    {
+     "hex": "#38292F",
+     "share": 0.085
+    },
+    {
+     "hex": "#8C8387",
+     "share": 0.028
+    }
+   ],
+   "accent": "#F97E1E"
+  },
+  "mrblock-096062": {
+   "type": "3d",
+   "theme": "saturated-game",
+   "transition": "camera-follow",
+   "notes": "racing game BOOST",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/mrblock-096062",
+   "duration_s": 32.6,
+   "width": 1280,
+   "height": 868,
+   "fps": 30,
+   "aspect": "4:3",
+   "hard_cuts": 33,
+   "cut_times_s": [
+    1.73,
+    2.63,
+    3.27,
+    3.3,
+    4.07,
+    4.57,
+    6.67,
+    7.9,
+    7.93,
+    8.23,
+    8.4,
+    9.13,
+    11.8,
+    11.93,
+    13.03,
+    14.23,
+    14.57,
+    14.6,
+    14.83,
+    16.17,
+    17.27,
+    18.1,
+    18.77,
+    19.93,
+    20.1,
+    21.17,
+    21.47,
+    23.97,
+    25.77,
+    27.0,
+    28.53,
+    28.93,
+    29.43
+   ],
+   "cuts_per_10s": 10.14,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#622710",
+     "share": 0.245
+    },
+    {
+     "hex": "#2A0803",
+     "share": 0.21
+    },
+    {
+     "hex": "#D86D0D",
+     "share": 0.2
+    },
+    {
+     "hex": "#985629",
+     "share": 0.155
+    },
+    {
+     "hex": "#E3AA2A",
+     "share": 0.126
+    },
+    {
+     "hex": "#EBE2C6",
+     "share": 0.064
+    }
+   ],
+   "accent": "#D86D0D"
+  },
+  "nathanwilbanks-981110": {
+   "type": "3d",
+   "theme": "dark-warm",
+   "transition": "none",
+   "notes": "campfire",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/nathanwilbanks-981110",
+   "duration_s": 38.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 2,
+   "cut_times_s": [
+    7.0,
+    12.5
+   ],
+   "cuts_per_10s": 0.53,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#020001",
+     "share": 0.656
+    },
+    {
+     "hex": "#080C16",
+     "share": 0.141
+    },
+    {
+     "hex": "#271007",
+     "share": 0.098
+    },
+    {
+     "hex": "#6D2D0B",
+     "share": 0.05
+    },
+    {
+     "hex": "#F7DCA2",
+     "share": 0.028
+    },
+    {
+     "hex": "#C6772A",
+     "share": 0.028
+    }
+   ],
+   "accent": "#6D2D0B"
+  },
+  "nehalmax-802479": {
+   "type": "story",
+   "theme": "cartoon-3d",
+   "transition": "fade",
+   "notes": "lernok teaser, robot",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/nehalmax-802479",
+   "duration_s": 32.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 1,
+   "cut_times_s": [
+    4.23
+   ],
+   "cuts_per_10s": 0.31,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#1F1630",
+     "share": 0.524
+    },
+    {
+     "hex": "#2B2044",
+     "share": 0.149
+    },
+    {
+     "hex": "#130D21",
+     "share": 0.147
+    },
+    {
+     "hex": "#F5F2ED",
+     "share": 0.103
+    },
+    {
+     "hex": "#463A5F",
+     "share": 0.051
+    },
+    {
+     "hex": "#8C7CB7",
+     "share": 0.026
+    }
+   ],
+   "accent": "#463A5F"
+  },
+  "nicolamanzini-156628": {
+   "type": "3d",
+   "theme": "realistic",
+   "transition": "camera-orbit",
+   "notes": "fishbowl glass + water",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/nicolamanzini-156628",
+   "duration_s": 34.7,
+   "width": 1004,
+   "height": 904,
+   "fps": 60,
+   "aspect": "4:3",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#7F8774",
+     "share": 0.232
+    },
+    {
+     "hex": "#383125",
+     "share": 0.194
+    },
+    {
+     "hex": "#0E0D0D",
+     "share": 0.173
+    },
+    {
+     "hex": "#645645",
+     "share": 0.163
+    },
+    {
+     "hex": "#335F55",
+     "share": 0.145
+    },
+    {
+     "hex": "#BABDAF",
+     "share": 0.093
+    }
+   ],
+   "accent": "#335F55"
+  },
+  "nybobs-680050": {
+   "type": "3d",
+   "theme": "light-studio",
+   "transition": "cut",
+   "notes": "physics sim: cannonballs, cloth, 100k bodies",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/nybobs-680050",
+   "duration_s": 26.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 8,
+   "cut_times_s": [
+    5.82,
+    5.83,
+    6.4,
+    6.73,
+    6.75,
+    7.03,
+    11.33,
+    20.32
+   ],
+   "cuts_per_10s": 3.06,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#E0E0DD",
+     "share": 0.363
+    },
+    {
+     "hex": "#DBD7CF",
+     "share": 0.209
+    },
+    {
+     "hex": "#B4AEA5",
+     "share": 0.167
+    },
+    {
+     "hex": "#CCC3B6",
+     "share": 0.132
+    },
+    {
+     "hex": "#91867A",
+     "share": 0.096
+    },
+    {
+     "hex": "#514B41",
+     "share": 0.033
+    }
+   ],
+   "accent": "#91867A"
+  },
+  "op7418-814408": {
+   "type": "brand",
+   "theme": "dark-gold",
+   "transition": "glow-bloom",
+   "notes": "Binance logo bloom, pixel money transfer",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/op7418-814408",
+   "duration_s": 14.7,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 1,
+   "cut_times_s": [
+    8.73
+   ],
+   "cuts_per_10s": 0.68,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#1E0F22",
+     "share": 0.314
+    },
+    {
+     "hex": "#512622",
+     "share": 0.231
+    },
+    {
+     "hex": "#1C2550",
+     "share": 0.225
+    },
+    {
+     "hex": "#D0B375",
+     "share": 0.085
+    },
+    {
+     "hex": "#865538",
+     "share": 0.079
+    },
+    {
+     "hex": "#483A8A",
+     "share": 0.067
+    }
+   ],
+   "accent": "#D0B375"
+  },
+  "papaneco-life-541187": {
+   "type": "kinetic",
+   "theme": "pop-collage",
+   "transition": "hard-color-cut",
+   "notes": "JP vertical: pastel blocks, tape labels \"28%\", \"NEW!\"",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/papaneco-life-541187",
+   "duration_s": 30.1,
+   "width": 720,
+   "height": 1280,
+   "fps": 30,
+   "aspect": "9:16",
+   "hard_cuts": 19,
+   "cut_times_s": [
+    1.0,
+    1.43,
+    1.87,
+    2.7,
+    3.13,
+    4.0,
+    6.1,
+    7.8,
+    9.9,
+    14.13,
+    17.1,
+    17.93,
+    18.77,
+    21.3,
+    23.83,
+    24.7,
+    25.53,
+    26.4,
+    28.1
+   ],
+   "cuts_per_10s": 6.31,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#CCDB62",
+     "share": 0.27
+    },
+    {
+     "hex": "#F07BDF",
+     "share": 0.2
+    },
+    {
+     "hex": "#FBFBF5",
+     "share": 0.194
+    },
+    {
+     "hex": "#C0F5F6",
+     "share": 0.158
+    },
+    {
+     "hex": "#070705",
+     "share": 0.123
+    },
+    {
+     "hex": "#72725D",
+     "share": 0.055
+    }
+   ],
+   "accent": "#CCDB62"
+  },
+  "parkerrex-701462": {
+   "type": "explainer",
+   "theme": "dark-terminal",
+   "transition": "match-position",
+   "notes": "token bucket: blue bars, counter 10 -> 5",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/parkerrex-701462",
+   "duration_s": 18.0,
+   "width": 1080,
+   "height": 1080,
+   "fps": 30,
+   "aspect": "1:1",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#090F11",
+     "share": 0.72
+    },
+    {
+     "hex": "#262A2B",
+     "share": 0.089
+    },
+    {
+     "hex": "#080C0F",
+     "share": 0.079
+    },
+    {
+     "hex": "#050A0D",
+     "share": 0.046
+    },
+    {
+     "hex": "#5B9FEA",
+     "share": 0.034
+    },
+    {
+     "hex": "#41536A",
+     "share": 0.032
+    }
+   ],
+   "accent": "#5B9FEA"
+  },
+  "pauloalonso-477996": {
+   "type": "launch",
+   "theme": "light-minimal",
+   "transition": "dissolve+scale",
+   "notes": "product promo, vertical",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/pauloalonso-477996",
+   "duration_s": 15.1,
+   "width": 720,
+   "height": 1280,
+   "fps": 30,
+   "aspect": "9:16",
+   "hard_cuts": 2,
+   "cut_times_s": [
+    1.9,
+    7.5
+   ],
+   "cuts_per_10s": 1.33,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#318E46",
+     "share": 0.355
+    },
+    {
+     "hex": "#D08D5B",
+     "share": 0.188
+    },
+    {
+     "hex": "#142930",
+     "share": 0.16
+    },
+    {
+     "hex": "#5D4839",
+     "share": 0.114
+    },
+    {
+     "hex": "#7E7C69",
+     "share": 0.112
+    },
+    {
+     "hex": "#EDE5C9",
+     "share": 0.071
+    }
+   ],
+   "accent": "#D08D5B"
+  },
+  "per-simmons-944727": {
+   "type": "launch",
+   "theme": "color-block",
+   "transition": "slide",
+   "notes": "drink brand site: FLAVORS, 3D cans",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/per-simmons-944727",
+   "duration_s": 41.2,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#F7F1DF",
+     "share": 0.359
+    },
+    {
+     "hex": "#060809",
+     "share": 0.242
+    },
+    {
+     "hex": "#C8C178",
+     "share": 0.208
+    },
+    {
+     "hex": "#FBFAF2",
+     "share": 0.078
+    },
+    {
+     "hex": "#5C835C",
+     "share": 0.073
+    },
+    {
+     "hex": "#6D94D5",
+     "share": 0.041
+    }
+   ],
+   "accent": "#C8C178"
+  },
+  "petert-540960": {
+   "type": "3d",
+   "theme": "realistic",
+   "transition": "camera-orbit",
+   "notes": "stadium / VR promo (HyperFrames + Three.js)",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/petert-540960",
+   "duration_s": 30.1,
+   "width": 720,
+   "height": 1280,
+   "fps": 30,
+   "aspect": "9:16",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#000101",
+     "share": 0.595
+    },
+    {
+     "hex": "#0A0B0F",
+     "share": 0.216
+    },
+    {
+     "hex": "#262D2E",
+     "share": 0.099
+    },
+    {
+     "hex": "#635846",
+     "share": 0.044
+    },
+    {
+     "hex": "#490908",
+     "share": 0.03
+    },
+    {
+     "hex": "#B9AFAE",
+     "share": 0.015
+    }
+   ],
+   "accent": "#490908"
+  },
+  "pisajeski-168993": {
+   "type": "launch",
+   "theme": "pastel-pixel-gradient",
+   "transition": "dissolve",
+   "notes": "AgentaOS: pink-blue blurred gradient with pixel squares",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/pisajeski-168993",
+   "duration_s": 59.6,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 2,
+   "cut_times_s": [
+    6.7,
+    46.47
+   ],
+   "cuts_per_10s": 0.34,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#EFF1FC",
+     "share": 0.306
+    },
+    {
+     "hex": "#F7F7F8",
+     "share": 0.261
+    },
+    {
+     "hex": "#E6E9F0",
+     "share": 0.224
+    },
+    {
+     "hex": "#CDD9F3",
+     "share": 0.134
+    },
+    {
+     "hex": "#A496DA",
+     "share": 0.057
+    },
+    {
+     "hex": "#496982",
+     "share": 0.018
+    }
+   ],
+   "accent": "#A496DA"
+  },
+  "pranavclickks-254816": {
+   "type": "launch",
+   "theme": "orange-gradient",
+   "transition": "dissolve",
+   "notes": "TourQ dynamic pricing: orange gradient, \"102 departures\"",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/pranavclickks-254816",
+   "duration_s": 44.0,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 1,
+   "cut_times_s": [
+    33.98
+   ],
+   "cuts_per_10s": 0.23,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#261A15",
+     "share": 0.313
+    },
+    {
+     "hex": "#F8F6F5",
+     "share": 0.239
+    },
+    {
+     "hex": "#CD4E14",
+     "share": 0.22
+    },
+    {
+     "hex": "#DB7B43",
+     "share": 0.081
+    },
+    {
+     "hex": "#C8C5B3",
+     "share": 0.078
+    },
+    {
+     "hex": "#5E4233",
+     "share": 0.069
+    }
+   ],
+   "accent": "#CD4E14"
+  },
+  "priyansh0327-206409": {
+   "type": "launch",
+   "theme": "light->dark",
+   "transition": "fade",
+   "notes": "flight stopovers: clouds, fare table, Dubai photo, \"28 -> 3\"",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/priyansh0327-206409",
+   "duration_s": 30.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 12,
+   "cut_times_s": [
+    1.87,
+    11.97,
+    17.0,
+    18.0,
+    19.0,
+    20.0,
+    21.0,
+    21.03,
+    22.0,
+    24.0,
+    26.97,
+    28.0
+   ],
+   "cuts_per_10s": 3.99,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#07080A",
+     "share": 0.339
+    },
+    {
+     "hex": "#F3F6F8",
+     "share": 0.288
+    },
+    {
+     "hex": "#2E2C29",
+     "share": 0.13
+    },
+    {
+     "hex": "#B8CAD4",
+     "share": 0.087
+    },
+    {
+     "hex": "#605C55",
+     "share": 0.081
+    },
+    {
+     "hex": "#90958F",
+     "share": 0.075
+    }
+   ],
+   "accent": "#B8CAD4"
+  },
+  "qinelke-271655": {
+   "type": "launch",
+   "theme": "dark-accent",
+   "transition": "fade",
+   "notes": "leads scraper: cartoon mascot, \"48,097 searches\", \"$49\"",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/qinelke-271655",
+   "duration_s": 30.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#02050C",
+     "share": 0.439
+    },
+    {
+     "hex": "#121B30",
+     "share": 0.21
+    },
+    {
+     "hex": "#080F1C",
+     "share": 0.205
+    },
+    {
+     "hex": "#273953",
+     "share": 0.075
+    },
+    {
+     "hex": "#396C90",
+     "share": 0.043
+    },
+    {
+     "hex": "#BEB1AA",
+     "share": 0.028
+    }
+   ],
+   "accent": "#396C90"
+  },
+  "rakhsh-tech-544921": {
+   "type": "art",
+   "theme": "ink-wash",
+   "transition": "fade",
+   "notes": "one brush kanji per frame on paper, vertical",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/rakhsh-tech-544921",
+   "duration_s": 25.8,
+   "width": 720,
+   "height": 1280,
+   "fps": 30,
+   "aspect": "9:16",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#DCD6CA",
+     "share": 0.356
+    },
+    {
+     "hex": "#E5DED3",
+     "share": 0.302
+    },
+    {
+     "hex": "#ECE6DB",
+     "share": 0.232
+    },
+    {
+     "hex": "#C1BBB3",
+     "share": 0.055
+    },
+    {
+     "hex": "#221F1C",
+     "share": 0.028
+    },
+    {
+     "hex": "#928982",
+     "share": 0.027
+    }
+   ],
+   "accent": "#DCD6CA"
+  },
+  "raphaelaubryy-190360": {
+   "type": "brand",
+   "theme": "color-block",
+   "transition": "hard-color-cut",
+   "notes": "SHOWREEL: cream/coral, starfish, marquee \"TIMING SPACE\", 3D cube FLUID TYPE",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/raphaelaubryy-190360",
+   "duration_s": 15.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 7,
+   "cut_times_s": [
+    4.0,
+    4.02,
+    8.0,
+    8.02,
+    10.0,
+    12.0,
+    12.02
+   ],
+   "cuts_per_10s": 4.65,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#080A09",
+     "share": 0.346
+    },
+    {
+     "hex": "#E3E2D9",
+     "share": 0.305
+    },
+    {
+     "hex": "#C5715B",
+     "share": 0.217
+    },
+    {
+     "hex": "#1D1D1B",
+     "share": 0.074
+    },
+    {
+     "hex": "#645F5B",
+     "share": 0.043
+    },
+    {
+     "hex": "#030503",
+     "share": 0.015
+    }
+   ],
+   "accent": "#C5715B"
+  },
+  "rishit30g-568278": {
+   "type": "story",
+   "theme": "cartoon",
+   "transition": "fade",
+   "notes": "Claude Code mascot",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/rishit30g-568278",
+   "duration_s": 10.0,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#B9AFB3",
+     "share": 0.204
+    },
+    {
+     "hex": "#37405C",
+     "share": 0.202
+    },
+    {
+     "hex": "#818D58",
+     "share": 0.198
+    },
+    {
+     "hex": "#1D2443",
+     "share": 0.142
+    },
+    {
+     "hex": "#57507D",
+     "share": 0.141
+    },
+    {
+     "hex": "#7B8EB4",
+     "share": 0.113
+    }
+   ],
+   "accent": "#818D58"
+  },
+  "rpa-dake-593915": {
+   "type": "explainer",
+   "theme": "neon-timeline",
+   "transition": "fade",
+   "notes": "search history: neon outlined years 1996/1998/2008/2015",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/rpa-dake-593915",
+   "duration_s": 15.0,
+   "width": 1080,
+   "height": 1080,
+   "fps": 30,
+   "aspect": "1:1",
+   "hard_cuts": 5,
+   "cut_times_s": [
+    2.0,
+    4.2,
+    6.4,
+    8.6,
+    10.8
+   ],
+   "cuts_per_10s": 3.33,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#070C1A",
+     "share": 0.464
+    },
+    {
+     "hex": "#151C2B",
+     "share": 0.284
+    },
+    {
+     "hex": "#2E2C43",
+     "share": 0.166
+    },
+    {
+     "hex": "#495D7C",
+     "share": 0.034
+    },
+    {
+     "hex": "#884F40",
+     "share": 0.032
+    },
+    {
+     "hex": "#A9A8AF",
+     "share": 0.019
+    }
+   ],
+   "accent": "#884F40"
+  },
+  "saadpastadev-347341": {
+   "type": "launch",
+   "theme": "light-minimal",
+   "transition": "blind/bar wipe",
+   "notes": "Nafa: \"Buy ▸ Lucky Cement…\" rotating list, swipe-to-buy",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/saadpastadev-347341",
+   "duration_s": 24.6,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#F8F9F8",
+     "share": 0.597
+    },
+    {
+     "hex": "#000000",
+     "share": 0.332
+    },
+    {
+     "hex": "#CED6D5",
+     "share": 0.035
+    },
+    {
+     "hex": "#989698",
+     "share": 0.016
+    },
+    {
+     "hex": "#4C6764",
+     "share": 0.011
+    },
+    {
+     "hex": "#262828",
+     "share": 0.009
+    }
+   ],
+   "accent": "#4C6764"
+  },
+  "salmanr2d2-661615": {
+   "type": "explainer",
+   "theme": "parchment",
+   "transition": "fade",
+   "notes": "history of money: 4046 BC -> 1973 -> Stable, vertical",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/salmanr2d2-661615",
+   "duration_s": 47.5,
+   "width": 720,
+   "height": 1280,
+   "fps": 30,
+   "aspect": "9:16",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#D4C6AE",
+     "share": 0.311
+    },
+    {
+     "hex": "#0F0D0C",
+     "share": 0.219
+    },
+    {
+     "hex": "#B8A990",
+     "share": 0.211
+    },
+    {
+     "hex": "#97866D",
+     "share": 0.147
+    },
+    {
+     "hex": "#000000",
+     "share": 0.09
+    },
+    {
+     "hex": "#3B332E",
+     "share": 0.022
+    }
+   ],
+   "accent": "#97866D"
+  },
+  "samissudo-927179": {
+   "type": "story",
+   "theme": "paper-illustrated",
+   "transition": "fade",
+   "notes": "penicillin story, vertical, flat illustration",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/samissudo-927179",
+   "duration_s": 33.5,
+   "width": 720,
+   "height": 1280,
+   "fps": 24,
+   "aspect": "9:16",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#E3D3B5",
+     "share": 0.256
+    },
+    {
+     "hex": "#A09C86",
+     "share": 0.232
+    },
+    {
+     "hex": "#7B764B",
+     "share": 0.16
+    },
+    {
+     "hex": "#9DCADF",
+     "share": 0.146
+    },
+    {
+     "hex": "#503F69",
+     "share": 0.114
+    },
+    {
+     "hex": "#ECEBDE",
+     "share": 0.092
+    }
+   ],
+   "accent": "#9DCADF"
+  },
+  "sciencedegens-843325": {
+   "type": "3d",
+   "theme": "realistic",
+   "transition": "camera-path",
+   "notes": "boat on lake / scenes",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/sciencedegens-843325",
+   "duration_s": 24.4,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 3,
+   "cut_times_s": [
+    16.23,
+    16.27,
+    16.3
+   ],
+   "cuts_per_10s": 1.23,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#020104",
+     "share": 0.633
+    },
+    {
+     "hex": "#1C1013",
+     "share": 0.159
+    },
+    {
+     "hex": "#293548",
+     "share": 0.067
+    },
+    {
+     "hex": "#66430D",
+     "share": 0.062
+    },
+    {
+     "hex": "#B08C21",
+     "share": 0.047
+    },
+    {
+     "hex": "#78818D",
+     "share": 0.031
+    }
+   ],
+   "accent": "#B08C21"
+  },
+  "seflless-929329": {
+   "type": "brand",
+   "theme": "hud-showreel",
+   "transition": "mixed",
+   "notes": "CLAUDE Motion Designer: MOVE marquee, red sphere, particles",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/seflless-929329",
+   "duration_s": 15.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 10,
+   "cut_times_s": [
+    1.95,
+    2.0,
+    8.0,
+    10.0,
+    12.0,
+    12.25,
+    12.5,
+    12.7,
+    12.85,
+    13.0
+   ],
+   "cuts_per_10s": 6.64,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#221F1C",
+     "share": 0.392
+    },
+    {
+     "hex": "#382823",
+     "share": 0.203
+    },
+    {
+     "hex": "#CD462B",
+     "share": 0.122
+    },
+    {
+     "hex": "#D1CCC4",
+     "share": 0.121
+    },
+    {
+     "hex": "#6B2B22",
+     "share": 0.112
+    },
+    {
+     "hex": "#896E64",
+     "share": 0.05
+    }
+   ],
+   "accent": "#CD462B"
+  },
+  "shushant-l-619370": {
+   "type": "launch",
+   "theme": "light-minimal",
+   "transition": "fade",
+   "notes": "vertical \"Best tools for…\", \"200k\"",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/shushant-l-619370",
+   "duration_s": 35.0,
+   "width": 720,
+   "height": 1280,
+   "fps": 30,
+   "aspect": "9:16",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#F6FBFC",
+     "share": 0.653
+    },
+    {
+     "hex": "#091923",
+     "share": 0.166
+    },
+    {
+     "hex": "#EBF3F5",
+     "share": 0.132
+    },
+    {
+     "hex": "#CBD7DA",
+     "share": 0.026
+    },
+    {
+     "hex": "#3E7679",
+     "share": 0.012
+    },
+    {
+     "hex": "#93A7AC",
+     "share": 0.011
+    }
+   ],
+   "accent": "#3E7679"
+  },
+  "signalz-jp-918002": {
+   "type": "explainer",
+   "theme": "print-editorial",
+   "transition": "page-slide",
+   "notes": "magazine pages: SIGNALZ masthead, vertical JP, 400本以上",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/signalz-jp-918002",
+   "duration_s": 33.1,
+   "width": 720,
+   "height": 1280,
+   "fps": 30,
+   "aspect": "9:16",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#F4F1EB",
+     "share": 0.848
+    },
+    {
+     "hex": "#D0CCC7",
+     "share": 0.05
+    },
+    {
+     "hex": "#F8F4EF",
+     "share": 0.042
+    },
+    {
+     "hex": "#FDFCFB",
+     "share": 0.026
+    },
+    {
+     "hex": "#8D837D",
+     "share": 0.021
+    },
+    {
+     "hex": "#282524",
+     "share": 0.014
+    }
+   ],
+   "accent": "#8D837D"
+  },
+  "smitjaineditor-843957": {
+   "type": "launch",
+   "theme": "mixed",
+   "transition": "fade",
+   "notes": "\"Are motion designers cooked?\"",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/smitjaineditor-843957",
+   "duration_s": 39.8,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 3,
+   "cut_times_s": [
+    1.47,
+    14.93,
+    21.8
+   ],
+   "cuts_per_10s": 0.75,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#FBF5EC",
+     "share": 0.806
+    },
+    {
+     "hex": "#F2D4C4",
+     "share": 0.115
+    },
+    {
+     "hex": "#221A16",
+     "share": 0.035
+    },
+    {
+     "hex": "#B08271",
+     "share": 0.015
+    },
+    {
+     "hex": "#FCF9EF",
+     "share": 0.015
+    },
+    {
+     "hex": "#FDFCF5",
+     "share": 0.014
+    }
+   ],
+   "accent": "#B08271"
+  },
+  "sonali-sahu-09-350200": {
+   "type": "launch",
+   "theme": "dark-accent",
+   "transition": "cut",
+   "notes": "reference-driven cinematic launch",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/sonali-sahu-09-350200",
+   "duration_s": 46.0,
+   "width": 848,
+   "height": 478,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 1,
+   "cut_times_s": [
+    14.17
+   ],
+   "cuts_per_10s": 0.22,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#EAEAF3",
+     "share": 0.46
+    },
+    {
+     "hex": "#F6F6F8",
+     "share": 0.272
+    },
+    {
+     "hex": "#D9D9E9",
+     "share": 0.179
+    },
+    {
+     "hex": "#A5A2CA",
+     "share": 0.034
+    },
+    {
+     "hex": "#524DBD",
+     "share": 0.031
+    },
+    {
+     "hex": "#121125",
+     "share": 0.025
+    }
+   ],
+   "accent": "#524DBD"
+  },
+  "soumymaheshwri-825921": {
+   "type": "kinetic",
+   "theme": "dark-accent",
+   "transition": "hard-cut",
+   "notes": "vertical HyperFrames edit",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/soumymaheshwri-825921",
+   "duration_s": 39.1,
+   "width": 720,
+   "height": 1280,
+   "fps": 30,
+   "aspect": "9:16",
+   "hard_cuts": 11,
+   "cut_times_s": [
+    5.5,
+    8.63,
+    10.4,
+    13.53,
+    15.3,
+    17.07,
+    18.87,
+    20.63,
+    25.97,
+    29.53,
+    34.87
+   ],
+   "cuts_per_10s": 2.82,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#0C0205",
+     "share": 0.496
+    },
+    {
+     "hex": "#2A0B14",
+     "share": 0.141
+    },
+    {
+     "hex": "#9C9486",
+     "share": 0.104
+    },
+    {
+     "hex": "#CDC7BA",
+     "share": 0.102
+    },
+    {
+     "hex": "#686257",
+     "share": 0.099
+    },
+    {
+     "hex": "#55041C",
+     "share": 0.059
+    }
+   ],
+   "accent": "#2A0B14"
+  },
+  "spearwtf-029058": {
+   "type": "launch",
+   "theme": "neon-brutal",
+   "transition": "hard-cut",
+   "notes": "CHAIN.WTF: bold italic caps, casino slot, prediction markets",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/spearwtf-029058",
+   "duration_s": 30.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 17,
+   "cut_times_s": [
+    2.37,
+    4.77,
+    4.83,
+    4.87,
+    6.37,
+    7.77,
+    7.8,
+    7.83,
+    7.97,
+    9.57,
+    11.17,
+    12.77,
+    14.37,
+    15.97,
+    19.17,
+    19.23,
+    25.57
+   ],
+   "cuts_per_10s": 5.66,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#0A090A",
+     "share": 0.547
+    },
+    {
+     "hex": "#171315",
+     "share": 0.138
+    },
+    {
+     "hex": "#F4F7F0",
+     "share": 0.107
+    },
+    {
+     "hex": "#2A2430",
+     "share": 0.078
+    },
+    {
+     "hex": "#8E9BAB",
+     "share": 0.064
+    },
+    {
+     "hex": "#5C504F",
+     "share": 0.064
+    }
+   ],
+   "accent": "#8E9BAB"
+  },
+  "stefanostraus-971191": {
+   "type": "3d",
+   "theme": "dark-studio",
+   "transition": "camera-orbit",
+   "notes": "pistons vs magnets: mechanical model + UI side panel",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/stefanostraus-971191",
+   "duration_s": 32.3,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#0D101B",
+     "share": 0.398
+    },
+    {
+     "hex": "#040407",
+     "share": 0.342
+    },
+    {
+     "hex": "#242632",
+     "share": 0.151
+    },
+    {
+     "hex": "#672D27",
+     "share": 0.052
+    },
+    {
+     "hex": "#525C74",
+     "share": 0.039
+    },
+    {
+     "hex": "#BBACB0",
+     "share": 0.018
+    }
+   ],
+   "accent": "#672D27"
+  },
+  "stephanferraro-224281": {
+   "type": "3d",
+   "theme": "light-studio",
+   "transition": "camera-orbit",
+   "notes": "procedural terrain",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/stephanferraro-224281",
+   "duration_s": 30.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#91AE62",
+     "share": 0.337
+    },
+    {
+     "hex": "#A4DAE9",
+     "share": 0.317
+    },
+    {
+     "hex": "#71A14D",
+     "share": 0.12
+    },
+    {
+     "hex": "#435937",
+     "share": 0.083
+    },
+    {
+     "hex": "#94B683",
+     "share": 0.078
+    },
+    {
+     "hex": "#9DC6AD",
+     "share": 0.064
+    }
+   ],
+   "accent": "#71A14D"
+  },
+  "stokebuilder-356793": {
+   "type": "explainer",
+   "theme": "mixed",
+   "transition": "cut",
+   "notes": "podcast concept animations",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/stokebuilder-356793",
+   "duration_s": 15.8,
+   "width": 1280,
+   "height": 720,
+   "fps": 24,
+   "aspect": "16:9",
+   "hard_cuts": 1,
+   "cut_times_s": [
+    10.88
+   ],
+   "cuts_per_10s": 0.63,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#3A3C3B",
+     "share": 0.558
+    },
+    {
+     "hex": "#191B1A",
+     "share": 0.221
+    },
+    {
+     "hex": "#EDEFEE",
+     "share": 0.092
+    },
+    {
+     "hex": "#5D605E",
+     "share": 0.07
+    },
+    {
+     "hex": "#C2C4C3",
+     "share": 0.03
+    },
+    {
+     "hex": "#919392",
+     "share": 0.029
+    }
+   ],
+   "accent": "#5D605E"
+  },
+  "t4k1ra-cg-110846": {
+   "type": "explainer",
+   "theme": "flat-illustrated",
+   "transition": "fade",
+   "notes": "JP company intro: paper ground, flat illustrations, numbered",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/t4k1ra-cg-110846",
+   "duration_s": 40.0,
+   "width": 1280,
+   "height": 720,
+   "fps": 24,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#DAE5DB",
+     "share": 0.328
+    },
+    {
+     "hex": "#EFECE2",
+     "share": 0.226
+    },
+    {
+     "hex": "#CDD4C8",
+     "share": 0.137
+    },
+    {
+     "hex": "#357651",
+     "share": 0.126
+    },
+    {
+     "hex": "#7BAE76",
+     "share": 0.095
+    },
+    {
+     "hex": "#C0CC95",
+     "share": 0.088
+    }
+   ],
+   "accent": "#357651"
+  },
+  "tankazunori0914-156748": {
+   "type": "kinetic",
+   "theme": "hud-terminal",
+   "transition": "flash",
+   "notes": "\"FRIDAY\" marquee, HUD corners, Python BGM",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/tankazunori0914-156748",
+   "duration_s": 30.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 2,
+   "cut_times_s": [
+    20.0,
+    26.0
+   ],
+   "cuts_per_10s": 0.67,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#0F0F0D",
+     "share": 0.435
+    },
+    {
+     "hex": "#1A1511",
+     "share": 0.286
+    },
+    {
+     "hex": "#2D1E18",
+     "share": 0.116
+    },
+    {
+     "hex": "#5D4F46",
+     "share": 0.11
+    },
+    {
+     "hex": "#DCD2C8",
+     "share": 0.036
+    },
+    {
+     "hex": "#7E2C17",
+     "share": 0.017
+    }
+   ],
+   "accent": "#5D4F46"
+  },
+  "tardigrade111-160686": {
+   "type": "explainer",
+   "theme": "blueprint",
+   "transition": "draw-on",
+   "notes": "architect linework -> materials table -> flow, orange accent",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/tardigrade111-160686",
+   "duration_s": 51.6,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#F5F4F2",
+     "share": 0.601
+    },
+    {
+     "hex": "#FDFDFD",
+     "share": 0.192
+    },
+    {
+     "hex": "#DEDCDB",
+     "share": 0.073
+    },
+    {
+     "hex": "#C3BCB5",
+     "share": 0.05
+    },
+    {
+     "hex": "#4A2D1D",
+     "share": 0.042
+    },
+    {
+     "hex": "#A08163",
+     "share": 0.042
+    }
+   ],
+   "accent": "#4A2D1D"
+  },
+  "taylorbereiter-189192": {
+   "type": "story",
+   "theme": "retro-cartoon",
+   "transition": "cut",
+   "notes": "B-movie \"Planet Zog\", Double Feature",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/taylorbereiter-189192",
+   "duration_s": 41.4,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 7,
+   "cut_times_s": [
+    9.63,
+    9.67,
+    11.27,
+    11.3,
+    33.43,
+    33.47,
+    34.73
+   ],
+   "cuts_per_10s": 1.69,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#61222A",
+     "share": 0.252
+    },
+    {
+     "hex": "#270C0F",
+     "share": 0.246
+    },
+    {
+     "hex": "#170A47",
+     "share": 0.162
+    },
+    {
+     "hex": "#C5404D",
+     "share": 0.131
+    },
+    {
+     "hex": "#756064",
+     "share": 0.114
+    },
+    {
+     "hex": "#D6B194",
+     "share": 0.096
+    }
+   ],
+   "accent": "#C5404D"
+  },
+  "techartist-786274": {
+   "type": "3d",
+   "theme": "realistic",
+   "transition": "camera-path",
+   "notes": "3D scenes",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/techartist-786274",
+   "duration_s": 20.1,
+   "width": 1280,
+   "height": 886,
+   "fps": 60,
+   "aspect": "4:3",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#080E14",
+     "share": 0.321
+    },
+    {
+     "hex": "#23212C",
+     "share": 0.227
+    },
+    {
+     "hex": "#998394",
+     "share": 0.123
+    },
+    {
+     "hex": "#4D3432",
+     "share": 0.117
+    },
+    {
+     "hex": "#866052",
+     "share": 0.11
+    },
+    {
+     "hex": "#48435B",
+     "share": 0.101
+    }
+   ],
+   "accent": "#866052"
+  },
+  "techhalla-498547": {
+   "type": "kinetic",
+   "theme": "neon-brutal",
+   "transition": "scramble / blur letters",
+   "notes": "BAD PROMPTING IS / STOP SCROLLING, lime + pink, ruler HUD",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/techhalla-498547",
+   "duration_s": 20.1,
+   "width": 1080,
+   "height": 1080,
+   "fps": 60,
+   "aspect": "1:1",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#080808",
+     "share": 0.829
+    },
+    {
+     "hex": "#EFEDEF",
+     "share": 0.064
+    },
+    {
+     "hex": "#4E5138",
+     "share": 0.029
+    },
+    {
+     "hex": "#000001",
+     "share": 0.027
+    },
+    {
+     "hex": "#A2B166",
+     "share": 0.026
+    },
+    {
+     "hex": "#040505",
+     "share": 0.025
+    }
+   ],
+   "accent": "#A2B166"
+  },
+  "tejasthange3-128242": {
+   "type": "kinetic",
+   "theme": "dark-accent",
+   "transition": "dissolve",
+   "notes": "Twitter -> X history: blue, outline \"EVERYWHERE\", X logo",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/tejasthange3-128242",
+   "duration_s": 30.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 8,
+   "cut_times_s": [
+    2.5,
+    5.0,
+    9.0,
+    11.0,
+    14.0,
+    18.5,
+    26.0,
+    26.2
+   ],
+   "cuts_per_10s": 2.66,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#000000",
+     "share": 0.524
+    },
+    {
+     "hex": "#40A7E9",
+     "share": 0.129
+    },
+    {
+     "hex": "#1375B5",
+     "share": 0.128
+    },
+    {
+     "hex": "#0D1211",
+     "share": 0.105
+    },
+    {
+     "hex": "#6B6869",
+     "share": 0.084
+    },
+    {
+     "hex": "#2D3B43",
+     "share": 0.031
+    }
+   ],
+   "accent": "#40A7E9"
+  },
+  "tequilafunks-127728": {
+   "type": "brand",
+   "theme": "hud-showreel",
+   "transition": "mixed",
+   "notes": "CLAUDE Motion Designer: easing curve, stripes, SPACE",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/tequilafunks-127728",
+   "duration_s": 15.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 11,
+   "cut_times_s": [
+    2.03,
+    3.0,
+    10.03,
+    10.5,
+    11.0,
+    11.27,
+    11.5,
+    11.63,
+    11.9,
+    12.03,
+    12.07
+   ],
+   "cuts_per_10s": 7.28,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#0B0A0C",
+     "share": 0.645
+    },
+    {
+     "hex": "#E6E6DE",
+     "share": 0.122
+    },
+    {
+     "hex": "#342E3A",
+     "share": 0.1
+    },
+    {
+     "hex": "#8F8B8F",
+     "share": 0.055
+    },
+    {
+     "hex": "#313ACD",
+     "share": 0.039
+    },
+    {
+     "hex": "#C74A20",
+     "share": 0.038
+    }
+   ],
+   "accent": "#313ACD"
+  },
+  "tetsu-tetsu333-576886": {
+   "type": "launch",
+   "theme": "light-minimal",
+   "transition": "fade-through-bg",
+   "notes": "Kotosearch SEO: screenshots, TTS, 32 synced phrases",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/tetsu-tetsu333-576886",
+   "duration_s": 52.2,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#F8FAFA",
+     "share": 0.593
+    },
+    {
+     "hex": "#E9EEF4",
+     "share": 0.183
+    },
+    {
+     "hex": "#121F37",
+     "share": 0.116
+    },
+    {
+     "hex": "#CAD2DF",
+     "share": 0.049
+    },
+    {
+     "hex": "#3C4A56",
+     "share": 0.036
+    },
+    {
+     "hex": "#8C9BAD",
+     "share": 0.024
+    }
+   ],
+   "accent": "#121F37"
+  },
+  "thallisribeiro-829318": {
+   "type": "launch",
+   "theme": "dark-navy",
+   "transition": "fade",
+   "notes": "Licita: navy + orange, vertical, \"R$ 2.916.187,00\"",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/thallisribeiro-829318",
+   "duration_s": 20.5,
+   "width": 720,
+   "height": 1280,
+   "fps": 30,
+   "aspect": "9:16",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#050F1F",
+     "share": 0.3
+    },
+    {
+     "hex": "#09182F",
+     "share": 0.272
+    },
+    {
+     "hex": "#13233E",
+     "share": 0.175
+    },
+    {
+     "hex": "#F1F1F3",
+     "share": 0.167
+    },
+    {
+     "hex": "#A4847A",
+     "share": 0.045
+    },
+    {
+     "hex": "#4F444E",
+     "share": 0.042
+    }
+   ],
+   "accent": "#13233E"
+  },
+  "thayto-dev-739735": {
+   "type": "launch",
+   "theme": "light-blue",
+   "transition": "fade",
+   "notes": "AjustaCV: serif blue, white, price \"R$ 13,17\"",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/thayto-dev-739735",
+   "duration_s": 15.1,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 2,
+   "cut_times_s": [
+    9.38,
+    11.25
+   ],
+   "cuts_per_10s": 1.33,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#FAFCFC",
+     "share": 0.589
+    },
+    {
+     "hex": "#255FEB",
+     "share": 0.172
+    },
+    {
+     "hex": "#191815",
+     "share": 0.163
+    },
+    {
+     "hex": "#CAD4DA",
+     "share": 0.031
+    },
+    {
+     "hex": "#FDFEFE",
+     "share": 0.027
+    },
+    {
+     "hex": "#8292B7",
+     "share": 0.018
+    }
+   ],
+   "accent": "#255FEB"
+  },
+  "theviableedge-869918": {
+   "type": "launch",
+   "theme": "paper-notes",
+   "transition": "fade",
+   "notes": "second brains: paper + sticky notes, terminal",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/theviableedge-869918",
+   "duration_s": 15.0,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#F2F0EA",
+     "share": 0.675
+    },
+    {
+     "hex": "#101015",
+     "share": 0.168
+    },
+    {
+     "hex": "#F4F3EE",
+     "share": 0.051
+    },
+    {
+     "hex": "#C7C2BB",
+     "share": 0.051
+    },
+    {
+     "hex": "#F9F8F4",
+     "share": 0.034
+    },
+    {
+     "hex": "#575B57",
+     "share": 0.022
+    }
+   ],
+   "accent": "#C7C2BB"
+  },
+  "thuggy-juice-072370": {
+   "type": "launch",
+   "theme": "dark-orange",
+   "transition": "fade",
+   "notes": "Rounders FR: timer UI, orange",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/thuggy-juice-072370",
+   "duration_s": 38.5,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#0C1113",
+     "share": 0.812
+    },
+    {
+     "hex": "#000000",
+     "share": 0.063
+    },
+    {
+     "hex": "#080B0E",
+     "share": 0.053
+    },
+    {
+     "hex": "#342F22",
+     "share": 0.032
+    },
+    {
+     "hex": "#EAEBED",
+     "share": 0.024
+    },
+    {
+     "hex": "#847C69",
+     "share": 0.017
+    }
+   ],
+   "accent": "#342F22"
+  },
+  "timguignard-623571": {
+   "type": "explainer",
+   "theme": "light-minimal",
+   "transition": "fade-through-bg",
+   "notes": "screen record, vertical",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/timguignard-623571",
+   "duration_s": 25.0,
+   "width": 720,
+   "height": 1280,
+   "fps": 30,
+   "aspect": "9:16",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#0C0C09",
+     "share": 0.368
+    },
+    {
+     "hex": "#1A1510",
+     "share": 0.258
+    },
+    {
+     "hex": "#EEECEA",
+     "share": 0.208
+    },
+    {
+     "hex": "#331F15",
+     "share": 0.088
+    },
+    {
+     "hex": "#48403B",
+     "share": 0.046
+    },
+    {
+     "hex": "#A28D85",
+     "share": 0.032
+    }
+   ],
+   "accent": "#331F15"
+  },
+  "tony-tt-872147": {
+   "type": "3d",
+   "theme": "isometric",
+   "transition": "camera",
+   "notes": "isometric trading house",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/tony-tt-872147",
+   "duration_s": 56.0,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#050711",
+     "share": 0.356
+    },
+    {
+     "hex": "#0E1424",
+     "share": 0.303
+    },
+    {
+     "hex": "#2B2F37",
+     "share": 0.123
+    },
+    {
+     "hex": "#948B76",
+     "share": 0.081
+    },
+    {
+     "hex": "#5B5955",
+     "share": 0.072
+    },
+    {
+     "hex": "#E2D8B6",
+     "share": 0.065
+    }
+   ],
+   "accent": "#948B76"
+  },
+  "truenyl-447745": {
+   "type": "3d",
+   "theme": "naturalistic",
+   "transition": "camera-path",
+   "notes": "landscape, lake",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/truenyl-447745",
+   "duration_s": 59.3,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 3,
+   "cut_times_s": [
+    16.33,
+    24.33,
+    33.33
+   ],
+   "cuts_per_10s": 0.51,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#9DB9C7",
+     "share": 0.265
+    },
+    {
+     "hex": "#718E48",
+     "share": 0.216
+    },
+    {
+     "hex": "#9CA574",
+     "share": 0.177
+    },
+    {
+     "hex": "#E3DACE",
+     "share": 0.143
+    },
+    {
+     "hex": "#588488",
+     "share": 0.108
+    },
+    {
+     "hex": "#12191D",
+     "share": 0.092
+    }
+   ],
+   "accent": "#718E48"
+  },
+  "vectorcrossprod-436573": {
+   "type": "3d",
+   "theme": "dark-studio",
+   "transition": "camera-orbit",
+   "notes": "hardware enclosure exploded view with callout labels",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/vectorcrossprod-436573",
+   "duration_s": 10.0,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#101C21",
+     "share": 0.378
+    },
+    {
+     "hex": "#172A33",
+     "share": 0.296
+    },
+    {
+     "hex": "#091013",
+     "share": 0.199
+    },
+    {
+     "hex": "#424C52",
+     "share": 0.081
+    },
+    {
+     "hex": "#95968E",
+     "share": 0.029
+    },
+    {
+     "hex": "#8B3A18",
+     "share": 0.017
+    }
+   ],
+   "accent": "#172A33"
+  },
+  "viktoroddy-402509": {
+   "type": "launch",
+   "theme": "cosmic",
+   "transition": "fade",
+   "notes": "motionsites: purple space, \"1,000,000 visitors\"",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/viktoroddy-402509",
+   "duration_s": 54.3,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#000000",
+     "share": 0.722
+    },
+    {
+     "hex": "#0D0B0E",
+     "share": 0.078
+    },
+    {
+     "hex": "#7E7C82",
+     "share": 0.07
+    },
+    {
+     "hex": "#514749",
+     "share": 0.051
+    },
+    {
+     "hex": "#292226",
+     "share": 0.044
+    },
+    {
+     "hex": "#C7BFC8",
+     "share": 0.035
+    }
+   ],
+   "accent": "#514749"
+  },
+  "vince-builds-355650": {
+   "type": "story",
+   "theme": "paper-illustrated",
+   "transition": "speed-lines cut",
+   "notes": "pixel dev story, \"vibe coder -> vibe engineer\"",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/vince-builds-355650",
+   "duration_s": 56.0,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 1,
+   "cut_times_s": [
+    39.63
+   ],
+   "cuts_per_10s": 0.18,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#F7FAF7",
+     "share": 0.317
+    },
+    {
+     "hex": "#EBF2EC",
+     "share": 0.315
+    },
+    {
+     "hex": "#F7F2E3",
+     "share": 0.19
+    },
+    {
+     "hex": "#B4C3B4",
+     "share": 0.08
+    },
+    {
+     "hex": "#828D7C",
+     "share": 0.067
+    },
+    {
+     "hex": "#474334",
+     "share": 0.032
+    }
+   ],
+   "accent": "#F7F2E3"
+  },
+  "voxyz-ai-345550": {
+   "type": "kinetic",
+   "theme": "color-block",
+   "transition": "hard-color-cut",
+   "notes": "JP: cream/black/red, vertical kanji, waveform",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/voxyz-ai-345550",
+   "duration_s": 21.9,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 1,
+   "cut_times_s": [
+    3.65
+   ],
+   "cuts_per_10s": 0.46,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#030404",
+     "share": 0.291
+    },
+    {
+     "hex": "#111315",
+     "share": 0.253
+    },
+    {
+     "hex": "#242429",
+     "share": 0.194
+    },
+    {
+     "hex": "#3C3D47",
+     "share": 0.145
+    },
+    {
+     "hex": "#5F5D66",
+     "share": 0.093
+    },
+    {
+     "hex": "#BAABA0",
+     "share": 0.022
+    }
+   ],
+   "accent": "#3C3D47"
+  },
+  "washow-cfo-175311": {
+   "type": "explainer",
+   "theme": "line-icon",
+   "transition": "fade-through-bg",
+   "notes": "mastra x ZenRows: line icons, code panel, 01/06",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/washow-cfo-175311",
+   "duration_s": 36.8,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 15,
+   "cut_times_s": [
+    3.9,
+    7.23,
+    7.77,
+    9.47,
+    10.67,
+    13.57,
+    15.17,
+    15.27,
+    17.43,
+    19.13,
+    20.97,
+    21.07,
+    23.23,
+    24.93,
+    29.1
+   ],
+   "cuts_per_10s": 4.07,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#0B0B0B",
+     "share": 0.411
+    },
+    {
+     "hex": "#EFEEEA",
+     "share": 0.336
+    },
+    {
+     "hex": "#C2032A",
+     "share": 0.184
+    },
+    {
+     "hex": "#BBA7A7",
+     "share": 0.037
+    },
+    {
+     "hex": "#5D5555",
+     "share": 0.018
+    },
+    {
+     "hex": "#020202",
+     "share": 0.013
+    }
+   ],
+   "accent": "#C2032A"
+  },
+  "wustep-884086": {
+   "type": "explainer",
+   "theme": "light-minimal",
+   "transition": "fade-through-bg",
+   "notes": "product explainer",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/wustep-884086",
+   "duration_s": 31.9,
+   "width": 1280,
+   "height": 720,
+   "fps": 60,
+   "aspect": "16:9",
+   "hard_cuts": 1,
+   "cut_times_s": [
+    31.42
+   ],
+   "cuts_per_10s": 0.31,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#FCFCFC",
+     "share": 0.736
+    },
+    {
+     "hex": "#F7F8F7",
+     "share": 0.153
+    },
+    {
+     "hex": "#FEFEFE",
+     "share": 0.047
+    },
+    {
+     "hex": "#D0D0D1",
+     "share": 0.032
+    },
+    {
+     "hex": "#9D9D9D",
+     "share": 0.016
+    },
+    {
+     "hex": "#525252",
+     "share": 0.014
+    }
+   ],
+   "accent": "#F7F8F7"
+  },
+  "xamfonos-004331": {
+   "type": "explainer",
+   "theme": "line-icon",
+   "transition": "dissolve+scale",
+   "notes": "line icons + code, white",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/xamfonos-004331",
+   "duration_s": 45.0,
+   "width": 1280,
+   "height": 720,
+   "fps": 30,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "light",
+   "palette": [
+    {
+     "hex": "#F9FAF5",
+     "share": 0.743
+    },
+    {
+     "hex": "#FDFDFA",
+     "share": 0.073
+    },
+    {
+     "hex": "#E5E7E2",
+     "share": 0.072
+    },
+    {
+     "hex": "#CECFCB",
+     "share": 0.044
+    },
+    {
+     "hex": "#A7A8A3",
+     "share": 0.038
+    },
+    {
+     "hex": "#FAFBF7",
+     "share": 0.031
+    }
+   ],
+   "accent": "#F9FAF5"
+  },
+  "xenit-v0-532873": {
+   "type": "launch",
+   "theme": "dark-warm",
+   "transition": "blur-dissolve + 3D tilt",
+   "notes": "Scroll+: phone in 3D, serif \"Scroll sideways.\", gold accent",
+   "label_confidence": "high",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/xenit-v0-532873",
+   "duration_s": 28.4,
+   "width": 720,
+   "height": 1280,
+   "fps": 30,
+   "aspect": "9:16",
+   "hard_cuts": 2,
+   "cut_times_s": [
+    4.9,
+    4.97
+   ],
+   "cuts_per_10s": 0.7,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#100C07",
+     "share": 0.275
+    },
+    {
+     "hex": "#1D1810",
+     "share": 0.257
+    },
+    {
+     "hex": "#EBE7DD",
+     "share": 0.197
+    },
+    {
+     "hex": "#372C1D",
+     "share": 0.151
+    },
+    {
+     "hex": "#B9AF9E",
+     "share": 0.083
+    },
+    {
+     "hex": "#6B5E4E",
+     "share": 0.037
+    }
+   ],
+   "accent": "#B9AF9E"
+  },
+  "yarhmm-341449": {
+   "type": "kinetic",
+   "theme": "color-block",
+   "transition": "hard-color-cut",
+   "notes": "Arabic RTL vertical: teal/black/cream blocks, orange arrows",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/yarhmm-341449",
+   "duration_s": 55.7,
+   "width": 720,
+   "height": 1280,
+   "fps": 30,
+   "aspect": "9:16",
+   "hard_cuts": 48,
+   "cut_times_s": [
+    1.17,
+    1.2,
+    1.7,
+    1.73,
+    4.13,
+    4.17,
+    5.73,
+    5.77,
+    7.0,
+    7.03,
+    7.73,
+    7.77,
+    8.53,
+    9.67,
+    9.7,
+    10.37,
+    12.17,
+    12.23,
+    13.37,
+    13.8,
+    13.87,
+    14.7,
+    14.73,
+    19.3,
+    19.97,
+    20.0,
+    23.8,
+    24.2,
+    24.23,
+    25.07,
+    25.1,
+    25.13,
+    28.17,
+    31.27,
+    32.53,
+    32.57,
+    33.87,
+    34.93,
+    34.97,
+    36.23,
+    38.23,
+    39.27,
+    39.3,
+    39.97,
+    40.0,
+    50.97,
+    51.87,
+    51.93
+   ],
+   "cuts_per_10s": 8.62,
+   "ground": "mid",
+   "palette": [
+    {
+     "hex": "#051011",
+     "share": 0.537
+    },
+    {
+     "hex": "#91E2D8",
+     "share": 0.295
+    },
+    {
+     "hex": "#2C3333",
+     "share": 0.068
+    },
+    {
+     "hex": "#060707",
+     "share": 0.052
+    },
+    {
+     "hex": "#496E6E",
+     "share": 0.032
+    },
+    {
+     "hex": "#C3926D",
+     "share": 0.017
+    }
+   ],
+   "accent": "#91E2D8"
+  },
+  "zacxbt-234711": {
+   "type": "3d",
+   "theme": "naturalistic",
+   "transition": "time-of-day",
+   "notes": "beach day -> night walk",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/zacxbt-234711",
+   "duration_s": 24.6,
+   "width": 1280,
+   "height": 710,
+   "fps": 56,
+   "aspect": "16:9",
+   "hard_cuts": 0,
+   "cut_times_s": [],
+   "cuts_per_10s": 0.0,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#5A4B46",
+     "share": 0.314
+    },
+    {
+     "hex": "#2D232B",
+     "share": 0.296
+    },
+    {
+     "hex": "#050517",
+     "share": 0.154
+    },
+    {
+     "hex": "#9E6D5A",
+     "share": 0.112
+    },
+    {
+     "hex": "#DAB49C",
+     "share": 0.088
+    },
+    {
+     "hex": "#2A1E51",
+     "share": 0.037
+    }
+   ],
+   "accent": "#9E6D5A"
+  },
+  "zakisbuilding-495680": {
+   "type": "launch",
+   "theme": "dark-gradient",
+   "transition": "fade",
+   "notes": "Bedless Fajr alarm app, vertical, \"UNTIL YOU'RE UP.\"",
+   "label_confidence": "low",
+   "url": "https://skillry.dev/ai-videos/opus-5-5/zakisbuilding-495680",
+   "duration_s": 15.1,
+   "width": 720,
+   "height": 1280,
+   "fps": 60,
+   "aspect": "9:16",
+   "hard_cuts": 6,
+   "cut_times_s": [
+    1.5,
+    1.53,
+    2.18,
+    2.23,
+    7.78,
+    7.8
+   ],
+   "cuts_per_10s": 3.98,
+   "ground": "dark",
+   "palette": [
+    {
+     "hex": "#1E2032",
+     "share": 0.337
+    },
+    {
+     "hex": "#10101C",
+     "share": 0.253
+    },
+    {
+     "hex": "#2B2753",
+     "share": 0.189
+    },
+    {
+     "hex": "#543653",
+     "share": 0.095
+    },
+    {
+     "hex": "#893A36",
+     "share": 0.087
+    },
+    {
+     "hex": "#A8A8A8",
+     "share": 0.039
+    }
+   ],
+   "accent": "#893A36"
+  }
+ }
+}

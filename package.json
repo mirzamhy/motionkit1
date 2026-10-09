@@ -1,0 +1,35 @@
+{
+  "name": "motionkit",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Reference-driven motion graphics: style DNA from real videos, a safe Remotion engine, and an automatic quality gate.",
+  "type": "module",
+  "bin": {
+    "mk": "bin/mk.mjs"
+  },
+  "scripts": {
+    "mk": "node bin/mk.mjs",
+    "studio": "remotion studio packages/core/src/index.ts",
+    "typecheck": "tsc --noEmit -p ."
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@remotion/bundler": "4.0.473",
+    "@remotion/cli": "4.0.473",
+    "@remotion/google-fonts": "4.0.473",
+    "@remotion/renderer": "4.0.473",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.473",
+    "tsx": "^4.20.0",
+    "undici": "^8.11.2",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "typescript": "5.9.3"
+  }
+}
