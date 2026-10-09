@@ -3,6 +3,7 @@
 import { ENGINE_PATHS, LOOK_IDS, Spec, type Words } from '../../packages/core/src/spec/schema';
 import { buildTimeline, norm } from '../../packages/core/src/engine/timeline';
 import { departure, revealEnd } from '../../packages/core/src/engine/reveals';
+import { structureWarnings } from '../../packages/qa/src/structure';
 
 const CUE_KEYS = new Set(['at', 'from', 'to', 'cutAt', 'goAt', 'logoAt', 'scanFrom', 'scanTo', 'doneAt', 'kickerAt', 'revealAt']);
 const NON_VISIBLE = new Set(['at', 'from', 'to', 'cutAt', 'goAt', 'logoAt', 'scanFrom', 'scanTo', 'doneAt', 'kickerAt', 'revealAt', 'type', 'group', 'style', 'scene', 'effect', 'preset', 'path', 'voiceId', 'tts', 'slug', 'lines', 'mark', 'color', 'accent', 'hot', 'source']);
@@ -87,6 +88,7 @@ export const lintSpec = (raw: unknown, ctx: { facts: string; brief: string; rece
   });
 
   // structure
+  warnings.push(...structureWarnings(spec, tl));
   // transitions: one family per film, and covers need room between them
   const fams = new Set(spec.beats.slice(1).map((b) => (b.transition === 'none' ? 'camera' : (b.transition ?? spec.transition.family))).filter((f) => f !== 'camera'));
   if (fams.size > 1) warnings.push(`transitions: ${[...fams].join(', ')} — use ONE family per film (set spec.transition, override a beat only with "none")`);

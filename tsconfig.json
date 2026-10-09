@@ -28,6 +28,8 @@
   },
   "include": [
     "packages/core/src",
+    "packages/qa/src",
+    "scripts",
     "apps/cli",
     "remotion.config.ts"
   ]

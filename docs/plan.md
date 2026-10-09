@@ -55,9 +55,14 @@ brief + facts ────────────► concept (opener menu / arc
    mounted in all three engines under the captions. Lint warns on mixed families and >4 loud covers. Dev check:
    `npx tsx scripts/transition-strips.ts <engine> <beat>`. Not yet: transition SFX, dissolve+scale (needs per-scene
    opacity inside each engine), iris from a chosen element instead of the centre.
-2. **Quality gate.** Anti-slideshow lint (≤2 text levels per beat, not all transitions fades, no
-   hook→feature→feature→logo skeleton without a concept, something survives each cut), motion-energy per second
-   from frame diffs, existing frame-jump scan.
+2. **Quality gate (done, first pass).** `packages/qa`:
+   - `structure.ts` (runs in `mk lint`): no event for > 3.5 s while the VO runs; same widget 3× in a row;
+     stock hook → card ×3 → logo skeleton with no punch / camera move / takeover / transition.
+   - `motion.ts` (runs after `mk render`): motion energy per second from frame diffs; < 0.25 dead, < 0.5 slow,
+     closing hold excluded. Calibrated on the mimo example (content seconds 0.87–13).
+   - `mk qa <slug>`: structure + frame-jump + energy on existing renders.
+   Still to do: text-level count per beat (needs widget metadata), feeding qa failures back into the
+   `mk review` fix loop, a "something survives each cut" check for custom scenes (phase 5).
 3. **Style DNA.** `mk dna <video|url>` → palette (fix accent: most saturated small cluster, not mean),
    cut tempo, ground, transition family. Generate a look from DNA. Report distance to reference after render.
 4. **Widgets.** scramble, HUD frame, takeover echo + colour flash, before→after number, dot-matrix stat,

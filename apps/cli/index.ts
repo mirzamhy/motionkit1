@@ -9,7 +9,7 @@ import { ROOT, proj } from './paths';
 import { checkScene, codeRender, runCode, writeScene } from './code';
 import { setDuration, targetDuration } from './target';
 import { getBalance } from './balance';
-import { concept, exampleProject, fix, latestRound, loadSpec, loadWords, plan, prepareAudio, recentFor, remember, renderFinal, renderStills, run, usageSummary, verify, type Review } from './pipeline';
+import { concept, exampleProject, fix, latestRound, loadSpec, loadWords, plan, prepareAudio, qaReport, recentFor, remember, renderFinal, renderStills, run, usageSummary, verify, type Review } from './pipeline';
 import type { AspectId } from './render';
 
 const HELP = `mk — Opus-grade Remotion launch videos from cheap models (Vikey API)
@@ -22,6 +22,7 @@ const HELP = `mk — Opus-grade Remotion launch videos from cheap models (Vikey 
   mk lint <slug>               validate spec.json (schema + facts + cues + pacing)
   mk audio <slug> [--only m02] voice-over + music (ElevenLabs) + SFX
   mk remember <slug>           record spec.json (+ concept angle) in projects/.history.json
+  mk qa <slug>                  quality gate: slideshow patterns in the spec + motion energy / frame jumps in renders
   mk stills <slug>             render review frames → projects/<slug>/review/round-N/
   mk verify <slug>             verifier (${cfg.verifier}) reviews the latest frames
   mk review <slug> [--rounds 3] stills → verify → fix, until it passes
@@ -96,6 +97,10 @@ const main = async () => {
     case 'plan':
       await plan(needSlug());
       return;
+    case 'qa': {
+      qaReport(needSlug());
+      break;
+    }
     case 'lint': {
       const P = proj(needSlug());
       const read = (p: string) => (existsSync(p) ? readFileSync(p, 'utf8') : '');

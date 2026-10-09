@@ -11,6 +11,8 @@ import { chat, parseJson, type Msg, type Part } from './llm';
 import { PROJECTS, ROOT, mustExist, proj } from './paths';
 import { media, propsFor, stills, type AspectId } from './render';
 import { departure, revealEnd } from '../../packages/core/src/engine/reveals';
+import { describeEnergy, frameDiffs, motionEnergy } from '../../packages/qa/src/motion';
+import { structureWarnings } from '../../packages/qa/src/structure';
 
 const read = (p: string) => (existsSync(p) ? readFileSync(p, 'utf8') : '');
 const log = (s: string) => console.log(s);
@@ -332,13 +334,34 @@ export const prepareAudio = async (slug: string, opts: { forceVo?: boolean; only
   }
 };
 
+/** motion energy of a rendered film; the closing lockup hold is not judged */
+export const energyOf = (file: string, aspect: AspectId, spec: Spec) => motionEnergy(frameDiffs(file, aspect), spec.fps, spec.holdSec + 1);
+
+/** `mk qa`: structure checks on the spec + motion energy / frame jumps on whatever renders exist */
+export const qaReport = (slug: string) => {
+  const P = proj(slug);
+  const spec = loadSpec(slug);
+  const words = loadWords(slug);
+  const tl = buildTimeline(spec, words);
+  const sw = structureWarnings(spec, tl);
+  log(sw.length ? sw.map((x) => `⚠ ${x}`).join('\n') : '✓ structure: no slideshow patterns');
+  let rendered = 0;
+  for (const aspect of ['landscape', 'portrait'] as AspectId[]) {
+    const file = path.join(P.out, `${slug}-${aspect}.mp4`);
+    if (!existsSync(file)) continue;
+    rendered++;
+    log(`▸ ${aspect}`);
+    const spikes = diffScan(file, aspect, spec, words);
+    log(spikes.length ? `  ⚠ ${spikes.length} unexpected frame jump(s): ${spikes.slice(0, 6).map((s) => `f${s.frame}`).join(', ')}` : '  ✓ no unexpected frame jumps');
+    for (const line of describeEnergy(energyOf(file, aspect, spec))) log(`  ${line}`);
+  }
+  if (!rendered) log(`· no renders in ${path.relative(process.cwd(), P.out)} — run \`mk render ${slug}\` for motion checks`);
+  return sw.length;
+};
+
 export const diffScan = (file: string, aspect: AspectId, spec: Spec, words: Words | null) => {
   const tl = buildTimeline(spec, words);
-  const crop = aspect === 'landscape' ? 'crop=1920:900:0:0' : 'crop=1080:1600:0:0';
-  const res = spawnSync('ffmpeg', ['-v', 'error', '-i', file, '-vf', `${crop},scale=480:-2,format=gray,tblend=all_mode=difference,signalstats,metadata=print:key=lavfi.signalstats.YAVG:file=-`, '-an', '-f', 'null', '-'], { encoding: 'utf8', maxBuffer: 1 << 26 });
-  const vals: number[] = [];
-  // values can be in scientific notation (9.2e-06) on static frames — parse the whole token
-  for (const m of res.stdout.matchAll(/YAVG=([-\d.eE+]+)/g)) vals.push(Number(m[1]));
+  const vals = frameDiffs(file, aspect);
   // intended changes (cue hits, counters, odometers, typing, scans) are allowed to spike
   const ranges: [number, number][] = [];
   const cueKeys = ['cutAt', 'goAt', 'logoAt', 'at', 'from', 'to', 'scanFrom', 'scanTo', 'doneAt', 'kickerAt', 'revealAt'];
@@ -392,6 +415,7 @@ export const renderFinal = async (slug: string, aspects: AspectId[] = ['landscap
     const spikes = diffScan(output, aspect, spec, words);
     if (spikes.length) log(`  ⚠ ${spikes.length} unexpected frame jump(s): ${spikes.slice(0, 6).map((s) => `f${s.frame}`).join(', ')} — inspect those frames`);
     else log('  ✓ no unexpected frame jumps');
+    for (const line of describeEnergy(energyOf(output, aspect, spec))) log(`  ${line}`);
     outs.push(output);
   }
   return outs;
