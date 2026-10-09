@@ -7,6 +7,7 @@ import { buildTimeline } from '../engine/timeline';
 import { prog } from '../engine/util';
 import { Billboard, Captions, Floor, Particles, projOf } from '../engine/world';
 import { AudioBed, HitOverlays, useHitFx, useQA, type EngineProps } from './shared';
+import { HudOverlay } from './hud';
 import { TransitionOverlay } from './transitions';
 
 export const FlyThrough: React.FC<EngineProps> = ({ spec, words, hasVo, hasMusic, sfx, qa, aspect }) => {
@@ -85,6 +86,7 @@ export const FlyThrough: React.FC<EngineProps> = ({ spec, words, hasVo, hasMusic
         <Particles A={A} look={look} cam={cam} prev={prev} fd={fd} near yShift={staircase ? cam.y * 0.85 : 0} />
       </AbsoluteFill>
       <TransitionOverlay A={A} spec={spec} tl={tl} look={look} t={t} />
+      <HudOverlay A={A} spec={spec} tl={tl} look={look} t={t} hits={plan.hits} mono={f.mono} />
       <HitOverlays A={A} P={P} hits={plan.hits} t={t} spec={spec} look={look} flash={flash} flashB={flashB} />
       <Captions A={A} tl={tl} look={look} ui={f.ui} t={t} />
 

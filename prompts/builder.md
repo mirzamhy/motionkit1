@@ -72,6 +72,10 @@ takeover — one oversized word slams in on a halftone field and holds (chapter 
   label ≤16 (mono, e.g. "01 / MASALAH"), word ≤10 (one word, caps reads best), at (the word that SAYS it), sub ≤40,
   reveal "slam" | "scramble", echo true (outlined copies drift behind), flash true (accent panel swells behind).
   Use echo/flash on the film's ONE loudest word, not every takeover.
+dots — a grid of dots filling to a share ("8 of 10 teams", "80% never open") next to the big number
+  label ≤18, total 10–100 (100 = percent), value ≤ total, display ≤8 (e.g. "80%"), caption ≤42, from, to.
+rotate — fixed lead word + a slot that rolls to each item on the word that says it, then a summary line
+  lead ≤14 ("Beli"), items 2–6 × {text ≤16, at}, final? {text ≤26 ("saham apa pun."), at}.
 versus — before → after number: the old one in grey gets struck out, the new one scrambles in, in the accent
   label ≤18, before {value ≤10, caption ≤22}, after {value ≤10, caption ≤22}, at (the word that announces the change).
   Both values must come from FACTS (e.g. official price vs ours, 6 hours vs 10 sec).
@@ -99,6 +103,10 @@ piece: [{"text":"Mahal.","at":"m02:mahal","strike":"m02:sekarang"},{"text":"Hema
 { "id": "kebab-id", "at": cue (camera settles here), "group"?: "same-string for side-by-side cards",
   "widget": {...}, "camera"?: { "open"?: "closeup", "revealAt"?: cue, "zoom"?: 0.6–1.6, "moves"?: [...] },
   "punches"?: [cue] (extra zoom punches on emphasis words, max 4) }
+
+# HUD (optional)
+Top-level "hud": {"label"? ≤24, "right"? ≤16} adds showreel chrome: corner marks, timecode, "03 / 07 · TYPE", a progress
+line and a beat meter. Use it for tech / product / showreel films; skip it for warm or editorial ones.
 
 # TRANSITIONS
 Top-level "transition": {"family": …, "color"?: "accent"|"brand"|"ground"|"ink"|"white"} — ONE family for the whole film,

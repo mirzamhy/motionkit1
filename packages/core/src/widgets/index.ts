@@ -4,7 +4,7 @@ import { agents, lockup } from './agents';
 import { code, stat, vision } from './cards';
 import { hero } from './hero';
 import { price } from './price';
-import { bars, chat, checklist, headline, takeover, versus } from './text';
+import { bars, chat, checklist, dots, headline, rotate, takeover, versus } from './text';
 
 export const buildWidget = (w: Widget, ctx: Ctx): WidgetOut => {
   switch (w.type) {
@@ -34,5 +34,9 @@ export const buildWidget = (w: Widget, ctx: Ctx): WidgetOut => {
       return takeover(w, ctx);
     case 'versus':
       return versus(w, ctx);
+    case 'dots':
+      return dots(w, ctx);
+    case 'rotate':
+      return rotate(w, ctx);
   }
 };

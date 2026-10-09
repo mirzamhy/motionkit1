@@ -167,7 +167,25 @@ export const Versus = z.object({
   at: Cue.describe('the word that announces the new number: strike + reveal start here'),
 });
 
-export const Widget = z.discriminatedUnion('type', [Hero, Stat, Vision, Code, Price, Agents, Lockup, Headline, Chat, Bars, Checklist, Takeover, Versus]);
+export const Dots = z.object({
+  type: z.literal('dots'),
+  label: short(18),
+  total: z.number().int().min(10).max(100).default(100).describe('dots in the grid (100 = percent)'),
+  value: z.number().min(0).describe('how many dots fill; ≤ total'),
+  display: short(8).describe('the big number shown, e.g. "80%" or "4 / 5"'),
+  caption: short(42),
+  from: Cue,
+  to: Cue,
+});
+
+export const Rotate = z.object({
+  type: z.literal('rotate'),
+  lead: short(14).describe('the fixed word, e.g. "Beli"'),
+  items: z.array(z.object({ text: short(16), at: Cue })).min(2).max(6).describe('nouns that roll through the slot, each on the word that says it'),
+  final: z.object({ text: short(26), at: Cue }).optional().describe('the generalising line that lands after the list, e.g. "saham apa pun."'),
+});
+
+export const Widget = z.discriminatedUnion('type', [Hero, Stat, Vision, Code, Price, Agents, Lockup, Headline, Chat, Bars, Checklist, Takeover, Versus, Dots, Rotate]);
 export type Widget = z.infer<typeof Widget>;
 
 export const Beat = z.object({
@@ -211,6 +229,10 @@ export const Spec = z.object({
   archetype: z.enum(ARCHETYPE_IDS).default('launch'),
   look: z.object({ preset: z.enum(LOOK_IDS), accent: z.tuple([Hex, Hex]).optional(), hot: Hex.optional() }),
   path: z.enum(PATH_IDS).default('dolly'),
+  hud: z
+    .object({ label: short(24).optional().describe('top-left mono label; defaults to the brand name'), right: short(16).optional().describe('bottom-right tag next to the beat meter') })
+    .optional()
+    .describe('showreel frame chrome: corner marks, timecode, section counter, progress line, beat meter'),
   transition: z
     .object({ family: z.enum(TRANSITION_IDS).default('camera'), color: z.enum(TRANSITION_COLORS).optional() })
     .default({ family: 'camera' })

@@ -6,7 +6,7 @@ import { Caret, Chars, Mark, Odo, Strike, scrambleText } from '../engine/atoms';
 import { fitSize } from '../engine/fit';
 import { GREEN } from '../engine/looks';
 import type { Ctx, Hit, Sfx } from '../engine/types';
-import { clamp01, lin, pop, prog, typed } from '../engine/util';
+import { clamp01, inOut, lin, pop, prog, typed } from '../engine/util';
 import type { Widget } from '../spec/schema';
 
 export type KPal = { bg: string; fg: string; muted: string; hot: string; line: string; inset: string };
@@ -471,6 +471,82 @@ export const kineticWidget = (w: Widget, k: KCtx): KOut => {
         ),
         hits: [{ at: at + 24, kind: 'punch' }],
         sfx: [[at - 2, 'tick', 0.4], [at + 4, 'roll', 0.35]],
+      };
+    }
+    case 'dots': {
+      const from = cue(w.from);
+      const to = cue(w.to) + 10;
+      const cols = w.total >= 50 ? 10 : 5;
+      const gridW = P ? box.w * 0.56 : Math.min(460, box.w * 0.45);
+      const cell = gridW / cols;
+      const numW = P ? box.w : box.w - gridW - 50;
+      const size = fitSize(w.display, f.disp, f.dispWeight, P ? 190 : 230, numW, f.dispTrack);
+      return {
+        node: (t) => {
+          const fill = prog(t, from, to, inOut) * Math.min(w.value, w.total);
+          return (
+            <Abs x={box.x} y={box.y} w={box.w} h={box.h}>
+              <Kicker k={k} text={w.label.toUpperCase()} t={t} at={k.arrive - 20} />
+              <div style={{ marginTop: 24, display: 'flex', flexDirection: P ? 'column' : 'row', alignItems: P ? 'flex-start' : 'center', gap: P ? 30 : 50 }}>
+                <div style={{ width: gridW, display: 'grid', gridTemplateColumns: `repeat(${cols}, ${cell}px)`, gridAutoRows: `${cell}px`, flex: 'none' }}>
+                  {Array.from({ length: w.total }, (_, i) => {
+                    const on = Math.max(0, Math.min(1, fill - i));
+                    return (
+                      <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <div style={{ position: 'relative', width: cell * 0.64, height: cell * 0.64 }}>
+                          <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: `3px solid ${pal.line}` }} />
+                          <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: pal.hot, opacity: on, transform: `scale(${(0.6 + 0.4 * on).toFixed(3)})` }} />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                <div style={{ width: numW }}>
+                  <div data-fit="1" style={{ fontFamily: f.disp, fontWeight: f.dispWeight, fontSize: size, letterSpacing: `${f.dispTrack}em`, lineHeight: 1, whiteSpace: 'nowrap', fontVariantNumeric: 'tabular-nums', color: pal.fg, opacity: prog(t, from + 4, from + 16) }}>{scrambleText(w.display, t, to - 18, 18)}</div>
+                  <div style={{ marginTop: 20, fontFamily: f.ui, fontWeight: 600, fontSize: P ? 44 : 42, color: pal.fg, opacity: prog(t, from + 8, from + 22) }}>{w.caption}</div>
+                </div>
+              </div>
+            </Abs>
+          );
+        },
+        hits: [{ at: to, kind: 'punch' }],
+        sfx: [[from, 'roll', 0.35]],
+      };
+    }
+    case 'rotate': {
+      const ats = w.items.map((it) => cue(it.at));
+      const finAt = w.final ? cue(w.final.at) : null;
+      const longest = w.items.reduce((a, it) => (it.text.length > a.length ? it.text : a), '');
+      const size = Math.min(fitSize(w.lead, f.disp, f.dispWeight, P ? 200 : 210, box.w, f.dispTrack), fitSize(longest, f.disp, f.dispWeight, P ? 200 : 210, box.w, f.dispTrack));
+      const lineH = size * 1.08;
+      return {
+        node: (t) => {
+          let pos = 0;
+          ats.forEach((a, i) => {
+            if (i > 0) pos += prog(t, a - 6, a + 4, inOut);
+          });
+          return (
+            <Abs x={box.x} y={box.y} w={box.w} h={box.h} style={{ transform: `scale(${(1 + 0.04 * prog(t, ats[0], (finAt ?? ats[ats.length - 1]) + 40, (x) => x)).toFixed(4)})`, transformOrigin: 'left center' }}>
+              <div data-fit="1" style={{ fontFamily: f.disp, fontWeight: f.dispWeight, fontSize: size, letterSpacing: `${f.dispTrack}em`, lineHeight: 1.08, color: pal.fg, whiteSpace: 'nowrap' }}>
+                <Chars text={w.lead} t={t} at={ats[0] - 14} step={1.8} />
+              </div>
+              <div style={{ position: 'relative', height: lineH, overflow: 'hidden' }}>
+                <div style={{ position: 'absolute', left: 0, top: 0, transform: `translateY(${(-pos * lineH).toFixed(2)}px)` }}>
+                  {w.items.map((it, i) => (
+                    <div key={i} data-fit="1" style={{ height: lineH, fontFamily: f.disp, fontWeight: f.dispWeight, fontSize: size, letterSpacing: `${f.dispTrack}em`, lineHeight: 1.08, color: pal.hot, whiteSpace: 'nowrap' }}>{it.text}</div>
+                  ))}
+                </div>
+              </div>
+              {w.final && finAt !== null && (
+                <div style={{ marginTop: 30, fontFamily: f.ui, fontWeight: 700, fontSize: P ? 64 : 66, color: pal.fg, whiteSpace: 'nowrap' }}>
+                  <Chars text={w.final.text} t={t} at={finAt - 4} step={1.4} />
+                </div>
+              )}
+            </Abs>
+          );
+        },
+        hits: [...ats.slice(1).map((a) => ({ at: a, kind: 'punch' as const })), ...(finAt !== null ? [{ at: finAt, kind: 'punch' as const }] : [])],
+        sfx: ats.slice(1).map((a): Sfx => [a - 6, 'tick', 0.35]),
       };
     }
   }

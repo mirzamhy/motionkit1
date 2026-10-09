@@ -79,6 +79,10 @@ brief + facts ────────────► concept (opener menu / arc
    push + one sheen during the hold); headline `strike` cue. Flythrough/poster + kinetic. Fixed on the way: kinetic
    dark chips / AI bubbles / badge text were invisible on gradient grounds (`onFg`). Dev: `scripts/demo-4a.ts`,
    `scripts/frames.ts`.
+4b. **Batch B (done).** `spec.hud` → `engines/hud.tsx` overlay in all engines (corner marks, mono label, timecode,
+   section counter, progress line, 4-step beat meter pulsing on punches; kinetic follows the scene palette). New
+   widgets `dots` (dot grid filling to a share + scrambled display number) and `rotate` (lead word + rolling slot +
+   summary line). Dev: `scripts/demo-4b.ts`.
 4. **Widgets (remaining).** scramble, HUD frame, takeover echo + colour flash, before→after number, dot-matrix stat,
    strikethrough correction, leaderboard, notification, prompt composer, integrations grid, text ring.
 5. **Custom scenes.** ≤2 per video, agent-written component inside a fixed box/duration, must pass qa.

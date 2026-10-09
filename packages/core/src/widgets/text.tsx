@@ -5,8 +5,8 @@ import { Card, Chars, Head, Strike, gradText, scrambleText } from '../engine/ato
 import { fitSize, textW } from '../engine/fit';
 import { grad, GREEN } from '../engine/looks';
 import type { Ctx, WidgetOut } from '../engine/types';
-import { pop, prog, typed } from '../engine/util';
-import type { Bars, Chat, Checklist, Headline, Takeover, Versus } from '../spec/schema';
+import { inOut, pop, prog, typed } from '../engine/util';
+import type { Bars, Chat, Checklist, Dots, Headline, Rotate, Takeover, Versus } from '../spec/schema';
 
 /** static halftone dot field (no per-frame filters); fades in, never toggles */
 export const Halftone: React.FC<{ w: number; h: number; color: string; opacity: number; cell?: number }> = ({ w, h, color, opacity, cell = 18 }) => (
@@ -204,4 +204,90 @@ export const checklist = (w: z.infer<typeof Checklist>, ctx: Ctx): WidgetOut => 
     </Card>
   );
   return { layers: [{ key: 'card', dx: 0, dy: 0, w: cw, h: ch, node }], sfx: ats.map((a): [number, string, number] => [a, 'tick', 0.35]) };
+};
+
+/** a grid of dots filling up to `value` between from → to, next to the big number */
+export const dots = (w: z.infer<typeof Dots>, ctx: Ctx): WidgetOut => {
+  const P = ctx.P;
+  const f = ctx.f;
+  const [cw, ch] = P ? [940, 1040] : [1240, 640];
+  const pad = P ? 56 : 56;
+  const from = ctx.cue(w.from);
+  const to = ctx.cue(w.to) + 10;
+  const cols = w.total >= 50 ? 10 : 5;
+  const rows = Math.ceil(w.total / cols);
+  const gridW = P ? cw - pad * 2 : Math.min(500, ch - pad * 2 - 60);
+  const cell = gridW / cols;
+  const numW = P ? cw - pad * 2 : cw - pad * 2 - gridW - 60;
+  const size = fitSize(w.display, f.disp, f.dispWeight, P ? 170 : 150, numW, f.dispTrack);
+  const node = (t: number) => {
+    const fill = prog(t, from, to, inOut) * Math.min(w.value, w.total);
+    return (
+      <Card ctx={ctx} w={cw} h={ch} pad={pad}>
+        <Head ctx={ctx} icon="bars" label={w.label.toUpperCase()} size={P ? 24 : 20} />
+        <div style={{ position: 'absolute', left: 0, right: 0, top: (P ? 24 : 20) * 2.6, bottom: 0, display: 'flex', flexDirection: P ? 'column' : 'row', alignItems: 'center', gap: P ? 40 : 60 }}>
+          <div style={{ width: gridW, height: rows * cell, display: 'grid', gridTemplateColumns: `repeat(${cols}, ${cell}px)`, gridAutoRows: `${cell}px`, flex: 'none' }}>
+            {Array.from({ length: w.total }, (_, i) => {
+              const on = Math.max(0, Math.min(1, fill - i));
+              return (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div style={{ position: 'relative', width: cell * 0.62, height: cell * 0.62 }}>
+                    <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: `2px solid ${ctx.look.card.line}` }} />
+                    <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: ctx.look.hot, opacity: on, transform: `scale(${(0.6 + 0.4 * on).toFixed(3)})` }} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div style={{ width: numW, display: 'flex', flexDirection: 'column', alignItems: P ? 'center' : 'flex-start' }}>
+            <div data-fit="1" style={{ fontFamily: f.disp, fontWeight: f.dispWeight, fontSize: size, letterSpacing: `${f.dispTrack}em`, lineHeight: 1, whiteSpace: 'nowrap', fontVariantNumeric: 'tabular-nums', ...gradText(ctx), opacity: prog(t, from + 4, from + 16) }}>{scrambleText(w.display, t, to - 18, 18)}</div>
+            <div style={{ marginTop: 18, fontFamily: f.ui, fontWeight: 500, fontSize: P ? 34 : 30, color: ctx.look.card.muted, opacity: prog(t, from + 10, from + 24), textAlign: P ? 'center' : 'left' }}>{w.caption}</div>
+          </div>
+        </div>
+      </Card>
+    );
+  };
+  return { layers: [{ key: 'card', dx: 0, dy: 0, w: cw, h: ch, node }], hits: [{ at: to, kind: 'punch' }], sfx: [[from, 'roll', 0.35]] };
+};
+
+/** fixed lead word + a slot that rolls to each item on its cue, then an optional generalising line */
+export const rotate = (w: z.infer<typeof Rotate>, ctx: Ctx): WidgetOut => {
+  const P = ctx.P;
+  const f = ctx.f;
+  const maxW = P ? 960 : 1600;
+  const longest = w.items.reduce((a, it) => (it.text.length > a.length ? it.text : a), '');
+  const size = Math.min(fitSize(`${w.lead} ${longest}`, f.disp, f.dispWeight, P ? 130 : 150, maxW, f.dispTrack), w.final ? fitSize(w.final.text, f.disp, f.dispWeight, P ? 130 : 150, maxW, f.dispTrack) : 999);
+  const ats = w.items.map((it) => ctx.cue(it.at));
+  const finAt = w.final ? ctx.cue(w.final.at) : null;
+  const lineH = size * 1.15;
+  const slotW = Math.max(...w.items.map((it) => textW(it.text, f.disp, f.dispWeight, size, f.dispTrack)));
+  const h = Math.round(lineH * (w.final ? 2.2 : 1.2) + 20);
+  const node = (t: number) => {
+    // continuous slot position: index i at its cue, rolling over 10 frames
+    let pos = 0;
+    ats.forEach((a, i) => {
+      if (i > 0) pos += prog(t, a - 6, a + 4, inOut);
+    });
+    const out = finAt !== null ? prog(t, finAt - 4, finAt + 10, inOut) : 0;
+    return (
+      <div style={{ width: maxW, height: h, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: ctx.look.world.text, transform: `scale(${(1 + 0.04 * prog(t, ats[0], (finAt ?? ats[ats.length - 1]) + 40, (x) => x)).toFixed(4)})` }}>
+        <div data-fit="1" style={{ display: 'flex', alignItems: 'center', gap: size * 0.28, fontFamily: f.disp, fontWeight: f.dispWeight, fontSize: size, letterSpacing: `${f.dispTrack}em`, lineHeight: 1.15, whiteSpace: 'nowrap', opacity: prog(t, ats[0] - 14, ats[0] - 2) }}>
+          <span>{w.lead}</span>
+          <span style={{ position: 'relative', display: 'inline-block', width: slotW, height: lineH, overflow: 'hidden' }}>
+            <span style={{ position: 'absolute', left: 0, top: 0, display: 'flex', flexDirection: 'column', transform: `translateY(${(-pos * lineH).toFixed(2)}px)` }}>
+              {w.items.map((it, i) => (
+                <span key={i} style={{ height: lineH, ...gradText(ctx), opacity: 1 - 0.6 * out }}>{it.text}</span>
+              ))}
+            </span>
+          </span>
+        </div>
+        {w.final && finAt !== null && (
+          <div data-fit="1" style={{ marginTop: size * 0.1, fontFamily: f.disp, fontWeight: f.dispWeight, fontSize: size, letterSpacing: `${f.dispTrack}em`, lineHeight: 1.15, whiteSpace: 'nowrap' }}>
+            <Chars text={w.final.text} t={t} at={finAt - 4} step={1.6} />
+          </div>
+        )}
+      </div>
+    );
+  };
+  return { layers: [{ key: 'text', dx: 0, dy: 0, w: maxW, h, node }], hits: [...ats.slice(1).map((a) => ({ at: a, kind: 'punch' as const })), ...(finAt !== null ? [{ at: finAt, kind: 'punch' as const }] : [])], sfx: ats.slice(1).map((a): [number, string, number] => [a - 6, 'tick', 0.35]) };
 };

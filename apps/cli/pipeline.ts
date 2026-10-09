@@ -431,6 +431,11 @@ export const diffScan = (file: string, aspect: AspectId, spec: Spec, words: Word
   for (const b of spec.beats) {
     const w = b.widget;
     if (w.type === 'stat') ranges.push([tl.cue(w.from) - 4, tl.cue(w.to) + 16]);
+    // scramble / fill animations are intended change
+    if (w.type === 'dots') ranges.push([tl.cue(w.from) - 4, tl.cue(w.to) + 30]);
+    if (w.type === 'versus') ranges.push([tl.cue(w.at) - 4, tl.cue(w.at) + 32]);
+    if (w.type === 'takeover') ranges.push([tl.cue(w.at) - 8, tl.cue(w.at) + 26]);
+    if (w.type === 'rotate') w.items.forEach((it) => ranges.push([tl.cue(it.at) - 8, tl.cue(it.at) + 8]));
     if (w.type === 'price') ranges.push([tl.cue(w.cutAt) - 4, tl.cue(w.cutAt) + 60]);
     if (w.type === 'vision') ranges.push([tl.cue(w.scanFrom) - 4, tl.cue(w.scanTo) + 34]);
     if (w.type === 'code') ranges.push([tl.cue(w.from) - 10, (w.doneAt ? tl.cue(w.doneAt) : tl.cue(w.from) + w.lines.join('').length / 2.2) + 24]);
