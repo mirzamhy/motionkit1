@@ -26,6 +26,9 @@ export const ENGINE_PATHS: Record<(typeof ENGINE_IDS)[number], readonly (typeof 
   poster: ['zigzag', 'strip'],
   kinetic: ['zoom', 'turns'],
 };
+/** scene-change overlays. 'camera' = the engine's own camera move only (no overlay). One family per film. */
+export const TRANSITION_IDS = ['camera', 'fade', 'flash', 'color', 'bar', 'streak', 'iris', 'blinds'] as const;
+export const TRANSITION_COLORS = ['accent', 'brand', 'ground', 'ink', 'white'] as const;
 export const ARCHETYPE_IDS = ['launch', 'problem-solution', 'versus', 'demo', 'reasons', 'one-number'] as const;
 
 const Timed = z.object({ text: short(14), at: Cue, accent: z.boolean().optional() });
@@ -173,6 +176,7 @@ export const Beat = z.object({
     })
     .optional(),
   punches: z.array(Cue).max(4).optional(),
+  transition: z.enum([...TRANSITION_IDS, 'none']).optional().describe("override the film's transition into this beat; 'none' = plain camera move"),
 });
 export type Beat = z.infer<typeof Beat>;
 
@@ -195,6 +199,10 @@ export const Spec = z.object({
   archetype: z.enum(ARCHETYPE_IDS).default('launch'),
   look: z.object({ preset: z.enum(LOOK_IDS), accent: z.tuple([Hex, Hex]).optional(), hot: Hex.optional() }),
   path: z.enum(PATH_IDS).default('dolly'),
+  transition: z
+    .object({ family: z.enum(TRANSITION_IDS).default('camera'), color: z.enum(TRANSITION_COLORS).optional() })
+    .default({ family: 'camera' })
+    .describe('one transition family for the whole film, drawn over every scene change'),
   vo: z.object({
     voiceId: z.string().optional(),
     tempo: z.number().min(0.9).max(1.25).default(1.1),

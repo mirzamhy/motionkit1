@@ -13,6 +13,7 @@ import { Captions } from '../engine/world';
 import { kineticWidget, type Box, type KPal } from '../kinetic/renderers';
 import type { Spec } from '../spec/schema';
 import { AudioBed, HitOverlays, useHitFx, useQA, type EngineProps } from './shared';
+import { TransitionOverlay } from './transitions';
 
 const Q = 0.2;
 const FRAME: Record<Aspect, { fw: number; fh: number; box: Box; portal: { x: number; y: number; r: number } }> = {
@@ -154,6 +155,7 @@ export const Kinetic: React.FC<EngineProps> = ({ spec, words, hasVo, hasMusic, s
           return <React.Fragment key={sc.id}>{items}</React.Fragment>;
         })}
       </AbsoluteFill>
+      <TransitionOverlay A={A} spec={spec} tl={tl} look={look} t={t} />
       <HitOverlays A={A} P={P} hits={k.hits} t={t} spec={spec} look={look} flash={flash} flashB={flashB} />
       <Captions A={A} tl={tl} look={look} ui={f.ui} t={t} />
       <AudioBed spec={spec} tl={tl} total={k.total} hasVo={hasVo} hasMusic={hasMusic} sfx={sfx} list={k.sfx} />

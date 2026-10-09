@@ -50,8 +50,11 @@ brief + facts ────────────► concept (opener menu / arc
    renamed `ros` → `mk`. Verified: typecheck, `mk example`, stills, render; portrait output bit-identical to ros,
    landscape SSIM 0.9997 (encoder noise on the blurred lockup only, no visible difference). Splitting `core` into
    the packages below happens per phase, when each one gets new code.
-1b. **Transitions.** Add per-beat `transition` with one family per video:
-   dissolve+scale, fade-through-ground, hard colour cut on beat, iris from element, slanted bar, light streak.
+1b. **Transitions (done).** `spec.transition = {family, color?}` + per-beat override (`"none"` skips). Families:
+   camera (default, = ros), fade, flash, color, bar, streak, iris, blinds — overlays in `engines/transitions.tsx`,
+   mounted in all three engines under the captions. Lint warns on mixed families and >4 loud covers. Dev check:
+   `npx tsx scripts/transition-strips.ts <engine> <beat>`. Not yet: transition SFX, dissolve+scale (needs per-scene
+   opacity inside each engine), iris from a chosen element instead of the centre.
 2. **Quality gate.** Anti-slideshow lint (≤2 text levels per beat, not all transitions fades, no
    hook→feature→feature→logo skeleton without a concept, something survives each cut), motion-energy per second
    from frame diffs, existing frame-jump scan.

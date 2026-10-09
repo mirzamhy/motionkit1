@@ -87,6 +87,13 @@ export const lintSpec = (raw: unknown, ctx: { facts: string; brief: string; rece
   });
 
   // structure
+  // transitions: one family per film, and covers need room between them
+  const fams = new Set(spec.beats.slice(1).map((b) => (b.transition === 'none' ? 'camera' : (b.transition ?? spec.transition.family))).filter((f) => f !== 'camera'));
+  if (fams.size > 1) warnings.push(`transitions: ${[...fams].join(', ')} — use ONE family per film (set spec.transition, override a beat only with "none")`);
+  if (fams.has('flash') || fams.has('color')) {
+    const n = spec.beats.slice(1).filter((b) => (b.transition ?? spec.transition.family) !== 'camera' && b.transition !== 'none').length;
+    if (n > 4) warnings.push(`transitions: ${n} ${[...fams].join('/')} covers — loud families wear out; keep ≤ 4 or use "none" on minor beats`);
+  }
   if (!['hero', 'headline'].includes(spec.beats[0].widget.type)) warnings.push('beats[0]: open with a hero or headline beat');
   if (spec.beats[spec.beats.length - 1].widget.type !== 'lockup') errors.push('the last beat must be a lockup (brand end card)');
   if (spec.beats[0].at !== spec.vo.lines[0].id) warnings.push(`beats[0].at should be "${spec.vo.lines[0].id}" so the first frame is never empty`);

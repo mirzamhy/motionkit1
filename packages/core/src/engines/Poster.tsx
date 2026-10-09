@@ -14,6 +14,7 @@ import type { Spec } from '../spec/schema';
 import { buildWidget } from '../widgets';
 import { revealEnd } from '../engine/reveals';
 import { AudioBed, HitOverlays, useHitFx, useQA, type EngineProps } from './shared';
+import { TransitionOverlay } from './transitions';
 
 type Cam2 = { x: number; y: number; s: number; r: number };
 type Panel = { id: string; beatId: string; index: number; x: number; y: number; x0: number; y0: number; w: number; h: number; layers: LayerDef[]; label: string };
@@ -248,6 +249,7 @@ export const Poster: React.FC<EngineProps> = ({ spec, words, hasVo, hasMusic, sf
           })}
         </div>
       </AbsoluteFill>
+      <TransitionOverlay A={A} spec={spec} tl={tl} look={look} t={t} />
       <HitOverlays A={A} P={P} hits={pl.hits} t={t} spec={spec} look={look} flash={flash} flashB={flashB} />
       <Captions A={A} tl={tl} look={look} ui={f.ui} t={t} />
       <AudioBed spec={spec} tl={tl} total={pl.total} hasVo={hasVo} hasMusic={hasMusic} sfx={sfx} list={pl.sfx} />

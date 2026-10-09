@@ -91,6 +91,19 @@ lockup — brand end card
   "widget": {...}, "camera"?: { "open"?: "closeup", "revealAt"?: cue, "zoom"?: 0.6–1.6, "moves"?: [...] },
   "punches"?: [cue] (extra zoom punches on emphasis words, max 4) }
 
+# TRANSITIONS
+Top-level "transition": {"family": …, "color"?: "accent"|"brand"|"ground"|"ink"|"white"} — ONE family for the whole film,
+drawn over every scene change (side-by-side group beats and stacked lockups never get one). Families:
+- "camera" (default): the engine's own camera move only. Safest; fine for most films.
+- "fade": fade through the ground colour — calm explainers.
+- "flash": quick bright flash — section changes in energetic films.
+- "color": a solid accent block wipes up and away — kinetic / hype.
+- "bar": slanted accent bar sweeps across — editorial, punchy.
+- "streak": a thin light streak crosses the frame — subtle accent, never covers.
+- "iris": accent disc grows from the centre — brand stings.
+- "blinds": horizontal strips close and open — retro / bold.
+Per beat, "transition": "none" skips the cover for that change (use on minor beats); avoid mixing families.
+
 # TOP-LEVEL
 { "version": 1, "slug", "title", "language": "id"|"en", "fps": 60, "holdSec": 2.2,
   "brand": { "name", "url", "mark": "vikey"|"monogram", "color"? },
