@@ -5,7 +5,7 @@ import { buildTimeline, norm } from '../../packages/core/src/engine/timeline';
 import { departure, revealEnd } from '../../packages/core/src/engine/reveals';
 import { structureWarnings } from '../../packages/qa/src/structure';
 
-const CUE_KEYS = new Set(['strike', 'at', 'from', 'to', 'cutAt', 'goAt', 'logoAt', 'scanFrom', 'scanTo', 'doneAt', 'kickerAt', 'revealAt']);
+const CUE_KEYS = new Set(['strike', 'climbAt', 'resultAt', 'at', 'from', 'to', 'cutAt', 'goAt', 'logoAt', 'scanFrom', 'scanTo', 'doneAt', 'kickerAt', 'revealAt']);
 const NON_VISIBLE = new Set(['at', 'from', 'to', 'cutAt', 'goAt', 'logoAt', 'scanFrom', 'scanTo', 'doneAt', 'kickerAt', 'revealAt', 'type', 'group', 'style', 'scene', 'effect', 'preset', 'path', 'voiceId', 'tts', 'slug', 'lines', 'mark', 'color', 'accent', 'hot', 'source']);
 
 export const numTokens = (s: string) => (s.match(/\d+(?:[.,]\d+)*/g) ?? []).map((x) => x.replace(/[.,]/g, ''));

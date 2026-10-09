@@ -4,6 +4,7 @@ import { agents, lockup } from './agents';
 import { code, stat, vision } from './cards';
 import { hero } from './hero';
 import { price } from './price';
+import { integrations, leaderboard, notify, prompt, ring } from './product';
 import { bars, chat, checklist, dots, headline, rotate, takeover, versus } from './text';
 
 export const buildWidget = (w: Widget, ctx: Ctx): WidgetOut => {
@@ -38,5 +39,15 @@ export const buildWidget = (w: Widget, ctx: Ctx): WidgetOut => {
       return dots(w, ctx);
     case 'rotate':
       return rotate(w, ctx);
+    case 'leaderboard':
+      return leaderboard(w, ctx);
+    case 'notify':
+      return notify(w, ctx);
+    case 'prompt':
+      return prompt(w, ctx);
+    case 'integrations':
+      return integrations(w, ctx);
+    case 'ring':
+      return ring(w, ctx);
   }
 };

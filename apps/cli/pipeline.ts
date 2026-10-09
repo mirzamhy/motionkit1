@@ -418,7 +418,7 @@ export const diffScan = (file: string, aspect: AspectId, spec: Spec, words: Word
   const vals = frameDiffs(file, aspect);
   // intended changes (cue hits, counters, odometers, typing, scans) are allowed to spike
   const ranges: [number, number][] = [];
-  const cueKeys = ['cutAt', 'goAt', 'logoAt', 'at', 'from', 'to', 'scanFrom', 'scanTo', 'doneAt', 'kickerAt', 'revealAt'];
+  const cueKeys = ['climbAt', 'resultAt', 'cutAt', 'goAt', 'logoAt', 'at', 'from', 'to', 'scanFrom', 'scanTo', 'doneAt', 'kickerAt', 'revealAt'];
   const walkCues = (o: unknown) => {
     if (Array.isArray(o)) o.forEach(walkCues);
     else if (o && typeof o === 'object')
@@ -436,6 +436,9 @@ export const diffScan = (file: string, aspect: AspectId, spec: Spec, words: Word
     if (w.type === 'versus') ranges.push([tl.cue(w.at) - 4, tl.cue(w.at) + 32]);
     if (w.type === 'takeover') ranges.push([tl.cue(w.at) - 8, tl.cue(w.at) + 26]);
     if (w.type === 'rotate') w.items.forEach((it) => ranges.push([tl.cue(it.at) - 8, tl.cue(it.at) + 8]));
+    if (w.type === 'leaderboard') ranges.push([tl.cue(w.climbAt) - 6, tl.cue(w.climbAt) + 30]);
+    if (w.type === 'prompt') ranges.push([tl.cue(w.at) - 4, tl.cue(w.at) + Math.ceil(w.text.length / 1.6) + 30]);
+    if (w.type === 'integrations') ranges.push([tl.cue(w.at) - 18, tl.cue(w.at) + w.items.length * 5 + 22]);
     if (w.type === 'price') ranges.push([tl.cue(w.cutAt) - 4, tl.cue(w.cutAt) + 60]);
     if (w.type === 'vision') ranges.push([tl.cue(w.scanFrom) - 4, tl.cue(w.scanTo) + 34]);
     if (w.type === 'code') ranges.push([tl.cue(w.from) - 10, (w.doneAt ? tl.cue(w.doneAt) : tl.cue(w.from) + w.lines.join('').length / 2.2) + 24]);

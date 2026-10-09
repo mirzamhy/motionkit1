@@ -185,7 +185,45 @@ export const Rotate = z.object({
   final: z.object({ text: short(26), at: Cue }).optional().describe('the generalising line that lands after the list, e.g. "saham apa pun."'),
 });
 
-export const Widget = z.discriminatedUnion('type', [Hero, Stat, Vision, Code, Price, Agents, Lockup, Headline, Chat, Bars, Checklist, Takeover, Versus, Dots, Rotate]);
+export const Leaderboard = z.object({
+  type: z.literal('leaderboard'),
+  title: short(24),
+  items: z.array(z.object({ name: short(16), score: short(8) })).min(3).max(6).describe('rows in their order BEFORE the climb'),
+  ours: short(16).describe('the name (from items) that climbs to #1'),
+  climbAt: Cue,
+});
+
+export const Notify = z.object({
+  type: z.literal('notify'),
+  app: short(16).describe('app name shown on each notification'),
+  items: z.array(z.object({ title: short(28), body: z.string().max(60).optional(), at: Cue })).min(1).max(4),
+});
+
+export const Prompt = z.object({
+  type: z.literal('prompt'),
+  label: short(20).optional(),
+  text: z.string().min(1).max(80).describe('what gets typed into the box'),
+  at: Cue,
+  result: z.object({ title: short(26), lines: z.array(z.string().max(40)).min(1).max(3) }).optional(),
+  resultAt: Cue.optional(),
+});
+
+export const Integrations = z.object({
+  type: z.literal('integrations'),
+  title: short(26).optional(),
+  center: short(14).describe('the product, in the middle'),
+  items: z.array(short(14)).min(3).max(8).describe('what it connects to'),
+  at: Cue,
+});
+
+export const Ring = z.object({
+  type: z.literal('ring'),
+  text: short(40).describe('words set around a circle, repeated to fill it, e.g. "DESIGN · CODE · SHIP"'),
+  center: short(12),
+  at: Cue,
+});
+
+export const Widget = z.discriminatedUnion('type', [Hero, Stat, Vision, Code, Price, Agents, Lockup, Headline, Chat, Bars, Checklist, Takeover, Versus, Dots, Rotate, Leaderboard, Notify, Prompt, Integrations, Ring]);
 export type Widget = z.infer<typeof Widget>;
 
 export const Beat = z.object({

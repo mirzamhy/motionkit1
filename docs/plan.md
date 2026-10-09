@@ -83,6 +83,9 @@ brief + facts ────────────► concept (opener menu / arc
    section counter, progress line, 4-step beat meter pulsing on punches; kinetic follows the scene palette). New
    widgets `dots` (dot grid filling to a share + scrambled display number) and `rotate` (lead word + rolling slot +
    summary line). Dev: `scripts/demo-4b.ts`.
+4c. **Batch C (done).** `widgets/product.tsx` + kinetic renderers: `leaderboard` (ours climbs to #1),
+   `notify` (stacking phone notifications), `prompt` (typed box + result panel), `integrations` (orbit with
+   connector lines; kinetic: chip row), `ring` (text on a turning circle around a centre word). Dev: `scripts/demo-4c.ts`.
 4. **Widgets (remaining).** scramble, HUD frame, takeover echo + colour flash, before→after number, dot-matrix stat,
    strikethrough correction, leaderboard, notification, prompt composer, integrations grid, text ring.
 5. **Custom scenes.** ≤2 per video, agent-written component inside a fixed box/duration, must pass qa.

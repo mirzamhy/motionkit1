@@ -3,7 +3,7 @@
 // picker (Opus must judge the settled frame, not a mid-roll one).
 import type { Beat, Spec } from '../spec/schema';
 
-const SETTLE: Record<string, number> = { cutAt: 46, goAt: 30, to: 16, scanTo: 18, doneAt: 22, from: 10, scanFrom: 10, logoAt: 30, kickerAt: 10, at: 10 };
+const SETTLE: Record<string, number> = { climbAt: 34, resultAt: 26, cutAt: 46, goAt: 30, to: 16, scanTo: 18, doneAt: 22, from: 10, scanFrom: 10, logoAt: 30, kickerAt: 10, at: 10 };
 
 export const revealEnd = (beat: Beat, cue: (c: string) => number): { frame: number; key: string } => {
   let best = { frame: cue(beat.at), key: 'at' };
@@ -21,6 +21,8 @@ export const revealEnd = (beat: Beat, cue: (c: string) => number): { frame: numb
   };
   visit(beat.widget);
   if (beat.widget.type === 'bars') best = { frame: Math.max(best.frame, cue(beat.widget.from) + 30 + beat.widget.items.length * 6), key: 'bars.from' };
+  if (beat.widget.type === 'prompt') best = { frame: Math.max(best.frame, cue(beat.widget.at) + Math.ceil(beat.widget.text.length / 1.6) + 14), key: 'prompt typing' };
+  if (beat.widget.type === 'integrations') best = { frame: Math.max(best.frame, cue(beat.widget.at) + beat.widget.items.length * 5 + 20), key: 'integrations' };
   if (beat.widget.type === 'dots') best = { frame: Math.max(best.frame, cue(beat.widget.to) + 28), key: 'dots.to' };
   if (beat.widget.type === 'versus') best = { frame: Math.max(best.frame, cue(beat.widget.at) + 30), key: 'versus.at' };
   if (beat.widget.type === 'takeover' && beat.widget.reveal === 'scramble') best = { frame: Math.max(best.frame, cue(beat.widget.at) + 20), key: 'takeover scramble' };

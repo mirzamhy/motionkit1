@@ -76,6 +76,16 @@ dots — a grid of dots filling to a share ("8 of 10 teams", "80% never open") n
   label ≤18, total 10–100 (100 = percent), value ≤ total, display ≤8 (e.g. "80%"), caption ≤42, from, to.
 rotate — fixed lead word + a slot that rolls to each item on the word that says it, then a summary line
   lead ≤14 ("Beli"), items 2–6 × {text ≤16, at}, final? {text ≤26 ("saham apa pun."), at}.
+leaderboard — rows; ours climbs to #1 on its cue
+  title ≤24, items 3–6 × {name ≤16, score ≤8} in their order BEFORE the climb, ours (one of the names), climbAt.
+notify — phone notifications stacking, newest on top
+  app ≤16, items 1–4 × {title ≤28, body? ≤60, at}.
+prompt — a prompt box typing, then the answer
+  label? ≤20, text ≤80 (typed, ~1.6 chars/frame — keep it short), at, result? {title ≤26, lines 1–3 × ≤40}, resultAt?.
+integrations — the product in the middle, what it works with orbiting around it
+  title? ≤26, center ≤14, items 3–8 × ≤14 (tool names), at.
+ring — words set around a slowly turning circle, one word in the middle
+  text ≤40 (repeated around: "DESIGN · CODE · SHIP"), center ≤12, at.
 versus — before → after number: the old one in grey gets struck out, the new one scrambles in, in the accent
   label ≤18, before {value ≤10, caption ≤22}, after {value ≤10, caption ≤22}, at (the word that announces the change).
   Both values must come from FACTS (e.g. official price vs ours, 6 hours vs 10 sec).

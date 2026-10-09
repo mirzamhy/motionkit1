@@ -549,5 +549,145 @@ export const kineticWidget = (w: Widget, k: KCtx): KOut => {
         sfx: ats.slice(1).map((a): Sfx => [a - 6, 'tick', 0.35]),
       };
     }
+    case 'leaderboard': {
+      const at = cue(w.climbAt);
+      const n = w.items.length;
+      const oi = Math.max(0, w.items.findIndex((i) => i.name === w.ours));
+      const after = (i: number) => (i === oi ? 0 : i < oi ? i + 1 : i);
+      const rh = Math.min(P ? 130 : 110, (box.h - 80) / n);
+      return {
+        node: (t) => {
+          const p = prog(t, at - 4, at + 26, inOut);
+          return (
+            <Abs x={box.x} y={box.y} w={box.w} h={box.h}>
+              <Kicker k={k} text={w.title.toUpperCase()} t={t} at={k.arrive - 20} />
+              <div style={{ position: 'relative', marginTop: 24, height: n * rh }}>
+                {w.items.map((it, i) => {
+                  const ours = i === oi;
+                  return (
+                    <div key={i} style={{ position: 'absolute', left: 0, right: 0, top: (i + (after(i) - i) * p) * rh, height: rh, display: 'flex', alignItems: 'center', gap: 26, fontFamily: f.disp, fontWeight: f.dispWeight, fontSize: rh * 0.56, color: ours ? pal.hot : pal.fg, opacity: ours ? 1 : 0.55, zIndex: ours ? 2 : 1, whiteSpace: 'nowrap' }}>
+                      <span style={{ fontFamily: f.mono, fontSize: rh * 0.32, width: rh * 0.6, opacity: 0.7 }}>{Math.round(i + (after(i) - i) * p) + 1}</span>
+                      <span style={{ flex: 1 }}>{it.name}</span>
+                      <span style={{ fontFamily: f.mono, fontSize: rh * 0.34 }}>{it.score}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </Abs>
+          );
+        },
+        hits: [{ at: at + 24, kind: 'punch' }],
+        sfx: [[at - 4, 'whoosh', 0.4]],
+      };
+    }
+    case 'notify': {
+      const ats = w.items.map((i) => cue(i.at));
+      const nh = P ? 190 : 150;
+      return {
+        node: (t) => (
+          <Abs x={box.x} y={box.y} w={box.w} h={box.h}>
+            <Kicker k={k} text={w.app.toUpperCase()} t={t} at={k.arrive - 20} />
+            <div style={{ position: 'relative', marginTop: 24, height: w.items.length * (nh + 20) }}>
+              {w.items.map((it, i) => {
+                const inP = prog(t, ats[i] - 2, ats[i] + 12, inOut);
+                if (inP <= 0) return null;
+                const below = w.items.reduce((a, _, j) => a + (j > i ? prog(t, ats[j] - 2, ats[j] + 12, inOut) : 0), 0);
+                return (
+                  <div key={i} style={{ position: 'absolute', left: 0, right: 0, top: below * (nh + 20), height: nh, borderRadius: 34, background: pal.fg, color: onFg(pal), padding: '24px 32px', boxSizing: 'border-box', opacity: inP, transform: `translateY(${((1 - inP) * -50).toFixed(1)}px)` }}>
+                    <div style={{ fontFamily: f.mono, fontSize: 24, opacity: 0.6 }}>{w.app.toUpperCase()} · now</div>
+                    <div style={{ marginTop: 8, fontFamily: f.ui, fontWeight: 800, fontSize: P ? 44 : 40, whiteSpace: 'nowrap' }}>{it.title}</div>
+                    {it.body && <div style={{ fontFamily: f.ui, fontSize: P ? 32 : 28, opacity: 0.7, whiteSpace: 'nowrap' }}>{it.body}</div>}
+                  </div>
+                );
+              })}
+            </div>
+          </Abs>
+        ),
+        sfx: ats.map((a): Sfx => [a - 2, 'pop', 0.45]),
+      };
+    }
+    case 'prompt': {
+      const at = cue(w.at);
+      const done = at + Math.ceil(w.text.length / 1.6);
+      const resAt = w.resultAt ? cue(w.resultAt) : done + 14;
+      const fs = P ? 64 : 62;
+      return {
+        node: (t) => (
+          <Abs x={box.x} y={box.y} w={box.w} h={box.h}>
+            {w.label && <Kicker k={k} text={w.label.toUpperCase()} t={t} at={k.arrive - 20} />}
+            <div style={{ marginTop: 20, fontFamily: f.ui, fontWeight: 700, fontSize: fs, lineHeight: 1.25, color: pal.fg }}>
+              <span style={{ color: pal.hot }}>› </span>
+              {typed(w.text, t, at, 1.6)}
+              {t < done + 10 && <Caret t={t} h={fs * 0.9} color={pal.hot} />}
+            </div>
+            {w.result && (
+              <div style={{ marginTop: 40, opacity: prog(t, resAt, resAt + 12) }}>
+                <div style={{ fontFamily: f.disp, fontWeight: f.dispWeight, fontSize: P ? 72 : 70, color: pal.hot, whiteSpace: 'nowrap' }}>{w.result.title}</div>
+                {w.result.lines.map((l, i) => (
+                  <div key={i} style={{ marginTop: 10, fontFamily: f.ui, fontWeight: 600, fontSize: P ? 40 : 38, color: pal.fg, opacity: prog(t, resAt + 8 + i * 6, resAt + 18 + i * 6), whiteSpace: 'nowrap' }}>{l}</div>
+                ))}
+              </div>
+            )}
+          </Abs>
+        ),
+        hits: w.result ? [{ at: resAt, kind: 'punch' }] : [],
+        sfx: [[at, 'type', 0.3]],
+      };
+    }
+    case 'integrations': {
+      const at = cue(w.at);
+      const size = fitSize(w.center, f.disp, f.dispWeight, P ? 170 : 180, box.w, f.dispTrack);
+      return {
+        node: (t) => (
+          <Abs x={box.x} y={box.y} w={box.w} h={box.h}>
+            {w.title && <Kicker k={k} text={w.title.toUpperCase()} t={t} at={k.arrive - 20} />}
+            <div data-fit="1" style={{ marginTop: 16, fontFamily: f.disp, fontWeight: f.dispWeight, fontSize: size, letterSpacing: `${f.dispTrack}em`, lineHeight: 1, color: pal.fg, whiteSpace: 'nowrap' }}>
+              <Chars text={w.center} t={t} at={at - 16} step={1.8} />
+            </div>
+            <div style={{ marginTop: 34, display: 'flex', flexWrap: 'wrap', gap: 16 }}>
+              {w.items.map((it, i) => (
+                <span key={i} style={{ padding: '14px 26px', borderRadius: 999, border: `3px solid ${pal.fg}`, fontFamily: f.ui, fontWeight: 700, fontSize: P ? 38 : 36, color: pal.fg, whiteSpace: 'nowrap', opacity: prog(t, at + i * 5, at + i * 5 + 8), transform: `translateY(${((1 - prog(t, at + i * 5, at + i * 5 + 12)) * 20).toFixed(1)}px)` }}>{it}</span>
+              ))}
+            </div>
+          </Abs>
+        ),
+        hits: [{ at: at + w.items.length * 5, kind: 'punch' }],
+        sfx: w.items.map((_, i): Sfx => [at + i * 5, 'tick', 0.3]),
+      };
+    }
+    case 'ring': {
+      const at = cue(w.at);
+      const S = Math.min(box.w, box.h) * 0.95;
+      const r = S * 0.42;
+      const circ = 2 * Math.PI * r;
+      const unit = `${w.text.toUpperCase()} · `;
+      const reps = Math.max(1, Math.round(circ / (unit.length * 30)));
+      const csize = fitSize(w.center, f.disp, f.dispWeight, P ? 160 : 170, r * 1.5, f.dispTrack);
+      const id = `kring-${k.beat.id}`;
+      const show = Math.min(at, k.arrive) - 10;
+      return {
+        node: (t) => (
+          <Abs x={box.x} y={box.y} w={box.w} h={box.h}>
+            <div style={{ position: 'relative', width: S, height: S }}>
+              <svg width={S} height={S} style={{ position: 'absolute', left: 0, top: 0, transform: `rotate(${((t - at) * 0.22).toFixed(2)}deg)`, opacity: prog(t, show - 4, show + 12) }}>
+                <defs>
+                  <path id={id} d={`M ${S / 2},${S / 2} m -${r},0 a ${r},${r} 0 1,1 ${r * 2},0 a ${r},${r} 0 1,1 -${r * 2},0`} />
+                </defs>
+                <text fill={pal.fg} style={{ fontFamily: f.mono, fontWeight: 600, fontSize: 44, letterSpacing: '0.2em' }}>
+                  <textPath href={`#${id}`} textLength={circ - 4} lengthAdjust="spacing">{unit.repeat(reps)}</textPath>
+                </text>
+              </svg>
+              <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div data-fit="1" style={{ fontFamily: f.disp, fontWeight: f.dispWeight, fontSize: csize, letterSpacing: `${f.dispTrack}em`, color: pal.hot, whiteSpace: 'nowrap' }}>
+                  <Chars text={w.center} t={t} at={show} step={2} />
+                </div>
+              </div>
+            </div>
+          </Abs>
+        ),
+        hits: [{ at, kind: 'punch' }],
+        sfx: [[at - 4, 'whoosh', 0.35]],
+      };
+    }
   }
 };
