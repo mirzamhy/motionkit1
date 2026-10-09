@@ -60,7 +60,8 @@ hero — product/model reveal card
   (e.g. [{"text":"MiMo","at":"m01:mimo"},{"text":"-V2","at":"m01:dua"},{"text":".","at":"m01:koma"},{"text":"6","at":"m01:enam"}]),
   accentWord {text, at} (gradient word after the name, e.g. "Pro"), id ≤30 (model/API id), status ≤32.
 stat — big counter + token bar
-  label ≤14, chip ≤14, value (number), prefix ≤4, suffix ≤6, caption ≤42, from, to, chips ≤3 × ≤12.
+  label ≤14, chip ≤14, value (number), prefix ≤4, suffix ≤6, caption ≤42, from, to, chips ≤3 × ≤12,
+  reveal "count" (default) | "scramble" (random digits settle left → right — use for one hero number per film).
 vision — image scan with detection boxes
   label ≤14, chip ≤16, scene "dashboard"|"document", scanFrom, scanTo, detect 1–3 × ≤10, result ≤26.
 code — editor typing code
@@ -68,7 +69,12 @@ code — editor typing code
 checklist — items tick on their cues
   title ≤24, items 2–5 × {text ≤34, at}.
 takeover — one oversized word slams in on a halftone field and holds (chapter title / pain word / punchline)
-  label ≤16 (mono, e.g. "01 / MASALAH"), word ≤10 (one word, caps reads best), at (the word that SAYS it), sub ≤40.
+  label ≤16 (mono, e.g. "01 / MASALAH"), word ≤10 (one word, caps reads best), at (the word that SAYS it), sub ≤40,
+  reveal "slam" | "scramble", echo true (outlined copies drift behind), flash true (accent panel swells behind).
+  Use echo/flash on the film's ONE loudest word, not every takeover.
+versus — before → after number: the old one in grey gets struck out, the new one scrambles in, in the accent
+  label ≤18, before {value ≤10, caption ≤22}, after {value ≤10, caption ≤22}, at (the word that announces the change).
+  Both values must come from FACTS (e.g. official price vs ours, 6 hours vs 10 sec).
 chat — chat thread demo
   title ≤20, messages 1–4 × {from "user"|"ai", text ≤90, at}.
 bars — benchmark/compare bars
@@ -85,6 +91,9 @@ headline — big kinetic words in the world (no card)
 lockup — brand end card
   wordmark ≤16 ("vikey.ai"), chips ≤2 × {text ≤30, style "dark"|"accent"}, cta ≤22, finePrint ≤220,
   logoAt (the brand word), stack true (appears over the previous beat — use it).
+
+Headline pieces may carry "strike": cue — a line strikes that word out on the cue; put the replacement as the next
+piece: [{"text":"Mahal.","at":"m02:mahal","strike":"m02:sekarang"},{"text":"Hemat.","at":"m02:sekarang","accent":true}].
 
 # BEAT FIELDS
 { "id": "kebab-id", "at": cue (camera settles here), "group"?: "same-string for side-by-side cards",

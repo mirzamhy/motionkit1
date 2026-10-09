@@ -22,6 +22,34 @@ export const Chars: React.FC<{ text: string; t: number; at: number; step?: numbe
   </>
 );
 
+const GLYPHS = { d: '0123456789', a: 'ABCDEFGHJKLMNPQRSTUVWXYZ', l: 'abcdefghijkmnpqrstuvwxyz' };
+/**
+ * scramble-decode: before `at` every glyph is random (same class: digit / upper / lower, punctuation kept); between
+ * `at` and `at + dur` they settle left → right. Glyphs re-roll every 2 frames. Pure text — pair it with
+ * tabular-nums / a fixed width so the line doesn't jitter.
+ */
+export const scrambleText = (text: string, t: number, at: number, dur = 24) => {
+  const n = text.length;
+  return text
+    .split('')
+    .map((ch, i) => {
+      const settle = at + (n <= 1 ? dur : (i / (n - 1)) * dur);
+      if (t >= settle) return ch;
+      const set = /\d/.test(ch) ? GLYPHS.d : /[A-Z]/.test(ch) ? GLYPHS.a : /[a-z]/.test(ch) ? GLYPHS.l : null;
+      if (!set) return ch;
+      const r = Math.sin((Math.floor(t / 2) + 1) * 12.9898 + i * 78.233) * 43758.5453;
+      return set[Math.floor((r - Math.floor(r)) * set.length)];
+    })
+    .join('');
+};
+
+/** a strike line drawn across its parent (position: relative) from left to right */
+export const Strike: React.FC<{ t: number; at: number; color: string; thick?: number }> = ({ t, at, color, thick = 0.09 }) => {
+  const p = prog(t, at, at + 10);
+  if (p <= 0) return null;
+  return <span style={{ position: 'absolute', left: 0, top: '52%', height: `${thick}em`, width: `${(100 * p).toFixed(2)}%`, background: color, borderRadius: '0.05em', transform: 'rotate(-3deg)', transformOrigin: 'left center', pointerEvents: 'none' }} />;
+};
+
 export const Caret: React.FC<{ t: number; h: number; color: string }> = ({ t, h, color }) => (
   <span style={{ display: 'inline-block', width: Math.round(h * 0.45), height: h, background: color, marginLeft: 4, verticalAlign: 'middle', opacity: Math.sin(t / 4.5) > -0.2 ? 1 : 0 }} />
 );

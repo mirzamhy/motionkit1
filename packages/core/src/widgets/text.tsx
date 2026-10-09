@@ -1,38 +1,91 @@
 // Kinetic headline (no card, type sits in the world), chat thread, benchmark bars, checklist.
 import React from 'react';
 import type { z } from 'zod';
-import { Card, Chars, Head, gradText } from '../engine/atoms';
+import { Card, Chars, Head, Strike, gradText, scrambleText } from '../engine/atoms';
 import { fitSize, textW } from '../engine/fit';
 import { grad, GREEN } from '../engine/looks';
 import type { Ctx, WidgetOut } from '../engine/types';
 import { pop, prog, typed } from '../engine/util';
-import type { Bars, Chat, Checklist, Headline, Takeover } from '../spec/schema';
+import type { Bars, Chat, Checklist, Headline, Takeover, Versus } from '../spec/schema';
 
 /** static halftone dot field (no per-frame filters); fades in, never toggles */
 export const Halftone: React.FC<{ w: number; h: number; color: string; opacity: number; cell?: number }> = ({ w, h, color, opacity, cell = 18 }) => (
   <div style={{ position: 'absolute', left: 0, top: 0, width: w, height: h, opacity, backgroundImage: `radial-gradient(${color} 28%, transparent 30%)`, backgroundSize: `${cell}px ${cell}px`, WebkitMaskImage: 'radial-gradient(ellipse at center, #000 20%, transparent 72%)', maskImage: 'radial-gradient(ellipse at center, #000 20%, transparent 72%)' }} />
 );
 
-/** Title takeover: one condensed oversized word punches in (scale eased over 10 frames) and holds its place */
+/** Title takeover: one oversized word punches in (scale eased over 10 frames, or scramble-decodes) and holds.
+ *  echo: outlined copies drift behind it; flash: an accent panel swells behind it on the cue. */
 export const takeover = (w: z.infer<typeof Takeover>, ctx: Ctx): WidgetOut => {
   const P = ctx.P;
   const f = ctx.f;
   const maxW = P ? 980 : 1700;
   const size = fitSize(w.word, f.disp, f.dispWeight, P ? 300 : 360, maxW, f.dispTrack);
   const at = ctx.cue(w.at);
-  const h = Math.round(size * 1.1 + (w.label ? 70 : 0) + (w.sub ? 90 : 0) + 40);
+  const h = Math.round(size * 1.1 + (w.label ? 70 : 0) + (w.sub ? 90 : 0) + 40 + (w.flash ? 60 : 0));
+  const echoSize = Math.round(size * 0.62);
   const node = (t: number) => {
     const p = prog(t, at - 6, at + 4);
+    const fl = w.flash ? prog(t, at - 6, at + 8) : 0;
+    const word = w.reveal === 'scramble' ? scrambleText(w.word, t, at - 2, 20) : w.word;
+    const wordStyle: React.CSSProperties = w.flash ? { color: '#FFFFFF' } : gradText(ctx);
+    const ink = w.flash ? '#FFFFFF' : ctx.look.world.text;
     return (
-      <div style={{ position: 'relative', width: maxW, height: h, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: ctx.look.world.text }}>
-        <Halftone w={maxW} h={h} color={ctx.look.hot} opacity={0.35 * prog(t, at - 20, at + 10)} />
+      <div style={{ position: 'relative', width: maxW, height: h, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: ink, overflow: 'hidden', borderRadius: w.flash ? 40 : 0 }}>
+        {w.flash && <div style={{ position: 'absolute', inset: 0, background: grad(ctx.look, 120), borderRadius: 40, opacity: fl, transform: `scale(${(0.82 + 0.18 * fl).toFixed(4)})` }} />}
+        {!w.flash && <Halftone w={maxW} h={h} color={ctx.look.hot} opacity={0.35 * prog(t, at - 20, at + 10)} />}
+        {w.echo &&
+          [-1, 1].map((row) => (
+            <div key={row} style={{ position: 'absolute', left: 0, top: h / 2 - echoSize * 0.55 + row * echoSize * 0.95, whiteSpace: 'nowrap', fontFamily: f.disp, fontWeight: f.dispWeight, fontSize: echoSize, letterSpacing: `${f.dispTrack}em`, lineHeight: 1.1, color: 'transparent', WebkitTextStroke: `2px ${ink}`, opacity: 0.2 * prog(t, at - 10, at + 14), transform: `translateX(${(-((t - at) * 1.1 * row) - maxW * 0.25).toFixed(1)}px)` }}>
+              {`${w.word} · `.repeat(6)}
+            </div>
+          ))}
         {w.label && <div style={{ position: 'relative', fontFamily: f.mono, fontSize: P ? 30 : 28, letterSpacing: '0.3em', opacity: 0.7, height: 50, whiteSpace: 'nowrap' }}>{typed(w.label, t, at - 24, 0.9)}</div>}
-        <div data-fit="1" style={{ position: 'relative', fontFamily: f.disp, fontWeight: f.dispWeight, fontSize: size, letterSpacing: `${f.dispTrack}em`, lineHeight: 1.05, whiteSpace: 'nowrap', opacity: p, transform: `scale(${(1.3 - 0.3 * p).toFixed(4)})`, ...gradText(ctx) }}>{w.word}</div>
+        <div data-fit="1" style={{ position: 'relative', fontFamily: f.disp, fontWeight: f.dispWeight, fontSize: size, letterSpacing: `${f.dispTrack}em`, lineHeight: 1.05, whiteSpace: 'nowrap', fontVariantNumeric: 'tabular-nums', opacity: p, transform: `scale(${(1.3 - 0.3 * p).toFixed(4)})`, ...wordStyle }}>{word}</div>
         {w.sub && <div style={{ position: 'relative', marginTop: 20, fontFamily: f.ui, fontWeight: 500, fontSize: P ? 38 : 40, opacity: 0.75 * prog(t, at + 10, at + 24), whiteSpace: 'nowrap' }}>{w.sub}</div>}
       </div>
     );
   };
   return { layers: [{ key: 'text', dx: 0, dy: 0, w: maxW, h, node }], hits: [{ at, kind: 'punch' }], sfx: [[at - 2, 'pop', 0.5]] };
+};
+
+/** before → after: the old number in grey gets struck out, the new one scramble-decodes in the accent */
+export const versus = (w: z.infer<typeof Versus>, ctx: Ctx): WidgetOut => {
+  const P = ctx.P;
+  const f = ctx.f;
+  const [cw, ch] = P ? [940, 1000] : [1400, 600];
+  const pad = P ? 56 : 60;
+  const at = ctx.cue(w.at);
+  const colW = P ? cw - pad * 2 : (cw - pad * 2 - 120) / 2;
+  const size = Math.min(fitSize(w.before.value, f.disp, f.dispWeight, P ? 170 : 160, colW, f.dispTrack), fitSize(w.after.value, f.disp, f.dispWeight, P ? 170 : 160, colW, f.dispTrack));
+  const node = (t: number) => {
+    const shown = prog(t, at + 4, at + 14);
+    const sheen = prog(t, at + 36, at + 76);
+    const col = (v: string, cap: string, after: boolean) => (
+      <div style={{ width: colW, display: 'flex', flexDirection: 'column', alignItems: P ? 'center' : 'flex-start' }}>
+        <div data-fit="1" style={{ position: 'relative', fontFamily: f.disp, fontWeight: f.dispWeight, fontSize: size, letterSpacing: `${f.dispTrack}em`, lineHeight: 1, whiteSpace: 'nowrap', fontVariantNumeric: 'tabular-nums', transformOrigin: P ? 'center' : 'left center', ...(after ? { ...gradText(ctx), opacity: shown, transform: `scale(${(1 + 0.05 * prog(t, at + 26, at + 140, (x) => x)).toFixed(4)})` } : { color: ctx.look.card.muted, opacity: 1 - 0.45 * prog(t, at, at + 12) }) }}>
+          {after ? scrambleText(v, t, at + 4, 22) : v}
+          {!after && <Strike t={t} at={at - 2} color={ctx.look.hot} />}
+          {after && sheen > 0 && sheen < 1 && (
+            <span style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none' }}>
+              <span style={{ position: 'absolute', top: 0, bottom: 0, left: `${(-30 + 140 * sheen).toFixed(1)}%`, width: '22%', background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent)', transform: 'skewX(-18deg)', mixBlendMode: 'overlay' }} />
+            </span>
+          )}
+        </div>
+        <div style={{ marginTop: 18, fontFamily: f.ui, fontWeight: 500, fontSize: P ? 34 : 30, color: ctx.look.card.muted, whiteSpace: 'nowrap', opacity: after ? prog(t, at + 14, at + 26) : 1 }}>{cap}</div>
+      </div>
+    );
+    return (
+      <Card ctx={ctx} w={cw} h={ch} pad={pad}>
+        {w.label && <Head ctx={ctx} icon="bars" label={w.label.toUpperCase()} size={P ? 24 : 20} />}
+        <div style={{ position: 'absolute', left: 0, right: 0, top: w.label ? (P ? 24 : 20) * 2.6 : 0, bottom: 0, display: 'flex', flexDirection: P ? 'column' : 'row', alignItems: 'center', justifyContent: 'center', gap: P ? 50 : 0 }}>
+          {col(w.before.value, w.before.caption, false)}
+          <div style={{ width: P ? 'auto' : 120, textAlign: 'center', fontFamily: f.ui, fontWeight: 700, fontSize: P ? 70 : 64, color: ctx.look.hot, opacity: prog(t, at, at + 10), transform: P ? 'rotate(90deg)' : undefined }}>→</div>
+          {col(w.after.value, w.after.caption, true)}
+        </div>
+      </Card>
+    );
+  };
+  return { layers: [{ key: 'card', dx: 0, dy: 0, w: cw, h: ch, node }], hits: [{ at: at + 24, kind: 'punch' }], sfx: [[at - 2, 'tick', 0.4], [at + 4, 'roll', 0.35]] };
 };
 
 export const headline = (w: z.infer<typeof Headline>, ctx: Ctx): WidgetOut => {
@@ -49,8 +102,9 @@ export const headline = (w: z.infer<typeof Headline>, ctx: Ctx): WidgetOut => {
       {w.lines.map((ln, li) => (
         <div key={li} data-fit="1" style={{ display: 'flex', gap: size * 0.28, fontFamily: f.disp, fontWeight: f.dispWeight, fontSize: size, letterSpacing: `${f.dispTrack}em`, lineHeight: 1.12, whiteSpace: 'nowrap' }}>
           {ln.map((x, i) => (
-            <span key={i}>
+            <span key={i} style={{ position: 'relative', opacity: x.strike ? 1 - 0.5 * prog(t, ctx.cue(x.strike), ctx.cue(x.strike) + 12) : 1 }}>
               <Chars text={x.text} t={t} at={ats[li][i] - 4} step={2} style={x.accent ? gradText(ctx) : undefined} />
+              {x.strike && <Strike t={t} at={ctx.cue(x.strike)} color={ctx.look.hot} />}
             </span>
           ))}
         </div>

@@ -19,8 +19,8 @@ import { TransitionOverlay } from './transitions';
 type Cam2 = { x: number; y: number; s: number; r: number };
 type Panel = { id: string; beatId: string; index: number; x: number; y: number; x0: number; y0: number; w: number; h: number; layers: LayerDef[]; label: string };
 
-const LABEL: Record<string, string> = { hero: 'BARU', stat: 'ANGKA', vision: 'VISION', code: 'KODE', price: 'HARGA', agents: 'AGEN', lockup: 'COBA', headline: 'PESAN', chat: 'DEMO', bars: 'BANDING', checklist: 'ALASAN', takeover: 'POIN' };
-const LABEL_EN: Record<string, string> = { hero: 'NEW', stat: 'NUMBER', vision: 'VISION', code: 'CODE', price: 'PRICE', agents: 'AGENTS', lockup: 'TRY IT', headline: 'MESSAGE', chat: 'DEMO', bars: 'COMPARE', checklist: 'REASONS', takeover: 'POINT' };
+const LABEL: Record<string, string> = { hero: 'BARU', stat: 'ANGKA', vision: 'VISION', code: 'KODE', price: 'HARGA', agents: 'AGEN', lockup: 'COBA', headline: 'PESAN', chat: 'DEMO', bars: 'BANDING', checklist: 'ALASAN', takeover: 'POIN', versus: 'SEBELUM/SESUDAH' };
+const LABEL_EN: Record<string, string> = { hero: 'NEW', stat: 'NUMBER', vision: 'VISION', code: 'CODE', price: 'PRICE', agents: 'AGENTS', lockup: 'TRY IT', headline: 'MESSAGE', chat: 'DEMO', bars: 'COMPARE', checklist: 'REASONS', takeover: 'POINT', versus: 'BEFORE/AFTER' };
 
 export const posterize = (base: Look): Look => {
   const ink = base.world.text;

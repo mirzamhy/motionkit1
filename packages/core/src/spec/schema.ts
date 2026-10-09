@@ -31,7 +31,7 @@ export const TRANSITION_IDS = ['camera', 'fade', 'flash', 'color', 'bar', 'strea
 export const TRANSITION_COLORS = ['accent', 'brand', 'ground', 'ink', 'white'] as const;
 export const ARCHETYPE_IDS = ['launch', 'problem-solution', 'versus', 'demo', 'reasons', 'one-number'] as const;
 
-const Timed = z.object({ text: short(14), at: Cue, accent: z.boolean().optional() });
+const Timed = z.object({ text: short(14), at: Cue, accent: z.boolean().optional(), strike: Cue.optional().describe('headline only: a line strikes this word out on that cue (put the replacement word next)') });
 
 export const Hero = z.object({
   type: z.literal('hero'),
@@ -55,6 +55,7 @@ export const Stat = z.object({
   from: Cue,
   to: Cue,
   chips: z.array(short(12)).max(3).optional().describe('small mono chips that sink into the bar'),
+  reveal: z.enum(['count', 'scramble']).default('count').describe('count up, or scramble random digits that settle left → right'),
 });
 
 export const Vision = z.object({
@@ -153,9 +154,20 @@ export const Takeover = z.object({
   word: short(10).describe('one oversized word that slams in and holds, e.g. "LAMBAT"'),
   at: Cue,
   sub: z.string().max(40).optional(),
+  reveal: z.enum(['slam', 'scramble']).default('slam'),
+  echo: z.boolean().default(false).describe('outlined copies of the word drift behind it'),
+  flash: z.boolean().default(false).describe('an accent panel swells behind the word on its cue'),
 });
 
-export const Widget = z.discriminatedUnion('type', [Hero, Stat, Vision, Code, Price, Agents, Lockup, Headline, Chat, Bars, Checklist, Takeover]);
+export const Versus = z.object({
+  type: z.literal('versus'),
+  label: short(18).optional().describe('mono caption, e.g. "WAKTU BUILD"'),
+  before: z.object({ value: short(10), caption: short(22) }).describe('the old number — shown grey, then struck out'),
+  after: z.object({ value: short(10), caption: short(22) }).describe('the new number — scrambles in, in the accent'),
+  at: Cue.describe('the word that announces the new number: strike + reveal start here'),
+});
+
+export const Widget = z.discriminatedUnion('type', [Hero, Stat, Vision, Code, Price, Agents, Lockup, Headline, Chat, Bars, Checklist, Takeover, Versus]);
 export type Widget = z.infer<typeof Widget>;
 
 export const Beat = z.object({

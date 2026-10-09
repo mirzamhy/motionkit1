@@ -74,7 +74,12 @@ brief + facts ────────────► concept (opener menu / arc
      builder the DNA summary. `mk render` / `mk qa` print palette / accent / tempo / ground vs the reference.
    Still to do: generate a whole look (fonts, card language, ground texture) instead of mapping to a preset;
    transition guess is a heuristic; detect type style (serif / condensed / mono) from the reference.
-4. **Widgets.** scramble, HUD frame, takeover echo + colour flash, before→after number, dot-matrix stat,
+4a. **Widgets batch A (done).** `scrambleText` + `Strike` atoms; `stat.reveal: "scramble"`; takeover v2
+   (`reveal: "scramble"`, `echo`, `flash`); new `versus` widget (old value struck out, new one scrambles in, slow
+   push + one sheen during the hold); headline `strike` cue. Flythrough/poster + kinetic. Fixed on the way: kinetic
+   dark chips / AI bubbles / badge text were invisible on gradient grounds (`onFg`). Dev: `scripts/demo-4a.ts`,
+   `scripts/frames.ts`.
+4. **Widgets (remaining).** scramble, HUD frame, takeover echo + colour flash, before→after number, dot-matrix stat,
    strikethrough correction, leaderboard, notification, prompt composer, integrations grid, text ring.
 5. **Custom scenes.** ≤2 per video, agent-written component inside a fixed box/duration, must pass qa.
 6. **3D.** `logo3d` (extrude, bevel, glass, bloom, light sweep), `device3d` (phone/laptop with screenshot).

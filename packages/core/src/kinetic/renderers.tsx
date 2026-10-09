@@ -2,7 +2,7 @@
 // everything revealed on its VO word. Each scene leaves room for the "portal" disc the camera zooms through next.
 import React from 'react';
 import { Easing } from 'remotion';
-import { Caret, Chars, Mark, Odo } from '../engine/atoms';
+import { Caret, Chars, Mark, Odo, Strike, scrambleText } from '../engine/atoms';
 import { fitSize } from '../engine/fit';
 import { GREEN } from '../engine/looks';
 import type { Ctx, Hit, Sfx } from '../engine/types';
@@ -22,7 +22,7 @@ const Abs: React.FC<{ x: number; y: number; w?: number; h?: number; children: Re
 );
 
 /** a giant line: measured to the box, glyphs rise on their cues */
-const Big: React.FC<{ k: KCtx; parts: { text: string; at: number; accent?: boolean }[]; max: number; t: number; color?: string; gap?: number; ghost?: boolean }> = ({ k, parts, max, t, color, gap = 0.22, ghost }) => {
+const Big: React.FC<{ k: KCtx; parts: { text: string; at: number; accent?: boolean; strike?: number }[]; max: number; t: number; color?: string; gap?: number; ghost?: boolean }> = ({ k, parts, max, t, color, gap = 0.22, ghost }) => {
   const f = k.f;
   const str = parts.map((p) => p.text).join(gap ? ' ' : '');
   const size = fitSize(str, f.disp, f.dispWeight, max, k.box.w, f.dispTrack);
@@ -31,8 +31,9 @@ const Big: React.FC<{ k: KCtx; parts: { text: string; at: number; accent?: boole
       {/* faint outline of the full line, so a scene is never empty before its words are spoken */}
       {ghost && <div style={{ position: 'absolute', left: 0, top: 0, display: 'flex', columnGap: size * gap, color: 'transparent', WebkitTextStroke: `2px ${color ?? k.pal.fg}`, opacity: 0.18 * (1 - prog(t, parts[0].at - 4, parts[parts.length - 1].at + 10)) }}>{parts.map((p, i) => <span key={i}>{p.text}</span>)}</div>}
       {parts.map((p, i) => (
-        <span key={i}>
+        <span key={i} style={{ position: 'relative', opacity: p.strike !== undefined ? 1 - 0.5 * prog(t, p.strike, p.strike + 12) : 1 }}>
           <Chars text={p.text} t={t} at={p.at - 4} step={1.8} style={p.accent ? { color: k.pal.hot } : undefined} />
+          {p.strike !== undefined && <Strike t={t} at={p.strike} color={k.pal.hot} />}
         </span>
       ))}
     </div>
@@ -57,6 +58,16 @@ const Dash: React.FC<{ k: KCtx; p: number; h?: number }> = ({ k, p, h = 10 }) =>
     <div style={{ width: `${(clamp01(p) * 100).toFixed(2)}%`, height: '100%', borderRadius: h, background: k.pal.hot }} />
   </div>
 );
+
+/** text colour for something filled with pal.fg: the field colour when it is solid, else whatever contrasts with fg */
+const onFg = (pal: KPal) => {
+  if (!pal.bg.startsWith('linear') && !pal.bg.startsWith('radial')) return pal.bg;
+  const m = /^#([0-9a-f]{6})$/i.exec(pal.fg);
+  if (!m) return '#111214';
+  const n = parseInt(m[1], 16);
+  const l = 0.2126 * (n >> 16) + 0.7152 * ((n >> 8) & 255) + 0.0722 * (n & 255);
+  return l < 140 ? '#FFFFFF' : '#111214';
+};
 
 export const kineticWidget = (w: Widget, k: KCtx): KOut => {
   const { cue, f, pal, box } = k;
@@ -106,7 +117,7 @@ export const kineticWidget = (w: Widget, k: KCtx): KOut => {
             <Abs x={box.x} y={box.y} w={box.w} h={box.h}>
               <Kicker k={k} text={w.label} t={t} at={k.arrive - 20} />
               <div data-fit="1" style={{ marginTop: 20, fontFamily: f.disp, fontWeight: f.dispWeight, fontSize: size, letterSpacing: `${f.dispTrack}em`, lineHeight: 1, color: pal.fg, fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' }}>
-                {`${w.prefix ?? ''}${Math.round(w.value * fill).toLocaleString(loc)}${w.suffix ?? ''}`}
+                {w.reveal === 'scramble' ? scrambleText(finalTxt, t, to - 24, 24) : `${w.prefix ?? ''}${Math.round(w.value * fill).toLocaleString(loc)}${w.suffix ?? ''}`}
               </div>
               <div style={{ marginTop: 26, fontFamily: f.ui, fontWeight: 600, fontSize: P ? 44 : 46, color: pal.fg, opacity: prog(t, from + 6, from + 20) }}>{w.caption}</div>
               <div style={{ marginTop: 40 }}>
@@ -235,7 +246,7 @@ export const kineticWidget = (w: Widget, k: KCtx): KOut => {
                 </div>
               ))}
               {w.badge && bAt !== null && (
-                <div style={{ position: 'absolute', right: P ? 0 : -40, top: P ? 40 : 0, width: 230, height: 230, borderRadius: 115, background: pal.fg, color: pal.bg.startsWith('linear') ? '#111' : pal.bg, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', transform: `rotate(${(-12 + (1 - pop(t, bAt - 3, 4)) * 40).toFixed(1)}deg) scale(${pop(t, bAt - 3, 4).toFixed(3)})`, opacity: t >= bAt - 3 ? 1 : 0 }}>
+                <div style={{ position: 'absolute', right: P ? 0 : -40, top: P ? 40 : 0, width: 230, height: 230, borderRadius: 115, background: pal.fg, color: onFg(pal), display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', transform: `rotate(${(-12 + (1 - pop(t, bAt - 3, 4)) * 40).toFixed(1)}deg) scale(${pop(t, bAt - 3, 4).toFixed(3)})`, opacity: t >= bAt - 3 ? 1 : 0 }}>
                   <div style={{ fontFamily: f.mono, fontWeight: 600, fontSize: 22, letterSpacing: '0.24em' }}>{w.badge.top}</div>
                   <div style={{ fontFamily: f.disp, fontWeight: f.dispWeight, fontSize: fitSize(w.badge.value, f.disp, f.dispWeight, 70, 190, f.dispTrack), letterSpacing: `${f.dispTrack}em` }}>{w.badge.value}</div>
                 </div>
@@ -304,7 +315,7 @@ export const kineticWidget = (w: Widget, k: KCtx): KOut => {
               </div>
               <div style={{ display: 'flex', flexDirection: P ? 'column' : 'row', gap: 18, alignItems: 'center', opacity: chips }}>
                 {w.chips.map((c, i) => (
-                  <div key={i} style={{ whiteSpace: 'nowrap', padding: '16px 30px', borderRadius: 999, fontFamily: c.style === 'dark' ? f.mono : f.ui, fontWeight: c.style === 'dark' ? 500 : 700, fontSize: 34, background: c.style === 'dark' ? pal.fg : pal.hot, color: c.style === 'dark' ? (pal.bg.startsWith('linear') ? '#111' : pal.bg) : '#FFFFFF' }}>
+                  <div key={i} style={{ whiteSpace: 'nowrap', padding: '16px 30px', borderRadius: 999, fontFamily: c.style === 'dark' ? f.mono : f.ui, fontWeight: c.style === 'dark' ? 500 : 700, fontSize: 34, background: c.style === 'dark' ? pal.fg : pal.hot, color: c.style === 'dark' ? onFg(pal) : '#FFFFFF' }}>
                     {c.text}
                   </div>
                 ))}
@@ -325,7 +336,7 @@ export const kineticWidget = (w: Widget, k: KCtx): KOut => {
         node: (t) => (
           <Abs x={box.x} y={box.y} w={box.w} h={box.h}>
             {w.lines.map((ln, li) => (
-              <Big key={li} k={k} t={t} max={P ? 200 : 220} parts={ln.map((x, i) => ({ text: x.text, at: ats[li][i], accent: x.accent }))} />
+              <Big key={li} k={k} t={t} max={P ? 200 : 220} parts={ln.map((x, i) => ({ text: x.text, at: ats[li][i], accent: x.accent, strike: x.strike ? cue(x.strike) : undefined }))} />
             ))}
             {w.sub && <div style={{ marginTop: 30, fontFamily: f.ui, fontWeight: 600, fontSize: 46, color: pal.muted, opacity: prog(t, subAt, subAt + 14) }}>{w.sub}</div>}
           </Abs>
@@ -345,7 +356,7 @@ export const kineticWidget = (w: Widget, k: KCtx): KOut => {
                 if (t < ats[i] - (ai ? 18 : 6)) return null;
                 const typing = ai && t < ats[i];
                 return (
-                  <div key={i} style={{ alignSelf: ai ? 'flex-start' : 'flex-end', maxWidth: '88%', padding: '22px 30px', borderRadius: 30, background: ai ? pal.fg : pal.hot, color: ai ? (pal.bg.startsWith('linear') ? '#111' : pal.bg) : '#FFFFFF', fontFamily: f.ui, fontWeight: 600, fontSize: P ? 40 : 42, lineHeight: 1.3, transform: `scale(${Math.min(1, 0.85 + 0.15 * pop(t, ats[i] - (ai ? 0 : 6), 4)).toFixed(3)})`, transformOrigin: ai ? 'left bottom' : 'right bottom' }}>
+                  <div key={i} style={{ alignSelf: ai ? 'flex-start' : 'flex-end', maxWidth: '88%', padding: '22px 30px', borderRadius: 30, background: ai ? pal.fg : pal.hot, color: ai ? onFg(pal) : '#FFFFFF', fontFamily: f.ui, fontWeight: 600, fontSize: P ? 40 : 42, lineHeight: 1.3, transform: `scale(${Math.min(1, 0.85 + 0.15 * pop(t, ats[i] - (ai ? 0 : 6), 4)).toFixed(3)})`, transformOrigin: ai ? 'left bottom' : 'right bottom' }}>
                     {typing ? '•••'.slice(0, 1 + (Math.floor(t / 6) % 3)) : ai ? typed(m.text, t, ats[i], 1.8) : m.text}
                   </div>
                 );
@@ -412,19 +423,54 @@ export const kineticWidget = (w: Widget, k: KCtx): KOut => {
     case 'takeover': {
       const at = cue(w.at);
       const size = fitSize(w.word, f.disp, f.dispWeight, P ? 300 : 340, box.w, f.dispTrack);
+      const echo = Math.round(size * 0.6);
       return {
         node: (t) => {
           const p = prog(t, at - 6, at + 4);
+          const fl = w.flash ? prog(t, at - 6, at + 8) : 0;
+          const word = w.reveal === 'scramble' ? scrambleText(w.word, t, at - 2, 20) : w.word;
+          // flash: the field floods with the palette's ink and the word takes the field colour (solid, never a gradient)
+          const field = pal.bg.startsWith('linear') ? k.look.accent[0] : pal.bg;
+          const ink = w.flash && fl > 0.5 ? field : w.flash ? pal.fg : pal.hot;
           return (
-            <Abs x={box.x} y={box.y} w={box.w} h={box.h}>
-              {w.label && <Kicker k={k} text={w.label} t={t} at={k.arrive - 20} />}
-              <div data-fit="1" style={{ fontFamily: f.disp, fontWeight: f.dispWeight, fontSize: size, letterSpacing: `${f.dispTrack}em`, lineHeight: 1.02, whiteSpace: 'nowrap', color: pal.hot, opacity: p, transform: `scale(${(1.3 - 0.3 * p).toFixed(4)})`, transformOrigin: 'left center' }}>{w.word}</div>
-              {w.sub && <div style={{ marginTop: 20, fontFamily: f.ui, fontWeight: 600, fontSize: 40, color: pal.fg, opacity: prog(t, at + 10, at + 24), whiteSpace: 'nowrap' }}>{w.sub}</div>}
-            </Abs>
+            <>
+              {w.flash && <div style={{ position: 'absolute', inset: 0, background: pal.fg, opacity: fl }} />}
+              {w.echo &&
+                [0, 1, 2].map((row) => (
+                  <div key={row} style={{ position: 'absolute', left: 0, top: box.y + box.h / 2 - echo * 1.7 + row * echo * 1.15, whiteSpace: 'nowrap', fontFamily: f.disp, fontWeight: f.dispWeight, fontSize: echo, lineHeight: 1.1, color: 'transparent', WebkitTextStroke: `2px ${w.flash && fl > 0.5 ? field : pal.fg}`, opacity: 0.16 * prog(t, at - 10, at + 14), transform: `translateX(${(-((t - at) * 1.2 * (row % 2 ? -1 : 1)) - k.fw * 0.3).toFixed(1)}px)` }}>
+                    {`${w.word} · `.repeat(8)}
+                  </div>
+                ))}
+              <Abs x={box.x} y={box.y} w={box.w} h={box.h}>
+                {w.label && <Kicker k={k} text={w.label} t={t} at={k.arrive - 20} />}
+                <div data-fit="1" style={{ fontFamily: f.disp, fontWeight: f.dispWeight, fontSize: size, letterSpacing: `${f.dispTrack}em`, lineHeight: 1.02, whiteSpace: 'nowrap', fontVariantNumeric: 'tabular-nums', color: ink, opacity: p, transform: `scale(${(1.3 - 0.3 * p).toFixed(4)})`, transformOrigin: 'left center' }}>{word}</div>
+                {w.sub && <div style={{ marginTop: 20, fontFamily: f.ui, fontWeight: 600, fontSize: 40, color: w.flash && fl > 0.5 ? field : pal.fg, opacity: prog(t, at + 10, at + 24), whiteSpace: 'nowrap' }}>{w.sub}</div>}
+              </Abs>
+            </>
           );
         },
         hits: [{ at, kind: 'punch' }],
         sfx: [[at - 2, 'pop', 0.5]],
+      };
+    }
+    case 'versus': {
+      const at = cue(w.at);
+      const size = Math.min(fitSize(w.before.value, f.disp, f.dispWeight, P ? 190 : 200, box.w, f.dispTrack), fitSize(w.after.value, f.disp, f.dispWeight, P ? 230 : 250, box.w, f.dispTrack));
+      return {
+        node: (t) => (
+          <Abs x={box.x} y={box.y} w={box.w} h={box.h}>
+            {w.label && <Kicker k={k} text={w.label.toUpperCase()} t={t} at={k.arrive - 20} />}
+            <div data-fit="1" style={{ position: 'relative', display: 'inline-block', marginTop: 16, fontFamily: f.disp, fontWeight: f.dispWeight, fontSize: size * 0.8, letterSpacing: `${f.dispTrack}em`, lineHeight: 1, whiteSpace: 'nowrap', color: pal.muted, opacity: 1 - 0.4 * prog(t, at, at + 12) }}>
+              {w.before.value}
+              <Strike t={t} at={at - 2} color={pal.hot} />
+            </div>
+            <div style={{ fontFamily: f.ui, fontWeight: 600, fontSize: 34, color: pal.muted, marginTop: 8 }}>{w.before.caption}</div>
+            <div data-fit="1" style={{ marginTop: 30, fontFamily: f.disp, fontWeight: f.dispWeight, fontSize: size, letterSpacing: `${f.dispTrack}em`, lineHeight: 1, whiteSpace: 'nowrap', fontVariantNumeric: 'tabular-nums', color: pal.hot, opacity: prog(t, at + 4, at + 14) }}>{scrambleText(w.after.value, t, at + 4, 22)}</div>
+            <div style={{ fontFamily: f.ui, fontWeight: 600, fontSize: 40, color: pal.fg, marginTop: 10, opacity: prog(t, at + 14, at + 26) }}>{w.after.caption}</div>
+          </Abs>
+        ),
+        hits: [{ at: at + 24, kind: 'punch' }],
+        sfx: [[at - 2, 'tick', 0.4], [at + 4, 'roll', 0.35]],
       };
     }
   }

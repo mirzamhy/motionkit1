@@ -4,7 +4,7 @@
 import type { Timeline } from '../../core/src/engine/timeline';
 import type { Spec } from '../../core/src/spec/schema';
 
-const CUE_KEYS = new Set(['at', 'from', 'to', 'cutAt', 'goAt', 'logoAt', 'scanFrom', 'scanTo', 'doneAt', 'kickerAt', 'revealAt']);
+const CUE_KEYS = new Set(['at', 'strike', 'from', 'to', 'cutAt', 'goAt', 'logoAt', 'scanFrom', 'scanTo', 'doneAt', 'kickerAt', 'revealAt']);
 const CARD_TYPES = new Set(['stat', 'vision', 'code', 'checklist', 'chat', 'bars', 'price', 'agents']);
 
 /** every frame where something is told to happen: beat arrivals, widget cues, punches, camera moves */

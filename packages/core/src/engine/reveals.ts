@@ -21,6 +21,8 @@ export const revealEnd = (beat: Beat, cue: (c: string) => number): { frame: numb
   };
   visit(beat.widget);
   if (beat.widget.type === 'bars') best = { frame: Math.max(best.frame, cue(beat.widget.from) + 30 + beat.widget.items.length * 6), key: 'bars.from' };
+  if (beat.widget.type === 'versus') best = { frame: Math.max(best.frame, cue(beat.widget.at) + 30), key: 'versus.at' };
+  if (beat.widget.type === 'takeover' && beat.widget.reveal === 'scramble') best = { frame: Math.max(best.frame, cue(beat.widget.at) + 20), key: 'takeover scramble' };
   if (beat.widget.type === 'chat') {
     for (const m of beat.widget.messages) if (m.from === 'ai') best = { frame: Math.max(best.frame, cue(m.at) + Math.ceil(m.text.length / 1.8) + 12), key: `ai message "${m.text.slice(0, 20)}…"` };
   }
