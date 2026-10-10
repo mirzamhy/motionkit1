@@ -1,0 +1,118 @@
+// The film runner for hand-built scenes: a list of shots played back to back with dissolves, on-screen narration,
+// a corner label, an optional recorded voice-over cut into passages, and one grade over everything.
+//
+// Two clocks reach every shot:
+//   u — the BEAT clock. With `warp` it is retimed so drawn events land on the words that name them.
+//   a — the AMBIENT clock: real frames since the shot began. Use it for anything that should keep its own pace
+//       whatever the retiming does (flags, leaves, footsteps, blinking).
+import React from 'react';
+import { AbsoluteFill, Audio, Sequence, staticFile, useCurrentFrame } from 'remotion';
+import { inOut, outE, prog, typed } from '../engine/util';
+import { n1 } from './kit';
+
+/** one passage of the voice-over: `at` = shot frame the speech starts on; from / to = seconds in the recording */
+export type Vo = { at: number; from: number; to: number };
+export type Shot = {
+  dur: number;
+  /** typewritten corner label, e.g. "SURABAYA · 1923" */
+  label?: string;
+  /** 0–0.2: strength of the warm "old photograph" wash for this shot (0 for present-day scenes) */
+  age?: number;
+  /** [frame in this film, frame on the shot's beat clock] pairs, linear in between. Omit for 1:1. */
+  warp?: [number, number][];
+  draw: (u: number, a: number) => React.ReactNode;
+  /** narration lines: [from, to, text] in shot frames (real, not warped) */
+  caps?: [number, number, string][];
+  vo?: Vo[];
+};
+
+export const filmStarts = (shots: Shot[]) => shots.reduce<number[]>((a, _s, i) => [...a, i === 0 ? 0 : a[i - 1] + shots[i - 1].dur], []);
+export const filmFrames = (shots: Shot[]) => shots.reduce((n, s) => n + s.dur, 0);
+
+export const warped = (s: Shot, u: number) => {
+  const w = s.warp;
+  if (!w) return u;
+  if (u <= w[0][0]) return w[0][1] + (u - w[0][0]);
+  for (let i = 1; i < w.length; i++)
+    if (u <= w[i][0]) {
+      const [a, b] = [w[i - 1], w[i]];
+      return a[1] + ((u - a[0]) / (b[0] - a[0])) * (b[1] - a[1]);
+    }
+  const last = w[w.length - 1];
+  return last[1] + (u - last[0]);
+};
+
+const FADE = 24;
+const PAD_IN = 0.1; // seconds of the recording kept before / after each passage, inside its pauses
+const PAD_OUT = 0.2;
+
+export const Film: React.FC<{
+  shots: Shot[];
+  /** <defs> blocks the shots need (gradients, patterns, static filters) */
+  defs?: React.ReactNode;
+  fonts: { mono: string; ui: string };
+  width?: number;
+  height?: number;
+  fps?: number;
+  /** file name inside the public dir; omitted or null = silent film */
+  vo?: string | null;
+  captions?: boolean;
+  background?: string;
+}> = ({ shots, defs, fonts, width = 1920, height = 1080, fps = 60, vo, captions = true, background = '#1A120A' }) => {
+  const t = useCurrentFrame();
+  const starts = filmStarts(shots);
+  // which shot owns the frame (label, grade); the previous one keeps drawing under the dissolve
+  let cur = 0;
+  for (let i = 0; i < shots.length; i++) if (t >= starts[i]) cur = i;
+  const inMix = cur > 0 ? prog(t, starts[cur], starts[cur] + FADE, inOut) : 1;
+  const shot = shots[cur];
+  const prev = cur > 0 ? shots[cur - 1] : null;
+  const age = prev ? (prev.age ?? 0) + ((shot.age ?? 0) - (prev.age ?? 0)) * inMix : shot.age ?? 0;
+  const u = t - starts[cur];
+  const portrait = height > width;
+  return (
+    <AbsoluteFill style={{ background }}>
+      <svg viewBox={`0 0 ${width} ${height}`} width="100%" height="100%" style={{ position: 'absolute', inset: 0 }}>
+        <defs>
+          <filter id="fm-grain" x="0" y="0" width="100%" height="100%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" />
+            <feColorMatrix values="0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0.55 0" />
+          </filter>
+          <radialGradient id="fm-vig" cx="0.5" cy="0.5" r="0.75">
+            <stop offset="0.55" stopColor="#1A120A" stopOpacity="0" />
+            <stop offset="1" stopColor="#1A120A" stopOpacity="0.6" />
+          </radialGradient>
+        </defs>
+        {defs}
+        {prev && inMix < 1 && <g>{prev.draw(warped(prev, t - starts[cur - 1]), t - starts[cur - 1])}</g>}
+        <g opacity={inMix}>{shot.draw(warped(shot, u), u)}</g>
+        {/* grade: a warm wash for the old years, vignette, static grain */}
+        <rect width={width} height={height} fill="#C9A46A" opacity={age} style={{ mixBlendMode: 'multiply' }} />
+        <rect width={width} height={height} fill="url(#fm-vig)" />
+        <rect width={width} height={height} filter="url(#fm-grain)" opacity={0.18} style={{ mixBlendMode: 'overlay' }} />
+      </svg>
+      {shot.label && (
+        <div style={{ position: 'absolute', left: portrait ? 48 : 64, top: portrait ? 120 : 54, fontFamily: fonts.mono, fontSize: 32, letterSpacing: '0.12em', color: '#FBF6EA', textShadow: '0 2px 10px rgba(0,0,0,0.6)', opacity: prog(u, 6, 20) * (1 - prog(u, shot.dur - 20, shot.dur - 4, inOut)) }}>{typed(shot.label, u, 16, 0.5)}</div>
+      )}
+      {captions &&
+        (shot.caps ?? []).map(([a, b, text]) => (
+          <div key={a} style={{ position: 'absolute', left: 0, right: 0, bottom: portrait ? 250 : 64, display: 'flex', justifyContent: 'center', opacity: prog(u, a, a + 14) * (1 - prog(u, b - 14, b, inOut)), transform: `translateY(${n1((1 - prog(u, a, a + 18, outE)) * 16)}px)` }}>
+            <div style={{ padding: '14px 30px', borderRadius: 14, background: 'rgba(18,14,10,0.82)', fontFamily: fonts.ui, fontSize: portrait ? 46 : 40, lineHeight: 1.25, color: '#F4EBD8', whiteSpace: portrait ? 'normal' : 'nowrap', maxWidth: portrait ? 900 : undefined, textAlign: 'center' }}>{text}</div>
+          </div>
+        ))}
+      {/* voice-over: each passage of the recording, placed on its shot */}
+      {vo &&
+        shots.map((s, i) =>
+          (s.vo ?? []).map((v) => {
+            const startFrom = Math.max(0, Math.round((v.from - PAD_IN) * fps));
+            const endAt = Math.round((v.to + PAD_OUT) * fps);
+            return (
+              <Sequence key={`${i}-${v.at}`} from={starts[i] + v.at - Math.round(PAD_IN * fps)} durationInFrames={endAt - startFrom} layout="none">
+                <Audio src={staticFile(vo)} startFrom={startFrom} endAt={endAt} />
+              </Sequence>
+            );
+          }),
+        )}
+    </AbsoluteFill>
+  );
+};

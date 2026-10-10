@@ -7,6 +7,7 @@ import { Spec, Words } from './spec/schema';
 import { SpotLandscape, SpotPortrait, type SpotProps } from './Spot';
 import { CodeLandscape, CodePortrait, type CodeProps } from './code/CodeSpot';
 import { Script } from './spec/script';
+import { SceneCompositions } from './scenes';
 
 const defaults: SpotProps = { spec: Spec.parse(exampleSpec), words: Words.parse(exampleWords), hasVo: false, hasMusic: false, sfx: false };
 
@@ -26,6 +27,7 @@ const codeMeta: CalculateMetadataFunction<CodeProps> = ({ props }) => {
 
 export const Root: React.FC = () => (
   <>
+    <SceneCompositions />
     <Composition id="CodeSpot" component={CodeLandscape} width={1920} height={1080} fps={60} durationInFrames={900} defaultProps={codeDefaults} calculateMetadata={codeMeta} />
     <Composition id="CodeSpotPortrait" component={CodePortrait} width={1080} height={1920} fps={60} durationInFrames={900} defaultProps={codeDefaults} calculateMetadata={codeMeta} />
     <Composition id="Spot" component={SpotLandscape} width={1920} height={1080} fps={60} durationInFrames={900} defaultProps={defaults} calculateMetadata={meta} />
