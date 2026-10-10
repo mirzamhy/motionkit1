@@ -21,6 +21,8 @@ export const revealEnd = (beat: Beat, cue: (c: string) => number): { frame: numb
   };
   visit(beat.widget);
   if (beat.widget.type === 'bars') best = { frame: Math.max(best.frame, cue(beat.widget.from) + 30 + beat.widget.items.length * 6), key: 'bars.from' };
+  if (beat.widget.type === 'newspaper') best = { frame: Math.max(best.frame, cue(beat.widget.at) + 40), key: 'newspaper print' };
+  if (beat.widget.type === 'document') best = { frame: Math.max(best.frame, cue(beat.widget.titleAt) + Math.ceil(beat.widget.title.length / 1.5) + 8), key: 'document typing' };
   if (beat.widget.type === 'prompt') best = { frame: Math.max(best.frame, cue(beat.widget.at) + Math.ceil(beat.widget.text.length / 1.6) + 14), key: 'prompt typing' };
   if (beat.widget.type === 'integrations') best = { frame: Math.max(best.frame, cue(beat.widget.at) + beat.widget.items.length * 5 + 20), key: 'integrations' };
   if (beat.widget.type === 'dots') best = { frame: Math.max(best.frame, cue(beat.widget.to) + 28), key: 'dots.to' };

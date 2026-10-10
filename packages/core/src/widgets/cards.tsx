@@ -29,7 +29,7 @@ export const stat = (w: z.infer<typeof Stat>, ctx: Ctx): WidgetOut => {
           <Head ctx={ctx} icon="ctx" label={w.label} right={w.chip ? <Chip ctx={ctx} size={P ? 24 : 20}>{w.chip}</Chip> : undefined} size={P ? 24 : 20} />
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <Fit text={finalTxt} family={ctx.f.disp} weight={ctx.f.dispWeight} size={P ? 112 : 92} maxW={cw - pad * 2} track={ctx.f.dispTrack} style={{ fontVariantNumeric: 'tabular-nums', lineHeight: 1 }}>
-              {w.reveal === 'scramble' ? scrambleText(finalTxt, t, to - 24, 24) : `${w.prefix ?? ''}${n.toLocaleString(loc)}${w.suffix ?? ''}`}
+              {w.reveal === 'scramble' ? <span style={{ opacity: prog(t, from - 2, from + 8) }}>{scrambleText(finalTxt, t, to - 24, 24)}</span> : `${w.prefix ?? ''}${n.toLocaleString(loc)}${w.suffix ?? ''}`}
             </Fit>
             <div style={{ marginTop: 16, fontFamily: ctx.f.ui, fontWeight: 500, fontSize: P ? 34 : 29, color: ctx.look.card.muted }}>{w.caption}</div>
           </div>

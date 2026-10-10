@@ -8,6 +8,7 @@ import { GREEN } from '../engine/looks';
 import type { Ctx, Hit, Sfx } from '../engine/types';
 import { clamp01, inOut, lin, pop, prog, typed } from '../engine/util';
 import type { Widget } from '../spec/schema';
+import { archiveWidget } from '../archive/renderers';
 
 export type KPal = { bg: string; fg: string; muted: string; hot: string; line: string; inset: string };
 export type Box = { x: number; y: number; w: number; h: number };
@@ -25,7 +26,8 @@ const Abs: React.FC<{ x: number; y: number; w?: number; h?: number; children: Re
 const Big: React.FC<{ k: KCtx; parts: { text: string; at: number; accent?: boolean; strike?: number }[]; max: number; t: number; color?: string; gap?: number; ghost?: boolean }> = ({ k, parts, max, t, color, gap = 0.22, ghost }) => {
   const f = k.f;
   const str = parts.map((p) => p.text).join(gap ? ' ' : '');
-  const size = fitSize(str, f.disp, f.dispWeight, max, k.box.w, f.dispTrack);
+  // 4 % slack: glyph-by-glyph spans and the column gap measure a hair wider than the plain string
+  const size = fitSize(str, f.disp, f.dispWeight, max, k.box.w * 0.96, f.dispTrack);
   return (
     <div data-fit="1" style={{ position: 'relative', display: 'flex', columnGap: size * gap, whiteSpace: 'nowrap', fontFamily: f.disp, fontWeight: f.dispWeight, fontSize: size, letterSpacing: `${f.dispTrack}em`, lineHeight: 1.02, color: color ?? k.pal.fg, maxWidth: k.box.w }}>
       {/* faint outline of the full line, so a scene is never empty before its words are spoken */}
@@ -117,7 +119,7 @@ export const kineticWidget = (w: Widget, k: KCtx): KOut => {
             <Abs x={box.x} y={box.y} w={box.w} h={box.h}>
               <Kicker k={k} text={w.label} t={t} at={k.arrive - 20} />
               <div data-fit="1" style={{ marginTop: 20, fontFamily: f.disp, fontWeight: f.dispWeight, fontSize: size, letterSpacing: `${f.dispTrack}em`, lineHeight: 1, color: pal.fg, fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' }}>
-                {w.reveal === 'scramble' ? scrambleText(finalTxt, t, to - 24, 24) : `${w.prefix ?? ''}${Math.round(w.value * fill).toLocaleString(loc)}${w.suffix ?? ''}`}
+                {w.reveal === 'scramble' ? <span style={{ opacity: prog(t, from - 2, from + 8) }}>{scrambleText(finalTxt, t, to - 24, 24)}</span> : `${w.prefix ?? ''}${Math.round(w.value * fill).toLocaleString(loc)}${w.suffix ?? ''}`}
               </div>
               <div style={{ marginTop: 26, fontFamily: f.ui, fontWeight: 600, fontSize: P ? 44 : 46, color: pal.fg, opacity: prog(t, from + 6, from + 20) }}>{w.caption}</div>
               <div style={{ marginTop: 40 }}>
@@ -208,7 +210,7 @@ export const kineticWidget = (w: Widget, k: KCtx): KOut => {
                 })}
               </div>
               {w.done && (
-                <div style={{ marginTop: 30, display: 'inline-flex', alignItems: 'center', gap: 16, fontFamily: f.ui, fontWeight: 700, fontSize: 40, color: GREEN, opacity: prog(t, doneAt, doneAt + 10), transform: `scale(${pop(t, doneAt, 4).toFixed(3)})`, transformOrigin: 'left center' }}>
+                <div style={{ marginTop: 30, display: 'inline-flex', alignItems: 'center', gap: 16, fontFamily: f.ui, fontWeight: 700, fontSize: 40, color: pal.bg.startsWith('linear') ? pal.fg : GREEN, opacity: prog(t, doneAt, doneAt + 10), transform: `scale(${pop(t, doneAt, 4).toFixed(3)})`, transformOrigin: 'left center' }}>
                   ✓ {w.done}
                 </div>
               )}
@@ -689,5 +691,10 @@ export const kineticWidget = (w: Widget, k: KCtx): KOut => {
         sfx: [[at - 4, 'whoosh', 0.35]],
       };
     }
+    case 'document':
+    case 'newspaper':
+    case 'cutout':
+    case 'receipt':
+      return archiveWidget(w, k)!;
   }
 };

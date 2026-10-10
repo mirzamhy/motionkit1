@@ -3,6 +3,7 @@
 import React from 'react';
 import { fontsFor, useFontsReady } from './engine/fonts';
 import { resolveLook } from './engine/looks';
+import { Archive } from './engines/Archive';
 import { FlyThrough } from './engines/FlyThrough';
 import { Kinetic } from './engines/Kinetic';
 import { Poster } from './engines/Poster';
@@ -10,7 +11,7 @@ import type { EngineProps, SpotProps } from './engines/shared';
 
 export type { SpotProps } from './engines/shared';
 
-const ENGINES = { flythrough: FlyThrough, poster: Poster, kinetic: Kinetic } as const;
+const ENGINES = { flythrough: FlyThrough, poster: Poster, kinetic: Kinetic, archive: Archive } as const;
 
 const Gate: React.FC<EngineProps> = (p) => {
   // start the webfont loads first, then hold the frame until they are in (fit.ts measures real glyphs)

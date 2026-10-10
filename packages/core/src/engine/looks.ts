@@ -131,6 +131,25 @@ const PRESETS: Record<string, Look> = {
     hot: '#FFB800',
     caption: { bg: 'rgba(18,17,16,0.9)', fg: '#FFF4E8', hot: '#FFB800' },
   },
+  // documentary: a dark warm desk, cream paper sheets, one ink accent
+  'archive-desk': {
+    id: 'archive-desk',
+    dark: true,
+    world: {
+      bg: 'radial-gradient(120% 90% at 50% 40%, #2B231B 0%, #17120E 60%, #0D0A08 100%)',
+      glow: '217,72,15',
+      glowA: 0.08,
+      floor: null,
+      particles: { ink: '#F2E8D5', inkA: 0.1, hot: '#D9480F', hotA: 0.3, n: 40 },
+      text: '#F2E8D5',
+    },
+    card: { bg: '#EFE6D3', fg: '#1F1A14', muted: 'rgba(31,26,20,0.58)', line: 'rgba(31,26,20,0.16)', inset: '#E4D9C3', insetFg: '#1F1A14', border: '1px solid rgba(31,26,20,0.12)', shadow: '0 40px 80px -30px rgba(0,0,0,0.7), 0 6px 14px -6px rgba(0,0,0,0.5)', radius: 6, glowA: 0 },
+    lockup: { bg: '#EFE6D3', fg: '#1F1A14', border: '1px solid rgba(31,26,20,0.12)', shadow: '0 40px 80px -30px rgba(0,0,0,0.7)', radius: 6 },
+    fonts: 'editorial',
+    accent: ['#D9480F', '#B4380B'],
+    hot: '#D9480F',
+    caption: { bg: 'rgba(23,18,14,0.88)', fg: '#F2E8D5', hot: '#F59E0B' },
+  },
 };
 
 /** id / darkness / accent of every preset — used to map a reference's Style DNA onto the nearest preset */

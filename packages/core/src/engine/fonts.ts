@@ -19,9 +19,11 @@ import { loadFont as plexMono } from '@remotion/google-fonts/IBMPlexMono';
 import { loadFont as archivoBlack } from '@remotion/google-fonts/ArchivoBlack';
 import { loadFont as interTight } from '@remotion/google-fonts/InterTight';
 import { loadFont as dmMono } from '@remotion/google-fonts/DMMono';
+import { loadFont as fraunces } from '@remotion/google-fonts/Fraunces';
+import { loadFont as newsreader } from '@remotion/google-fonts/Newsreader';
 
 export type Fonts = { disp: string; ui: string; mono: string; dispWeight: number; dispTrack: number; wait: () => Promise<void> };
-export type FontPairId = 'unbounded' | 'sora' | 'bricolage' | 'syne' | 'space' | 'archivo';
+export type FontPairId = 'unbounded' | 'sora' | 'bricolage' | 'syne' | 'space' | 'archivo' | 'editorial';
 
 const L = { subsets: ['latin'] as ['latin'] };
 const PAIRS: Record<FontPairId, () => Fonts> = {
@@ -100,6 +102,20 @@ const PAIRS: Record<FontPairId, () => Fonts> = {
       mono: mono.fontFamily,
       dispWeight: 400,
       dispTrack: -0.035,
+      wait: () => Promise.all([disp.waitUntilDone(), ui.waitUntilDone(), mono.waitUntilDone()]).then(() => undefined),
+    };
+  },
+  // documentary / archive: a soft serif display, a reading serif, a typewriter-ish mono
+  editorial: () => {
+    const disp = fraunces('normal', { weights: ['500', '600', '700'], ...L });
+    const ui = newsreader('normal', { weights: ['400', '500', '600'], ...L });
+    const mono = plexMono('normal', { weights: ['400', '500', '600'], ...L });
+    return {
+      disp: disp.fontFamily,
+      ui: ui.fontFamily,
+      mono: mono.fontFamily,
+      dispWeight: 600,
+      dispTrack: -0.02,
       wait: () => Promise.all([disp.waitUntilDone(), ui.waitUntilDone(), mono.waitUntilDone()]).then(() => undefined),
     };
   },

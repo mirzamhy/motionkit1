@@ -17,14 +17,15 @@ export type Cue = z.infer<typeof Cue>;
 const Hex = z.string().regex(/^#[0-9a-fA-F]{6}$/, 'hex colour like #E7010A');
 const short = (n: number) => z.string().min(1).max(n);
 
-export const LOOK_IDS = ['graphite-studio', 'midnight-glass', 'paper-ink', 'aurora-soft', 'mono-lab', 'ember-noir'] as const;
-export const ENGINE_IDS = ['flythrough', 'poster', 'kinetic'] as const;
-export const PATH_IDS = ['dolly', 'serpentine', 'staircase', 'zigzag', 'strip', 'zoom', 'turns'] as const;
+export const LOOK_IDS = ['graphite-studio', 'midnight-glass', 'paper-ink', 'aurora-soft', 'mono-lab', 'ember-noir', 'archive-desk'] as const;
+export const ENGINE_IDS = ['flythrough', 'poster', 'kinetic', 'archive'] as const;
+export const PATH_IDS = ['dolly', 'serpentine', 'staircase', 'zigzag', 'strip', 'zoom', 'turns', 'stack'] as const;
 /** which camera journeys each engine understands */
 export const ENGINE_PATHS: Record<(typeof ENGINE_IDS)[number], readonly (typeof PATH_IDS)[number][]> = {
   flythrough: ['dolly', 'serpentine', 'staircase'],
   poster: ['zigzag', 'strip'],
   kinetic: ['zoom', 'turns'],
+  archive: ['stack'],
 };
 /** scene-change overlays. 'camera' = the engine's own camera move only (no overlay). One family per film. */
 export const TRANSITION_IDS = ['camera', 'fade', 'flash', 'color', 'bar', 'streak', 'iris', 'blinds'] as const;
@@ -223,7 +224,50 @@ export const Ring = z.object({
   at: Cue,
 });
 
-export const Widget = z.discriminatedUnion('type', [Hero, Stat, Vision, Code, Price, Agents, Lockup, Headline, Chat, Bars, Checklist, Takeover, Versus, Dots, Rotate, Leaderboard, Notify, Prompt, Integrations, Ring]);
+const InkMark = z.object({ kind: z.enum(['circle', 'underline', 'strike']), at: Cue, replace: short(10).optional().describe('strike only: handwritten word that replaces it') });
+
+export const Document = z.object({
+  type: z.literal('document'),
+  meta: short(44).describe('mono archive line, e.g. "BITCOINTALK · MEI 2010"'),
+  title: z.string().min(1).max(70).describe('serif title, typed in'),
+  titleAt: Cue,
+  titleMark: InkMark.optional(),
+  lines: z.array(z.object({ text: z.string().min(1).max(56), at: Cue, mark: InkMark.optional() })).max(4).default([]),
+  layout: z.enum(['note', 'forum', 'paper']).default('note').describe('note = typed memo; forum = a post (avatar, author, byline, quoted body); paper = a centred academic paper (abstract + section)'),
+  author: short(24).optional().describe('forum: the user name'),
+  avatar: z.number().int().min(0).max(11).optional().describe('forum: person variant for the avatar (match the cutout `look`)'),
+  byline: short(44).optional().describe('forum: post date; paper: the line under the author'),
+  body: z.array(z.string().min(1).max(190)).max(2).default([]).describe('real body copy, written out after the title — a verbatim quote or the abstract; must be in facts'),
+});
+
+export const Newspaper = z.object({
+  type: z.literal('newspaper'),
+  masthead: short(20),
+  date: short(32),
+  headline: z.string().min(1).max(90).describe('printed line by line from `at`'),
+  at: Cue,
+  sub: z.string().max(60).optional(),
+});
+
+export const CUTOUT_SHAPES = ['person', 'computer', 'pizza', 'pizzabox', 'bank', 'plaque', 'coin', 'phone', 'paper', 'house'] as const;
+export const Cutout = z.object({
+  type: z.literal('cutout'),
+  meta: short(44).optional(),
+  figures: z.array(z.object({ shape: z.enum(CUTOUT_SHAPES), label: short(16).optional(), at: Cue, look: z.number().int().min(0).max(11).optional().describe('person variant (skin / hair / clothes); keep the same number for the same person across beats') })).min(1).max(4),
+  link: z.object({ from: z.number().int().min(0), to: z.number().int().min(0), at: Cue }).optional().describe('an ink line drawn between two figures'),
+  strike: z.object({ index: z.number().int().min(0), at: Cue }).optional().describe('an ink cross over one figure'),
+  caption: z.string().max(60).optional(),
+  captionAt: Cue.optional(),
+});
+
+export const Receipt = z.object({
+  type: z.literal('receipt'),
+  title: short(24),
+  rows: z.array(z.object({ k: short(14), v: short(26) })).min(2).max(5),
+  at: Cue,
+});
+
+export const Widget = z.discriminatedUnion('type', [Hero, Stat, Vision, Code, Price, Agents, Lockup, Headline, Chat, Bars, Checklist, Takeover, Versus, Dots, Rotate, Leaderboard, Notify, Prompt, Integrations, Ring, Document, Newspaper, Cutout, Receipt]);
 export type Widget = z.infer<typeof Widget>;
 
 export const Beat = z.object({
@@ -245,6 +289,8 @@ export const Beat = z.object({
     .optional(),
   punches: z.array(Cue).max(4).optional(),
   transition: z.enum([...TRANSITION_IDS, 'none']).optional().describe("override the film's transition into this beat; 'none' = plain camera move"),
+  date: short(20).optional().describe('archive engine: the date label for this sheet (scrambles when it changes)'),
+  stamp: z.object({ text: short(14), at: Cue, tone: z.enum(['accent', 'red']).default('accent') }).optional().describe('an ink stamp that lands on this beat'),
 });
 export type Beat = z.infer<typeof Beat>;
 
