@@ -5,7 +5,7 @@ import { buildTimeline, norm } from '../../packages/core/src/engine/timeline';
 import { departure, revealEnd } from '../../packages/core/src/engine/reveals';
 import { structureWarnings } from '../../packages/qa/src/structure';
 
-const CUE_KEYS = new Set(['strike', 'climbAt', 'resultAt', 'at', 'from', 'to', 'cutAt', 'goAt', 'logoAt', 'scanFrom', 'scanTo', 'doneAt', 'kickerAt', 'revealAt']);
+const CUE_KEYS = new Set(['strike', 'climbAt', 'resultAt', 'titleAt', 'captionAt', 'at', 'from', 'to', 'cutAt', 'goAt', 'logoAt', 'scanFrom', 'scanTo', 'doneAt', 'kickerAt', 'revealAt']);
 const NON_VISIBLE = new Set(['at', 'from', 'to', 'cutAt', 'goAt', 'logoAt', 'scanFrom', 'scanTo', 'doneAt', 'kickerAt', 'revealAt', 'type', 'group', 'style', 'scene', 'effect', 'preset', 'path', 'voiceId', 'tts', 'slug', 'lines', 'mark', 'color', 'accent', 'hot', 'source']);
 
 export const numTokens = (s: string) => (s.match(/\d+(?:[.,]\d+)*/g) ?? []).map((x) => x.replace(/[.,]/g, ''));
@@ -96,7 +96,7 @@ export const lintSpec = (raw: unknown, ctx: { facts: string; brief: string; rece
     const n = spec.beats.slice(1).filter((b) => (b.transition ?? spec.transition.family) !== 'camera' && b.transition !== 'none').length;
     if (n > 4) warnings.push(`transitions: ${n} ${[...fams].join('/')} covers — loud families wear out; keep ≤ 4 or use "none" on minor beats`);
   }
-  if (!['hero', 'headline'].includes(spec.beats[0].widget.type)) warnings.push('beats[0]: open with a hero or headline beat');
+  if (spec.engine !== 'archive' && !['hero', 'headline'].includes(spec.beats[0].widget.type)) warnings.push('beats[0]: open with a hero or headline beat');
   if (spec.beats[spec.beats.length - 1].widget.type !== 'lockup') errors.push('the last beat must be a lockup (brand end card)');
   if (spec.beats[0].at !== spec.vo.lines[0].id) warnings.push(`beats[0].at should be "${spec.vo.lines[0].id}" so the first frame is never empty`);
   const hero = spec.beats.find((b) => b.widget.type === 'hero');
@@ -129,7 +129,7 @@ export const lintSpec = (raw: unknown, ctx: { facts: string; brief: string; rece
   // honesty
   const visible: string[] = [];
   walk(spec.beats, (k, v, p) => {
-    if (typeof v !== 'string' || NON_VISIBLE.has(k)) return;
+    if (typeof v !== 'string' || NON_VISIBLE.has(k) || CUE_KEYS.has(k) || k === 'punches') return;
     if (k === 'id' && /^\/\d+\/id$/.test(p)) return; // beat id, not on screen
     visible.push(v);
   });

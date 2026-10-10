@@ -4,7 +4,7 @@
 import type { Timeline } from '../../core/src/engine/timeline';
 import type { Spec } from '../../core/src/spec/schema';
 
-const CUE_KEYS = new Set(['at', 'strike', 'climbAt', 'resultAt', 'from', 'to', 'cutAt', 'goAt', 'logoAt', 'scanFrom', 'scanTo', 'doneAt', 'kickerAt', 'revealAt']);
+const CUE_KEYS = new Set(['at', 'strike', 'climbAt', 'resultAt', 'titleAt', 'captionAt', 'from', 'to', 'cutAt', 'goAt', 'logoAt', 'scanFrom', 'scanTo', 'doneAt', 'kickerAt', 'revealAt']);
 const CARD_TYPES = new Set(['stat', 'vision', 'code', 'checklist', 'chat', 'bars', 'price', 'agents']);
 
 /** every frame where something is told to happen: beat arrivals, widget cues, punches, camera moves */
@@ -20,6 +20,7 @@ export const eventFrames = (spec: Spec, tl: Timeline): number[] => {
     out.push(tl.cue(b.at));
     (b.punches ?? []).forEach((c) => out.push(tl.cue(c)));
     (b.camera?.moves ?? []).forEach((m) => out.push(tl.cue(m.at)));
+    if (b.stamp) out.push(tl.cue(b.stamp.at));
   }
   return [...new Set(out)].sort((a, b) => a - b);
 };

@@ -3,6 +3,7 @@
 import { execFileSync, spawnSync } from 'node:child_process';
 import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import type { Spec } from '../../packages/core/src/spec/schema';
 import { cfg, need } from './env';
 import { ASSETS } from './paths';
@@ -70,6 +71,35 @@ const normalize = (src: string, out: string, target: number, tempo = 1) => {
   execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', src, '-af', `${pre ? pre + ',' : ''}volume=${gain}dB,alimiter=limit=-1.5dB`, '-b:a', '192k', out]);
 };
 export const duration = (file: string) => Number(execFileSync('ffprobe', ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', file]).toString().trim());
+
+/** free path: edge-tts per line (Microsoft neural voices), word timings straight from the TTS — no STT needed.
+ *  Speed comes from the TTS rate (vo.tempo), so timings stay exact; loudness is normalised afterwards. */
+export const makeVoEdge = (spec: Pick<Spec, 'vo' | 'language'>, voDir: string, wordsFile: string, only: string[] = []) => {
+  const raw = path.join(voDir, 'raw');
+  mkdirSync(raw, { recursive: true });
+  const voice = process.env.EDGE_VOICE ?? (spec.language === 'id' ? 'id-ID-ArdiNeural' : 'en-US-AndrewNeural');
+  const rate = `${spec.vo.tempo >= 1 ? '+' : '-'}${Math.round(Math.abs(spec.vo.tempo - 1) * 100)}%`;
+  const words: { dur: Record<string, number>; words: Record<string, [string, number, number][]>; text?: Record<string, string> } = existsSync(wordsFile) ? JSON.parse(readFileSync(wordsFile, 'utf8')) : { dur: {}, words: {} };
+  words.text ??= {};
+  const py = path.join(path.dirname(fileURLToPath(import.meta.url)), 'edge_say.py');
+  for (const l of spec.vo.lines) {
+    if (only.length && !only.includes(l.id)) continue;
+    const txt = path.join(raw, `${l.id}.txt`);
+    // edge voices read the plain text; ElevenLabs audio tags like [excited] would be spoken aloud
+    writeFileSync(txt, (l.tts ?? l.text).replace(/\[[^\]]*\]/g, '').replace(/\s+/g, ' ').trim());
+    const rawMp3 = path.join(raw, `${l.id}.edge.mp3`);
+    const wj = path.join(raw, `${l.id}.words.json`);
+    const r = spawnSync('python', [py, voice, rate, txt, rawMp3, wj], { encoding: 'utf8' });
+    if (r.status !== 0) throw new Error(`edge-tts ${l.id} failed: ${(r.stderr || r.stdout).slice(-400)} (pip install edge-tts)`);
+    const out = path.join(voDir, `${l.id}.mp3`);
+    normalize(rawMp3, out, -14);
+    words.dur[l.id] = duration(out);
+    words.words[l.id] = JSON.parse(readFileSync(wj, 'utf8'));
+    words.text[l.id] = l.text;
+    console.log(`  ${l.id}: ${words.dur[l.id].toFixed(2)} s, ${words.words[l.id].length} words (${voice} ${rate})`);
+  }
+  writeFileSync(wordsFile, JSON.stringify(words, null, 1));
+};
 
 /** TTS each line → tempo + loudness → STT word timings. Returns lines whose transcript misses the brand/odd words. */
 export const makeVo = async (spec: Pick<Spec, 'vo' | 'language' | 'brand'>, voDir: string, wordsFile: string, only: string[] = []) => {

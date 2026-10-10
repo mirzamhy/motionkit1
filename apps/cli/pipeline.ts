@@ -3,7 +3,7 @@ import { copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync, writeFi
 import path from 'node:path';
 import { buildTimeline } from '../../packages/core/src/engine/timeline';
 import { ARCHETYPE_IDS, ENGINE_IDS, ENGINE_PATHS, LOOK_IDS, Spec, Words } from '../../packages/core/src/spec/schema';
-import { installSfx, makeMusic, makeVo } from './audio';
+import { installSfx, makeMusic, makeVo, makeVoEdge } from './audio';
 import { cfg } from './env';
 import { lintSpec, type Recent } from './lint';
 import { askedDuration, budgetLine, targetDuration } from './target';
@@ -370,7 +370,13 @@ export const prepareAudio = async (slug: string, opts: { forceVo?: boolean; only
   const spec = loadSpec(slug);
   installSfx(P.sfx);
   if (!cfg.elevenKey) {
-    log('  (no ELEVENLABS_API_KEY — rendering without voice-over/music; timings are estimated)');
+    // free path: edge-tts voice with exact word timings; no music bed (ElevenLabs only)
+    const missing = spec.vo.lines.some((l) => !existsSync(path.join(P.vo, `${l.id}.mp3`)));
+    if (process.env.TTS_ENGINE === 'none') log('  (TTS_ENGINE=none — captions + SFX only; timings are estimated)');
+    else if (missing || opts.forceVo || opts.only?.length) {
+      log('▸ voice-over (edge-tts, free — set ELEVENLABS_API_KEY for ElevenLabs + music)');
+      makeVoEdge(spec, P.vo, P.words, opts.only ?? []);
+    }
     return;
   }
   const missing = spec.vo.lines.some((l) => !existsSync(path.join(P.vo, `${l.id}.mp3`)));
@@ -418,7 +424,7 @@ export const diffScan = (file: string, aspect: AspectId, spec: Spec, words: Word
   const vals = frameDiffs(file, aspect);
   // intended changes (cue hits, counters, odometers, typing, scans) are allowed to spike
   const ranges: [number, number][] = [];
-  const cueKeys = ['climbAt', 'resultAt', 'cutAt', 'goAt', 'logoAt', 'at', 'from', 'to', 'scanFrom', 'scanTo', 'doneAt', 'kickerAt', 'revealAt'];
+  const cueKeys = ['climbAt', 'resultAt', 'titleAt', 'captionAt', 'cutAt', 'goAt', 'logoAt', 'at', 'from', 'to', 'scanFrom', 'scanTo', 'doneAt', 'kickerAt', 'revealAt'];
   const walkCues = (o: unknown) => {
     if (Array.isArray(o)) o.forEach(walkCues);
     else if (o && typeof o === 'object')
@@ -436,6 +442,8 @@ export const diffScan = (file: string, aspect: AspectId, spec: Spec, words: Word
     if (w.type === 'versus') ranges.push([tl.cue(w.at) - 4, tl.cue(w.at) + 32]);
     if (w.type === 'takeover') ranges.push([tl.cue(w.at) - 8, tl.cue(w.at) + 26]);
     if (w.type === 'rotate') w.items.forEach((it) => ranges.push([tl.cue(it.at) - 8, tl.cue(it.at) + 8]));
+    if (w.type === 'newspaper') ranges.push([tl.cue(w.at) - 4, tl.cue(w.at) + 50]);
+    if (b.stamp) ranges.push([tl.cue(b.stamp.at) - 4, tl.cue(b.stamp.at) + 14]);
     if (w.type === 'leaderboard') ranges.push([tl.cue(w.climbAt) - 6, tl.cue(w.climbAt) + 30]);
     if (w.type === 'prompt') ranges.push([tl.cue(w.at) - 4, tl.cue(w.at) + Math.ceil(w.text.length / 1.6) + 30]);
     if (w.type === 'integrations') ranges.push([tl.cue(w.at) - 18, tl.cue(w.at) + w.items.length * 5 + 22]);
@@ -515,7 +523,7 @@ export const run = async (slug: string, opts: { rounds?: number; skipRender?: bo
     if (last.pass || r === first + rounds - 1) break; // never ship a fix nobody looked at
     const before = JSON.stringify(loadSpec(slug).vo.lines);
     await fix(slug, r, last);
-    if (cfg.elevenKey && JSON.stringify(loadSpec(slug).vo.lines) !== before) await prepareAudio(slug, { forceVo: true });
+    if (JSON.stringify(loadSpec(slug).vo.lines) !== before) await prepareAudio(slug, { forceVo: true });
   }
   const outs = opts.skipRender ? [] : await renderFinal(slug);
   log(`\n✓ ${slug}: final review ${last ? `${last.score}/10 ${last.pass ? 'pass' : '(not passed — remaining issues below; see review/)'}` : 'skipped'}`);
