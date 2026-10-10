@@ -1,0 +1,11 @@
+import React from 'react';
+import {AbsoluteFill} from 'remotion';
+import {family, FitText, hash} from '../studies/primitives';
+export {family,FitText,hash,ease,ramp,smooth,useStudyFonts} from '../studies/primitives';
+
+export const Lines:React.FC<{lines:string[];x:number;y:number;width:number;size:number;gap?:number;color?:string;font?:string;weight?:number;accent?:number;accentColor?:string}>=({lines,x,y,width,size,gap=size*.96,color='#f2e7d2',font=family.serif,weight=400,accent=-1,accentColor='#ffe35f'})=><>{lines.map((text,i)=><FitText key={i} text={text} x={x} y={y+i*gap} width={width} size={size} family={font} weight={weight} color={i===accent?accentColor:color}/>)}</>;
+export const Mono:React.FC<{children:React.ReactNode;x:number;y:number;color?:string;size?:number}>=({children,x,y,color='#ad9985',size=18})=><div style={{position:'absolute',left:x,top:y,fontFamily:family.mono,fontSize:size,letterSpacing:3,color}}>{children}</div>;
+export const Grain:React.FC<{id:string;opacity?:number}>=({id,opacity=.05})=><svg width="100%" height="100%" style={{position:'absolute',inset:0,opacity,pointerEvents:'none'}}><filter id={id}><feTurbulence type="fractalNoise" baseFrequency=".72" numOctaves="3" seed="18" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter={`url(#${id})`}/></svg>;
+export const Bean:React.FC<{x:number;y:number;scale?:number;rotate?:number;color?:string}>=({x,y,scale=1,rotate=0,color='#93603e'})=><g transform={`translate(${x} ${y}) rotate(${rotate}) scale(${scale})`}><ellipse cx="0" cy="0" rx="58" ry="84" fill={color}/><path d="M13 -70 C-45 -34 37 18 -15 70" fill="none" stroke="#271b14" strokeWidth="11" strokeLinecap="round"/><path d="M-20 -65 C-48 -30 -38 0 -42 22" fill="none" stroke="#ecd2a6" opacity=".2" strokeWidth="7" strokeLinecap="round"/></g>;
+export const StudyFrame:React.FC<{children:React.ReactNode;ground:string}>=({children,ground})=><AbsoluteFill style={{background:ground,overflow:'hidden'}}>{children}</AbsoluteFill>;
+export const Stars:React.FC<{time:number;color:string}>=({time,color})=><svg width="1920" height="1080" style={{position:'absolute',inset:0}}>{Array.from({length:110},(_,i)=><circle key={i} cx={hash(i+17)*1920} cy={hash(i+281)*1080} r={.6+hash(i+781)*1.6} fill={color} opacity={.12+.35*(.5+.5*Math.sin(time*.8+i))}/>)}</svg>;

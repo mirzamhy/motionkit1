@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "studied_on": "2026-10-10",
+  "batch": "style-study-01",
+  "source_kind": "original",
+  "render_fps": 60,
+  "time_convention": "zero-based source video frames; intervals are observations or visual fits, not original source-code constants",
+  "studies": [
+    {
+      "catalog_id": "techhalla-498547",
+      "page": "https://skillry.dev/ai-videos/opus-5-5/techhalla-498547",
+      "media": "https://media.skillry.dev/opus-5-5/techhalla-498547/original.mp4",
+      "file": "projects/style-study-01/originals/techhalla.mp4",
+      "native": {"width": 1080, "height": 1080, "fps": 60, "frames": 1200, "duration_s": 20},
+      "palette_for_replica": {"ground": "#0a0a0a", "ink": "#f5f5f5", "accent": "#b8ff00", "secondary": "#ff2bd6"},
+      "elements": ["wide poster typography", "mono corner chrome", "ruler underline", "deterministic glyph decode", "layered text trails", "word bands", "code panel", "brand stem"],
+      "continuity": ["dark ground", "corner marks", "ruler or underline", "headline retained at smaller scale during code reveal"],
+      "transitions": [
+        {"label": "hook-exit", "observed_window": [2.35, 2.45], "native_step": 2, "mechanism": "text trails followed by leftward exit", "evidence": "techhalla/exit-decode.jpg"},
+        {"label": "claim-swap", "observed_window": [6.5, 7.0], "native_step": 2, "mechanism": "overlapping text bands and right-to-left wipe", "replica_window": [6.52, 7.02], "primitive": "WordBands", "evidence": "techhalla/thesis-swap.jpg", "uncertain": "outgoing glyph-outline mask and exact glitch algorithm"},
+        {"label": "headline-code", "observed_window": [12.0, 12.2], "native_step": 3, "mechanism": "scale and relocate existing headline; build code box below", "evidence": "techhalla/stack-to-code.jpg"}
+      ],
+      "recreation": {"composition": "TechStudy", "source_range_s": [5.8, 9.4], "frames": 216, "file": "projects/style-study-01/out/techhalla-remotion.mp4"}
+    },
+    {
+      "catalog_id": "dheepanratnam-706454",
+      "page": "https://skillry.dev/ai-videos/opus-5-5/dheepanratnam-706454",
+      "media": "https://media.skillry.dev/opus-5-5/dheepanratnam-706454/original.mp4",
+      "file": "projects/style-study-01/originals/dheepanratnam.mp4",
+      "native": {"width": 1280, "height": 720, "fps": 30, "frames": 1740, "duration_s": 58},
+      "palette_for_replica": {"ground": "#12100d", "ink": "#f1e9dc", "accent": "#c48269"},
+      "elements": ["high contrast serif display", "warm radial ground", "fine grain", "mono chapter chrome", "matte reasoning panel", "branch connectors", "type-on text", "clipped language slot"],
+      "continuity": ["warm ground", "small header labels", "bottom rule", "stable slot baseline"],
+      "transitions": [
+        {"label": "hook-brand", "observed_window": [3.6, 4.367], "native_step": 1, "mechanism": "erase hook, caret glow, rebuild brand by glyph", "evidence": "dheepanratnam/hook-brand.jpg"},
+        {"label": "brand-reasoning", "observed_window": [7.8, 8.333], "native_step": 1, "mechanism": "outgoing opacity/blur; short ground-only interval; panel and word-group reveal", "replica_out": [7.8, 8.0], "replica_in": [8.03, 8.33], "primitive": "BlurDissolve", "evidence": "dheepanratnam/brand-reasoning.jpg"},
+        {"label": "language-slot", "observed_window": [45.0, 45.1], "native_step": 1, "mechanism": "upward roll clipped to one text-height viewport", "replica_window": [45.0, 45.1], "primitive": "SlotRoll", "evidence": "dheepanratnam/language-roll.jpg"}
+      ],
+      "recreations": [
+        {"composition": "ClaudeStudy", "source_range_s": [7.4, 10.2], "frames": 168, "file": "projects/style-study-01/out/dheepanratnam-remotion.mp4"},
+        {"composition": "ClaudeRollStudy", "source_range_s": [44.6, 45.4], "frames": 48, "file": "projects/style-study-01/out/dheepanratnam-roll-remotion.mp4"}
+      ],
+      "uncertain": ["original serif font", "grain animation", "exact blur and easing", "source panel geometry"]
+    },
+    {
+      "catalog_id": "leowenai-125931",
+      "page": "https://skillry.dev/ai-videos/opus-5-5/leowenai-125931",
+      "media": "https://media.skillry.dev/opus-5-5/leowenai-125931/original.mp4",
+      "file": "projects/style-study-01/originals/leowenai.mp4",
+      "native": {"width": 1280, "height": 720, "fps": 30, "frames": 750, "duration_s": 25},
+      "palette_for_replica": {"ground": "#020402", "accent": "#27d751", "light": "#fbfcfa"},
+      "elements": ["halftone field", "concentric radial rings", "paired eyes", "sphere raster", "counter", "cat silhouette", "filled object iris"],
+      "continuity": ["paired eyes above iris", "ring center or dot", "black/green visual vocabulary"],
+      "transitions": [
+        {"label": "intro-brand", "observed_window": [5.7, 6.4], "native_step": 1, "mechanism": "foreground collapse and near-white impact; rebuild radial field", "evidence": "leowenai/intro-brand.jpg"},
+        {"label": "green-iris", "observed_window": [13.767, 14.067], "native_step": 1, "mechanism": "center green dot expands to replace ground", "evidence": "leowenai/ring-see.jpg"},
+        {"label": "white-iris", "observed_window": [21.333, 21.533], "native_step": 1, "mechanism": "release old field, white disc grows behind surviving eyes", "primitive": "ObjectIris", "center_px": [640, 360], "max_radius_px": 810, "radius_fit": [[21.36, 25], [21.4, 50], [21.433, 105], [21.467, 192], [21.5, 432], [21.533, 810]], "evidence": "leowenai/eye-iris.jpg", "measurement": "iris-geometry.json", "uncertain": "radius fit inferred from partly occluded disc; threshold-white centroid is not the true disc center"}
+      ],
+      "recreation": {"composition": "LongCatStudy", "source_range_s": [20.8, 23.1], "frames": 138, "file": "projects/style-study-01/out/leowenai-remotion.mp4"},
+      "uncertain": ["particle/shader source", "original eye perspective", "subframe blur", "raster density"]
+    }
+  ]
+}
