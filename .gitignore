@@ -10,3 +10,4 @@ assets/sfx/
 *.wav
 *.mp3
 .cache/
+packages/core/src/scenes/gen/*/

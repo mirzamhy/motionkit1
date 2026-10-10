@@ -5,12 +5,19 @@ import { join } from 'node:path';
 import { renderMedia, renderStill, selectComposition } from '@remotion/renderer';
 import { SCENES } from '../../packages/core/src/scenes/manifest';
 import { ROOT } from './paths';
-import { getBundle } from './render';
+import { forgetBundle, getBundle } from './render';
 
 const log = (s: string) => console.log(s);
 
+const setupPublic = (id: string) => {
+  const project = SCENES.find((s) => s.id === id)?.project ?? (id.startsWith('Gen-') ? id.slice(4) : null);
+  const p = project ? join(ROOT, 'projects', project, 'public') : null;
+  return p && existsSync(p) ? p : join(ROOT, 'out', 'scenes');
+};
+
 const setup = async (id: string) => {
-  const info = SCENES.find((s) => s.id === id);
+  // films written by `mk agent` are registered as Gen-<slug> and keep their assets in projects/<slug>/public
+  const info = SCENES.find((s) => s.id === id) ?? (id.startsWith('Gen-') ? { id, about: '', width: 1920, height: 1080, project: id.slice(4) } : undefined);
   if (!info) throw new Error(`unknown scene "${id}" — known: ${SCENES.map((s) => s.id).join(', ')} (add yours to packages/core/src/scenes/manifest.ts)`);
   // assets (voice-over, music) live in the scene's project folder, which is never committed
   const projectPublic = info.project ? join(ROOT, 'projects', info.project, 'public') : null;
@@ -30,6 +37,7 @@ export const sceneList = () => SCENES.forEach((s) => log(`  ${s.id.padEnd(22)} $
 
 /** render single frames; with `sheet`, also tile them into one contact sheet to look at */
 export const sceneStills = async (id: string, frames: number[], sheet = true) => {
+  forgetBundle(setupPublic(id)); // sources may have changed since the last call in this process
   const { serveUrl, composition, inputProps, outDir } = await setup(id);
   const files: string[] = [];
   for (const f of frames) {

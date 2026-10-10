@@ -12,6 +12,7 @@ import { getBalance } from './balance';
 import { concept, exampleProject, fix, latestRound, loadSpec, loadWords, plan, prepareAudio, dnaCmd, qaReport, recentFor, remember, renderFinal, renderStills, run, usageSummary, verify, type Review } from './pipeline';
 import type { AspectId } from './render';
 import { sceneList, sceneStills, sceneVideo, voCut } from './scene';
+import { sceneAgent } from './sceneAgent';
 
 const HELP = `mk — Opus-grade Remotion launch videos from cheap models (Vikey API)
 
@@ -39,6 +40,9 @@ const HELP = `mk — Opus-grade Remotion launch videos from cheap models (Vikey 
   mk scene stills <Id> <f1,f2,…>         render frames + a contact sheet → out/scenes/<Id>/   (LOOK at them)
   mk scene video <Id>                    render the film → out/scenes/<Id>/<Id>.mp4
   mk vo-cut <file.mp3> [--pause 0.22]    list the pauses in a voice-over, to split it into passages
+  mk agent <slug> --model <id> [--steps 80] [--task "…"] [--forbid A.tsx,B.tsx]
+                                         let any chat-completions model build the film from projects/<slug>/ papers
+                                         (endpoint: AGENT_BASE_URL + AGENT_API_KEY in .env) → composition Gen-<slug>
   mk usage <slug>              token usage per model
   mk balance                   Vikey balance (free check)
 `;
@@ -190,6 +194,12 @@ const main = async () => {
       else if (sub === 'stills') await sceneStills(id, (list ?? '0').split(',').map(Number));
       else if (sub === 'video') await sceneVideo(id);
       else throw new Error('usage: mk scene list | stills <Id> <frames> | video <Id>');
+      break;
+    }
+    case 'agent': {
+      const opt = (k: string) => { const i = args.indexOf(k); return i > 0 ? args[i + 1] : undefined; };
+      if (!args[1] || !opt('--model')) throw new Error('usage: mk agent <slug> --model <id> [--steps 80] [--task "…"] [--forbid A.tsx,B.tsx]');
+      await sceneAgent(args[1], { model: opt('--model')!, task: opt('--task'), maxSteps: Number(opt('--steps') ?? 80), forbid: (opt('--forbid') ?? '').split(',').filter(Boolean) });
       break;
     }
     case 'vo-cut': {
