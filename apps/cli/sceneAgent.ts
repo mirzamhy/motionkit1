@@ -15,9 +15,10 @@ const READABLE = ['packages/core/src/scenes', 'packages/core/src/engine/util.ts'
 const doc = (p: string) => readFileSync(path.join(ROOT, p), 'utf8');
 const rel = (p: string) => path.relative(ROOT, p).replace(/\\/g, '/');
 
-const small = (file: string, width: number) => {
+// images travel inside the request as base64; many gateways cap the body at a few MB, so keep them small
+const small = (file: string, width: number, q = 7) => {
   const out = `${file}.agent.jpg`;
-  execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', file, '-vf', `scale='min(${width},iw)':-2`, '-q:v', '4', out]);
+  execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', file, '-vf', `scale='min(${width},iw)':-2`, '-q:v', String(q), out]);
   return out;
 };
 
@@ -119,7 +120,7 @@ const tools = (slug: string): AgentTool[] => {
         try {
           const files = await sceneStills(id, list, false);
           renders++;
-          return { text: `rendered frames ${list.join(', ')} (render #${renders}). Look closely: recognisable? anything clipped, overlapping, floating, in the wrong draw order, empty?`, images: files.map((f, i) => ({ label: `frame ${list[i]}`, file: small(f, list.length > 3 ? 960 : 1280) })) };
+          return { text: `rendered frames ${list.join(', ')} (render #${renders}). Look closely: recognisable? anything clipped, overlapping, floating, in the wrong draw order, empty?`, images: files.map((f, i) => ({ label: `frame ${list[i]}`, file: small(f, list.length > 3 ? 720 : 960) })) };
         } catch (e) {
           return { text: `render failed: ${String(e instanceof Error ? e.message : e).slice(0, 1200)}` };
         }
@@ -146,7 +147,7 @@ export const sceneAgent = async (slug: string, o: { model: string; task?: string
   const task = `${o.task ?? `Build the film for project "${slug}".`}\n\n${papers.map((f) => `## projects/${slug}/${f}\n${readFileSync(path.join(proj, f), 'utf8')}`).join('\n\n')}\n\n${refs.length ? `Reference photos follow (the file names match refs.md). Draw the real things from these.` : 'No reference photos were supplied: say in your summary what you had to invent.'}`;
   const dir = path.join(proj, 'agent', o.model.replace(/[^\w.-]+/g, '_'));
   console.log(`▸ scene agent ${o.model} on "${slug}" — up to ${o.maxSteps} steps; session in ${rel(dir)}`);
-  const r = await runAgent({ model: o.model, system: system(slug, o.forbid), task, taskImages: refs.map((f) => ({ label: `REF ${f}`, file: small(path.join(refDir, f), 900) })), tools: tools(slug), dir, usageFile: path.join(dir, 'usage.jsonl'), maxSteps: o.maxSteps, tag: 'scene' });
+  const r = await runAgent({ model: o.model, system: system(slug, o.forbid), task, taskImages: refs.map((f) => ({ label: `REF ${f}`, file: small(path.join(refDir, f), 520, 9) })), tools: tools(slug), dir, usageFile: path.join(dir, 'usage.jsonl'), maxSteps: o.maxSteps, tag: 'scene' });
   console.log(`  ${r.done ? '✓ finished' : '⚠ stopped'} after ${r.steps} steps — ${r.summary.slice(0, 600)}`);
   console.log(`  look: node bin/mk.mjs scene stills Gen-${slug} <frames>   ·   render: node bin/mk.mjs scene video Gen-${slug}`);
   return r;

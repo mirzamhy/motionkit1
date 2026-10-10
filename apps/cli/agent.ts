@@ -8,7 +8,7 @@ import { chat, type Msg, type Part, type ToolSpec } from './llm';
 export type ToolResult = { text: string; images?: { label: string; file: string }[]; done?: boolean };
 export type AgentTool = { name: string; description: string; parameters: Record<string, unknown>; run: (args: Record<string, unknown>) => Promise<ToolResult> };
 
-const KEEP_IMAGE_MESSAGES = 2;
+const KEEP_IMAGE_MESSAGES = Number(process.env.AGENT_KEEP_RENDERS ?? 1);
 
 /** older renders are replaced by a placeholder so the context doesn't balloon with pictures */
 const pruneImages = (messages: Msg[]) => {
@@ -51,7 +51,7 @@ export const runAgent = async (oIn: { model: string; system: string; task: strin
       }
     }
   // a resumed build continues where it stopped instead of receiving the whole task again
-  if (resumed && o.tag === 'build') o = { ...o, task: 'Continue building the film from where you stopped (your previous run was interrupted). Use `list_files` to see what exists, then carry on — at most 3 files per reply.', taskImages: [] };
+  if (resumed) o = { ...o, task: 'Continue building the film from where you stopped (your previous run was interrupted). Use `list_files` to see what exists, then carry on — at most 3 files per reply.', taskImages: [] };
   const refParts: Part[] = (o.taskImages ?? []).flatMap((img) => [
     { type: 'text', text: img.label } as Part,
     { type: 'image_url', image_url: { url: `data:image/${img.file.endsWith('.png') ? 'png' : 'jpeg'};base64,${readFileSync(img.file).toString('base64')}` } } as Part,
