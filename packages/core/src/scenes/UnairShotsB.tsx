@@ -266,8 +266,8 @@ export const ArcaShot: React.FC<{ u: number; f: F; a?: number; P?: boolean }> = 
       {/* warm raking light */}
       <path d="M 300 -100 L 900 -100 L 1500 1200 L 600 1200 Z" fill="#FFD890" opacity={0.07} style={{ mixBlendMode: 'screen' }} />
       {/* each label sits beside its subject, level with it, so the pointer is short and never crosses the figure */}
-      {label(crown[0], crown[1], P ? 710 : 620, P ? 205 : 215, 'AIRLANGGA', P ? 'raja Jawa Timur, abad ke-11' : 'raja di Jawa Timur, 1019–1042', 230, 'end')}
-      {label(beak[0], beak[1], P ? 560 : 560, P ? 640 : 630, 'GARUDA', 'tunggangan Wisnu', 330, 'end')}
+      {label(crown[0], crown[1], P ? 730 : 620, P ? 205 : 215, 'AIRLANGGA', P ? 'raja Jawa Timur, abad ke-11' : 'raja di Jawa Timur, 1019–1042', 230, 'end')}
+      {label(beak[0], beak[1], P ? 580 : 560, P ? 640 : 630, 'GARUDA', 'tunggangan Wisnu', 330, 'end')}
       {label(jx + 20, jy - 4, P ? 1235 : 1340, P ? 250 : 240, 'GUCI AMERTA', 'air kehidupan', 420, 'start')}
       {/* the water of life runs from the jar: down the stone, across the floor */}
       <path d={`M ${jx} ${jy + 14} C ${jx + 210} ${jy + 30}, ${jx + 330} ${jy + 420}, ${jx + 330} ${BY - 90} S ${jx + 520} ${BY + 30}, 2200 ${BY + 10}`} pathLength={1} fill="none" stroke={GOLD} strokeWidth={16} strokeLinecap="round" strokeDasharray="1 1" strokeDashoffset={1 - flow} opacity={0.45} filter="url(#u2-glow)" />

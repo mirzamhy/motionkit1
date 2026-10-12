@@ -142,7 +142,7 @@ const SHOTS: Shot[] = [
     // "Airlangga" · "Wisnu menunggang Garuda" · "guci amerta" · "Air kehidupan"
     warp: [[0, 0], [60, 190], [75, 230], [260, 300], [310, 330], [419, 420], [524, 470], [738, 700]],
     draw: (u, a, P) => <ArcaShot u={u} f={f} a={a} P={P} />,
-    portrait: [[0, 960, 600, 0.76]], // back off so the labels fit beside the figure
+    portrait: [[0, 960, 600, 0.72]], // back off so the labels fit beside the figure
     fill: ['#0E0A07', '#0E0A07'],
     caps: [
       [30, 243, 'Namanya dari Airlangga, raja Jawa Timur abad ke-11.'],
