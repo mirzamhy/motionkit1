@@ -185,8 +185,6 @@ const SHOTS: Shot[] = [
     sfx: [
       { at: 0, file: 'morning', vol: 0.3, loop: true, from: 8, fin: 40 },
       { at: 0, file: 'wind', vol: 0.36, loop: true, fin: 40 },
-      { at: 296, file: 'cloth', vol: 0.4 },
-      { at: 380, file: 'thud', vol: 0.2 },
       { at: 405, file: 'applause', vol: 0.8, len: 500, fout: 170 }, // rings on into the last shot
     ],
   },
