@@ -24,7 +24,7 @@ const GEN: { id: string; component: React.FC; frames: number }[] = (ctx.keys() a
 export const SceneCompositions: React.FC = () => (
   <>
     {SCENES.filter((s) => COMPONENTS[s.id]).map((s) => (
-      <Composition key={s.id} id={s.id} component={COMPONENTS[s.id].component} width={s.width} height={s.height} fps={60} durationInFrames={COMPONENTS[s.id].frames} defaultProps={{ ...(s.props ?? {}), ...(s.vo ? { vo: null } : {}) }} />
+      <Composition key={s.id} id={s.id} component={COMPONENTS[s.id].component} width={s.width} height={s.height} fps={60} durationInFrames={COMPONENTS[s.id].frames} defaultProps={{ ...(s.props ?? {}), ...(s.vo ? { vo: null } : {}), ...(s.sfx ? { sfx: false } : {}) }} />
     ))}
     {GEN.map((g) => (
       <Composition key={g.id} id={g.id} component={g.component} width={1920} height={1080} fps={60} durationInFrames={g.frames} />

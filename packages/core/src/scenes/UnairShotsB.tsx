@@ -21,11 +21,35 @@ export const GateYears: React.FC<{ u: number; f: F; a?: number; P?: boolean }> =
   const yearSwap = Math.max(bump(u, 160, 180), bump(u, 360, 380), bump(u, 510, 530));
   const flagY = lerp(lerp(lerp(440, 700, y42), 440, up42), 700, down45);
   const japan = u >= 195;
+  // 1945: the Merah Putih goes up the same pole and stays
+  const mp = prog(u, 455, 500, inOut);
+  // the occupation years: a burnt sky, smoke behind the roofs, aircraft passing, two distant blasts that shake the frame
+  const war = prog(u, 205, 240, inOut) * (1 - prog(u, 350, 400, inOut));
+  const blast = bump(u, 250, 264) + bump(u, 280, 294);
+  const shx = 5 * blast * Math.sin(u * 1.9);
+  const shy = 3 * blast * Math.sin(u * 2.7 + 1);
   const z = lerp(2.5, 2.9, prog(u, 0, 780, inOut));
   return (
     <g>
-      <g transform={`translate(960 540) scale(${z.toFixed(4)}) translate(-1110 -610)`}>
+      <g transform={`translate(${n1(960 + shx)} ${n1(540 + shy)}) scale(${z.toFixed(4)}) translate(-1110 -610)`}>
         <rect x={-300} y={-300} width={W + 600} height={H + 600} fill="url(#un-sky)" />
+        <rect x={-300} y={-300} width={W + 600} height={GROUND + 300} fill="#8A3A1C" opacity={0.5 * war} />
+        {[1360, 1470, 980].map((sx, i) => (
+          <g key={sx} opacity={war * (0.75 - i * 0.12)}>
+            {Array.from({ length: 9 }, (_, k) => {
+              const up = ((am * 0.35 + k * 34 + i * 50) % 300) / 300;
+              return <circle key={k} cx={sx + 26 * Math.sin(up * 5 + k) + up * 50} cy={600 - up * 330} r={16 + up * 44} fill={k % 2 ? '#2A2622' : '#3E3832'} opacity={0.85 * (1 - up)} />;
+            })}
+          </g>
+        ))}
+        {[0, 1, 2].map((i) => {
+          const px = 900 + ((am * 1.5 + i * 210) % 760);
+          return (
+            <g key={i} transform={`translate(${n1(px)} ${420 + i * 16}) scale(${0.5 + i * 0.1})`} opacity={war * 0.8}>
+              <path d="M -26 0 L 22 -3 L 30 0 L 22 3 Z M -4 -1 L 4 -22 L 10 -22 L 8 -1 Z M -4 1 L 4 22 L 10 22 L 8 1 Z M -24 -1 L -20 -9 L -16 -9 L -17 -1 Z" fill="#1F1C19" />
+            </g>
+          );
+        })}
         <rect x={-300} y={GROUND} width={W + 600} height={600} fill="url(#un-lawn)" />
         <NiasBuilding
           f={f}
@@ -67,6 +91,8 @@ export const GateYears: React.FC<{ u: number; f: F; a?: number; P?: boolean }> =
             <Flag x={1240} y={flagY} w={96} h={60} bands={NL} t={am} />
           )}
         </g>
+        {mp > 0 && <Flag x={1240} y={lerp(700, 440, mp)} w={96} h={60} bands={MERAH_PUTIH} t={am} />}
+        <rect x={-300} y={-300} width={W + 600} height={H + 900} fill="#3A1A0C" opacity={0.28 * war} style={{ mixBlendMode: 'multiply' }} />
         {/* 1948: students come back through the gate */}
         {[0, 1, 2].map((i) => {
           const p = prog(u, 560 + i * 70, 800 + i * 70, (x) => x);
@@ -205,12 +231,16 @@ export const ArcaShot: React.FC<{ u: number; f: F; a?: number; P?: boolean }> = 
   const flow = prog(u, 470, 640, inOut);
   const label = (x: number, y: number, tx: number, ty: number, a: string, b: string, at: number, anchor: 'start' | 'end') => (
     <g opacity={prog(u, at, at + 16)}>
-      <path d={`M ${x} ${y} L ${tx} ${ty}`} pathLength={1} stroke="#E8DCC4" strokeWidth={2.5} strokeDasharray="1 1" strokeDashoffset={1 - prog(u, at, at + 24, inOut)} />
-      <circle cx={x} cy={y} r={6} fill="#E8DCC4" />
-      <text x={tx + (anchor === 'start' ? 14 : -14)} y={ty - 4} textAnchor={anchor} fontFamily={f.disp} fontSize={40} fontWeight={700} letterSpacing={3} fill="#FBF6EA">{a}</text>
-      <text x={tx + (anchor === 'start' ? 14 : -14)} y={ty + 36} textAnchor={anchor} fontFamily={f.ui} fontSize={28} fontStyle="italic" fill="#E8DCC4">{b}</text>
+      <path d={`M ${tx} ${ty} L ${x} ${y}`} pathLength={1} fill="none" stroke="#E8DCC4" strokeWidth={2.5} strokeLinecap="round" strokeDasharray="1 1" strokeDashoffset={1 - prog(u, at, at + 24, inOut)} />
+      <circle cx={x} cy={y} r={7} fill="none" stroke="#E8DCC4" strokeWidth={2.5} opacity={prog(u, at + 18, at + 30)} />
+      <circle cx={x} cy={y} r={3} fill="#E8DCC4" opacity={prog(u, at + 18, at + 30)} />
+      <text x={tx + (anchor === 'start' ? 14 : -14)} y={ty + 2} textAnchor={anchor} fontFamily={f.disp} fontSize={40} fontWeight={700} letterSpacing={3} fill="#FBF6EA">{a}</text>
+      <text x={tx + (anchor === 'start' ? 14 : -14)} y={ty + 40} textAnchor={anchor} fontFamily={f.ui} fontSize={28} fontStyle="italic" fill="#E8DCC4">{b}</text>
     </g>
   );
+  // anchor points on the statue, in shot coordinates: Wisnu's crown, Garuda's beak, the jar
+  const crown: [number, number] = [BX - 20 * S, BY - 512 * S];
+  const beak: [number, number] = [BX - 132 * S, BY - 230 * S];
   return (
     <g transform={`translate(960 540) scale(${z.toFixed(4)}) translate(-960 -560)`}>
       <rect x={-1200} y={-1200} width={W + 2400} height={H + 2400} fill="#0E0A07" />
@@ -235,9 +265,10 @@ export const ArcaShot: React.FC<{ u: number; f: F; a?: number; P?: boolean }> = 
       ))}
       {/* warm raking light */}
       <path d="M 300 -100 L 900 -100 L 1500 1200 L 600 1200 Z" fill="#FFD890" opacity={0.07} style={{ mixBlendMode: 'screen' }} />
-      {P ? label(BX - 30 * S, BY - 470 * S, 470, 30, 'AIRLANGGA', 'raja di Jawa Timur, 1019–1042', 230, 'start') : label(BX - 30 * S, BY - 470 * S, 560, 250, 'AIRLANGGA', 'raja di Jawa Timur, 1019–1042', 230, 'end')}
-      {P ? label(BX - 120 * S, BY - 240 * S, 470, 1090, 'GARUDA', 'tunggangan Wisnu', 330, 'start') : label(BX - 120 * S, BY - 240 * S, 520, 640, 'GARUDA', 'tunggangan Wisnu', 330, 'end')}
-      {P ? label(jx + 18, jy, 1400, -70, 'GUCI AMERTA', 'air kehidupan', 420, 'end') : label(jx + 18, jy, 1380, 210, 'GUCI AMERTA', 'air kehidupan', 420, 'start')}
+      {/* each label sits beside its subject, level with it, so the pointer is short and never crosses the figure */}
+      {label(crown[0], crown[1], P ? 710 : 620, P ? 205 : 215, 'AIRLANGGA', P ? 'raja Jawa Timur, abad ke-11' : 'raja di Jawa Timur, 1019–1042', 230, 'end')}
+      {label(beak[0], beak[1], P ? 560 : 560, P ? 640 : 630, 'GARUDA', 'tunggangan Wisnu', 330, 'end')}
+      {label(jx + 20, jy - 4, P ? 1235 : 1340, P ? 250 : 240, 'GUCI AMERTA', 'air kehidupan', 420, 'start')}
       {/* the water of life runs from the jar: down the stone, across the floor */}
       <path d={`M ${jx} ${jy + 14} C ${jx + 210} ${jy + 30}, ${jx + 330} ${jy + 420}, ${jx + 330} ${BY - 90} S ${jx + 520} ${BY + 30}, 2200 ${BY + 10}`} pathLength={1} fill="none" stroke={GOLD} strokeWidth={16} strokeLinecap="round" strokeDasharray="1 1" strokeDashoffset={1 - flow} opacity={0.45} filter="url(#u2-glow)" />
       <path d={`M ${jx} ${jy + 14} C ${jx + 210} ${jy + 30}, ${jx + 330} ${jy + 420}, ${jx + 330} ${BY - 90} S ${jx + 520} ${BY + 30}, 2200 ${BY + 10}`} pathLength={1} fill="none" stroke="#FFE08A" strokeWidth={6} strokeLinecap="round" strokeDasharray="1 1" strokeDashoffset={1 - flow} />

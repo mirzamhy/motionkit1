@@ -31,6 +31,7 @@ const SHOTS: Shot[] = [
       [493, 760, 'Sebelum kain itu ditarik, ceritanya sudah berjalan 41 tahun.'],
     ],
     vo: [{ at: LEAD, from: 0, to: 11.89 }],
+    sfx: [{ at: 0, file: 'crowd', vol: 0.16, loop: true }, { at: 0, file: 'birds', vol: 0.1, loop: true }, { at: 493, file: 'whoosh', vol: 0.18 }],
   },
   {
     dur: 630,
@@ -44,6 +45,7 @@ const SHOTS: Shot[] = [
       [401, 592, 'Sepuluh tahun kemudian, sekolah itu pindah ke gedung ini.'],
     ],
     vo: [{ at: LEAD, from: 12.61, to: 21.82 }],
+    sfx: [{ at: 0, file: 'birds', vol: 0.16, loop: true }, { at: 0, file: 'wind', vol: 0.1, loop: true }],
   },
   {
     dur: 566,
@@ -57,6 +59,7 @@ const SHOTS: Shot[] = [
       [209, 526, 'Lulusan pertamanya, 1923, bergelar Indisch Arts.'],
     ],
     vo: [{ at: LEAD, from: 22.34, to: 30.44 }],
+    sfx: [{ at: 0, file: 'room', vol: 0.2, loop: true }, { at: 40, file: 'scratch', vol: 0.07, loop: true }],
   },
   {
     dur: 600,
@@ -71,6 +74,7 @@ const SHOTS: Shot[] = [
       [335, 572, 'Angkatan pertamanya: 21 siswa.'],
     ],
     vo: [{ at: LEAD, from: 30.93, to: 38.44 }],
+    sfx: [{ at: 0, file: 'birds', vol: 0.16, loop: true }, ...Array.from({ length: 21 }, (_, i) => ({ at: 335 + i * 9, file: 'tick', vol: 0.22 }))],
   },
   {
     dur: 1262,
@@ -87,6 +91,22 @@ const SHOTS: Shot[] = [
       [824, 1212, '1948: dibuka lagi, sebagai cabang Universitas Indonesia.'],
     ],
     vo: [{ at: LEAD, from: 38.98, to: 58.52 }],
+    sfx: [
+      { at: 0, file: 'wind', vol: 0.14, loop: true },
+      { at: 267, file: 'clunk', vol: 0.3 }, // 1942
+      { at: 380, file: 'rumble', vol: 0.4, len: 260, loop: true }, // the occupation: rumble, a far siren, two blasts
+      { at: 400, file: 'siren', vol: 0.12, len: 220, loop: true },
+      { at: 489, file: 'knock', vol: 0.4 },
+      { at: 503, file: 'knock', vol: 0.36 },
+      { at: 517, file: 'knock', vol: 0.4 },
+      { at: 513, file: 'boom', vol: 0.5 },
+      { at: 548, file: 'boom', vol: 0.42 },
+      { at: 572, file: 'clunk', vol: 0.3 }, // 1945
+      { at: 708, file: 'cheer', vol: 0.22 }, // the flag goes up
+      { at: 824, file: 'clunk', vol: 0.3 }, // 1948
+      { at: 968, file: 'knock', vol: 0.3 },
+      { at: 1040, file: 'ping', vol: 0.16 },
+    ],
   },
   {
     dur: 869,
@@ -103,6 +123,17 @@ const SHOTS: Shot[] = [
       [475, 822, 'Kedokteran, kedokteran gigi, hukum, pendidikan guru: jadi satu universitas.'],
     ],
     vo: [{ at: LEAD, from: 59.0, to: 71.98 }],
+    sfx: [
+      { at: 0, file: 'room', vol: 0.18, loop: true },
+      { at: 30, file: 'type', vol: 0.16, len: 230, loop: true },
+      { at: 282, file: 'scratch', vol: 0.2, len: 92, loop: true },
+      { at: 396, file: 'thud', vol: 0.5 },
+      { at: 420, file: 'whoosh', vol: 0.22 },
+      { at: 495, file: 'tick', vol: 0.2 },
+      { at: 644, file: 'tick', vol: 0.2 },
+      { at: 710, file: 'tick', vol: 0.2 },
+      { at: 752, file: 'ping', vol: 0.22 },
+    ],
   },
   {
     dur: 738,
@@ -111,7 +142,7 @@ const SHOTS: Shot[] = [
     // "Airlangga" · "Wisnu menunggang Garuda" · "guci amerta" · "Air kehidupan"
     warp: [[0, 0], [60, 190], [75, 230], [260, 300], [310, 330], [419, 420], [524, 470], [738, 700]],
     draw: (u, a, P) => <ArcaShot u={u} f={f} a={a} P={P} />,
-    portrait: [[0, 960, 640, 0.92]],
+    portrait: [[0, 960, 600, 0.76]], // back off so the labels fit beside the figure
     fill: ['#0E0A07', '#0E0A07'],
     caps: [
       [30, 243, 'Namanya dari Airlangga, raja Jawa Timur abad ke-11.'],
@@ -119,6 +150,7 @@ const SHOTS: Shot[] = [
       [524, 692, 'Air kehidupan. Ilmu yang tak habis.'],
     ],
     vo: [{ at: LEAD, from: 72.39, to: 83.03 }],
+    sfx: [{ at: 0, file: 'room', vol: 0.2, loop: true }, { at: 0, file: 'carve', vol: 0.3 }, { at: 75, file: 'tick', vol: 0.2 }, { at: 310, file: 'tick', vol: 0.2 }, { at: 419, file: 'ping', vol: 0.16 }, { at: 524, file: 'shimmer', vol: 0.22, len: 200, loop: true }],
   },
   {
     dur: 700,
@@ -136,6 +168,7 @@ const SHOTS: Shot[] = [
       [381, 600, 'Kuning dan birunya menjadi warna universitas.'],
     ],
     vo: [{ at: LEAD, from: 83.42, to: 91.87 }],
+    sfx: [{ at: 0, file: 'crowd', vol: 0.18, loop: true }, { at: 0, file: 'birds', vol: 0.08, loop: true }, { at: 296, file: 'cloth', vol: 0.4 }, { at: 380, file: 'thud', vol: 0.2 }, { at: 410, file: 'applause', vol: 0.3 }],
   },
   {
     dur: 790,
@@ -154,14 +187,17 @@ const SHOTS: Shot[] = [
       { at: LEAD, from: 92.3, to: 97.43 },
       { at: 404, from: 97.79, to: 102.81 },
     ],
+    sfx: [{ at: 0, file: 'birds', vol: 0.14, loop: true }, { at: 0, file: 'wind', vol: 0.12, loop: true }, { at: 249, file: 'shimmer', vol: 0.2, len: 180, loop: true }, { at: 404, file: 'chime', vol: 0.3 }],
   },
 ];
 
 export const UNAIR_SCENE_FRAMES = filmFrames(SHOTS);
 
 /** `vo`: file name of the recording in the public dir (see scenes/manifest.ts); null renders the film silent */
-export const UnairScene: React.FC<{ vo?: string | null; portrait?: boolean }> = ({ vo = null, portrait = false }) => (
+export const UnairScene: React.FC<{ vo?: string | null; portrait?: boolean; sfx?: boolean }> = ({ vo = null, portrait = false, sfx = false }) => (
   <Film
+    sfx={sfx}
+    bed={{ file: 'pad', vol: 0.05 }}
     width={portrait ? 1080 : 1920}
     height={portrait ? 1920 : 1080}
     shots={SHOTS}

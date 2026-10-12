@@ -6,6 +6,7 @@ import { renderMedia, renderStill, selectComposition } from '@remotion/renderer'
 import { SCENES } from '../../packages/core/src/scenes/manifest';
 import { ROOT } from './paths';
 import { forgetBundle, getBundle } from './render';
+import { ensureSceneSfx } from './sceneSfx';
 
 const log = (s: string) => console.log(s);
 
@@ -24,7 +25,12 @@ const setup = async (id: string) => {
   const publicDir = projectPublic && existsSync(projectPublic) ? projectPublic : join(ROOT, 'out', 'scenes');
   mkdirSync(publicDir, { recursive: true });
   const hasVo = !!info.vo && existsSync(join(publicDir, info.vo));
-  const inputProps = { ...(info.props ?? {}), ...(info.vo ? { vo: hasVo ? info.vo : null } : {}) };
+  const withSfx = 'sfx' in info && !!info.sfx;
+  if (withSfx) {
+    const made = ensureSceneSfx(publicDir);
+    if (made) log(`  · synthesised ${made} sound effects into ${join(publicDir, 'sfx')}`);
+  }
+  const inputProps = { ...(info.props ?? {}), ...(info.vo ? { vo: hasVo ? info.vo : null } : {}), ...(withSfx ? { sfx: true } : {}) };
   if (info.vo && !hasVo) log(`  · no voice-over at ${join(publicDir, info.vo)} — rendering silent`);
   const outDir = join(ROOT, 'out', 'scenes', id);
   mkdirSync(outDir, { recursive: true });

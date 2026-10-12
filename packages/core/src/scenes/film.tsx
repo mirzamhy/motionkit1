@@ -12,6 +12,8 @@ import { n1 } from './kit';
 
 /** one passage of the voice-over: `at` = shot frame the speech starts on; from / to = seconds in the recording */
 export type Vo = { at: number; from: number; to: number };
+/** a sound: `at` = shot frame (real) it starts on; `len` in frames (omit to play the file once); `loop` for ambiences */
+export type Sfx = { at: number; file: string; vol?: number; len?: number; loop?: boolean };
 export type Shot = {
   dur: number;
   /** typewritten corner label, e.g. "SURABAYA · 1923" */
@@ -30,6 +32,7 @@ export type Shot = {
   /** narration lines: [from, to, text] in shot frames (real, not warped) */
   caps?: [number, number, string][];
   vo?: Vo[];
+  sfx?: Sfx[];
 };
 
 export const filmStarts = (shots: Shot[]) => shots.reduce<number[]>((a, _s, i) => [...a, i === 0 ? 0 : a[i - 1] + shots[i - 1].dur], []);
@@ -79,7 +82,11 @@ export const Film: React.FC<{
   vo?: string | null;
   captions?: boolean;
   background?: string;
-}> = ({ shots, defs, fonts, width = 1920, height = 1080, fps = 60, vo, captions = true, background = '#1A120A' }) => {
+  /** play the shots' `sfx` (files live in <public>/sfx/, see apps/cli/sceneSfx.ts) */
+  sfx?: boolean;
+  /** a quiet looping bed under the whole film, e.g. { file: 'pad', vol: 0.05 } */
+  bed?: { file: string; vol: number };
+}> = ({ shots, defs, fonts, width = 1920, height = 1080, fps = 60, vo, captions = true, background = '#1A120A', sfx = false, bed }) => {
   const t = useCurrentFrame();
   const starts = filmStarts(shots);
   // which shot owns the frame (label, grade); the previous one keeps drawing under the dissolve
@@ -142,6 +149,20 @@ export const Film: React.FC<{
             return (
               <Sequence key={`${i}-${v.at}`} from={starts[i] + v.at - Math.round(PAD_IN * fps)} durationInFrames={endAt - startFrom} layout="none">
                 <Audio src={staticFile(vo)} startFrom={startFrom} endAt={endAt} />
+              </Sequence>
+            );
+          }),
+        )}
+      {sfx && bed && <Audio src={staticFile(`sfx/${bed.file}.wav`)} loop volume={(fr) => bed.vol * Math.min(1, fr / 60) * Math.min(1, (filmFrames(shots) - fr) / 120)} />}
+      {sfx &&
+        shots.map((s, i) =>
+          (s.sfx ?? []).map((x, j) => {
+            const len = x.len ?? Math.max(1, s.dur - x.at + FADE);
+            // every sound eases in and out, so nothing clicks at a cut
+            const env = (fr: number) => (x.vol ?? 0.3) * Math.min(1, (fr + 1) / 8) * (x.loop || x.len ? Math.min(1, Math.max(0, (len - fr) / 20)) : 1);
+            return (
+              <Sequence key={`s${i}-${j}`} from={starts[i] + x.at} durationInFrames={len} layout="none">
+                <Audio src={staticFile(`sfx/${x.file}.wav`)} loop={x.loop} volume={env} />
               </Sequence>
             );
           }),
