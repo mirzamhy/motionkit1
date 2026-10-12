@@ -11,7 +11,7 @@ import { setDuration, targetDuration } from './target';
 import { getBalance } from './balance';
 import { concept, exampleProject, fix, latestRound, loadSpec, loadWords, plan, prepareAudio, dnaCmd, qaReport, recentFor, remember, renderFinal, renderStills, run, usageSummary, verify, type Review } from './pipeline';
 import type { AspectId } from './render';
-import { sceneList, sceneStills, sceneVideo, voCut } from './scene';
+import { sceneAudio, sceneList, sceneStills, sceneVideo, voCut } from './scene';
 import { sceneAgent } from './sceneAgent';
 
 const HELP = `mk — Opus-grade Remotion launch videos from cheap models (Vikey API)
@@ -39,6 +39,7 @@ const HELP = `mk — Opus-grade Remotion launch videos from cheap models (Vikey 
   mk scene list                          registered scene compositions
   mk scene stills <Id> <f1,f2,…>         render frames + a contact sheet → out/scenes/<Id>/   (LOOK at them)
   mk scene video <Id>                    render the film → out/scenes/<Id>/<Id>.mp4
+  mk scene audio <Id>                    re-render only the sound and put it under that mp4 (voice / effects changed)
   mk vo-cut <file.mp3> [--pause 0.22]    list the pauses in a voice-over, to split it into passages
   mk agent <slug> --model <id> [--steps 80] [--task "…"] [--forbid A.tsx,B.tsx]
                                          let any chat-completions model build the film from projects/<slug>/ papers
@@ -193,6 +194,7 @@ const main = async () => {
       if (sub === 'list' || !sub) sceneList();
       else if (sub === 'stills') await sceneStills(id, (list ?? '0').split(',').map(Number));
       else if (sub === 'video') await sceneVideo(id);
+      else if (sub === 'audio') await sceneAudio(id);
       else throw new Error('usage: mk scene list | stills <Id> <frames> | video <Id>');
       break;
     }

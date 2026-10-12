@@ -13,7 +13,8 @@ import { n1 } from './kit';
 /** one passage of the voice-over: `at` = shot frame the speech starts on; from / to = seconds in the recording */
 export type Vo = { at: number; from: number; to: number };
 /** a sound: `at` = shot frame (real) it starts on; `len` in frames (omit to play the file once); `loop` for ambiences */
-export type Sfx = { at: number; file: string; vol?: number; len?: number; loop?: boolean };
+/** `from`: seconds into the file to start at · `fin` / `fout`: fade in / out, in frames */
+export type Sfx = { at: number; file: string; vol?: number; len?: number; loop?: boolean; from?: number; fin?: number; fout?: number };
 export type Shot = {
   dur: number;
   /** typewritten corner label, e.g. "SURABAYA · 1923" */
@@ -159,10 +160,10 @@ export const Film: React.FC<{
           (s.sfx ?? []).map((x, j) => {
             const len = x.len ?? Math.max(1, s.dur - x.at + FADE);
             // every sound eases in and out, so nothing clicks at a cut
-            const env = (fr: number) => (x.vol ?? 0.3) * Math.min(1, (fr + 1) / 8) * (x.loop || x.len ? Math.min(1, Math.max(0, (len - fr) / 20)) : 1);
+            const env = (fr: number) => (x.vol ?? 0.3) * Math.min(1, (fr + 1) / (x.fin ?? 8)) * (x.loop || x.len ? Math.min(1, Math.max(0, (len - fr) / (x.fout ?? 20))) : 1);
             return (
               <Sequence key={`s${i}-${j}`} from={starts[i] + x.at} durationInFrames={len} layout="none">
-                <Audio src={staticFile(`sfx/${x.file}.wav`)} loop={x.loop} volume={env} />
+                <Audio src={staticFile(`sfx/${x.file}.wav`)} loop={x.loop} startFrom={Math.round((x.from ?? 0) * fps)} volume={env} />
               </Sequence>
             );
           }),

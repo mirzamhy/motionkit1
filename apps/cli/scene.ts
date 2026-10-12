@@ -1,6 +1,6 @@
 // Scene mode: render hand-built scene compositions (packages/core/src/scenes) and cut a voice-over into passages.
 import { execFileSync, spawnSync } from 'node:child_process';
-import { existsSync, mkdirSync } from 'node:fs';
+import { existsSync, mkdirSync, renameSync } from 'node:fs';
 import { join } from 'node:path';
 import { renderMedia, renderStill, selectComposition } from '@remotion/renderer';
 import { SCENES } from '../../packages/core/src/scenes/manifest';
@@ -81,6 +81,20 @@ export const sceneVideo = async (id: string) => {
   });
   log(`  ${(composition.durationInFrames / composition.fps).toFixed(1)} s → ${output}`);
   return output;
+};
+
+/** re-render only the sound track and put it under the existing picture: for when nothing but voice or effects changed */
+export const sceneAudio = async (id: string) => {
+  const { serveUrl, composition, inputProps, outDir } = await setup(id);
+  const video = join(outDir, `${id}.mp4`);
+  if (!existsSync(video)) throw new Error(`no ${video} yet: run "mk scene video ${id}" first`);
+  const wav = join(outDir, `${id}.wav`);
+  await renderMedia({ composition, serveUrl, codec: 'wav', outputLocation: wav, inputProps });
+  const tmp = join(outDir, `${id}.remux.mp4`);
+  execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', video, '-i', wav, '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '256k', '-shortest', tmp]);
+  renameSync(tmp, video);
+  log(`  new sound → ${video}`);
+  return video;
 };
 
 /** print where a recording pauses, so it can be split into passages (one per shot) and its sentences timed */
