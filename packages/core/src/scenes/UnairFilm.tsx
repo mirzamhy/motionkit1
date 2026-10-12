@@ -32,8 +32,8 @@ const SHOTS: Shot[] = [
     ],
     vo: [{ at: LEAD, from: 0, to: 11.89 }],
     sfx: [
-      { at: 0, file: 'morning', vol: 0.8, loop: true, from: 0, fin: 40 },
-      { at: 0, file: 'wind', vol: 0.2, loop: true, fin: 40 },
+      { at: 0, file: 'morning', vol: 0.3, loop: true, from: 0, fin: 40 },
+      { at: 0, file: 'wind', vol: 0.36, loop: true, fin: 40 },
       { at: 578, file: 'riser', vol: 0.5 }, // into the flashback: peaks on the cut
     ],
   },
@@ -50,8 +50,8 @@ const SHOTS: Shot[] = [
     ],
     vo: [{ at: LEAD, from: 12.61, to: 21.82 }],
     sfx: [
-      { at: 0, file: 'morning', vol: 0.9, loop: true, from: 14, fin: 40 },
-      { at: 0, file: 'wind', vol: 0.2, loop: true, fin: 40 },
+      { at: 0, file: 'morning', vol: 0.3, loop: true, from: 14, fin: 40 },
+      { at: 0, file: 'wind', vol: 0.36, loop: true, fin: 40 },
     ],
   },
   {
@@ -68,7 +68,7 @@ const SHOTS: Shot[] = [
     vo: [{ at: LEAD, from: 22.34, to: 30.44 }],
     sfx: [
       { at: 0, file: 'room', vol: 0.18, loop: true },
-      { at: 0, file: 'morning2', vol: 0.45, loop: true, fin: 40 }, // the garden, through the windows
+      { at: 0, file: 'morning2', vol: 0.22, loop: true, fin: 40 }, // the garden, through the windows
     ],
   },
   {
@@ -85,8 +85,8 @@ const SHOTS: Shot[] = [
     ],
     vo: [{ at: LEAD, from: 30.93, to: 38.44 }],
     sfx: [
-      { at: 0, file: 'morning', vol: 0.9, loop: true, from: 30, fin: 40 },
-      { at: 0, file: 'wind', vol: 0.2, loop: true, fin: 40 },
+      { at: 0, file: 'morning', vol: 0.3, loop: true, from: 30, fin: 40 },
+      { at: 0, file: 'wind', vol: 0.36, loop: true, fin: 40 },
       ...Array.from({ length: 21 }, (_, i) => ({ at: 335 + i * 9, file: 'tick', vol: 0.22 })),
     ],
   },
@@ -106,8 +106,8 @@ const SHOTS: Shot[] = [
     ],
     vo: [{ at: LEAD, from: 38.98, to: 58.52 }],
     sfx: [
-      { at: 0, file: 'wind', vol: 0.2, loop: true, fin: 40 },
-      { at: 0, file: 'morning', vol: 0.8, from: 40, len: 330, fin: 40, fout: 70 },
+      { at: 0, file: 'wind', vol: 0.36, loop: true, fin: 40 },
+      { at: 0, file: 'morning', vol: 0.3, from: 40, len: 330, fin: 40, fout: 70 },
       { at: 267, file: 'clunk', vol: 0.3 }, // 1942
       { at: 255, file: 'war', vol: 0.34, len: 365, fin: 50, fout: 80 }, // the occupation: a firefight, not far off
       { at: 489, file: 'knock', vol: 0.4 },
@@ -116,7 +116,7 @@ const SHOTS: Shot[] = [
       { at: 513, file: 'boom', vol: 0.3 },
       { at: 548, file: 'boom', vol: 0.26 },
       { at: 572, file: 'clunk', vol: 0.3 }, // 1945
-      { at: 580, file: 'morning', vol: 0.9, from: 22, fin: 90 }, // the birds come back
+      { at: 580, file: 'morning', vol: 0.3, from: 22, fin: 90 }, // the birds come back
       { at: 824, file: 'clunk', vol: 0.3 }, // 1948
       { at: 968, file: 'knock', vol: 0.3 },
       { at: 1040, file: 'ping', vol: 0.16 },
@@ -183,8 +183,8 @@ const SHOTS: Shot[] = [
     ],
     vo: [{ at: LEAD, from: 83.42, to: 91.87 }],
     sfx: [
-      { at: 0, file: 'morning', vol: 0.8, loop: true, from: 8, fin: 40 },
-      { at: 0, file: 'wind', vol: 0.2, loop: true, fin: 40 },
+      { at: 0, file: 'morning', vol: 0.3, loop: true, from: 8, fin: 40 },
+      { at: 0, file: 'wind', vol: 0.36, loop: true, fin: 40 },
       { at: 296, file: 'cloth', vol: 0.4 },
       { at: 380, file: 'thud', vol: 0.2 },
       { at: 405, file: 'applause', vol: 0.8, len: 500, fout: 170 }, // rings on into the last shot
@@ -208,8 +208,8 @@ const SHOTS: Shot[] = [
       { at: 404, from: 97.79, to: 102.81 },
     ],
     sfx: [
-      { at: 0, file: 'morning', vol: 0.8, loop: true, from: 46, fin: 40 },
-      { at: 0, file: 'wind', vol: 0.22, loop: true, fin: 40 },
+      { at: 0, file: 'morning', vol: 0.3, loop: true, from: 46, fin: 40 },
+      { at: 0, file: 'wind', vol: 0.36, loop: true, fin: 40 },
       { at: 249, file: 'shimmer', vol: 0.2, len: 180, loop: true },
       { at: 404, file: 'chime', vol: 0.3 },
     ],
