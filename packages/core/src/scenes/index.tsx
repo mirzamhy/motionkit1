@@ -10,6 +10,7 @@ const COMPONENTS: Record<string, { component: React.FC<any>; frames: number }> =
   PizzaScene: { component: PizzaScene, frames: PIZZA_SCENE_FRAMES },
   PizzaScenePortrait: { component: PizzaScene, frames: PIZZA_SCENE_FRAMES },
   UnairScene: { component: UnairScene, frames: UNAIR_SCENE_FRAMES },
+  UnairScenePortrait: { component: UnairScene, frames: UNAIR_SCENE_FRAMES },
 };
 
 // films written by `mk agent` (scenes/gen/<slug>/index.tsx exporting Scene and FRAMES) register themselves

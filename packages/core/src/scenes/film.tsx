@@ -20,7 +20,13 @@ export type Shot = {
   age?: number;
   /** [frame in this film, frame on the shot's beat clock] pairs, linear in between. Omit for 1:1. */
   warp?: [number, number][];
-  draw: (u: number, a: number) => React.ReactNode;
+  /** `P` is true when the film is rendered tall (phone): move or restack anything that would fall out of frame */
+  draw: (u: number, a: number, P: boolean) => React.ReactNode;
+  /** phone framing: the shot is drawn in its 1920×1080 space and seen through a tall window. Keyframes
+   *  [frame, x, y, zoom]: the point (x, y) sits in the middle of the screen at that zoom; eased in between. */
+  portrait?: [number, number, number, number][];
+  /** colours behind the shot where the tall window looks past its drawn area: [above, below] */
+  fill?: [string, string];
   /** narration lines: [from, to, text] in shot frames (real, not warped) */
   caps?: [number, number, string][];
   vo?: Vo[];
@@ -40,6 +46,21 @@ export const warped = (s: Shot, u: number) => {
     }
   const last = w[w.length - 1];
   return last[1] + (u - last[0]);
+};
+
+/** the tall window onto a shot at real frame `a` */
+const tall = (s: Shot, a: number, w: number, h: number) => {
+  const k = s.portrait ?? [[0, 960, 540, 1.3]];
+  let cur = k[0];
+  for (let i = 1; i < k.length; i++) {
+    if (a >= k[i][0]) cur = k[i];
+    else {
+      const p = inOut(Math.max(0, Math.min(1, (a - k[i - 1][0]) / (k[i][0] - k[i - 1][0]))));
+      cur = [a, k[i - 1][1] + (k[i][1] - k[i - 1][1]) * p, k[i - 1][2] + (k[i][2] - k[i - 1][2]) * p, k[i - 1][3] + (k[i][3] - k[i - 1][3]) * p];
+      break;
+    }
+  }
+  return `translate(${w / 2} ${h / 2}) scale(${cur[3].toFixed(4)}) translate(${n1(-cur[1])} ${n1(-cur[2])})`;
 };
 
 const FADE = 24;
@@ -84,8 +105,20 @@ export const Film: React.FC<{
           </radialGradient>
         </defs>
         {defs}
-        {prev && inMix < 1 && <g>{prev.draw(warped(prev, t - starts[cur - 1]), t - starts[cur - 1])}</g>}
-        <g opacity={inMix}>{shot.draw(warped(shot, u), u)}</g>
+        {[prev && inMix < 1 ? { s: prev, a: t - starts[cur - 1], o: 1 } : null, { s: shot, a: u, o: inMix }].map(
+          (x) =>
+            x && (
+              <g key={x.s === shot ? 'cur' : 'prev'} opacity={x.o}>
+                {portrait && x.s.fill && (
+                  <>
+                    <rect width={width} height={height / 2} fill={x.s.fill[0]} />
+                    <rect y={height / 2} width={width} height={height / 2} fill={x.s.fill[1]} />
+                  </>
+                )}
+                <g transform={portrait ? tall(x.s, x.a, width, height) : undefined}>{x.s.draw(warped(x.s, x.a), x.a, portrait)}</g>
+              </g>
+            ),
+        )}
         {/* grade: a warm wash for the old years, vignette, static grain */}
         <rect width={width} height={height} fill="#C9A46A" opacity={age} style={{ mixBlendMode: 'multiply' }} />
         <rect width={width} height={height} fill="url(#fm-vig)" />

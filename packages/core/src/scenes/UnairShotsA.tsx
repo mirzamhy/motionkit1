@@ -239,7 +239,7 @@ export const Classroom: React.FC<{ u: number; dur: number; a?: number }> = ({ u,
 };
 
 // ───────────────────────────── STOVIT, 1928 (refs/5.jpg) ─────────────────────────────
-export const Stovit: React.FC<{ u: number; dur: number; f: F; a?: number }> = ({ u, dur, f, a }) => {
+export const Stovit: React.FC<{ u: number; dur: number; f: F; a?: number; P?: boolean }> = ({ u, dur, f, a, P }) => {
   const am = a ?? u; // ambient clock: real frames, so sway, flags and footsteps keep their pace when the beats are retimed
   const z = lerp(1.0, 1.12, prog(u, 0, dur, inOut));
   const cy = lerp(540, 520, prog(u, 0, dur, inOut));
@@ -391,7 +391,7 @@ export const Stovit: React.FC<{ u: number; dur: number; f: F; a?: number }> = ({
         const col = i % 7;
         const row = Math.floor(i / 7);
         return (
-          <g key={i} transform={`translate(${n1(150 + col * 70 + row * 20)} ${n1(850 + row * 44)}) scale(${(p * (0.66 + row * 0.08)).toFixed(3)})`}>
+          <g key={i} transform={`translate(${n1((P ? 640 : 150) + col * (P ? 62 : 70) + row * 20)} ${n1((P ? 900 : 850) + row * 44)}) scale(${(p * (0.66 + row * 0.08)).toFixed(3)})`}>
             <ellipse cx={0} cy={2} rx={20} ry={5} fill="#000" opacity={0.25} />
             <path d="M -17 0 C -17 -44, -10 -54, 0 -54 C 10 -54, 17 -44, 17 0 Z" fill="#F8F3E6" />
             <circle cx={0} cy={-66} r={12} fill={SKINS[i % 4]} />
@@ -399,7 +399,7 @@ export const Stovit: React.FC<{ u: number; dur: number; f: F; a?: number }> = ({
           </g>
         );
       })}
-      <text x={150} y={770} textAnchor="start" fontFamily={f.ui} fontSize={110} fontWeight={700} fill="#FFFFFF" opacity={prog(u, 150, 170)} style={{ paintOrder: 'stroke' }} stroke="#1F3A1A" strokeWidth={6}>
+      <text x={P ? 620 : 150} y={P ? 250 : 770} textAnchor="start" fontFamily={f.ui} fontSize={110} fontWeight={700} fill="#FFFFFF" opacity={prog(u, 150, 170)} style={{ paintOrder: 'stroke' }} stroke="#1F3A1A" strokeWidth={6}>
         {Math.round(21 * prog(u, 150, 150 + 21 * 9, (x) => x))}
       </text>
       <rect x={0} y={0} width={0} height={0} opacity={outE(0)} />

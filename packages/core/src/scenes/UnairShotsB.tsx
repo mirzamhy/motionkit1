@@ -9,7 +9,7 @@ import { type F, GROUND, H, NiasBuilding, W } from './UnairScene';
 // ───────────────────────────── the gate, 1941 → 1948 ─────────────────────────────
 const NL = ['#AE1C28', '#FFFFFF', '#21468B'];
 
-export const GateYears: React.FC<{ u: number; f: F; a?: number }> = ({ u, f, a }) => {
+export const GateYears: React.FC<{ u: number; f: F; a?: number; P?: boolean }> = ({ u, f, a, P }) => {
   const am = a ?? u; // ambient clock: real frames, so sway, flags and footsteps keep their pace when the beats are retimed
   // beats: 1941 (Dutch flag, school open) · 1942 (Japanese flag, door boarded) · 1945 (flag comes down) · 1948 (new name, door open)
   const y42 = prog(u, 150, 190, inOut);
@@ -80,8 +80,8 @@ export const GateYears: React.FC<{ u: number; f: F; a?: number }> = ({ u, f, a }
       </g>
       {/* the year, big, typewritten: it jumps as the regime changes */}
       <g opacity={1 - 0.6 * yearSwap} transform={`translate(0 ${n1(-10 * yearSwap)})`}>
-        <text x={96} y={246} fontFamily={f.mono} fontSize={170} fill="#1A120A" opacity={0.45}>{year}</text>
-        <text x={90} y={240} fontFamily={f.mono} fontSize={170} fill="#FBF6EA">{year}</text>
+        <text x={P ? 556 : 96} y={P ? 6 : 246} fontFamily={f.mono} fontSize={170} fill="#1A120A" opacity={0.45}>{year}</text>
+        <text x={P ? 550 : 90} y={P ? 0 : 240} fontFamily={f.mono} fontSize={170} fill="#FBF6EA">{year}</text>
       </g>
     </g>
   );
@@ -120,7 +120,7 @@ const sigAt = (p: number): [number, number] => {
   return [SIG_SAMPLES[SIG_SAMPLES.length - 1][0], SIG_SAMPLES[SIG_SAMPLES.length - 1][1]];
 };
 
-export const Decree: React.FC<{ u: number; f: F; a?: number }> = ({ u, f, a }) => {
+export const Decree: React.FC<{ u: number; f: F; a?: number; P?: boolean }> = ({ u, f, a, P }) => {
   const am = a ?? u; // ambient clock: real frames, so sway, flags and footsteps keep their pace when the beats are retimed
   const R = rng(81);
   const grain = Array.from({ length: 24 }, () => ({ y: R() * H, x: R() * W, w: 300 + R() * 900, o: 0.05 + R() * 0.1 }));
@@ -133,8 +133,8 @@ export const Decree: React.FC<{ u: number; f: F; a?: number }> = ({ u, f, a }) =
   const [penX, penY] = sigAt(sig);
   return (
     <g transform={`translate(960 540) scale(${z.toFixed(4)}) translate(-960 -540)`}>
-      <rect x={-200} y={-200} width={W + 400} height={H + 400} fill="url(#u2-wood)" />
-      <rect x={-200} y={-200} width={W + 400} height={H + 400} filter="url(#u2-woodgrain)" opacity={0.8} />
+      <rect x={-1400} y={-1600} width={W + 2800} height={H + 3200} fill="url(#u2-wood)" />
+      <rect x={-1400} y={-1600} width={W + 2800} height={H + 3200} filter="url(#u2-woodgrain)" opacity={0.8} />
       {grain.map((g, i) => (
         <rect key={i} x={g.x} y={g.y} width={g.w} height={2} rx={1} fill="#2A1A10" opacity={g.o} />
       ))}
@@ -191,7 +191,7 @@ export const Decree: React.FC<{ u: number; f: F; a?: number }> = ({ u, f, a }) =
 };
 
 // ───────────────────────────── the statue: Airlangga as Wisnu on Garuda, and the jar of amerta ─────────────────────────────
-export const ArcaShot: React.FC<{ u: number; f: F; a?: number }> = ({ u, f, a }) => {
+export const ArcaShot: React.FC<{ u: number; f: F; a?: number; P?: boolean }> = ({ u, f, a, P }) => {
   const am = a ?? u; // ambient clock: real frames, so sway, flags and footsteps keep their pace when the beats are retimed
   const R = rng(91);
   const dust = Array.from({ length: 60 }, () => ({ x: 560 + R() * 800, y: 100 + R() * 860, s: 1 + R() * 2.4, ph: R() * 6 }));
@@ -213,6 +213,7 @@ export const ArcaShot: React.FC<{ u: number; f: F; a?: number }> = ({ u, f, a })
   );
   return (
     <g transform={`translate(960 540) scale(${z.toFixed(4)}) translate(-960 -560)`}>
+      <rect x={-1200} y={-1200} width={W + 2400} height={H + 2400} fill="#0E0A07" />
       <rect x={-200} y={-200} width={W + 400} height={H + 400} fill="url(#u2-spot)" />
       {/* temple wall behind: courses of stone blocks, barely lit */}
       {Array.from({ length: 12 }, (_, r) =>
@@ -234,9 +235,9 @@ export const ArcaShot: React.FC<{ u: number; f: F; a?: number }> = ({ u, f, a })
       ))}
       {/* warm raking light */}
       <path d="M 300 -100 L 900 -100 L 1500 1200 L 600 1200 Z" fill="#FFD890" opacity={0.07} style={{ mixBlendMode: 'screen' }} />
-      {label(BX - 30 * S, BY - 470 * S, 560, 250, 'AIRLANGGA', 'raja di Jawa Timur, 1019–1042', 230, 'end')}
-      {label(BX - 120 * S, BY - 240 * S, 520, 640, 'GARUDA', 'tunggangan Wisnu', 330, 'end')}
-      {label(jx + 18, jy, 1380, 210, 'GUCI AMERTA', 'air kehidupan', 420, 'start')}
+      {P ? label(BX - 30 * S, BY - 470 * S, 470, 30, 'AIRLANGGA', 'raja di Jawa Timur, 1019–1042', 230, 'start') : label(BX - 30 * S, BY - 470 * S, 560, 250, 'AIRLANGGA', 'raja di Jawa Timur, 1019–1042', 230, 'end')}
+      {P ? label(BX - 120 * S, BY - 240 * S, 470, 1090, 'GARUDA', 'tunggangan Wisnu', 330, 'start') : label(BX - 120 * S, BY - 240 * S, 520, 640, 'GARUDA', 'tunggangan Wisnu', 330, 'end')}
+      {P ? label(jx + 18, jy, 1400, -70, 'GUCI AMERTA', 'air kehidupan', 420, 'end') : label(jx + 18, jy, 1380, 210, 'GUCI AMERTA', 'air kehidupan', 420, 'start')}
       {/* the water of life runs from the jar: down the stone, across the floor */}
       <path d={`M ${jx} ${jy + 14} C ${jx + 210} ${jy + 30}, ${jx + 330} ${jy + 420}, ${jx + 330} ${BY - 90} S ${jx + 520} ${BY + 30}, 2200 ${BY + 10}`} pathLength={1} fill="none" stroke={GOLD} strokeWidth={16} strokeLinecap="round" strokeDasharray="1 1" strokeDashoffset={1 - flow} opacity={0.45} filter="url(#u2-glow)" />
       <path d={`M ${jx} ${jy + 14} C ${jx + 210} ${jy + 30}, ${jx + 330} ${jy + 420}, ${jx + 330} ${BY - 90} S ${jx + 520} ${BY + 30}, 2200 ${BY + 10}`} pathLength={1} fill="none" stroke="#FFE08A" strokeWidth={6} strokeLinecap="round" strokeDasharray="1 1" strokeDashoffset={1 - flow} />
@@ -247,7 +248,7 @@ export const ArcaShot: React.FC<{ u: number; f: F; a?: number }> = ({ u, f, a })
 // ───────────────────────────── today: the monument at Kampus C (refs 6.jpg, 8.jpg) ─────────────────────────────
 const FLAGSETS = [UNAIR_BANDS, UNAIR_BANDS, ['#1B4B8F', '#FFC20E'], UNAIR_BANDS, ['#2E7D4F', '#FFC20E', '#2E7D4F'], UNAIR_BANDS, ['#FFC20E', '#D62828', '#1B4B8F']];
 
-export const Tugu: React.FC<{ u: number; f: F; dur: number; a?: number }> = ({ u, f, dur, a }) => {
+export const Tugu: React.FC<{ u: number; f: F; dur: number; a?: number; P?: boolean }> = ({ u, f, dur, a, P }) => {
   const am = a ?? u; // ambient clock: real frames, so sway, flags and footsteps keep their pace when the beats are retimed
   const z = lerp(1.0, 1.14, prog(u, 0, dur, inOut));
   const cy = lerp(560, 500, prog(u, 0, dur, inOut));
@@ -315,12 +316,19 @@ export const Tugu: React.FC<{ u: number; f: F; dur: number; a?: number }> = ({ u
         })}
       </g>
       {/* the water of life crosses the frame, then the title */}
-      <rect width={W} height={H} fill="#0E1A2E" opacity={0.72 * end} />
+      <rect x={-1000} y={-1500} width={W + 2000} height={H + 3000} fill="#0E1A2E" opacity={0.72 * end} />
       <path d="M -40 640 C 400 560, 700 720, 960 640 S 1560 560, 1960 640" pathLength={1} fill="none" stroke={GOLD} strokeWidth={14} strokeLinecap="round" strokeDasharray="1 1" strokeDashoffset={1 - gold} opacity={0.4} filter="url(#u2-glow)" />
       <path d="M -40 640 C 400 560, 700 720, 960 640 S 1560 560, 1960 640" pathLength={1} fill="none" stroke="#FFE08A" strokeWidth={5} strokeLinecap="round" strokeDasharray="1 1" strokeDashoffset={1 - gold} />
       <g opacity={prog(u, dur - 200, dur - 160, inOut)} transform={`translate(0 ${n1(14 * (1 - prog(u, dur - 200, dur - 150, outE)))})`}>
-        <text x={960} y={500} textAnchor="middle" fontFamily={f.disp} fontSize={104} fontWeight={700} letterSpacing={10} fill="#FBF6EA">UNIVERSITAS AIRLANGGA</text>
-        <text x={960} y={574} textAnchor="middle" fontFamily={f.ui} fontSize={42} fontStyle="italic" fill="#FFE08A">sejak 10 November 1954</text>
+        {P ? (
+          <>
+            <text x={960} y={410} textAnchor="middle" fontFamily={f.disp} fontSize={118} fontWeight={700} letterSpacing={10} fill="#FBF6EA">UNIVERSITAS</text>
+            <text x={960} y={530} textAnchor="middle" fontFamily={f.disp} fontSize={118} fontWeight={700} letterSpacing={10} fill="#FBF6EA">AIRLANGGA</text>
+          </>
+        ) : (
+          <text x={960} y={500} textAnchor="middle" fontFamily={f.disp} fontSize={104} fontWeight={700} letterSpacing={10} fill="#FBF6EA">UNIVERSITAS AIRLANGGA</text>
+        )}
+        <text x={960} y={P ? 610 : 574} textAnchor="middle" fontFamily={f.ui} fontSize={P ? 50 : 42} fontStyle="italic" fill="#FFE08A">sejak 10 November 1954</text>
       </g>
     </g>
   );
