@@ -200,8 +200,8 @@ const main = async () => {
     }
     case 'agent': {
       const opt = (k: string) => { const i = args.indexOf(k); return i > 0 ? args[i + 1] : undefined; };
-      if (!args[1] || !opt('--model')) throw new Error('usage: mk agent <slug> --model <id> [--steps 80] [--task "…"] [--forbid A.tsx,B.tsx]');
-      await sceneAgent(args[1], { model: opt('--model')!, task: opt('--task'), maxSteps: Number(opt('--steps') ?? 80), forbid: (opt('--forbid') ?? '').split(',').filter(Boolean) });
+      if (!args[1] || !opt('--model')) throw new Error('usage: mk agent <slug> --model <id> [--steps 80] [--task "…"] [--forbid A.tsx,B.tsx] [--blind]');
+      await sceneAgent(args[1], { model: opt('--model')!, task: opt('--task'), maxSteps: Number(opt('--steps') ?? 80), forbid: (opt('--forbid') ?? '').split(',').filter(Boolean), blind: args.includes('--blind') });
       break;
     }
     case 'vo-cut': {

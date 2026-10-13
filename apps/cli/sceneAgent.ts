@@ -22,18 +22,23 @@ const small = (file: string, width: number, q = 7) => {
   return out;
 };
 
-const system = (slug: string, forbid: string[]) => `You are a motion designer and React/SVG illustrator working in the MotionKit repository through tools. You build one film in SCENE MODE, entirely by yourself, and you judge your own work by rendering frames and looking at them.
+// blind: the model may not read or import anyone else's scenes, only the Film runner and the engine helpers
+const BLIND_READABLE = ['packages/core/src/scenes/film.tsx', 'packages/core/src/engine/util.ts', 'docs/scenes/CRAFT.md', 'docs/scenes/WORKFLOW.md', 'AGENTS.md'];
+const BLIND_IMPORTS = /^(react|remotion|@remotion\/[\w-]+(\/[\w-]+)*|\.\/[\w.-]+|\.\.\/\.\.\/film|\.\.\/\.\.\/\.\.\/engine\/util)$/;
+
+const system = (slug: string, forbid: string[], blind: boolean) => `You are a motion designer and React/SVG illustrator working in the MotionKit repository through tools. You build one film in SCENE MODE, entirely by yourself, and you judge your own work by rendering frames and looking at them.
 
 # Where you work
 - Write ONLY inside packages/core/src/scenes/gen/${slug}/ (tool paths are relative to the repo root).
 - The entry file is packages/core/src/scenes/gen/${slug}/index.tsx. It MUST export:
     export const FRAMES: number            // total length in frames at 60 fps
     export const Scene: React.FC           // the whole film, 1920×1080
-  Build it with the Film runner: \`import { Film, filmFrames, type Shot, … } from '../../lib';\`
+  Build it with the Film runner: \`import { Film, filmFrames, type Shot, … } from '${blind ? '../../film' : '../../lib'}';\`
   Split shots into several files in your folder; keep each file under ~300 lines.
 - It is registered automatically as the composition "Gen-${slug}".
-- Other imports: \`'../../../engine/util'\` is re-exported by lib; fonts via \`@remotion/google-fonts/<Family>\`.
-${forbid.length ? `- You may READ every file in packages/core/src/scenes to learn technique, but you must NOT import from or copy these (this run tests whether you can produce the work yourself): ${forbid.join(', ')}. Importing from lib.ts and kit.tsx is encouraged.\n` : ''}
+- Other imports: ${blind ? "`'../../../engine/util'` (prog, easings, clamp)" : "`'../../../engine/util'` is re-exported by lib"}; fonts via \`@remotion/google-fonts/<Family>\`.
+${blind ? `- FROM SCRATCH: there is no kit and there are no example scenes in this run. Every shape, texture, figure and motion is yours to write. You may import only react, remotion, @remotion/*, your own files, '../../film' and '../../../engine/util'; other imports are rejected. Read packages/core/src/scenes/film.tsx first to learn the Shot type.
+` : ''}${forbid.length ? `- You may READ every file in packages/core/src/scenes to learn technique, but you must NOT import from or copy these (this run tests whether you can produce the work yourself): ${forbid.join(', ')}. Importing from lib.ts and kit.tsx is encouraged.\n` : ''}
 # How to work
 1. Read the project papers you are given, then \`read_file\` docs you need (they are summarised below, the full text is in the repo).
 2. Plan the shots in one short message (shot, seconds, what is seen, what moves). No approval step in this run: go on.
@@ -48,18 +53,19 @@ ${doc('AGENTS.md')}
 # docs/scenes/CRAFT.md
 ${doc('docs/scenes/CRAFT.md')}
 
-# docs/scenes/KIT.md
-${doc('docs/scenes/KIT.md')}
+${blind ? '' : `# docs/scenes/KIT.md
+${doc('docs/scenes/KIT.md')}`}
 `;
 
-const tools = (slug: string): AgentTool[] => {
+const tools = (slug: string, blind: boolean): AgentTool[] => {
   const home = path.join(SCENES_DIR, 'gen', slug);
   const id = `Gen-${slug}`;
   mkdirSync(home, { recursive: true });
   const safeRead = (p: string) => {
     const abs = path.resolve(ROOT, p);
     const r = rel(abs);
-    if (r.startsWith('..') || !(READABLE.some((x) => r === x || r.startsWith(`${x}/`)) || r.startsWith(`projects/${slug}/`))) throw new Error(`not readable: ${p}. Readable: ${READABLE.join(', ')}, projects/${slug}/`);
+    const READ = blind ? [...BLIND_READABLE, `packages/core/src/scenes/gen/${slug}`] : READABLE;
+    if (r.startsWith('..') || !(READ.some((x) => r === x || r.startsWith(`${x}/`)) || r.startsWith(`projects/${slug}/`))) throw new Error(`not readable: ${p}. Readable: ${READ.join(', ')}, projects/${slug}/`);
     return abs;
   };
   let renders = 0;
@@ -91,6 +97,10 @@ const tools = (slug: string): AgentTool[] => {
       run: async ({ name, content }) => {
         const n = path.basename(String(name));
         if (!/\.(tsx|ts|md)$/.test(n)) throw new Error('only .tsx, .ts or .md files');
+        if (blind) {
+          const bad = [...String(content).matchAll(/from\s+['"]([^'"]+)['"]/g)].map((m) => m[1]).filter((x) => !BLIND_IMPORTS.test(x));
+          if (bad.length) throw new Error(`not allowed in a from-scratch run: import from ${bad.join(', ')}. Write it yourself.`);
+        }
         writeFileSync(path.join(home, n), String(content));
         return { text: `wrote gen/${slug}/${n} (${String(content).split('\n').length} lines)` };
       },
@@ -135,7 +145,7 @@ const tools = (slug: string): AgentTool[] => {
   ];
 };
 
-export const sceneAgent = async (slug: string, o: { model: string; task?: string; maxSteps: number; forbid: string[] }) => {
+export const sceneAgent = async (slug: string, o: { model: string; task?: string; maxSteps: number; forbid: string[]; blind?: boolean }) => {
   // any OpenAI-compatible endpoint: AGENT_BASE_URL / AGENT_API_KEY, else the default gateway
   if (process.env.AGENT_BASE_URL) cfg.baseUrl = process.env.AGENT_BASE_URL.replace(/\/$/, '');
   if (process.env.AGENT_API_KEY) cfg.vikeyKey = process.env.AGENT_API_KEY;
@@ -147,7 +157,7 @@ export const sceneAgent = async (slug: string, o: { model: string; task?: string
   const task = `${o.task ?? `Build the film for project "${slug}".`}\n\n${papers.map((f) => `## projects/${slug}/${f}\n${readFileSync(path.join(proj, f), 'utf8')}`).join('\n\n')}\n\n${refs.length ? `Reference photos follow (the file names match refs.md). Draw the real things from these.` : 'No reference photos were supplied: say in your summary what you had to invent.'}`;
   const dir = path.join(proj, 'agent', o.model.replace(/[^\w.-]+/g, '_'));
   console.log(`▸ scene agent ${o.model} on "${slug}" — up to ${o.maxSteps} steps; session in ${rel(dir)}`);
-  const r = await runAgent({ model: o.model, system: system(slug, o.forbid), task, taskImages: refs.map((f) => ({ label: `REF ${f}`, file: small(path.join(refDir, f), 520, 9) })), tools: tools(slug), dir, usageFile: path.join(dir, 'usage.jsonl'), maxSteps: o.maxSteps, tag: 'scene' });
+  const r = await runAgent({ model: o.model, system: system(slug, o.forbid, !!o.blind), task, taskImages: refs.map((f) => ({ label: `REF ${f}`, file: small(path.join(refDir, f), 520, 9) })), tools: tools(slug, !!o.blind), dir, usageFile: path.join(dir, 'usage.jsonl'), maxSteps: o.maxSteps, tag: 'scene' });
   console.log(`  ${r.done ? '✓ finished' : '⚠ stopped'} after ${r.steps} steps — ${r.summary.slice(0, 600)}`);
   console.log(`  look: node bin/mk.mjs scene stills Gen-${slug} <frames>   ·   render: node bin/mk.mjs scene video Gen-${slug}`);
   return r;
