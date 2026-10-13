@@ -1,7 +1,7 @@
 // Rendering via @remotion/renderer: bundle once per command, then stills / media for both aspects.
 import { bundle } from '@remotion/bundler';
 import { renderMedia, renderStill, selectComposition } from '@remotion/renderer';
-import { existsSync, mkdirSync, readdirSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, rmSync } from 'node:fs';
 import path from 'node:path';
 import type { Spec, Words } from '../../packages/core/src/spec/schema';
 import type { SpotProps } from '../../packages/core/src/Spot';
@@ -13,6 +13,17 @@ export const COMP: Record<AspectId, string> = { landscape: 'Spot', portrait: 'Sp
 export const CODE_COMP: Record<AspectId, string> = { landscape: 'CodeSpot', portrait: 'CodeSpotPortrait' };
 
 const bundles = new Map<string, Promise<string>>();
+// every bundle is a ~40 MB folder in the temp dir (it copies the public dir): remove ours when dropped and on exit
+const made = new Set<string>();
+const drop = (dir: string) => {
+  made.delete(dir);
+  try {
+    rmSync(dir, { recursive: true, force: true });
+  } catch {
+    // still in use: the next run leaves it, the OS temp cleaner takes it
+  }
+};
+process.on('exit', () => made.forEach(drop));
 /** one bundle per (public dir, scene file). `scene` points @scene at a code-mode scene; otherwise the placeholder. */
 export const getBundle = (publicDir: string, scene?: string) => {
   const key = `${publicDir}|${scene ?? ''}`;
@@ -31,12 +42,20 @@ export const getBundle = (publicDir: string, scene?: string) => {
             alias: { ...((config.resolve?.alias as Record<string, string>) ?? {}), '@scene': scene ?? path.join(SRC, 'code/placeholder.tsx'), '@kit': path.join(SRC, 'kit/index.ts') },
           },
         }),
+      }).then((dir) => {
+        made.add(dir);
+        return dir;
       }),
     );
   return bundles.get(key)!;
 };
 /** drop a cached bundle (the scene file changed) */
-export const forgetBundle = (publicDir: string, scene?: string) => bundles.delete(`${publicDir}|${scene ?? ''}`);
+export const forgetBundle = (publicDir: string, scene?: string) => {
+  const key = `${publicDir}|${scene ?? ''}`;
+  const old = bundles.get(key);
+  bundles.delete(key);
+  void old?.then(drop, () => undefined);
+};
 
 export const propsFor = (spec: Spec, words: Words | null, publicDir: string, qa = false): SpotProps => {
   const voDir = path.join(publicDir, 'vo');
