@@ -16,9 +16,17 @@ const doc = (p: string) => readFileSync(path.join(ROOT, p), 'utf8');
 const rel = (p: string) => path.relative(ROOT, p).replace(/\\/g, '/');
 
 // images travel inside the request as base64; many gateways cap the body at a few MB, so keep them small
-const small = (file: string, width: number, q = 7) => {
+const FONT = process.platform === 'win32' ? '/Windows/Fonts/arialbd.ttf' : '';
+/** a 192 × 108 px grid with its coordinates written along the top and left edges, so positions can be read off a render */
+const gridFilter = () => {
+  const label = (text: string, x: number, y: number) => `drawtext=${FONT ? `fontfile='${FONT}':` : ''}text='${text}':x=${x}:y=${y}:fontsize=22:fontcolor=white:box=1:boxcolor=black@0.6:boxborderw=3`;
+  const xs = Array.from({ length: 9 }, (_, i) => (i + 1) * 192).map((x) => label(String(x), x + 4, 4));
+  const ys = Array.from({ length: 9 }, (_, i) => (i + 1) * 108).map((y) => label(String(y), 4, y + 4));
+  return ['drawgrid=w=192:h=108:t=1:c=white@0.35', 'drawgrid=w=960:h=540:t=2:c=yellow@0.5', ...xs, ...ys].join(',');
+};
+const small = (file: string, width: number, q = 7, grid = false) => {
   const out = `${file}.agent.jpg`;
-  execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', file, '-vf', `scale='min(${width},iw)':-2`, '-q:v', String(q), out]);
+  execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', file, '-vf', `${grid ? `${gridFilter()},` : ''}scale='min(${width},iw)':-2`, '-q:v', String(q), out]);
   return out;
 };
 
@@ -42,7 +50,8 @@ ${blind ? `- FROM SCRATCH: there is no kit and there are no example scenes in th
 # How to work
 1. Read the project papers you are given, then \`read_file\` docs you need (they are summarised below, the full text is in the repo).
 2. Plan the shots in one short message (shot, seconds, what is seen, what moves). No approval step in this run: go on.
-3. Build ONE shot first, \`check\`, \`render\` two or three frames of it, LOOK, fix. Then the next shot. Never write the whole film blind.
+3. If the brief gives a layout (boxes in film pixels), keep to it: render with grid: true and compare what you drew against those boxes before adding detail.
+3b. Build ONE shot first, \`check\`, \`render\` two or three frames of it, LOOK, fix. Then the next shot. Never write the whole film blind.
 4. After every change that affects a picture: \`check\`, \`render\`, look. For an action render several frames across it.
 5. When all shots are in and you have looked at frames from every shot, call \`finish\` with an honest summary: what works, what is weak, what is invented.
 Write at most 2 files per reply. Keep replies short; spend your effort in the files.
@@ -122,15 +131,15 @@ const tools = (slug: string, blind: boolean): AgentTool[] => {
     },
     {
       name: 'render',
-      description: 'Render frames of your film and look at them. Up to 6 frame numbers. You get each frame back as an image.',
-      parameters: { type: 'object', properties: { frames: { type: 'array', items: { type: 'number' } } }, required: ['frames'] },
-      run: async ({ frames }) => {
+      description: 'Render frames of your film and look at them. Up to 6 frame numbers. You get each frame back as an image. Pass grid: true to get a coordinate grid drawn over them (lines every 192 × 108 px, labelled in film pixels): use it to measure where things are and how big, against the layout in the brief.',
+      parameters: { type: 'object', properties: { frames: { type: 'array', items: { type: 'number' } }, grid: { type: 'boolean' } }, required: ['frames'] },
+      run: async ({ frames, grid }) => {
         const list = (frames as number[]).slice(0, 6).map((f) => Math.max(0, Math.round(f)));
         if (!existsSync(path.join(home, 'index.tsx'))) return { text: 'no index.tsx yet' };
         try {
           const files = await sceneStills(id, list, false);
           renders++;
-          return { text: `rendered frames ${list.join(', ')} (render #${renders}). Look closely: recognisable? anything clipped, overlapping, floating, in the wrong draw order, empty?`, images: files.map((f, i) => ({ label: `frame ${list[i]}`, file: small(f, list.length > 3 ? 720 : 960) })) };
+          return { text: `rendered frames ${list.join(', ')} (render #${renders}). Look closely: recognisable? anything clipped, overlapping, floating, in the wrong draw order, empty?`, images: files.map((f, i) => ({ label: `frame ${list[i]}`, file: small(f, grid ? 1200 : list.length > 3 ? 720 : 960, 7, !!grid) })) };
         } catch (e) {
           return { text: `render failed: ${String(e instanceof Error ? e.message : e).slice(0, 1200)}` };
         }
