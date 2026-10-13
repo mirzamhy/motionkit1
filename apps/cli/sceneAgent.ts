@@ -17,16 +17,33 @@ const rel = (p: string) => path.relative(ROOT, p).replace(/\\/g, '/');
 
 // images travel inside the request as base64; many gateways cap the body at a few MB, so keep them small
 const FONT = process.platform === 'win32' ? '/Windows/Fonts/arialbd.ttf' : '';
-/** a 192 × 108 px grid with its coordinates written along the top and left edges, so positions can be read off a render */
-const gridFilter = () => {
-  const label = (text: string, x: number, y: number) => `drawtext=${FONT ? `fontfile='${FONT}':` : ''}text='${text}':x=${x}:y=${y}:fontsize=22:fontcolor=white:box=1:boxcolor=black@0.6:boxborderw=3`;
-  const xs = Array.from({ length: 9 }, (_, i) => (i + 1) * 192).map((x) => label(String(x), x + 4, 4));
-  const ys = Array.from({ length: 9 }, (_, i) => (i + 1) * 108).map((y) => label(String(y), 4, y + 4));
-  return ['drawgrid=w=192:h=108:t=1:c=white@0.35', 'drawgrid=w=960:h=540:t=2:c=yellow@0.5', ...xs, ...ys].join(',');
+/**
+ * A measuring view of a render: optionally cropped to a region (film pixels) and enlarged, with a dense grid over it.
+ * Thin lines every `minor` px, heavy labelled lines every 5 × minor; the labels are film pixels, ready to use in the SVG.
+ */
+export const gridView = (file: string, region?: number[], outW = 1600) => {
+  const [x, y, w, h] = region && region.length === 4 ? region.map((v) => Math.max(0, Math.round(v))) : [0, 0, 1920, 1080];
+  const major = [10, 20, 50, 100, 200].find((m) => w / m <= 12) ?? 200;
+  const minor = major / 5;
+  const k = Math.max(1, Math.round((outW / w) * minor)) / minor; // so a minor cell is a whole number of output pixels
+  const off = (v: number, step: number) => Math.round(((step - (v % step)) % step) * k);
+  const label = (text: number, lx: number, ly: number, c: string) => `drawtext=${FONT ? `fontfile='${FONT}':` : ''}text='${text}':x=${Math.round(lx)}:y=${Math.round(ly)}:fontsize=20:fontcolor=${c}:box=1:boxcolor=black@0.65:boxborderw=3`;
+  const marks = (from: number, len: number) => Array.from({ length: Math.ceil(len / major) + 1 }, (_, i) => Math.ceil(from / major) * major + i * major).filter((v) => v < from + len);
+  const vf = [
+    `crop=${w}:${h}:${x}:${y}`,
+    `scale=${Math.round(w * k)}:${Math.round(h * k)}:flags=lanczos`,
+    `drawgrid=x=${off(x, minor)}:y=${off(y, minor)}:w=${minor * k}:h=${minor * k}:t=1:c=white@0.22`,
+    `drawgrid=x=${off(x, major)}:y=${off(y, major)}:w=${major * k}:h=${major * k}:t=2:c=red@0.75`,
+    ...marks(x, w).map((v) => label(v, (v - x) * k + 4, 4, 'yellow')),
+    ...marks(y, h).map((v) => label(v, 4, (v - y) * k + 4, 'cyan')),
+  ].join(',');
+  const out = `${file}.grid.jpg`;
+  execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', file, '-vf', vf, '-q:v', '5', out]);
+  return out;
 };
-const small = (file: string, width: number, q = 7, grid = false) => {
+const small = (file: string, width: number, q = 7) => {
   const out = `${file}.agent.jpg`;
-  execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', file, '-vf', `${grid ? `${gridFilter()},` : ''}scale='min(${width},iw)':-2`, '-q:v', String(q), out]);
+  execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', file, '-vf', `scale='min(${width},iw)':-2`, '-q:v', String(q), out]);
   return out;
 };
 
@@ -131,15 +148,15 @@ const tools = (slug: string, blind: boolean): AgentTool[] => {
     },
     {
       name: 'render',
-      description: 'Render frames of your film and look at them. Up to 6 frame numbers. You get each frame back as an image. Pass grid: true to get a coordinate grid drawn over them (lines every 192 × 108 px, labelled in film pixels): use it to measure where things are and how big, against the layout in the brief.',
-      parameters: { type: 'object', properties: { frames: { type: 'array', items: { type: 'number' } }, grid: { type: 'boolean' } }, required: ['frames'] },
-      run: async ({ frames, grid }) => {
+      description: 'Render frames of your film and look at them. Up to 6 frame numbers. You get each frame back as an image. Pass grid: true to get a dense measuring grid drawn over them, labelled in film pixels (yellow = x, cyan = y): use it to read off where things are and how big, against the layout in the brief. Add region: [x, y, width, height] (film pixels) to crop to that area and enlarge it, which makes the grid finer (down to 2 px lines): do this to place or check small things exactly.',
+      parameters: { type: 'object', properties: { frames: { type: 'array', items: { type: 'number' } }, grid: { type: 'boolean' }, region: { type: 'array', items: { type: 'number' } } }, required: ['frames'] },
+      run: async ({ frames, grid, region }) => {
         const list = (frames as number[]).slice(0, 6).map((f) => Math.max(0, Math.round(f)));
         if (!existsSync(path.join(home, 'index.tsx'))) return { text: 'no index.tsx yet' };
         try {
           const files = await sceneStills(id, list, false);
           renders++;
-          return { text: `rendered frames ${list.join(', ')} (render #${renders}). Look closely: recognisable? anything clipped, overlapping, floating, in the wrong draw order, empty?`, images: files.map((f, i) => ({ label: `frame ${list[i]}`, file: small(f, grid ? 1200 : list.length > 3 ? 720 : 960, 7, !!grid) })) };
+          return { text: `rendered frames ${list.join(', ')} (render #${renders}). Look closely: recognisable? anything clipped, overlapping, floating, in the wrong draw order, empty?`, images: files.map((f, i) => ({ label: `frame ${list[i]}`, file: grid || region ? gridView(f, region as number[] | undefined, list.length > 3 ? 1100 : 1500) : small(f, list.length > 3 ? 720 : 960) })) };
         } catch (e) {
           return { text: `render failed: ${String(e instanceof Error ? e.message : e).slice(0, 1200)}` };
         }
