@@ -36,11 +36,16 @@ Read [docs/scenes/CRAFT.md](docs/scenes/CRAFT.md) before drawing anything and
 4. **One proof shot first.** Show a still, get a reaction, then build the rest.
 5. **Look at every shot's stills before you render video**, and again after every change. Report only what you
    actually saw; a still does not prove motion is right, so say that too.
-6. Never copy an official logo, seal or a real person's signature. Draw your own emblem; use a generic flourish.
-7. Motion rules: no value may jump in one frame (ease over ≥ 5 frames); SVG filters are static (never animated,
+6. **Compose and measure with the grid, every time you look.** Plan each shot on paper first: where the horizon sits
+   (a thirds or golden line), where the subject sits (a thirds or golden intersection), what leads the eye there,
+   and what fills the near, middle and far planes. Build depth with a real camera (eye height, focal length,
+   things sized by their distance) and people with a skeleton (joints in metres, limbs solved to where hands go),
+   not loose shapes. Then check every render with `--grid`, and `--region` on people and small things.
+7. Never copy an official logo, seal or a real person's signature. Draw your own emblem; use a generic flourish.
+8. Motion rules: no value may jump in one frame (ease over ≥ 5 frames); SVG filters are static (never animated,
    never toggled); every frame must be computable on its own, in any order (no state carried between frames —
    simulations are precomputed and cached, see `UnairCloth.tsx`).
-8. Never commit `.env`, `projects/`, `out/`, `node_modules/`, media files, or the user's reference photos.
+9. Never commit `.env`, `projects/`, `out/`, `node_modules/`, media files, or the user's reference photos.
    Commit locally only; never push or add a remote unless the user asks.
 
 ## Commands
@@ -48,6 +53,7 @@ Read [docs/scenes/CRAFT.md](docs/scenes/CRAFT.md) before drawing anything and
 ```bash
 node bin/mk.mjs scene list                       # registered scenes
 node bin/mk.mjs scene stills <Id> 120,600,1400   # frames + contact sheet → out/scenes/<Id>/sheet.jpg
+node bin/mk.mjs scene stills <Id> 600 --grid [--region x,y,w,h]   # + measuring grid, thirds (green) and golden lines (magenta)
 node bin/mk.mjs scene video <Id>                 # the film → out/scenes/<Id>/<Id>.mp4
 node bin/mk.mjs vo-cut path/to/voice.mp3         # where the recording pauses (to cut it into passages)
 npx tsc --noEmit -p .                            # must be clean before every render

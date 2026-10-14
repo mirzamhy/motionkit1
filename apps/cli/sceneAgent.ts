@@ -20,6 +20,7 @@ const FONT = process.platform === 'win32' ? '/Windows/Fonts/arialbd.ttf' : '';
 /**
  * A measuring view of a render: optionally cropped to a region (film pixels) and enlarged, with a dense grid over it.
  * Thin lines every `minor` px, heavy labelled lines every 5 × minor; the labels are film pixels, ready to use in the SVG.
+ * Composition guides on top: rule-of-thirds lines in green, golden-ratio (0.382 / 0.618) lines in magenta.
  */
 export const gridView = (file: string, region?: number[], outW = 1600) => {
   const [x, y, w, h] = region && region.length === 4 ? region.map((v) => Math.max(0, Math.round(v))) : [0, 0, 1920, 1080];
@@ -36,6 +37,14 @@ export const gridView = (file: string, region?: number[], outW = 1600) => {
     `drawgrid=x=${off(x, major)}:y=${off(y, major)}:w=${major * k}:h=${major * k}:t=2:c=red@0.75`,
     ...marks(x, w).map((v) => label(v, (v - x) * k + 4, 4, 'yellow')),
     ...marks(y, h).map((v) => label(v, 4, (v - y) * k + 4, 'cyan')),
+    // composition guides over the whole film frame: thirds (green) and golden-ratio lines (magenta)
+    ...[
+      ...[1 / 3, 2 / 3].map((p) => ({ X: 1920 * p, Y: 1080 * p, c: 'lime@0.8' })),
+      ...[0.382, 0.618].map((p) => ({ X: 1920 * p, Y: 1080 * p, c: 'magenta@0.8' })),
+    ].flatMap((g) => [
+      ...(g.X > x && g.X < x + w ? [`drawbox=x=${Math.round((g.X - x) * k) - 1}:y=0:w=3:h=ih:color=${g.c}:t=fill`] : []),
+      ...(g.Y > y && g.Y < y + h ? [`drawbox=x=0:y=${Math.round((g.Y - y) * k) - 1}:w=iw:h=3:color=${g.c}:t=fill`] : []),
+    ]),
   ].join(',');
   const out = `${file}.grid.jpg`;
   execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', file, '-vf', vf, '-q:v', '5', out]);
