@@ -22,7 +22,52 @@ const FONT = process.platform === 'win32' ? '/Windows/Fonts/arialbd.ttf' : '';
  * Thin lines every `minor` px, heavy labelled lines every 5 × minor; the labels are film pixels, ready to use in the SVG.
  * Composition guides on top: rule-of-thirds lines in green, golden-ratio (0.382 / 0.618) lines in magenta.
  */
-export const gridView = (file: string, region?: number[], outW = 1600) => {
+/** composition guides beyond thirds and golden lines, drawn once as a transparent 1920×1080 overlay:
+ *  center (symmetry axes), diag (the two diagonals and their reciprocals: dynamic symmetry), spiral / spiralx
+ *  (a golden spiral, stretched to the frame, ending lower right / mirrored to end lower left) */
+export const GUIDES = ['thirds', 'phi', 'center', 'diag', 'spiral', 'spiralx'] as const;
+const guideOverlay = (dir: string, extra: string[]) => {
+  const terms: string[] = [];
+  const W = 1920;
+  const H = 1080;
+  const line = (m: number, c: number) => `lt(abs(Y-(${m}*X+${c}))/${Math.sqrt(1 + m * m).toFixed(4)},2)`; // y = m x + c
+  if (extra.includes('center')) terms.push(`lt(abs(X-${W / 2}),2)`, `lt(abs(Y-${H / 2}),2)`);
+  if (extra.includes('diag')) {
+    const m = H / W;
+    const r = W / H; // perpendicular slope
+    terms.push(line(m, 0), line(-m, H), line(r, 0), line(-r, H), line(-r, r * W), line(r, H - r * W));
+  }
+  for (const flip of ['spiral', 'spiralx'].filter((g) => extra.includes(g))) {
+    // golden spiral on a 1.618 × 1 rectangle, quarter arcs in squares turning left, top, right, bottom…
+    const sx = W / 1.618;
+    const sy = H;
+    let [x, y, w, h] = [0, 0, 1.618, 1];
+    for (let i = 0; i < 9; i++) {
+      const d = i % 4;
+      const s = d % 2 === 0 ? h : w;
+      let cx = 0;
+      let cy = 0;
+      let qx = '';
+      let qy = '';
+      if (d === 0) { cx = x + s; cy = y + h; qx = 'lte'; qy = 'lte'; x += s; w -= s; }
+      else if (d === 1) { cx = x; cy = y + s; qx = 'gte'; qy = 'lte'; y += s; h -= s; }
+      else if (d === 2) { cx = x + w - s; cy = y; qx = 'gte'; qy = 'gte'; w -= s; }
+      else { cx = x + s; cy = y + h - s; qx = 'lte'; qy = 'gte'; h -= s; }
+      const X0 = (cx * sx).toFixed(1);
+      const Y0 = (cy * sy).toFixed(1);
+      const Xe = flip === 'spiralx' ? `(${W}-X)` : 'X';
+      const R = s.toFixed(5);
+      terms.push(`${qx}(${Xe},${X0})*${qy}(Y,${Y0})*lt(abs(hypot((${Xe}-${X0})/${sx.toFixed(2)},(Y-${Y0})/${sy})-${R}),${(2 / sy).toFixed(5)})`);
+    }
+  }
+  if (!terms.length) return null;
+  mkdirSync(dir, { recursive: true });
+  const out = path.join(dir, `guides-${extra.sort().join('-')}.png`);
+  if (!existsSync(out))
+    execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'lavfi', '-i', `color=c=black@0:s=${W}x${H},format=rgba`, '-vf', `geq=r='0':g='220':b='255':a='if(gt(${terms.join('+')},0),230,0)'`, '-frames:v', '1', out]);
+  return out;
+};
+export const gridView = (file: string, region?: number[], outW = 1600, guides: string[] = ['thirds', 'phi']) => {
   const [x, y, w, h] = region && region.length === 4 ? region.map((v) => Math.max(0, Math.round(v))) : [0, 0, 1920, 1080];
   const major = [10, 20, 50, 100, 200].find((m) => w / m <= 12) ?? 200;
   const minor = major / 5;
@@ -39,15 +84,22 @@ export const gridView = (file: string, region?: number[], outW = 1600) => {
     ...marks(y, h).map((v) => label(v, 4, (v - y) * k + 4, 'cyan')),
     // composition guides over the whole film frame: thirds (green) and golden-ratio lines (magenta)
     ...[
-      ...[1 / 3, 2 / 3].map((p) => ({ X: 1920 * p, Y: 1080 * p, c: 'lime@0.8' })),
-      ...[0.382, 0.618].map((p) => ({ X: 1920 * p, Y: 1080 * p, c: 'magenta@0.8' })),
+      ...(guides.includes('thirds') ? [1 / 3, 2 / 3].map((p) => ({ X: 1920 * p, Y: 1080 * p, c: 'lime@0.8' })) : []),
+      ...(guides.includes('phi') ? [0.382, 0.618].map((p) => ({ X: 1920 * p, Y: 1080 * p, c: 'magenta@0.8' })) : []),
     ].flatMap((g) => [
       ...(g.X > x && g.X < x + w ? [`drawbox=x=${Math.round((g.X - x) * k) - 1}:y=0:w=3:h=ih:color=${g.c}:t=fill`] : []),
       ...(g.Y > y && g.Y < y + h ? [`drawbox=x=0:y=${Math.round((g.Y - y) * k) - 1}:w=iw:h=3:color=${g.c}:t=fill`] : []),
     ]),
   ].join(',');
   const out = `${file}.grid.jpg`;
-  execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', file, '-vf', vf, '-q:v', '5', out]);
+  const over = guideOverlay(path.join(path.dirname(file), '.guides'), guides.filter((g) => !['thirds', 'phi'].includes(g)));
+  if (!over) execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', file, '-vf', vf, '-q:v', '5', out]);
+  else {
+    // the extra guides go under the grid and labels: crop and scale them exactly like the picture
+    const [first, ...rest] = vf.split(/,(?=crop=|scale=|drawgrid=|drawtext=|drawbox=)/);
+    const cs = [first, rest[0]].join(',');
+    execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', file, '-i', over, '-filter_complex', `[0]${cs}[b];[1]${cs}[g];[b][g]overlay,${rest.slice(1).join(',')}`, '-q:v', '5', out]);
+  }
   return out;
 };
 const small = (file: string, width: number, q = 7) => {
