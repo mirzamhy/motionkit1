@@ -43,6 +43,20 @@ Techniques, with where to see them:
 
 A physics run must play at real speed: keep that stretch of the `warp` 1:1 (see the unveil shot in `UnairFilm.tsx`).
 
+## Timing a beat
+
+From `haidrrrry/claude-remotion-skill` (MIT), kept where it fits scene mode:
+
+- **Hit, hold, build.** A beat lands, the subject holds still for 15–20 frames *on the beat clock*, then the next
+  move starts. The ambient clock keeps running through the hold (leaves, breathing, a slow camera push), so the frame
+  is never frozen. Contrast between move and stillness reads deliberate; constant motion reads busy.
+- **Stagger groups.** Things that arrive together arrive 3–6 frames apart: words 3, people or cards 4–5, big blocks 6.
+- **Exits are faster than entrances**: about 10 frames out against 20 in, with an ease-in.
+- **Sound leads picture.** A hit's sound starts 2–3 frames before the visual lands; late sound feels broken.
+- **Duck the bed under the voice.** `bed={{ file, vol, duck: 0.3 }}` on `Film` dips it about 10 dB while a passage
+  plays, easing over 15 frames.
+- **Text in a row is spaced in pixels**, from the measured word width, never `em` or a guessed constant.
+
 ## Mistakes already made here (check for each)
 
 | What the user saw | Cause | Fix |
@@ -64,6 +78,7 @@ A physics run must play at real speed: keep that stretch of the `warp` 1:1 (see 
 | Map shaped like a leaf | outline drawn from memory | project real coordinates |
 | Voice-over cramped | recording played straight through | cut at pauses, one passage per shot, 0.5 s before and ~1 s after |
 | Labels cut off / hidden / overlapping | never opened the still | open the still |
+| Words in a row ran into each other | fixed 300 px step for 110 px type | centre each word on its own slot, sized from the longest word |
 
 ## Checklist for every sheet
 

@@ -28,6 +28,13 @@ export const MyFilm: React.FC<{ vo?: string | null }> = ({ vo = null }) => <Film
 
 `Film` handles 24-frame dissolves, captions, label, grade (wash, vignette, grain) and placing each voice passage.
 Props: `shots`, `fonts {mono, ui}`, `defs`, `vo`, `captions` (default true), `width`, `height`, `background`.
+`words` (from `apps/cli/edge_say.py`: `[word, start s, end s]` in the recording) replaces the shots' `caps` with
+word-by-word captions (`wordcaps.tsx`): pages of up to 4 words split evenly at pauses, the spoken word lit in gold.
+A shot's `cut` sets how it enters: `'dissolve'` (default, 24 frames), `'ink'` (a spreading blot with satellite drops,
+54 frames, from `cuts.tsx`), `'leak'` (40-frame dissolve under a warm light leak). One cut family per film; ink suits
+painted/archive films, leak a change of time or mood.
+`sfx` plays each shot's sound effects; `bed={{ file, vol, duck? }}` loops a quiet bed under the film, and `duck` (0–1) scales
+it while a voice passage plays (0.3 ≈ −10 dB, eased over 15 frames).
 
 Register: `scenes/index.tsx` (`COMPONENTS`) and `scenes/manifest.ts` (`SCENES`; add `project` and `vo` if it has
 a voice-over at `projects/<project>/public/<vo>`).

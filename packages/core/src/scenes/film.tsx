@@ -8,7 +8,9 @@
 import React from 'react';
 import { AbsoluteFill, Audio, Sequence, staticFile, useCurrentFrame } from 'remotion';
 import { inOut, outE, prog, typed } from '../engine/util';
+import { CUT_SPAN, InkClip, Leak, type Cut } from './cuts';
 import { n1 } from './kit';
+import { WordCaps, type Word } from './wordcaps';
 
 /** one passage of the voice-over: `at` = shot frame the speech starts on; from / to = seconds in the recording */
 export type Vo = { at: number; from: number; to: number };
@@ -34,6 +36,8 @@ export type Shot = {
   caps?: [number, number, string][];
   vo?: Vo[];
   sfx?: Sfx[];
+  /** how this shot enters over the previous one: 'dissolve' (default), 'ink' (a spreading blot), 'leak' (dissolve under a warm light leak) */
+  cut?: Cut;
 };
 
 export const filmStarts = (shots: Shot[]) => shots.reduce<number[]>((a, _s, i) => [...a, i === 0 ? 0 : a[i - 1] + shots[i - 1].dur], []);
@@ -70,6 +74,20 @@ const tall = (s: Shot, a: number, w: number, h: number) => {
 const FADE = 24;
 const PAD_IN = 0.1; // seconds of the recording kept before / after each passage, inside its pauses
 const PAD_OUT = 0.2;
+const DUCK = 15; // frames the bed takes to dip before a voice passage and to come back after it
+
+/** 0→1: how much a voice passage covers frame fr, eased over DUCK frames on both sides (for ducking the bed) */
+const voCover = (shots: Shot[], starts: number[], fps: number, fr: number) => {
+  let w = 0;
+  shots.forEach((s, i) =>
+    (s.vo ?? []).forEach((v) => {
+      const a = starts[i] + v.at - Math.round(PAD_IN * fps);
+      const b = a + Math.round((v.to + PAD_OUT) * fps) - Math.max(0, Math.round((v.from - PAD_IN) * fps));
+      w = Math.max(w, Math.min(prog(fr, a - DUCK, a, inOut), 1 - prog(fr, b, b + DUCK, inOut)));
+    }),
+  );
+  return w;
+};
 
 export const Film: React.FC<{
   shots: Shot[];
@@ -85,16 +103,20 @@ export const Film: React.FC<{
   background?: string;
   /** play the shots' `sfx` (files live in <public>/sfx/, see apps/cli/sceneSfx.ts) */
   sfx?: boolean;
-  /** a quiet looping bed under the whole film, e.g. { file: 'pad', vol: 0.05 } */
-  bed?: { file: string; vol: number };
-}> = ({ shots, defs, fonts, width = 1920, height = 1080, fps = 60, vo, captions = true, background = '#1A120A', sfx = false, bed }) => {
+  /** a quiet looping bed under the whole film, e.g. { file: 'pad', vol: 0.05 }; `duck` (0–1) scales it while the voice speaks */
+  bed?: { file: string; vol: number; duck?: number };
+  /** word timings of the voice recording ([word, start s, end s], from apps/cli/edge_say.py): replaces the shots' `caps` with word-by-word captions */
+  words?: Word[];
+}> = ({ shots, defs, fonts, width = 1920, height = 1080, fps = 60, vo, captions = true, background = '#1A120A', sfx = false, bed, words }) => {
   const t = useCurrentFrame();
   const starts = filmStarts(shots);
   // which shot owns the frame (label, grade); the previous one keeps drawing under the dissolve
   let cur = 0;
   for (let i = 0; i < shots.length; i++) if (t >= starts[i]) cur = i;
-  const inMix = cur > 0 ? prog(t, starts[cur], starts[cur] + FADE, inOut) : 1;
   const shot = shots[cur];
+  const cut = shot.cut ?? 'dissolve';
+  const inMix = cur > 0 ? prog(t, starts[cur], starts[cur] + CUT_SPAN[cut], cut === 'ink' ? (x) => x : inOut) : 1;
+  const inking = cut === 'ink' && inMix < 1;
   const prev = cur > 0 ? shots[cur - 1] : null;
   const age = prev ? (prev.age ?? 0) + ((shot.age ?? 0) - (prev.age ?? 0)) * inMix : shot.age ?? 0;
   const u = t - starts[cur];
@@ -113,10 +135,11 @@ export const Film: React.FC<{
           </radialGradient>
         </defs>
         {defs}
-        {[prev && inMix < 1 ? { s: prev, a: t - starts[cur - 1], o: 1 } : null, { s: shot, a: u, o: inMix }].map(
+        {inking && <InkClip id={`fm-ink${cur}`} m={inMix} w={width} h={height} seed={cur} />}
+        {[prev && inMix < 1 ? { s: prev, a: t - starts[cur - 1], o: 1 } : null, { s: shot, a: u, o: inking ? 1 : inMix }].map(
           (x) =>
             x && (
-              <g key={x.s === shot ? 'cur' : 'prev'} opacity={x.o}>
+              <g key={x.s === shot ? 'cur' : 'prev'} opacity={x.o} clipPath={inking && x.s === shot ? `url(#fm-ink${cur})` : undefined}>
                 {portrait && x.s.fill && (
                   <>
                     <rect width={width} height={height / 2} fill={x.s.fill[0]} />
@@ -127,6 +150,7 @@ export const Film: React.FC<{
               </g>
             ),
         )}
+        {cut === 'leak' && cur > 0 && <Leak m={inMix} w={width} h={height} seed={cur} />}
         {/* grade: a warm wash for the old years, vignette, static grain */}
         <rect width={width} height={height} fill="#C9A46A" opacity={age} style={{ mixBlendMode: 'multiply' }} />
         <rect width={width} height={height} fill="url(#fm-vig)" />
@@ -135,7 +159,9 @@ export const Film: React.FC<{
       {shot.label && (
         <div style={{ position: 'absolute', left: portrait ? 48 : 64, top: portrait ? 120 : 54, fontFamily: fonts.mono, fontSize: 32, letterSpacing: '0.12em', color: '#FBF6EA', textShadow: '0 2px 10px rgba(0,0,0,0.6)', opacity: prog(u, 6, 20) * (1 - prog(u, shot.dur - 20, shot.dur - 4, inOut)) }}>{typed(shot.label, u, 16, 0.5)}</div>
       )}
+      {captions && words && <WordCaps shots={shots} starts={starts} fps={fps} words={words} t={t} font={fonts.ui} portrait={portrait} />}
       {captions &&
+        !words &&
         (shot.caps ?? []).map(([a, b, text]) => (
           <div key={a} style={{ position: 'absolute', left: 0, right: 0, bottom: portrait ? 250 : 64, display: 'flex', justifyContent: 'center', opacity: prog(u, a, a + 14) * (1 - prog(u, b - 14, b, inOut)), transform: `translateY(${n1((1 - prog(u, a, a + 18, outE)) * 16)}px)` }}>
             <div style={{ padding: '14px 30px', borderRadius: 14, background: 'rgba(18,14,10,0.82)', fontFamily: fonts.ui, fontSize: portrait ? 46 : 40, lineHeight: 1.25, color: '#F4EBD8', whiteSpace: portrait ? 'normal' : 'nowrap', maxWidth: portrait ? 900 : undefined, textAlign: 'center' }}>{text}</div>
@@ -154,7 +180,7 @@ export const Film: React.FC<{
             );
           }),
         )}
-      {sfx && bed && <Audio src={staticFile(`sfx/${bed.file}.wav`)} loop volume={(fr) => bed.vol * Math.min(1, fr / 60) * Math.min(1, (filmFrames(shots) - fr) / 120)} />}
+      {sfx && bed && <Audio src={staticFile(`sfx/${bed.file}.wav`)} loop volume={(fr) => bed.vol * Math.min(1, fr / 60) * Math.min(1, (filmFrames(shots) - fr) / 120) * (vo && bed.duck !== undefined ? 1 - (1 - bed.duck) * voCover(shots, starts, fps, fr) : 1)} />}
       {sfx &&
         shots.map((s, i) =>
           (s.sfx ?? []).map((x, j) => {

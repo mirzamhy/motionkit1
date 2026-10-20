@@ -11,3 +11,4 @@ assets/sfx/
 *.mp3
 .cache/
 packages/core/src/scenes/gen/*/
+references/repos/
