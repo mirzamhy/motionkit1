@@ -36,6 +36,8 @@ export type Shot = {
   caps?: [number, number, string][];
   vo?: Vo[];
   sfx?: Sfx[];
+  /** drawn in screen space above the grade (titles, lower thirds, letterbox): not moved by the portrait window */
+  over?: (u: number, a: number, W: number, H: number) => React.ReactNode;
   /** how this shot enters over the previous one: 'dissolve' (default), 'ink' (a spreading blot), 'leak' (dissolve under a warm light leak) */
   cut?: Cut;
 };
@@ -155,6 +157,8 @@ export const Film: React.FC<{
         <rect width={width} height={height} fill="#C9A46A" opacity={age} style={{ mixBlendMode: 'multiply' }} />
         <rect width={width} height={height} fill="url(#fm-vig)" />
         <rect width={width} height={height} filter="url(#fm-grain)" opacity={0.18} style={{ mixBlendMode: 'overlay' }} />
+        {prev && inMix < 1 && prev.over && <g opacity={1 - inMix}>{prev.over(warped(prev, t - starts[cur - 1]), t - starts[cur - 1], width, height)}</g>}
+        {shot.over && <g opacity={inking ? 1 : inMix}>{shot.over(warped(shot, u), u, width, height)}</g>}
       </svg>
       {shot.label && (
         <div style={{ position: 'absolute', left: portrait ? 48 : 64, top: portrait ? 120 : 54, fontFamily: fonts.mono, fontSize: 32, letterSpacing: '0.12em', color: '#FBF6EA', textShadow: '0 2px 10px rgba(0,0,0,0.6)', opacity: prog(u, 6, 20) * (1 - prog(u, shot.dur - 20, shot.dur - 4, inOut)) }}>{typed(shot.label, u, 16, 0.5)}</div>

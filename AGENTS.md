@@ -24,7 +24,8 @@ render the video. Two finished films are the quality bar and the pattern to copy
 - `UnairFilm.tsx` + `UnairShotsA/B.tsx` + `UnairScene.tsx` — a 116 s nine-shot film cut to a recorded voice-over.
 
 Read [docs/scenes/CRAFT.md](docs/scenes/CRAFT.md) before drawing anything and
-[docs/scenes/KIT.md](docs/scenes/KIT.md) before writing a component that may already exist.
+[docs/scenes/KIT.md](docs/scenes/KIT.md) before writing a component that may already exist (`mk kit find <words>`
+searches it).
 
 ## Rules that are not negotiable
 
@@ -57,6 +58,8 @@ node bin/mk.mjs scene stills <Id> 600 --grid [--region x,y,w,h]   # + measuring 
 node bin/mk.mjs scene video <Id>                 # the film → out/scenes/<Id>/<Id>.mp4
 node bin/mk.mjs vo-cut path/to/voice.mp3         # where the recording pauses (to cut it into passages)
 npx tsc --noEmit -p .                            # must be clean before every render
+node bin/mk.mjs kit find <words>                 # search the kit (Indonesian or English) before drawing a new part
+node bin/mk.mjs gate                             # tsc + unit tests + small stills of every scene → out/gate/index.html
 ```
 
 Render one job at a time. Two renders at once starve each other and neither finishes.

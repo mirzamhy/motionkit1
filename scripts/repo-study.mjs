@@ -12,7 +12,12 @@ if (!slug || !/^[\w.-]+\/[\w.-]+$/.test(slug)) {
 }
 const refAt = rest.indexOf('--ref');
 const ref = refAt >= 0 ? rest[refAt + 1] : null;
-const name = slug.split('/')[1];
+const [owner, repo] = slug.split('/');
+// Two owners can publish repos with the same name: keep the plain name for the first, owner-name for the next.
+const plain = join('references', 'repos', repo);
+const remoteOf = (d) => { try { return execFileSync('git', ['-C', d, 'remote', 'get-url', 'origin']).toString().trim(); } catch { return null; } };
+const sameRepo = (d) => (remoteOf(d) ?? '').toLowerCase().replace(/\.git$/, '').endsWith(`/${slug.toLowerCase()}`);
+const name = !existsSync(plain) || sameRepo(plain) ? repo : `${owner}-${repo}`;
 const dir = join('references', 'repos', name);
 
 if (!existsSync(dir)) {

@@ -14,6 +14,8 @@ import type { AspectId } from './render';
 import { gridView } from './sceneAgent';
 import { sceneAudio, sceneList, sceneStills, sceneVideo, voCut } from './scene';
 import { sceneAgent } from './sceneAgent';
+import { gate } from './gate';
+import { findKit, KIT } from '../../packages/core/src/scenes/catalog';
 
 const HELP = `mk — Opus-grade Remotion launch videos from cheap models (Vikey API)
 
@@ -42,6 +44,8 @@ const HELP = `mk — Opus-grade Remotion launch videos from cheap models (Vikey 
   mk scene stills <Id> <frames> --grid [--region x,y,w,h] [--guides thirds,phi,center,diag,spiral,spiralx]
                                          the same, plus a measuring grid and composition guides (zoomed to a region)
   mk scene video <Id>                    render the film → out/scenes/<Id>/<Id>.mp4
+  mk kit find <words>                    search the scene kit (Indonesian or English) before drawing something new
+  mk gate [--only A,B] [--no-render]     tsc + unit tests + two small stills of every scene → out/gate/index.html
   mk scene audio <Id>                    re-render only the sound and put it under that mp4 (voice / effects changed)
   mk vo-cut <file.mp3> [--pause 0.22]    list the pauses in a voice-over, to split it into passages
   mk agent <slug> --model <id> [--steps 80] [--task "…"] [--forbid A.tsx,B.tsx]
@@ -213,6 +217,22 @@ const main = async () => {
       const opt = (k: string) => { const i = args.indexOf(k); return i > 0 ? args[i + 1] : undefined; };
       if (!args[1] || !opt('--model')) throw new Error('usage: mk agent <slug> --model <id> [--steps 80] [--task "…"] [--forbid A.tsx,B.tsx] [--blind]');
       await sceneAgent(args[1], { model: opt('--model')!, task: opt('--task'), maxSteps: Number(opt('--steps') ?? 80), forbid: (opt('--forbid') ?? '').split(',').filter(Boolean), blind: args.includes('--blind') });
+      break;
+    }
+    case 'kit': {
+      const q = args.slice(2).join(' ');
+      if (args[1] !== 'find' || !q) throw new Error('usage: mk kit find <words>   (search the scene kit before drawing something new)');
+      const hits = findKit(q);
+      if (!hits.length) console.log(`  nothing in the kit for "${q}" (${KIT.length} parts listed) — draw it, then add it to packages/core/src/scenes/catalog.ts`);
+      for (const e of hits) {
+        const file = path.relative(ROOT, path.join(ROOT, 'packages/core/src/scenes', e.file)).split(path.sep).join('/');
+        console.log(['', `  ${e.id}  [${e.kind}]  ${file}`, `    ${e.role}`, `    use: ${e.use}`, ...(e.avoid ? [`    avoid: ${e.avoid}`] : []), ...(e.example ? [`    e.g. ${e.example}`] : [])].join('\n'));
+      }
+      break;
+    }
+    case 'gate': {
+      const i = args.indexOf('--only');
+      await gate({ only: i > 0 ? args[i + 1].split(',') : undefined, skipRender: args.includes('--no-render') });
       break;
     }
     case 'vo-cut': {

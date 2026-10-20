@@ -4,9 +4,9 @@ Status mengikuti siklus di [rencana-belajar-repo.md](rencana-belajar-repo.md): `
 
 ## Remotion, components, dan editor
 
-- `Kandidat` [remotion-bits](https://github.com/av/remotion-bits) — komponen animated text, transition, chart, particle, dan scene 3D.
-- `Kandidat` [reactvideoeditor/remotion-templates](https://github.com/reactvideoeditor/remotion-templates) — 81 komponen standalone untuk chart, text, background, transition, branding, dan media.
-- `Kandidat` [ali-abassi/remotion-templates](https://github.com/ali-abassi/remotion-templates) — katalog 1.000 template, registry, preview, recipe agent, provenance, dan QA gate.
+- `Ditiru` [remotion-bits](https://github.com/av/remotion-bits) — komponen animated text, transition, chart, particle, dan scene 3D. [Kartu](repos/remotion-bits.md)
+- `Ditiru` [reactvideoeditor/remotion-templates](https://github.com/reactvideoeditor/remotion-templates) — 81 komponen standalone untuk chart, text, background, transition, branding, dan media. [Kartu](repos/reactvideoeditor-remotion-templates.md)
+- `Ditiru` [ali-abassi/remotion-templates](https://github.com/ali-abassi/remotion-templates) — katalog 1.000 template, registry, preview, recipe agent, provenance, dan QA gate. [Kartu](repos/ali-abassi-remotion-templates.md)
 - `Diambil` [remotion-scenes](https://github.com/lifeprompt-team/remotion-scenes) — 201+ scene reusable untuk text, shape, UI, data, particle, cinematic, dan layout. [Kartu](repos/remotion-scenes.md)
 - `Ditiru` [remotion-cinematic](https://github.com/codeverbojan/remotion-cinematic) — product-demo engine dengan props choreography, camera, cursor, UI state, audio, dan visual editor. [Kartu](repos/remotion-cinematic.md)
 - `Ditiru` [claude-remotion-editor](https://github.com/ytrofr/claude-remotion-editor) — hand-path editor, Lottie gestures, phone mockups, screenshot capture, dan cursor choreography. [Kartu](repos/claude-remotion-editor.md)

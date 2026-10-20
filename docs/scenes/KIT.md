@@ -30,6 +30,8 @@ export const MyFilm: React.FC<{ vo?: string | null }> = ({ vo = null }) => <Film
 Props: `shots`, `fonts {mono, ui}`, `defs`, `vo`, `captions` (default true), `width`, `height`, `background`.
 `words` (from `apps/cli/edge_say.py`: `[word, start s, end s]` in the recording) replaces the shots' `caps` with
 word-by-word captions (`wordcaps.tsx`): pages of up to 4 words split evenly at pauses, the spoken word lit in gold.
+A shot's `over(u, a, W, H)` draws in screen space above the grade (titles, letterbox), so the portrait window does not
+crop it. Title parts in `titles.tsx`: `LowerThird` (name + role), `ChapterCard`, `Letterbox`; styles `'modern' | 'arsip'`.
 A shot's `cut` sets how it enters: `'dissolve'` (default, 24 frames), `'ink'` (a spreading blot with satellite drops,
 54 frames, from `cuts.tsx`), `'leak'` (40-frame dissolve under a warm light leak). One cut family per film; ink suits
 painted/archive films, leak a change of time or mood.
