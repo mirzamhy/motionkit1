@@ -43,6 +43,7 @@ Write the narration as short sentences, one idea each. Aim at 2.2–2.5 spoken w
 - Open on a concrete image, not on a date. Carry one object or motif through the film and pay it off at the end
   (the pizza box; the yellow-and-blue cloth and the water of the jar).
 - Offer the user two or three treatments (through one person / documentary / pure motion) before writing in full.
+  Write the chosen one as a full treatment from [TREATMENT.md](TREATMENT.md): brief, skeleton, one block per shot.
 - Put the script in `projects/<slug>/script.md`.
 
 Gate: the user has read the script and said yes.

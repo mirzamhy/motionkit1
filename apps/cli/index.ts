@@ -15,6 +15,7 @@ import { gridView } from './sceneAgent';
 import { sceneAudio, sceneList, sceneStills, sceneVideo, voCut } from './scene';
 import { sceneAgent } from './sceneAgent';
 import { gate } from './gate';
+import { decode, detectOnsets, snapShots } from './onsets';
 import { findKit, KIT } from '../../packages/core/src/scenes/catalog';
 
 const HELP = `mk — Opus-grade Remotion launch videos from cheap models (Vikey API)
@@ -45,6 +46,7 @@ const HELP = `mk — Opus-grade Remotion launch videos from cheap models (Vikey 
                                          the same, plus a measuring grid and composition guides (zoomed to a region)
   mk scene video <Id>                    render the film → out/scenes/<Id>/<Id>.mp4
   mk kit find <words>                    search the scene kit (Indonesian or English) before drawing something new
+  mk beats <music> [--fps 60] [--durs a,b,…]   music onsets; with --durs, snap shot cuts to the nearest beat
   mk gate [--only A,B] [--no-render]     tsc + unit tests + two small stills of every scene → out/gate/index.html
   mk scene audio <Id>                    re-render only the sound and put it under that mp4 (voice / effects changed)
   mk vo-cut <file.mp3> [--pause 0.22]    list the pauses in a voice-over, to split it into passages
@@ -227,6 +229,22 @@ const main = async () => {
       for (const e of hits) {
         const file = path.relative(ROOT, path.join(ROOT, 'packages/core/src/scenes', e.file)).split(path.sep).join('/');
         console.log(['', `  ${e.id}  [${e.kind}]  ${file}`, `    ${e.role}`, `    use: ${e.use}`, ...(e.avoid ? [`    avoid: ${e.avoid}`] : []), ...(e.example ? [`    e.g. ${e.example}`] : [])].join('\n'));
+      }
+      break;
+    }
+    case 'beats': {
+      const opt = (k: string) => { const i = args.indexOf(k); return i > 0 ? args[i + 1] : undefined; };
+      if (!args[1]) throw new Error('usage: mk beats <music.wav|mp3> [--fps 60] [--durs 600,630,…] [--window 20]');
+      const fps = Number(opt('--fps') ?? 60), rate = 22050;
+      const on = detectOnsets(decode(args[1], rate), rate);
+      const gaps = on.slice(1).map((o, i) => o.sec - on[i].sec).sort((a, b) => a - b);
+      const med = gaps[Math.floor(gaps.length / 2)];
+      console.log(`  ${on.length} onsets${med ? `, median gap ${med.toFixed(3)} s (≈ ${(60 / med).toFixed(0)} BPM)` : ''}`);
+      console.log(`  frames @${fps}: ${on.slice(0, 24).map((o) => Math.round(o.sec * fps)).join(', ')}${on.length > 24 ? ' …' : ''}`);
+      if (opt('--durs')) {
+        const r = snapShots(opt('--durs')!.split(',').map(Number), on, fps, { window: Number(opt('--window') ?? 20) });
+        for (const m of r.moves) console.log(`  shot ${m.shot}: cut ${m.from} → ${m.to} (${m.to - m.from > 0 ? '+' : ''}${m.to - m.from})`);
+        console.log(`  durs: ${r.durs.join(',')}`);
       }
       break;
     }

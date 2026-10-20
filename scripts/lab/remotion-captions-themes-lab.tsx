@@ -19,9 +19,13 @@ const Bg: React.FC<{ a: number; sky: string; ground: string; seed: number }> = (
 );
 // recording: sentence 1 at 0.10–1.71 s, sentence 2 at 2.56–6.66 s
 const SHOTS: Shot[] = [
-  { dur: 180, draw: (_u, a) => <Bg a={a} sky="#9CC7E4" ground="#7A8C55" seed={2} />, vo: [{ at: 30, from: 0.1, to: 1.75 }] },
-  { dur: 330, draw: (_u, a) => <Bg a={a} sky="#F0C089" ground="#8A7448" seed={5} />, vo: [{ at: 24, from: 2.55, to: 6.7 }] },
+  { dur: 180, fill: ['#9CC7E4', '#7A8C55'], draw: (_u, a) => <Bg a={a} sky="#9CC7E4" ground="#7A8C55" seed={2} />, vo: [{ at: 30, from: 0.1, to: 1.75 }] },
+  { dur: 330, fill: ['#F0C089', '#8A7448'], draw: (_u, a) => <Bg a={a} sky="#F0C089" ground="#8A7448" seed={5} />, vo: [{ at: 24, from: 2.55, to: 6.7 }] },
 ];
 const WordCapsLab: React.FC = () => <Film shots={SHOTS} fonts={{ mono: 'monospace', ui: 'Inter, sans-serif' }} vo="vo-pasar.mp3" words={words as Word[]} />;
+const WordCapsLabTall: React.FC = () => <Film width={1080} height={1920} shots={SHOTS} fonts={{ mono: 'monospace', ui: 'Inter, sans-serif' }} vo="vo-pasar.mp3" words={words as Word[]} />;
 
-registerRoot(() => <Composition id="WordCapsLab" component={WordCapsLab} width={1920} height={1080} fps={60} durationInFrames={filmFrames(SHOTS)} />);
+registerRoot(() => <>
+  <Composition id="WordCapsLab" component={WordCapsLab} width={1920} height={1080} fps={60} durationInFrames={filmFrames(SHOTS)} />
+  <Composition id="WordCapsLabTall" component={WordCapsLabTall} width={1080} height={1920} fps={60} durationInFrames={filmFrames(SHOTS)} />
+</>);

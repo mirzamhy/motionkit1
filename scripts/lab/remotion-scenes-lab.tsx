@@ -18,10 +18,14 @@ const Land: React.FC<{ a: number; sky: [string, string]; ground: string; seed: n
   </>
 );
 const SHOTS: Shot[] = [
-  { dur: 180, label: 'SHOT 1 · DAY', draw: (_u, a) => <Land a={a} sky={['#8EC3E6', '#E7F0EA']} ground="#7A8C55" seed={1} /> },
-  { dur: 180, label: 'SHOT 2 · INK', cut: 'ink', draw: (_u, a) => <Land a={a} sky={['#F2B36A', '#F6E3C0']} ground="#8A7448" seed={4} /> },
-  { dur: 180, label: 'SHOT 3 · LEAK', cut: 'leak', draw: (_u, a) => <Land a={a} sky={['#2E3A66', '#9A7FA0']} ground="#3E4A3A" seed={7} /> },
+  { dur: 180, label: 'SHOT 1 · DAY', fill: ['#8EC3E6', '#7A8C55'], draw: (_u, a) => <Land a={a} sky={['#8EC3E6', '#E7F0EA']} ground="#7A8C55" seed={1} /> },
+  { dur: 180, label: 'SHOT 2 · INK', cut: 'ink', fill: ['#F2B36A', '#8A7448'], draw: (_u, a) => <Land a={a} sky={['#F2B36A', '#F6E3C0']} ground="#8A7448" seed={4} /> },
+  { dur: 180, label: 'SHOT 3 · LEAK', cut: 'leak', fill: ['#2E3A66', '#3E4A3A'], draw: (_u, a) => <Land a={a} sky={['#2E3A66', '#9A7FA0']} ground="#3E4A3A" seed={7} /> },
 ];
 const CutsLab: React.FC = () => <Film shots={SHOTS} fonts={{ mono: 'monospace', ui: 'Inter, sans-serif' }} captions={false} />;
+const CutsLabTall: React.FC = () => <Film width={1080} height={1920} shots={SHOTS} fonts={{ mono: 'monospace', ui: 'Inter, sans-serif' }} captions={false} />;
 
-registerRoot(() => <Composition id="CutsLab" component={CutsLab} width={1920} height={1080} fps={60} durationInFrames={filmFrames(SHOTS)} />);
+registerRoot(() => <>
+  <Composition id="CutsLab" component={CutsLab} width={1920} height={1080} fps={60} durationInFrames={filmFrames(SHOTS)} />
+  <Composition id="CutsLabTall" component={CutsLabTall} width={1080} height={1920} fps={60} durationInFrames={filmFrames(SHOTS)} />
+</>);

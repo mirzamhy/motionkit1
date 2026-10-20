@@ -11,9 +11,9 @@ Status mengikuti siklus di [rencana-belajar-repo.md](rencana-belajar-repo.md): `
 - `Ditiru` [remotion-cinematic](https://github.com/codeverbojan/remotion-cinematic) — product-demo engine dengan props choreography, camera, cursor, UI state, audio, dan visual editor. [Kartu](repos/remotion-cinematic.md)
 - `Ditiru` [claude-remotion-editor](https://github.com/ytrofr/claude-remotion-editor) — hand-path editor, Lottie gestures, phone mockups, screenshot capture, dan cursor choreography. [Kartu](repos/claude-remotion-editor.md)
 - `Ditiru` [claude-remotion-skill](https://github.com/haidrrrry/claude-remotion-skill) — workflow agent motion graphics dan render-inspect-fix loop. [Kartu](repos/claude-remotion-skill.md)
-- `Kandidat` [claude-remotion-flow](https://github.com/sellersessions/claude-remotion-flow) — pipeline treatment, voice-over, music bed, ambience, dan beat timing.
+- `Ditiru` [claude-remotion-flow](https://github.com/sellersessions/claude-remotion-flow) — pipeline treatment, voice-over, music bed, ambience, dan beat timing. [Kartu](repos/claude-remotion-flow.md)
 - `Ditiru` [remotion-captions-themes](https://github.com/vshukla7/remotion-captions-themes) — word-level animated caption dan kinetic typography. [Kartu](repos/remotion-captions-themes.md)
-- `Kandidat` [Vanta](https://github.com/itsjwill/vanta) — blueprint platform video AI lengkap di atas Remotion.
+- `Ditiru` [Vanta](https://github.com/itsjwill/vanta) — blueprint platform video AI lengkap di atas Remotion. [Kartu](repos/vanta.md)
 
 ## 3D, karakter, dan animasi
 

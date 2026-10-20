@@ -47,7 +47,7 @@ Urutan "pondasi dulu": alat kerja, cara agent bekerja dan jalur asset disiapkan 
 
 ## Gelombang 1 secara rinci: Remotion, editor, agent
 
-**Status 21 Oktober 2026:** repo #1–#8 selesai (kartu di `repos/`); #9 claude-remotion-flow dan #10 Vanta belum.
+**Status 21 Oktober 2026:** repo #1–#10 selesai (kartu di `repos/`). Belum: proof penutup MarketExchange versi 2.
 
 Fokus: bukan isi adegan, tetapi **cara MotionKit membuat video**: aturan gerak, katalog komponen yang bisa dicari agent, gerbang QA, timing berdasarkan beat, caption, kamera dan audio. Data lisensi/bintang diambil dari GitHub API 21 Oktober 2026; repo yang lisensinya tidak terdeteksi wajib dicek file LICENSE-nya di langkah 2.
 

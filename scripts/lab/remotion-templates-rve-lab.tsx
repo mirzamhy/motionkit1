@@ -21,18 +21,18 @@ const Land: React.FC<{ a: number; sky: [string, string]; ground: string; seed: n
 const SHOTS: Shot[] = [
   {
     dur: 240,
-    draw: (_u, a) => <Land a={a} sky={['#8EC3E6', '#E7F0EA']} ground="#7A8C55" seed={1} />,
+    fill: ['#8EC3E6', '#7A8C55'], draw: (_u, a) => <Land a={a} sky={['#8EC3E6', '#E7F0EA']} ground="#7A8C55" seed={1} />,
     over: (u, _a, W, H) => <><Letterbox u={u} at={0} W={W} H={H} /><LowerThird u={u} at={30} until={200} name="Pak Darmo" role="Penjual sayur, Pasar Kapasan" W={W} H={H} /></>,
   },
   {
     dur: 200,
-    draw: (_u, a) => <Land a={a} sky={['#F2B36A', '#F6E3C0']} ground="#8A7448" seed={4} />,
+    fill: ['#F2B36A', '#8A7448'], draw: (_u, a) => <Land a={a} sky={['#F2B36A', '#F6E3C0']} ground="#8A7448" seed={4} />,
     over: (u, _a, W, H) => <ChapterCard u={u} at={20} until={170} n="BAB II" title="Pasar Pagi" W={W} H={H} style="arsip" />,
   },
   {
     dur: 220,
     age: 0.16,
-    draw: (_u, a) => <Land a={a} sky={['#C9B48E', '#EDE2C6']} ground="#7D6A48" seed={7} />,
+    fill: ['#C9B48E', '#7D6A48'], draw: (_u, a) => <Land a={a} sky={['#C9B48E', '#EDE2C6']} ground="#7D6A48" seed={7} />,
     over: (u, _a, W, H) => <LowerThird u={u} at={20} until={190} name="Surabaya, 1923" role="Arsip foto keluarga" W={W} H={H} style="arsip" />,
   },
 ];
