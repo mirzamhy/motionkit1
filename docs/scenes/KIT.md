@@ -49,6 +49,8 @@ a voice-over at `projects/<project>/public/<vo>`).
 | `bump(t, a, b)` | 0→1→0 over [a, b] |
 | `typed(text, t, at, cps)` | typewriter substring |
 | `lerp(a, b, p)`, `rad(deg)`, `n1(x)` | interpolate, degrees→radians, one-decimal string for SVG |
+| `beats([[name, len, gap?], …])` | named beats in order (`scenes/beats.ts`); gap < 0 overlaps the previous beat. `T.p(t, 'serah', from?, to?, ease?)`, `T.span(t, k1, k2)`, `T.a(k)`, `T.b(k)`. Lengthen one beat and every later beat moves. Tests: `npx tsx --test packages/core/src/scenes/beats.test.ts` |
+| `<BeatBar at={T.at} t={f} total width />` | debug overlay (`scenes/debug.tsx`): beat lanes, active beat lit, playhead. Pair it with a pure `pose(T, f)` to draw motion paths into a still (see `scripts/market-exchange.tsx`) |
 | `rng(seed)` | returns a function giving the same pseudo-random sequence every frame |
 | `warped(shot, u)` | apply a shot's warp by hand (the runner does it for you) |
 
