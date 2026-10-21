@@ -37,7 +37,7 @@ const paginate = (words: Placed[], fps: number, max: number) => {
   });
 };
 
-export const WordCaps: React.FC<{ shots: Shot[]; starts: number[]; fps: number; words: Word[]; t: number; font: string; portrait: boolean; max?: number; lit?: string }> = ({ shots, starts, fps, words, t, font, portrait, max = 4, lit = '#F2C14E' }) => {
+export const WordCaps: React.FC<{ shots: Shot[]; starts: number[]; fps: number; words: Word[]; t: number; font: string; portrait: boolean; max?: number; lit?: string; bottom?: number }> = ({ shots, starts, fps, words, t, font, portrait, max = 4, lit = '#F2C14E', bottom }) => {
   const placed = words.flatMap(([text, s, e]) => {
     const a = toFrame(shots, starts, fps, s), b = toFrame(shots, starts, fps, e);
     return a === null || b === null ? [] : [{ text, a, b }];
@@ -59,7 +59,7 @@ export const WordCaps: React.FC<{ shots: Shot[]; starts: number[]; fps: number; 
         if (t < a || t > gone) return null;
         const show = prog(t, a, a + fin, outE) * (1 - prog(t, b, gone, inOut));
         return (
-          <div key={i} style={{ position: 'absolute', left: 0, right: 0, bottom: portrait ? 300 : 72, display: 'flex', justifyContent: 'center', opacity: show, transform: `translateY(${((1 - prog(t, a, a + fin + 4, outE)) * 14).toFixed(1)}px)` }}>
+          <div key={i} style={{ position: 'absolute', left: 0, right: 0, bottom: bottom ?? (portrait ? 300 : 72), display: 'flex', justifyContent: 'center', opacity: show, transform: `translateY(${((1 - prog(t, a, a + fin + 4, outE)) * 14).toFixed(1)}px)` }}>
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: portrait ? '6px 18px' : '6px 16px', maxWidth: portrait ? 940 : 1500, padding: '12px 28px', borderRadius: 14, background: 'rgba(18,14,10,0.78)', fontFamily: font, fontSize: portrait ? 58 : 48, fontWeight: 700, lineHeight: 1.2 }}>
               {p.map((w, j) => {
                 // lit while spoken: eases in over 4 frames before the word starts, out over 6 after it ends
