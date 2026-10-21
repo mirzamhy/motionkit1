@@ -63,6 +63,7 @@ a voice-over at `projects/<project>/public/<vo>`).
 | `Cloud` | `x y s? fill? opacity?` | drift it: `x={300 + a * 0.08}` |
 | `Foliage` | `x y r seed t dark light n?` | a clump of leaf discs; use for trees, shrubs, hedges, foreground framing |
 | `Palm` | `x base h t seed s?` | ringed leaning trunk, arched fronds with leaflets |
+| `Shrub` | `x y r seed t dark? mid? light? n?` | tropical clump of long blade leaves (pandan, lemongrass, young banana) from one ground point, three tones, contact shadow, sways; use instead of `Foliage` for low plants on sand or by water |
 
 ## People — `UnairParts.tsx`, `UnairScene.tsx`
 

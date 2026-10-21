@@ -88,3 +88,33 @@ export const Palm: React.FC<{ x: number; base: number; h: number; t: number; see
     </g>
   );
 };
+
+/** tropical shrub: a clump of long blade leaves (pandan, lemongrass, young banana) growing from one point on the
+ *  ground, in three tones, with a contact shadow; each blade sways on its own phase. x, y is where it meets the ground. */
+export const Shrub: React.FC<{ x: number; y: number; r: number; seed: number; t: number; dark?: string; mid?: string; light?: string; n?: number }> = ({ x, y, r, seed, t, dark = '#2F4B2C', mid = '#4E7440', light = '#7FA25C', n = 24 }) => {
+  const R = rng(seed);
+  const blades = Array.from({ length: n }, (_, i) => {
+    const side = R() < 0.5 ? -1 : 1;
+    // fan from nearly upright in the middle to arching over at the sides; back blades first, shorter and darker
+    const spread = Math.pow(R(), 0.7) * 78 * side;
+    return { a: -90 + spread, L: r * (0.6 + R() * 0.55) * (1 - Math.abs(spread) / 260), w: r * (0.07 + R() * 0.06), bend: side * (0.25 + R() * 0.35), ph: R() * 6, dx: (R() - 0.5) * r * 0.35, tone: i < n * 0.35 ? dark : i < n * 0.75 ? mid : light };
+  });
+  const blade = (b: (typeof blades)[number], k: number) => {
+    const a = ((b.a + 2.5 * Math.sin(t / 41 + b.ph)) * Math.PI) / 180;
+    const bx = x + b.dx, ux = Math.cos(a), uy = Math.sin(a), nx = -uy, ny = ux;
+    const tipX = bx + ux * b.L + b.bend * b.L * 0.45, tipY = y + uy * b.L + Math.abs(b.bend) * b.L * 0.3; // tips droop
+    const midX = bx + ux * b.L * 0.55, midY = y + uy * b.L * 0.55;
+    return <path key={k} d={`M ${n1(bx - nx * b.w * 0.3)} ${n1(y)} Q ${n1(midX - nx * b.w)} ${n1(midY - ny * b.w)} ${n1(tipX)} ${n1(tipY)} Q ${n1(midX + nx * b.w)} ${n1(midY + ny * b.w)} ${n1(bx + nx * b.w * 0.3)} ${n1(y)} Z`} fill={b.tone} />;
+  };
+  return (
+    <g>
+      <ellipse cx={x} cy={y + 2} rx={r * 0.95} ry={r * 0.16} fill="#000" opacity={0.18} />
+      {blades.map(blade)}
+      {/* a few midribs on the front blades read as leaves, not ribbons */}
+      {blades.slice(-6).map((b, k) => {
+        const a = ((b.a + 2.5 * Math.sin(t / 41 + b.ph)) * Math.PI) / 180, bx = x + b.dx;
+        return <path key={`m${k}`} d={`M ${n1(bx)} ${n1(y)} Q ${n1(bx + Math.cos(a) * b.L * 0.55)} ${n1(y + Math.sin(a) * b.L * 0.55)} ${n1(bx + Math.cos(a) * b.L * 0.9 + b.bend * b.L * 0.4)} ${n1(y + Math.sin(a) * b.L * 0.9 + Math.abs(b.bend) * b.L * 0.26)}`} stroke={dark} strokeOpacity={0.35} strokeWidth={1.2} fill="none" />;
+      })}
+    </g>
+  );
+};

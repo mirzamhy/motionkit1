@@ -5,7 +5,7 @@
 import React from 'react';
 import { inOut, prog } from '../engine/util';
 import { Film, filmFrames, type Shot } from './film';
-import { Cloud, Foliage, Palm, n1, rng } from './kit';
+import { Cloud, Palm, Shrub, n1, rng } from './kit';
 import { OUTFITS_1954, Walker } from './UnairParts';
 import { beats } from './beats';
 import { LowerThird } from './titles';
@@ -140,12 +140,15 @@ const draw = (u: number, a: number) => {
       <Perahu x={1420} y={700} s={1.05} a={a} ph={0} />
       <Perahu x={1740} y={560} s={0.55} a={a} ph={2.2} />
       {/* shore, warehouse, palms */}
-      <path d={`M 0 ${HZ + 30} L 640 ${HZ + 50} Q 560 600 380 760 L 0 820 Z`} fill="#D8C59A" />
+      <path d={`M 0 ${HZ + 30} L 700 ${HZ + 48} Q 640 610 400 770 L 0 830 Z`} fill="#D8C59A" />
+      <path d={`M 700 ${HZ + 48} Q 640 610 400 770`} stroke="#C3AE80" strokeWidth={6} fill="none" opacity={0.7} />
       <g transform="translate(110 0)"><Warehouse /></g>
-      <Foliage x={470} y={540} r={80} seed={3} t={a} dark="#3E5E3A" light="#6E8F55" />
+      <Shrub x={455} y={560} r={95} seed={3} t={a} />
+      <Shrub x={150} y={640} r={80} seed={8} t={a} />
       <Palm x={40} base={640} h={470} t={a} seed={4} />
-      <Palm x={560} base={545} h={360} t={a} seed={7} />
-      <Palm x={660} base={505} h={280} t={a} seed={9} s={0.85} />
+      <Palm x={520} base={520} h={360} t={a} seed={7} />
+      <Palm x={610} base={490} h={280} t={a} seed={9} s={0.85} />
+      <Shrub x={600} y={500} r={55} seed={12} t={a} />
       <Pier />
       <Cargo k={0.3} u={0.82} seed={2} />
       <Cargo k={0.6} u={-0.86} seed={5} />
