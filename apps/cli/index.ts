@@ -16,7 +16,7 @@ import { sceneAudio, sceneList, sceneStills, sceneVideo, voCut } from './scene';
 import { sceneAgent } from './sceneAgent';
 import { gate } from './gate';
 import { decode, detectOnsets, snapShots } from './onsets';
-import { ambientcgFetch, ambientcgSearch, optimizeModel, polyhavenFetch, polyhavenSearch } from './asset';
+import { ambientcgFetch, ambientcgSearch, checkModel, listAssets, noteAsset, optimizeModel, polyhavenFetch, polyhavenSearch } from './asset';
 import { findKit, KIT } from '../../packages/core/src/scenes/catalog';
 
 const HELP = `mk — Opus-grade Remotion launch videos from cheap models (Vikey API)
@@ -50,6 +50,8 @@ const HELP = `mk — Opus-grade Remotion launch videos from cheap models (Vikey 
   mk beats <music> [--fps 60] [--durs a,b,…]   music onsets; with --durs, snap shot cuts to the nearest beat
   mk asset polyhaven search <words> | get <id…> [--res 1k] [--project p]   CC0 models with provenance
   mk asset ambientcg search <words> | get <id…> [--res 1K-JPG] [--project p]   CC0 PBR materials
+  mk asset list [--project p] | note <dir> --license L --source URL   provenance of what is on disk
+  mk asset check <model…> [--expect 0.08]   Khronos glTF-Validator + size in cm (flag > 2x off the expected metres)
   mk asset optimize <model.gltf|glb> [--ratio 0.5]   glTF-Transform: quantize + simplify to a GLB
   mk gate [--only A,B] [--no-render]     tsc + unit tests + two small stills of every scene → out/gate/index.html
   mk scene audio <Id>                    re-render only the sound and put it under that mp4 (voice / effects changed)
@@ -255,6 +257,9 @@ const main = async () => {
     case 'asset': {
       const [, src, sub, ...rest] = args;
       const opt = (k: string) => { const i = args.indexOf(k); return i > 0 ? args[i + 1] : undefined; };
+      if (src === 'list') { listAssets(opt('--project')); break; }
+      if (src === 'note') { if (!opt('--license') || !opt('--source')) throw new Error('usage: mk asset note <dir> --license CC0-1.0 --source <url> [--type pack]'); noteAsset(sub, { license: opt('--license')!, source: opt('--source')!, type: opt('--type') }); break; }
+      if (src === 'check') { for (const f of [sub, ...rest].filter((x, i, all) => x && !x.startsWith('--') && !all[i - 1]?.startsWith('--'))) await checkModel(f, { expect: opt('--expect') ? Number(opt('--expect')) : undefined }); break; }
       if (src === 'optimize') { optimizeModel(sub, { ratio: Number(opt('--ratio') ?? 0.5) }); break; }
       if (src === 'ambientcg' && sub === 'search') { for (const m of await ambientcgSearch(rest.join(' '))) console.log(`  ${m.id.padEnd(18)} ${m.title}  (${m.tags.join(', ')})`); break; }
       if (src === 'ambientcg' && sub === 'get') { for (const id of rest.filter((x, i) => !x.startsWith('--') && !rest[i - 1]?.startsWith('--'))) await ambientcgFetch(id, { res: opt('--res') ?? '1K-JPG', project: opt('--project') ?? 'asset-lab' }); break; }

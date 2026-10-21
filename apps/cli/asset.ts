@@ -137,3 +137,94 @@ export const ambientcgFetch = async (id: string, { res = '1K-JPG', project = 'as
   log(`  ${a.title}: ${maps.length} maps (${maps.map((m) => m.replace(`${id}_${res}_`, '').replace(/\.\w+$/, '')).join(', ')}), ${(dl.size / 1048576).toFixed(1)} MB → ${dir}`);
   return meta;
 };
+
+// ---- mk asset check: Khronos glTF-Validator (Apache-2.0) plus a real-world size check ----
+type GltfNode = { mesh?: number; children?: number[]; matrix?: number[]; translation?: number[]; rotation?: number[]; scale?: number[] };
+type GltfJson = { scene?: number; scenes?: { nodes: number[] }[]; nodes?: GltfNode[]; meshes?: { primitives: { attributes: { POSITION: number } }[] }[]; accessors?: { min?: number[]; max?: number[]; normalized?: boolean; componentType?: number }[] };
+
+// KHR_mesh_quantization stores normalized integers; min/max are in that integer space
+const UNNORM: Record<number, number> = { 5120: 127, 5121: 255, 5122: 32767, 5123: 65535 };
+
+/** column-major 4x4 from a node's matrix or TRS */
+const nodeMatrix = (n: GltfNode) => {
+  if (n.matrix) return n.matrix;
+  const [x, y, z, w] = n.rotation ?? [0, 0, 0, 1], [sx, sy, sz] = n.scale ?? [1, 1, 1], [tx, ty, tz] = n.translation ?? [0, 0, 0];
+  return [
+    (1 - 2 * (y * y + z * z)) * sx, 2 * (x * y + z * w) * sx, 2 * (x * z - y * w) * sx, 0,
+    2 * (x * y - z * w) * sy, (1 - 2 * (x * x + z * z)) * sy, 2 * (y * z + x * w) * sy, 0,
+    2 * (x * z + y * w) * sz, 2 * (y * z - x * w) * sz, (1 - 2 * (x * x + y * y)) * sz, 0,
+    tx, ty, tz, 1,
+  ];
+};
+const mul = (a: number[], b: number[]) => Array.from({ length: 16 }, (_, i) => [0, 1, 2, 3].reduce((s, k) => s + a[k * 4 + (i % 4)] * b[Math.floor(i / 4) * 4 + k], 0));
+
+/** world-space size of the default scene from accessor min/max through every node transform (metres if the asset follows glTF) */
+export const gltfSize = (j: GltfJson) => {
+  const lo = [Infinity, Infinity, Infinity], hi = [-Infinity, -Infinity, -Infinity];
+  const visit = (i: number, parent: number[]) => {
+    const n = j.nodes![i], m = mul(parent, nodeMatrix(n));
+    if (n.mesh != null) for (const p of j.meshes![n.mesh].primitives) {
+      const a = j.accessors![p.attributes.POSITION];
+      if (!a.min || !a.max) continue;
+      const d = a.normalized ? UNNORM[a.componentType ?? 0] ?? 1 : 1;
+      const mn = a.min.map((x) => Math.max(x / d, -1)), mx = a.max.map((x) => x / d);
+      for (const cx of [mn[0], mx[0]]) for (const cy of [mn[1], mx[1]]) for (const cz of [mn[2], mx[2]]) {
+        const v = [0, 1, 2].map((r) => m[r] * cx + m[4 + r] * cy + m[8 + r] * cz + m[12 + r]);
+        v.forEach((x, k) => { lo[k] = Math.min(lo[k], x); hi[k] = Math.max(hi[k], x); });
+      }
+    }
+    for (const c of n.children ?? []) visit(c, m);
+  };
+  const I = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1];
+  for (const r of j.scenes?.[j.scene ?? 0]?.nodes ?? []) visit(r, I);
+  return hi.map((h, k) => h - lo[k]);
+};
+
+/** validate a .gltf/.glb; with `expect` (metres, the object's largest real dimension) flag a size more than 2x off */
+export const checkModel = async (file: string, { expect }: { expect?: number } = {}) => {
+  const { validateBytes } = await import('gltf-validator');
+  const bytes = new Uint8Array(readFileSync(file));
+  const report = await validateBytes(bytes, {
+    uri: file,
+    maxIssues: 50,
+    externalResourceFunction: (uri: string) => Promise.resolve(new Uint8Array(readFileSync(join(dirname(file), decodeURIComponent(uri))))),
+  });
+  const json: GltfJson = file.toLowerCase().endsWith('.glb') ? JSON.parse(Buffer.from(bytes.subarray(20, 20 + new DataView(bytes.buffer, bytes.byteOffset).getUint32(12, true))).toString()) : JSON.parse(Buffer.from(bytes).toString());
+  const size = gltfSize(json), big = Math.max(...size);
+  const { numErrors, numWarnings, numInfos, messages } = report.issues;
+  log(`  ${file}`);
+  log(`    validator: ${numErrors} errors, ${numWarnings} warnings, ${numInfos} infos · ${report.info?.totalTriangleCount ?? '?'} triangles · ${report.info?.materialCount ?? '?'} materials`);
+  for (const m of messages.filter((x: { severity: number }) => x.severity <= 1).slice(0, 6)) log(`    ${m.severity === 0 ? 'ERROR' : 'warn '} ${m.code}: ${m.message}${m.pointer ? ` (${m.pointer})` : ''}`);
+  const ratio = expect ? big / expect : 1;
+  log(`    size: ${size.map((s) => (s * 100).toFixed(1)).join(' × ')} cm${expect ? ` · expected ≈ ${(expect * 100).toFixed(0)} cm → ${ratio > 2 || ratio < 0.5 ? `OFF by ${ratio.toFixed(2)}x: scale it by ${(1 / ratio).toFixed(2)}` : 'ok'}` : ''}`);
+  return { errors: numErrors, warnings: numWarnings, size, scaleFix: expect && (ratio > 2 || ratio < 0.5) ? 1 / ratio : 1 };
+};
+
+// ---- registry: what is on disk and where it came from ----
+const findMeta = (dir: string, out: string[] = []) => {
+  if (!existsSync(dir)) return out;
+  for (const e of readdirSync(dir)) {
+    const p = join(dir, e);
+    if (statSync(p).isDirectory()) findMeta(p, out);
+    else if (e.endsWith('.asset.json')) out.push(p);
+  }
+  return out;
+};
+
+/** every asset.json under projects/<p>/public (all projects when none is given) */
+export const listAssets = (project?: string) => {
+  const roots = project ? [join(ROOT, 'projects', project, 'public')] : readdirSync(join(ROOT, 'projects')).map((p) => join(ROOT, 'projects', p, 'public'));
+  const rows = roots.flatMap((r) => findMeta(r)).map((f) => ({ file: f, ...(JSON.parse(readFileSync(f, 'utf8')) as { id: string; type: string; license: string; source: string; bounds?: number[]; polycount?: number }) }));
+  for (const a of rows) log(`  ${a.id.padEnd(36)} ${a.type.padEnd(8)} ${a.license.padEnd(10)} ${a.bounds ? a.bounds.map((b) => (b * 100).toFixed(0)).join('×') + ' cm' : ''.padEnd(0)}  ${a.source}`);
+  log(`  ${rows.length} assets with provenance`);
+  return rows;
+};
+
+/** provenance for a pack fetched by hand (e.g. a Kenney zip): writes <dir>/<name>.asset.json */
+export const noteAsset = (dir: string, { license, source, type = 'pack', name }: { license: string; source: string; type?: string; name?: string }) => {
+  const id = name ?? dir.split(/[\\/]/).filter((x) => x && x !== 'public').slice(-2).join('/');
+  const files = readdirSync(dir).filter((f) => !f.endsWith('.asset.json'));
+  const meta = { id, type, license, source, files: files.length, fetched: new Date().toISOString().slice(0, 10), note: 'Recorded by hand with mk asset note; licence as stated by the source.' };
+  writeFileSync(join(dir, `${id.split('/').pop()}.asset.json`), JSON.stringify(meta, null, 2));
+  log(`  ${id}: ${license}, ${source}`);
+};
