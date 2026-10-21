@@ -47,8 +47,8 @@ Status mengikuti siklus di [rencana-belajar-repo.md](rencana-belajar-repo.md): `
 - `Dipakai sebagian` [Khronos glTF Sample Assets](https://github.com/KhronosGroup/glTF-Sample-Assets) — asset uji GLTF/GLB, material, animation, dan skinning.
 - `Kandidat` [Kenney](https://github.com/KenneyNL) — stylized game assets dan UI.
 - `Kandidat` [Quaternius](https://github.com/Quaternius) — low-poly characters, animals, vehicles, props, dan environment.
-- `Kandidat` [Poly Haven](https://polyhaven.com) — CC0 HDRI, model, texture, dan material.
-- `Kandidat` [polyhaven-skill](https://github.com/MaksPyn/polyhaven-skill) — pencarian/download asset Poly Haven.
+- `Diambil` [Poly Haven](https://polyhaven.com) — CC0 HDRI, model, texture, dan material. [Kartu](repos/polyhaven.md)
+- `Ditiru` [polyhaven-skill](https://github.com/MaksPyn/polyhaven-skill) — pencarian/download asset Poly Haven. [Kartu](repos/polyhaven.md)
 - `Kandidat` [3d-asset-server](https://github.com/arielshad/3d-asset-server) — asset API dan MCP dengan filter tipe serta lisensi.
 
 ## Kendaraan dan traffic

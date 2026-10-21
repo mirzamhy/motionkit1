@@ -9,18 +9,21 @@ export type TitleStyle = 'modern' | 'arsip';
 const INK = { modern: { bar: 'rgba(16,18,20,0.86)', accent: '#F2C14E', text: '#F6F1E6', sub: '#C9C2B2' }, arsip: { bar: '#EFE4C8', accent: '#8C2F1E', text: '#2A2118', sub: '#5E4E3A' } };
 
 /** name and role in the lower left: accent line, then the bar slides in, then the text; out over 10 frames */
-export const LowerThird: React.FC<{ u: number; at: number; until: number; name: string; role?: string; W: number; H: number; style?: TitleStyle; font?: string }> = ({ u, at, until, name, role, W, H, style = 'modern', font = 'Inter, sans-serif' }) => {
+export const LowerThird: React.FC<{ u: number; at: number; until: number; name: string; role?: string; W: number; H: number; style?: TitleStyle; font?: string; side?: 'left' | 'right' }> = ({ u, at, until, name, role, W, H, style = 'modern', font = 'Inter, sans-serif', side = 'left' }) => {
   if (u < at || u > until + 12) return null;
   const c = INK[style], P = H > W;
   const line = prog(u, at, at + 16, outE), bar = prog(u, at + 5, at + 26, outE), txt = prog(u, at + 14, at + 30, outE);
   const out = prog(u, until, until + 10, inOut);
-  const x = P ? 60 : 96, y = P ? H - 520 : H - 250, fs = P ? 54 : 46;
+  const fs = P ? 54 : 46, y = P ? H - 520 : H - 250;
   // estimated text widths (no measuring in SVG): bold name ≈ 0.6 em per letter, spaced capitals ≈ 0.72 em
   const w = Math.max(name.length * fs * (style === 'arsip' ? 0.62 : 0.6), (role ?? '').length * fs * 0.52 * 0.72) + 64;
+  // put the card beside the person it names: mirrored to the right edge when side is 'right'
+  const x = side === 'right' ? W - (P ? 60 : 96) - w : P ? 60 : 96;
+  const dir = side === 'right' ? -1 : 1;
   return (
-    <g opacity={1 - out} transform={`translate(${(-40 * out).toFixed(1)} 0)`}>
-      <rect x={x} y={y - 10} width={180 * line} height={4} fill={c.accent} />
-      <g transform={`translate(${(-60 * (1 - bar)).toFixed(1)} 0)`} opacity={bar}>
+    <g opacity={1 - out} transform={`translate(${(-40 * out * dir).toFixed(1)} 0)`}>
+      <rect x={side === 'right' ? x + w - 180 * line : x} y={y - 10} width={180 * line} height={4} fill={c.accent} />
+      <g transform={`translate(${(-60 * (1 - bar) * dir).toFixed(1)} 0)`} opacity={bar}>
         <rect x={x} y={y} width={w} height={role ? fs * 2.15 : fs * 1.45} fill={c.bar} rx={style === 'arsip' ? 2 : 6} />
         <rect x={x} y={y} width={6} height={role ? fs * 2.15 : fs * 1.45} fill={c.accent} />
         <text x={x + 30} y={y + fs * 1.05} fontFamily={style === 'arsip' ? "'Special Elite', monospace" : font} fontWeight={style === 'arsip' ? 400 : 700} fontSize={fs} fill={c.text} opacity={txt}>{name}</text>
