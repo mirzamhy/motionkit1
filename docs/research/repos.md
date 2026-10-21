@@ -41,12 +41,12 @@ Status mengikuti siklus di [rencana-belajar-repo.md](rencana-belajar-repo.md): `
 ## Asset, props, material, dan discovery
 
 - `Dilewati` [holokat/game-assets](https://github.com/holokat/game-assets) — GLB, Blender source, karakter, farm, structures, creatures, motion, dan VFX. [Kartu](repos/asset-collections.md)
-- `Dipakai sebagian` [ModKit](https://github.com/JaronKBragg7337/asset-pack-ue-threejs-blender-unity) — modular building kit dan props CC0.
+- `Dipakai sebagian` [ModKit](https://github.com/JaronKBragg7337/asset-pack-ue-threejs-blender-unity) — modular building kit dan props CC0. [Kartu](repos/khronos-modkit-quaternius.md)
 - `Dilewati` [fps-buildings-env-kit](https://github.com/petroulacl/fps-buildings-env-kit) — buildings, vegetation, props, dan environment. [Kartu](repos/asset-collections.md)
 - `Dipelajari` [awesome-3d-assets](https://github.com/glbkit-tools/awesome-3d-assets) — katalog model, texture, PBR, HDRI, dan environment. [Kartu](repos/asset-collections.md)
-- `Dipakai sebagian` [Khronos glTF Sample Assets](https://github.com/KhronosGroup/glTF-Sample-Assets) — asset uji GLTF/GLB, material, animation, dan skinning.
+- `Dipakai sebagian` [Khronos glTF Sample Assets](https://github.com/KhronosGroup/glTF-Sample-Assets) — asset uji GLTF/GLB, material, animation, dan skinning. [Kartu](repos/khronos-modkit-quaternius.md)
 - `Asset` [Kenney](https://github.com/KenneyNL) — stylized game assets dan UI. [Kartu](repos/kenney.md)
-- `Kandidat` [Quaternius](https://github.com/Quaternius) — low-poly characters, animals, vehicles, props, dan environment.
+- `Dipelajari` [Quaternius](https://github.com/Quaternius) — low-poly characters, animals, vehicles, props, dan environment. [Kartu](repos/khronos-modkit-quaternius.md)
 - `Diambil` [Poly Haven](https://polyhaven.com) — CC0 HDRI, model, texture, dan material. [Kartu](repos/polyhaven.md)
 - `Ditiru` [polyhaven-skill](https://github.com/MaksPyn/polyhaven-skill) — pencarian/download asset Poly Haven. [Kartu](repos/polyhaven.md)
 - `Ditiru` [3d-asset-server](https://github.com/arielshad/3d-asset-server) — asset API dan MCP dengan filter tipe serta lisensi. [Kartu](repos/3d-asset-server.md)

@@ -4,7 +4,8 @@
 import React, { Suspense, useState } from 'react';
 import { Composition, registerRoot, delayRender, continueRender, staticFile } from 'remotion';
 import { ThreeCanvas } from '@remotion/three';
-import { PH, PhModel, Ready } from './polyhaven-lab-parts';
+import { PH, PhInstances, PhModel, Ready } from './polyhaven-lab-parts';
+import { rng } from '../../packages/core/src/scenes/kit';
 
 const Lineup = () => {
   const [handle] = useState(() => delayRender('Poly Haven models'));
@@ -95,9 +96,28 @@ const HoloLineup = () => {
   </>;
 };
 
+/** 150 onions on a 1.2 m tray: separate copies vs one InstancedMesh (same seeded placements) */
+const onions = (() => { const R = rng(21); return Array.from({ length: 150 }, () => [(R() - 0.5) * 1.1, Math.floor(R() * 2) * 0.05, (R() - 0.5) * 0.5, R() * Math.PI * 2, 0.9 + R() * 0.2] as [number, number, number, number, number]); })();
+const OnionHeap = ({ instanced }: { instanced: boolean }) => {
+  const [handle] = useState(() => delayRender('Onion heap'));
+  const url = staticFile('polyhaven/yellow_onion/yellow_onion_1k.gltf');
+  return <ThreeCanvas width={1280} height={720} shadows camera={{ position: [0, 0.75, 1.2], fov: 34 }}>
+    <color attach="background" args={['#d3d7cc']} />
+    <hemisphereLight args={['#fff6e8', '#5c726b', 1.5]} />
+    <directionalLight position={[-1.5, 3, 2]} intensity={2.6} castShadow shadow-mapSize={[2048, 2048]} shadow-normalBias={0.02} />
+    <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow><planeGeometry args={[4, 4]} /><meshStandardMaterial color="#9a7d55" /></mesh>
+    <Suspense fallback={null}>
+      {instanced ? <PhInstances url={url} at={onions} /> : onions.map(([x, y, z, yaw, s], i) => <PhModel key={i} id="yellow_onion" url={url} position={[x, y, z]} rotation={yaw} scale={s} />)}
+      <Ready look={[0, 0.03, 0]} ready={() => continueRender(handle)} />
+    </Suspense>
+  </ThreeCanvas>;
+};
+
 registerRoot(() => <>
   <Composition id="PolyhavenLineup" component={Lineup} width={1600} height={800} fps={30} durationInFrames={1} />
   <Composition id="KenneyLineup" component={KenneyLineup} width={1600} height={800} fps={30} durationInFrames={1} />
   <Composition id="HoloLineup" component={HoloLineup} width={1600} height={800} fps={30} durationInFrames={1} />
+  <Composition id="OnionCopies" component={() => <OnionHeap instanced={false} />} width={1280} height={720} fps={30} durationInFrames={30} />
+  <Composition id="OnionInstanced" component={() => <OnionHeap instanced />} width={1280} height={720} fps={30} durationInFrames={30} />
   <Composition id="OptimizedBananas" component={Optimized} width={1500} height={600} fps={30} durationInFrames={1} />
 </>);

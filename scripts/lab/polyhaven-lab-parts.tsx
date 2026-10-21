@@ -1,10 +1,10 @@
 // Shared parts of the Poly Haven lab (no registerRoot). Lab for wave 2 (Poly Haven CC0 via `mk asset polyhaven get`): the six market models side by side on a 10 cm grid,
 // to check scale, orientation and materials before they go on a stall. The scale bar is 50 cm.
 // npx remotion still scripts/lab/polyhaven-lab.tsx PolyhavenLineup out/repo-lab/ph-lineup.png --public-dir=projects/vendor-action/public --gl=angle
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { staticFile } from 'remotion';
 import { useLoader, useThree } from '@react-three/fiber';
-import { Box3, Vector3 } from 'three';
+import { Box3, BufferGeometry, Euler, Material, Matrix4, Mesh, Quaternion, Vector3 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 
@@ -40,3 +40,23 @@ export const Ready = ({ ready, look }: { ready: () => void; look: [number, numbe
   return null;
 };
 
+
+/** many copies of one model as InstancedMesh (one draw per mesh of the model instead of one per copy). Each placement
+ *  is [x, y, z, yaw, scale]; the model's base sits on y like PhModel. */
+export const PhInstances = ({ url, at, tilt = 0 }: { url: string; at: [number, number, number, number, number][]; tilt?: number }) => {
+  const gltf = useLoader(GLTFLoader, url);
+  const [parts] = useState(() => {
+    const root = gltf.scene.clone(true);
+    root.rotation.x = tilt;
+    root.updateMatrixWorld(true);
+    const b = new Box3().setFromObject(root, true), c = b.getCenter(new Vector3());
+    const lift = new Matrix4().makeTranslation(-c.x, -b.min.y, -c.z);
+    const meshes: { geo: BufferGeometry; mat: Material | Material[]; local: Matrix4 }[] = [];
+    root.traverse((m) => { if ((m as Mesh).isMesh) meshes.push({ geo: (m as Mesh).geometry, mat: (m as Mesh).material, local: lift.clone().multiply(m.matrixWorld) }); });
+    return meshes;
+  });
+  const placed = useMemo(() => at.map(([x, y, z, yaw, s]) => new Matrix4().compose(new Vector3(x, y, z), new Quaternion().setFromEuler(new Euler(0, yaw, 0)), new Vector3(s, s, s))), [at]);
+  return <>{parts.map((p, k) => (
+    <instancedMesh key={k} args={[p.geo, p.mat, at.length]} castShadow receiveShadow ref={(im) => { if (!im) return; placed.forEach((m, i) => im.setMatrixAt(i, m.clone().multiply(p.local))); im.instanceMatrix.needsUpdate = true; im.computeBoundingSphere(); }} />
+  ))}</>;
+};
