@@ -72,8 +72,32 @@ const KenneyLineup = () => {
   </>;
 };
 
+/** holokat/game-assets (MIT) market structures, measured */
+const HOLO = ['Produce-Stall', 'Roadside-Stand', 'Hand-Cart', 'Farmers-Market', 'regional-market-hall'] as const;
+const HoloLineup = () => {
+  const [handle] = useState(() => delayRender('holokat models'));
+  const [sizes, setSizes] = useState<Record<string, string>>({});
+  const [w, setW] = useState<Record<string, number>>({});
+  return <>
+    <ThreeCanvas width={1600} height={800} shadows camera={{ position: [0, 14, 30], fov: 34 }}>
+      <color attach="background" args={['#d3d7cc']} />
+      <hemisphereLight args={['#fff6e8', '#5c726b', 1.5]} />
+      <directionalLight position={[-20, 40, 30]} intensity={2.4} castShadow shadow-mapSize={[2048, 2048]} shadow-camera-left={-40} shadow-camera-right={40} shadow-camera-top={40} shadow-camera-bottom={-40} />
+      <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow><planeGeometry args={[200, 200]} /><meshStandardMaterial color="#b9bda9" /></mesh>
+      <gridHelper args={[60, 60, '#6d7364', '#9a9f8e']} position={[0, 0.01, 0]} />
+      <mesh position={[0, 1, 6]}><boxGeometry args={[0.5, 2, 0.5]} /><meshStandardMaterial color="#b0302a" /></mesh>
+      <Suspense fallback={null}>
+        {HOLO.map((id, i) => <PhModel key={id} id={id} url={staticFile(`holokat/${id}.glb`)} position={[-22 + i * 11, 0, 0]} onSize={(s) => { setW((o) => ({ ...o, [id]: s.x })); setSizes((o) => ({ ...o, [id]: `${s.x.toFixed(1)}×${s.y.toFixed(1)}×${s.z.toFixed(1)}` })); }} />)}
+        <Ready look={[0, 2, 0]} ready={() => continueRender(handle)} />
+      </Suspense>
+    </ThreeCanvas>
+    <div style={{ position: 'absolute', left: 24, bottom: 18, font: '17px monospace', color: '#1d1f1b' }}>{HOLO.map((id) => `${id} ${sizes[id] ?? '…'}`).join(' · ')} (units) · grid 1 unit · red post 2 units</div>
+  </>;
+};
+
 registerRoot(() => <>
   <Composition id="PolyhavenLineup" component={Lineup} width={1600} height={800} fps={30} durationInFrames={1} />
   <Composition id="KenneyLineup" component={KenneyLineup} width={1600} height={800} fps={30} durationInFrames={1} />
+  <Composition id="HoloLineup" component={HoloLineup} width={1600} height={800} fps={30} durationInFrames={1} />
   <Composition id="OptimizedBananas" component={Optimized} width={1500} height={600} fps={30} durationInFrames={1} />
 </>);
