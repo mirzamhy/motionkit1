@@ -9,6 +9,12 @@ import { Cloud, Palm, Shrub, n1, rng } from './kit';
 import { OUTFITS_1954, Walker } from './UnairParts';
 import { beats } from './beats';
 import { LowerThird } from './titles';
+import { itemById } from '../library';
+
+// items from the library (docs/scenes/ITEMS.md): researched once, reused here
+const PerahuKajang = itemById('perahu-kajang')!.Item2D!;
+const Gudang = itemById('gudang-pelabuhan')!.Item2D!;
+const Tambat = itemById('tiang-tambat')!.Item2D!;
 
 const W = 1920, H = 1080, HZ = 412;
 const T = beats([['buka', 60], ['dorong', 480, -60], ['tahan', 120]] as const);
@@ -137,12 +143,12 @@ const draw = (u: number, a: number) => {
       <path d={`M 0 ${HZ} Q 220 ${HZ - 70} 520 ${HZ - 30} T 900 ${HZ} Z`} fill="#8E9C84" opacity={0.8} />
       <Schooner x={1560} a={a} />
       <Sea a={a} />
-      <Perahu x={1420} y={700} s={1.05} a={a} ph={0} />
-      <Perahu x={1740} y={560} s={0.55} a={a} ph={2.2} />
+      <PerahuKajang x={1450} y={705} s={32} t={a} seed={1} variant="tergulung" flip />
+      <PerahuKajang x={1760} y={540} s={14} t={a} seed={4} variant="terkembang" />
       {/* shore, warehouse, palms */}
       <path d={`M 0 ${HZ + 30} L 700 ${HZ + 48} Q 640 610 400 770 L 0 830 Z`} fill="#D8C59A" />
       <path d={`M 700 ${HZ + 48} Q 640 610 400 770`} stroke="#C3AE80" strokeWidth={6} fill="none" opacity={0.7} />
-      <g transform="translate(110 0)"><Warehouse /></g>
+      <Gudang x={330} y={470} s={11} seed={1} variant="pendek" />
       <Shrub x={455} y={560} r={95} seed={3} t={a} />
       <Shrub x={150} y={640} r={80} seed={8} t={a} />
       <Palm x={40} base={640} h={470} t={a} seed={4} />
@@ -150,6 +156,7 @@ const draw = (u: number, a: number) => {
       <Palm x={610} base={490} h={280} t={a} seed={9} s={0.85} />
       <Shrub x={600} y={500} r={55} seed={12} t={a} />
       <Pier />
+      {[0.18, 0.34, 0.5, 0.66].map((k) => { const [px, py] = pier(k, 1.02); return <Tambat key={k} x={px} y={py} s={60 * (1 - k * 0.85)} t={a} variant="kayu" />; })}
       <Cargo k={0.3} u={0.82} seed={2} />
       <Cargo k={0.6} u={-0.86} seed={5} />
       <People u={u} a={a} />

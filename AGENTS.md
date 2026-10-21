@@ -31,8 +31,10 @@ searches it).
 
 1. **Facts come from sources, not memory.** Fetch them, record source per fact in `projects/<slug>/facts.md`, and
    tell the user where two sources disagree. Never present a guessed date, name or quote as fact.
-2. **Draw real things from references.** Buildings, statues, uniforms, maps: find or ask for photos, write what you
-   see in `projects/<slug>/refs.md`, draw from that. Mark anything without a reference as invented, and say so.
+2. **Draw real things from references, and keep them.** Buildings, boats, statues, uniforms, maps: find or ask for
+   photos, write what you see, draw from that, and mark anything without a reference as invented. Things a film needs
+   go in the item library: search it first (`mk item find`), research and build what is missing, preview it
+   (`mk item preview`), register it. Follow [docs/scenes/ITEMS.md](docs/scenes/ITEMS.md).
 3. **Script and storyboard before code**, and get the user's yes on them.
 4. **One proof shot first.** Show a still, get a reaction, then build the rest.
 5. **Look at every shot's stills before you render video**, and again after every change. Report only what you
@@ -58,6 +60,7 @@ node bin/mk.mjs scene stills <Id> 600 --grid [--region x,y,w,h]   # + measuring 
 node bin/mk.mjs scene video <Id>                 # the film → out/scenes/<Id>/<Id>.mp4
 node bin/mk.mjs vo-cut path/to/voice.mp3         # where the recording pauses (to cut it into passages)
 npx tsc --noEmit -p .                            # must be clean before every render
+node bin/mk.mjs item find <words>                # the item library (boats, buildings, props) before drawing one
 node bin/mk.mjs kit find <words>                 # search the kit (Indonesian or English) before drawing a new part
 node bin/mk.mjs gate                             # tsc + unit tests + small stills of every scene → out/gate/index.html
 ```

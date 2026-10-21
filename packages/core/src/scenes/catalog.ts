@@ -7,7 +7,7 @@ export type KitEntry = {
   id: string;
   /** where it lives, relative to packages/core/src/scenes unless the path says otherwise */
   file: string;
-  kind: 'component' | 'helper' | 'prop' | 'pattern';
+  kind: 'component' | 'helper' | 'prop' | 'pattern' | 'item';
   role: string;
   use: string;
   avoid?: string;
@@ -45,6 +45,18 @@ export const KIT: KitEntry[] = [
   { id: 'tubuh (3D body rig)', file: '../../../three/src/jajan/tubuh.ts', kind: 'pattern', role: 'Three.js body: FK hand with finger joints and pinch solver, two-bone IK legs, gait cycle.', use: '3D characters in ThreeCanvas; check with the UjiTubuh composition first.', avoid: 'useFrame and postprocessing: ThreeCanvas never runs them.', tags: ['3d', 'karakter', 'tubuh', 'rig', 'ik', 'tangan', 'kaki', 'jalan', 'three'] },
   { id: 'market lab (VendorStall, Vendor, MarketExchange)', file: '../../../../scripts/vendor-lab.tsx', kind: 'pattern', role: '3D wooden market stall with produce and scale, procedural vendor with IK arm, a hand-to-hand bag exchange on named beats.', use: 'Indonesian market scenes; lab code, not yet in the kit.', tags: ['pasar', 'lapak', 'penjual', 'pembeli', 'market', 'stall', 'sayur', 'timbangan', '3d'] },
 ];
+
+// library items join the catalog automatically, so `mk kit find` and `mk item find` see the same things
+import { ITEMS } from '../library';
+const itemEntries: KitEntry[] = ITEMS.map(({ meta, Item2D, Item3D }) => ({
+  id: meta.id,
+  file: `../library/${meta.category}/${meta.id}/index.tsx`,
+  kind: 'item',
+  role: `${meta.name}. ${meta.size.join(' × ')} m${meta.era ? `, ${meta.era}` : ''}.${meta.invented?.length ? ` Invented: ${meta.invented.join('; ')}.` : ''}`,
+  use: `${[Item2D && '2D <Item2D x y s t variant />', Item3D && '3D <Item3D />'].filter(Boolean).join(' · ')}${meta.variants?.length ? ` · variants: ${meta.variants.join(', ')}` : ''} · refs: ${meta.refs}`,
+  tags: meta.tags,
+}));
+KIT.push(...itemEntries);
 
 const norm = (s: string) => s.toLowerCase();
 

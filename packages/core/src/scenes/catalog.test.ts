@@ -27,5 +27,5 @@ test('Indonesian words find the right part first', () => {
 });
 
 test('nothing found for unrelated words', () => {
-  assert.equal(findKit('kapal selam nuklir').length, 0);
+  assert.equal(findKit('roket mars nuklir').length, 0);
 });

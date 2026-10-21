@@ -15,6 +15,7 @@ import { gridView } from './sceneAgent';
 import { sceneAudio, sceneList, sceneStills, sceneVideo, voCut } from './scene';
 import { sceneAgent } from './sceneAgent';
 import { gate } from './gate';
+import { itemFind, itemList, itemPreview } from './item';
 import { decode, detectOnsets, snapShots } from './onsets';
 import { ambientcgFetch, ambientcgSearch, checkModel, listAssets, noteAsset, optimizeModel, polyhavenFetch, polyhavenSearch } from './asset';
 import { findKit, KIT } from '../../packages/core/src/scenes/catalog';
@@ -53,6 +54,7 @@ const HELP = `mk — Opus-grade Remotion launch videos from cheap models (Vikey 
   mk asset list [--project p] | note <dir> --license L --source URL   provenance of what is on disk
   mk asset check <model…> [--expect 0.08]   Khronos glTF-Validator + size in cm (flag > 2x off the expected metres)
   mk asset optimize <model.gltf|glb> [--ratio 0.5]   glTF-Transform: quantize + simplify to a GLB
+  mk item list | find <words> | preview <id>   the item library: researched, reusable 2D/3D things
   mk gate [--only A,B] [--no-render]     tsc + unit tests + two small stills of every scene → out/gate/index.html
   mk scene audio <Id>                    re-render only the sound and put it under that mp4 (voice / effects changed)
   mk vo-cut <file.mp3> [--pause 0.22]    list the pauses in a voice-over, to split it into passages
@@ -266,6 +268,14 @@ const main = async () => {
       if (src !== 'polyhaven' || !['search', 'get'].includes(sub)) throw new Error('usage: mk asset polyhaven search <words> | mk asset polyhaven get <id> [--res 1k] [--project asset-lab]');
       if (sub === 'search') for (const a of await polyhavenSearch(rest.filter((x) => !x.startsWith('--')).join(' '))) console.log(`  ${a.id.padEnd(28)} ${String(a.polycount ?? '').padStart(7)} polys  ${a.categories.join(', ')}`);
       else for (const id of rest.filter((x, i) => !x.startsWith('--') && !rest[i - 1]?.startsWith('--'))) await polyhavenFetch(id, { res: opt('--res') ?? '1k', project: opt('--project') ?? 'asset-lab' });
+      break;
+    }
+    case 'item': {
+      const [, sub, ...rest] = args;
+      if (sub === 'list') itemList();
+      else if (sub === 'find' && rest.length) itemFind(rest.join(' '));
+      else if (sub === 'preview' && rest[0]) itemPreview(rest[0]);
+      else throw new Error('usage: mk item list | find <words> | preview <id>   (docs/scenes/ITEMS.md)');
       break;
     }
     case 'gate': {
