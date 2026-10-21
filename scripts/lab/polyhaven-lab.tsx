@@ -51,7 +51,29 @@ const Optimized = () => {
   </>;
 };
 
+/** Kenney Food Kit (CC0) items for a market: measured sizes on the same 10 cm grid */
+const KENNEY = ['carrot', 'cabbage', 'eggplant', 'corn', 'leek', 'paprika', 'radish', 'onion', 'banana', 'coconut', 'fish', 'bag'] as const;
+const KenneyLineup = () => {
+  const [handle] = useState(() => delayRender('Kenney models'));
+  const [sizes, setSizes] = useState<Record<string, string>>({});
+  return <>
+    <ThreeCanvas width={1600} height={800} shadows camera={{ position: [0, 0.9, 1.9], fov: 30 }}>
+      <color attach="background" args={['#d3d7cc']} />
+      <hemisphereLight args={['#fff6e8', '#5c726b', 1.5]} />
+      <directionalLight position={[-2, 4, 3]} intensity={2.4} castShadow shadow-mapSize={[2048, 2048]} shadow-normalBias={0.02} />
+      <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow><planeGeometry args={[6, 6]} /><meshStandardMaterial color="#b9bda9" /></mesh>
+      <gridHelper args={[3, 30, '#6d7364', '#9a9f8e']} position={[0, 0.001, 0]} />
+      <Suspense fallback={null}>
+        {KENNEY.map((id, i) => <PhModel key={id} id={id} url={staticFile(`kenney/food-kit/Models/GLB format/${id}.glb`)} position={[-1.1 + i * 0.2, 0, 0]} onSize={(s) => setSizes((o) => ({ ...o, [id]: `${(s.x * 100).toFixed(0)}×${(s.y * 100).toFixed(0)}×${(s.z * 100).toFixed(0)}` }))} />)}
+        <Ready look={[0, 0.1, 0]} ready={() => continueRender(handle)} />
+      </Suspense>
+    </ThreeCanvas>
+    <div style={{ position: 'absolute', left: 24, bottom: 18, font: '17px monospace', color: '#1d1f1b' }}>{KENNEY.map((id) => `${id} ${sizes[id] ?? '…'}`).join(' · ')} (cm) · grid 10 cm</div>
+  </>;
+};
+
 registerRoot(() => <>
   <Composition id="PolyhavenLineup" component={Lineup} width={1600} height={800} fps={30} durationInFrames={1} />
+  <Composition id="KenneyLineup" component={KenneyLineup} width={1600} height={800} fps={30} durationInFrames={1} />
   <Composition id="OptimizedBananas" component={Optimized} width={1500} height={600} fps={30} durationInFrames={1} />
 </>);

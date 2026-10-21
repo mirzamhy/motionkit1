@@ -45,7 +45,7 @@ Status mengikuti siklus di [rencana-belajar-repo.md](rencana-belajar-repo.md): `
 - `Kandidat` [fps-buildings-env-kit](https://github.com/petroulacl/fps-buildings-env-kit) — buildings, vegetation, props, dan environment.
 - `Kandidat` [awesome-3d-assets](https://github.com/glbkit-tools/awesome-3d-assets) — katalog model, texture, PBR, HDRI, dan environment.
 - `Dipakai sebagian` [Khronos glTF Sample Assets](https://github.com/KhronosGroup/glTF-Sample-Assets) — asset uji GLTF/GLB, material, animation, dan skinning.
-- `Kandidat` [Kenney](https://github.com/KenneyNL) — stylized game assets dan UI.
+- `Asset` [Kenney](https://github.com/KenneyNL) — stylized game assets dan UI. [Kartu](repos/kenney.md)
 - `Kandidat` [Quaternius](https://github.com/Quaternius) — low-poly characters, animals, vehicles, props, dan environment.
 - `Diambil` [Poly Haven](https://polyhaven.com) — CC0 HDRI, model, texture, dan material. [Kartu](repos/polyhaven.md)
 - `Ditiru` [polyhaven-skill](https://github.com/MaksPyn/polyhaven-skill) — pencarian/download asset Poly Haven. [Kartu](repos/polyhaven.md)
