@@ -12,8 +12,8 @@ export const PH = ['bananas', 'food_ginger_01', 'food_lime_01', 'yellow_onion', 
 export const phUrl = (id: string) => staticFile(`polyhaven/${id}/${id}_1k.gltf`);
 
 /** a Poly Haven model placed with its base on y = 0 and centred on x/z; reports its measured size once */
-export const PhModel = ({ id, position = [0, 0, 0], rotation = 0, scale = 1, onSize, only }: { id: string; position?: [number, number, number]; rotation?: number; scale?: number; onSize?: (s: Vector3) => void; only?: string }) => {
-  const gltf = useLoader(GLTFLoader, phUrl(id));
+export const PhModel = ({ id, position = [0, 0, 0], rotation = 0, scale = 1, onSize, only, url }: { id: string; position?: [number, number, number]; rotation?: number; scale?: number; onSize?: (s: Vector3) => void; only?: string; url?: string }) => {
+  const gltf = useLoader(GLTFLoader, url ?? phUrl(id));
   const [obj] = useState(() => {
     const o = gltf.scene.clone(true);
     // keep one named node of a multi-part scan (e.g. the bunch without the loose bananas)

@@ -2,8 +2,9 @@
 // (docs/research/asset-contract.md). Pattern studied in MaksPyn/polyhaven-skill (search, files tree, terms);
 // written fresh. Poly Haven API terms (checked 21 Oct 2026, github.com/Poly-Haven/Public-API ToS.md): free for any
 // use, every call must carry a user agent naming the software; the assets themselves are CC0, no attribution needed.
+import { execFileSync, execSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { ROOT } from './paths';
 
@@ -74,4 +75,26 @@ export const polyhavenFetch = async (id: string, { res = '1k', project = 'asset-
   writeFileSync(join(dir, `${id}.asset.json`), JSON.stringify(meta, null, 2));
   log(`  ${info.name}: ${parts.length} files, ${(bytes / 1048576).toFixed(1)} MB, ${info.polycount ?? '?'} polys, bounds ${meta.bounds?.join(' × ') ?? '?'} m → ${dir}`);
   return meta;
+};
+
+/** Optimize a glTF/GLB with glTF-Transform (MIT; the library under gltf-slipstream, LightLoad and meshify): dedup,
+ *  weld, prune, quantize and meshoptimizer simplify to `ratio` of the triangles. Textures are left as they are:
+ *  WebP conversion failed on Windows in testing (sharp: "colourspace: parameter space not set").
+ *  Measured on Poly Haven bananas: 50 % looked the same as the original up close, 15 % showed a lumpy silhouette. */
+const GLTF_TRANSFORM = ['--yes', '@gltf-transform/cli@4.1.1'];
+export const optimizeModel = (input: string, { ratio = 0.5, out }: { ratio?: number; out?: string } = {}) => {
+  const dest = out ?? input.replace(/\.(gltf|glb)$/i, `_s${Math.round(ratio * 100)}.glb`);
+  const args = ['optimize', input, dest, '--compress', 'quantize', '--texture-compress', 'false', ...(ratio < 1 ? ['--simplify', 'true', '--simplify-ratio', String(ratio), '--simplify-error', ratio < 0.3 ? '0.01' : '0.001'] : ['--simplify', 'false'])];
+  // npx is a .cmd on Windows, which needs a shell
+  const win = process.platform === 'win32';
+  // (cmd.exe treats a line that starts with a quote specially, so only arguments with spaces are quoted)
+  if (win) execSync(['npx', ...GLTF_TRANSFORM, ...args].map((x) => (/\s/.test(x) ? `"${x}"` : x)).join(' '), { stdio: ['ignore', 'ignore', 'inherit'] });
+  else execFileSync('npx', [...GLTF_TRANSFORM, ...args], { stdio: ['ignore', 'ignore', 'inherit'] });
+  const tris = (j: { meshes: { primitives: { indices?: number; attributes: { POSITION: number } }[] }[]; accessors: { count: number }[] }) =>
+    Math.round(j.meshes.reduce((s, m) => s + m.primitives.reduce((a, p) => a + j.accessors[p.indices ?? p.attributes.POSITION].count / 3, 0), 0));
+  const glbJson = (file: string) => { const b = readFileSync(file); return JSON.parse(b.subarray(20, 20 + b.readUInt32LE(12)).toString()); };
+  const before = input.toLowerCase().endsWith('.glb') ? glbJson(input) : JSON.parse(readFileSync(input, 'utf8'));
+  const after = glbJson(dest);
+  log(`  ${tris(before)} → ${tris(after)} triangles, ${(statSync(dest).size / 1048576).toFixed(2)} MB → ${dest}`);
+  return dest;
 };

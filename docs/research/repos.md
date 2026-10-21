@@ -82,7 +82,7 @@ Status mengikuti siklus di [rencana-belajar-repo.md](rencana-belajar-repo.md): `
 
 ## Optimasi GLB
 
-- `Kandidat` [gltf-slipstream](https://github.com/juanmgh3/gltf-slipstream) — Draco dan WebP compression lokal.
-- `Kandidat` [LightLoad](https://github.com/ImDxni/LightLoad) — Draco, Meshopt, KTX2, resize, dan simplification.
-- `Kandidat` [meshify](https://github.com/lxie-leo/meshify) — LOD, conversion, splitting, texturing, dan optimization CLI.
-- `Kandidat` [3d-asset-pipeline](https://github.com/Sensus-AI-FZCO/3d-asset-pipeline) — Blender headless dan glTF transform pipeline.
+- `Ditiru` [gltf-slipstream](https://github.com/juanmgh3/gltf-slipstream) — Draco dan WebP compression lokal. [Kartu](repos/gltf-optimizers.md)
+- `Ditiru` [LightLoad](https://github.com/ImDxni/LightLoad) — Draco, Meshopt, KTX2, resize, dan simplification. [Kartu](repos/gltf-optimizers.md)
+- `Ditiru` [meshify](https://github.com/lxie-leo/meshify) — LOD, conversion, splitting, texturing, dan optimization CLI. [Kartu](repos/gltf-optimizers.md)
+- `Ditiru` [3d-asset-pipeline](https://github.com/Sensus-AI-FZCO/3d-asset-pipeline) — Blender headless dan glTF transform pipeline. [Kartu](repos/gltf-optimizers.md)
