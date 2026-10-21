@@ -16,7 +16,7 @@ import { sceneAudio, sceneList, sceneStills, sceneVideo, voCut } from './scene';
 import { sceneAgent } from './sceneAgent';
 import { gate } from './gate';
 import { decode, detectOnsets, snapShots } from './onsets';
-import { optimizeModel, polyhavenFetch, polyhavenSearch } from './asset';
+import { ambientcgFetch, ambientcgSearch, optimizeModel, polyhavenFetch, polyhavenSearch } from './asset';
 import { findKit, KIT } from '../../packages/core/src/scenes/catalog';
 
 const HELP = `mk — Opus-grade Remotion launch videos from cheap models (Vikey API)
@@ -49,6 +49,7 @@ const HELP = `mk — Opus-grade Remotion launch videos from cheap models (Vikey 
   mk kit find <words>                    search the scene kit (Indonesian or English) before drawing something new
   mk beats <music> [--fps 60] [--durs a,b,…]   music onsets; with --durs, snap shot cuts to the nearest beat
   mk asset polyhaven search <words> | get <id…> [--res 1k] [--project p]   CC0 models with provenance
+  mk asset ambientcg search <words> | get <id…> [--res 1K-JPG] [--project p]   CC0 PBR materials
   mk asset optimize <model.gltf|glb> [--ratio 0.5]   glTF-Transform: quantize + simplify to a GLB
   mk gate [--only A,B] [--no-render]     tsc + unit tests + two small stills of every scene → out/gate/index.html
   mk scene audio <Id>                    re-render only the sound and put it under that mp4 (voice / effects changed)
@@ -255,6 +256,8 @@ const main = async () => {
       const [, src, sub, ...rest] = args;
       const opt = (k: string) => { const i = args.indexOf(k); return i > 0 ? args[i + 1] : undefined; };
       if (src === 'optimize') { optimizeModel(sub, { ratio: Number(opt('--ratio') ?? 0.5) }); break; }
+      if (src === 'ambientcg' && sub === 'search') { for (const m of await ambientcgSearch(rest.join(' '))) console.log(`  ${m.id.padEnd(18)} ${m.title}  (${m.tags.join(', ')})`); break; }
+      if (src === 'ambientcg' && sub === 'get') { for (const id of rest.filter((x, i) => !x.startsWith('--') && !rest[i - 1]?.startsWith('--'))) await ambientcgFetch(id, { res: opt('--res') ?? '1K-JPG', project: opt('--project') ?? 'asset-lab' }); break; }
       if (src !== 'polyhaven' || !['search', 'get'].includes(sub)) throw new Error('usage: mk asset polyhaven search <words> | mk asset polyhaven get <id> [--res 1k] [--project asset-lab]');
       if (sub === 'search') for (const a of await polyhavenSearch(rest.filter((x) => !x.startsWith('--')).join(' '))) console.log(`  ${a.id.padEnd(28)} ${String(a.polycount ?? '').padStart(7)} polys  ${a.categories.join(', ')}`);
       else for (const id of rest.filter((x, i) => !x.startsWith('--') && !rest[i - 1]?.startsWith('--'))) await polyhavenFetch(id, { res: opt('--res') ?? '1k', project: opt('--project') ?? 'asset-lab' });

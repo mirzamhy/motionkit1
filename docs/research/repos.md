@@ -49,7 +49,7 @@ Status mengikuti siklus di [rencana-belajar-repo.md](rencana-belajar-repo.md): `
 - `Kandidat` [Quaternius](https://github.com/Quaternius) — low-poly characters, animals, vehicles, props, dan environment.
 - `Diambil` [Poly Haven](https://polyhaven.com) — CC0 HDRI, model, texture, dan material. [Kartu](repos/polyhaven.md)
 - `Ditiru` [polyhaven-skill](https://github.com/MaksPyn/polyhaven-skill) — pencarian/download asset Poly Haven. [Kartu](repos/polyhaven.md)
-- `Kandidat` [3d-asset-server](https://github.com/arielshad/3d-asset-server) — asset API dan MCP dengan filter tipe serta lisensi.
+- `Ditiru` [3d-asset-server](https://github.com/arielshad/3d-asset-server) — asset API dan MCP dengan filter tipe serta lisensi. [Kartu](repos/3d-asset-server.md)
 
 ## Kendaraan dan traffic
 

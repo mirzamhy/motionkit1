@@ -4,7 +4,7 @@
 // use, every call must carry a user agent naming the software; the assets themselves are CC0, no attribution needed.
 import { execFileSync, execSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { ROOT } from './paths';
 
@@ -97,4 +97,43 @@ export const optimizeModel = (input: string, { ratio = 0.5, out }: { ratio?: num
   const after = glbJson(dest);
   log(`  ${tris(before)} → ${tris(after)} triangles, ${(statSync(dest).size / 1048576).toFixed(2)} MB → ${dest}`);
   return dest;
+};
+
+// ---- ambientCG (CC0 materials; licence page checked 21 Oct 2026). Endpoint shape from arielshad/3d-asset-server
+// (Apache-2.0): v3 `GET /api/v3/assets?q=&type=&include=`, downloads are `ambientcg.com/get?file=<id>_<res>.zip`. ----
+const ACG = 'https://ambientcg.com/api/v3/assets';
+type AcgDownload = { url: string; size: number };
+
+export const ambientcgSearch = async (query: string, type = 'material') => {
+  const r = await fetch(`${ACG}?q=${encodeURIComponent(query)}&type=${type}&limit=12&include=title,tags`, { headers: UA });
+  if (!r.ok) throw new Error(`ambientCG search: HTTP ${r.status}`);
+  const j = (await r.json()) as { assets: { id: string; title: string; tags?: string[] }[] };
+  return j.assets.map((a) => ({ id: a.id, title: a.title, tags: (a.tags ?? []).slice(0, 6) }));
+};
+
+/** download one material zip (default 1K-JPG), extract it into projects/<p>/public/ambientcg/<id>, write asset.json */
+export const ambientcgFetch = async (id: string, { res = '1K-JPG', project = 'asset-lab' } = {}) => {
+  const r = await fetch(`${ACG}?id=${encodeURIComponent(id)}&include=title,tags,downloads`, { headers: UA });
+  if (!r.ok) throw new Error(`ambientCG ${id}: HTTP ${r.status}`);
+  const a = ((await r.json()) as { assets: { id: string; title: string; tags?: string[]; downloads?: AcgDownload[] }[] }).assets[0];
+  if (!a) throw new Error(`ambientCG: no asset ${id}`);
+  const dl = (a.downloads ?? []).find((d) => d.url.endsWith(`_${res}.zip`));
+  if (!dl) throw new Error(`${id}: no ${res} zip (has ${(a.downloads ?? []).map((d) => d.url.split('_').pop()).join(', ')})`);
+  const dir = join(ROOT, 'projects', project, 'public', 'ambientcg', id);
+  mkdirSync(dir, { recursive: true });
+  const zip = join(dir, `${id}_${res}.zip`);
+  if (!existsSync(zip) || statSync(zip).size !== dl.size) {
+    const z = await fetch(dl.url, { headers: UA, redirect: 'follow' });
+    if (!z.ok) throw new Error(`${id}: HTTP ${z.status}`);
+    writeFileSync(zip, Buffer.from(await z.arrayBuffer()));
+  }
+  if (statSync(zip).size !== dl.size) throw new Error(`${id}: got ${statSync(zip).size} bytes, expected ${dl.size}`);
+  // bsdtar reads zip. On Windows call the system one: Git's GNU tar comes first on PATH and reads "C:" as a host
+  const sysTar = join(process.env.SystemRoot ?? 'C:\\Windows', 'System32', 'tar.exe');
+  execFileSync(process.platform === 'win32' && existsSync(sysTar) ? sysTar : 'tar', ['-xf', zip, '-C', dir]);
+  const maps = readdirSync(dir).filter((f) => /\.(jpg|png)$/i.test(f));
+  const meta = { id: `ambientcg/${id}`, type: 'material', name: a.title, source: `https://ambientcg.com/view?id=${id}`, license: 'CC0-1.0', resolution: res, maps, zip: { file: `${id}_${res}.zip`, size: dl.size }, fetched: new Date().toISOString().slice(0, 10), note: 'ambientCG assets are CC0 1.0 (ambientcg.com/license).' };
+  writeFileSync(join(dir, `${id}.asset.json`), JSON.stringify(meta, null, 2));
+  log(`  ${a.title}: ${maps.length} maps (${maps.map((m) => m.replace(`${id}_${res}_`, '').replace(/\.\w+$/, '')).join(', ')}), ${(dl.size / 1048576).toFixed(1)} MB → ${dir}`);
+  return meta;
 };
