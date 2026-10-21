@@ -21,6 +21,7 @@ test('Indonesian words find the right part first', () => {
   assert.equal(findKit('transisi tinta')[0].id, 'Shot.cut');
   assert.equal(findKit('caption kata')[0].id, 'Film.words');
   assert.equal(findKit('pohon')[0].id, 'Foliage');
+  assert.equal(findKit('semak')[0].id, 'Shrub');
   assert.equal(findKit('bendera')[0].id, 'Flag');
   assert.equal(findKit('timing tahan')[0].id, 'beats');
 });
