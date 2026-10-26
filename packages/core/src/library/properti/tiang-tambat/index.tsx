@@ -7,6 +7,8 @@ import type { Item2DProps, Item3DProps, ItemMeta } from '../../types';
 export const meta: ItemMeta = {
   id: 'tiang-tambat',
   name: 'Tiang tambat (tiang kayu bertali / bolder besi)',
+  benda: 'tiang-tambat',
+  gaya: 'ilustrasi',
   category: 'properti',
   tags: ['tiang tambat', 'bolder', 'bollard', 'mooring', 'tali', 'rope', 'kade', 'dermaga', 'pelabuhan', 'pier'],
   era: '1900-1950',

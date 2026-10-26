@@ -10,6 +10,8 @@ import type { Item2DProps, Item3DProps, ItemMeta } from '../../types';
 export const meta: ItemMeta = {
   id: 'perahu-kajang',
   name: 'Perahu kajang (prauw dagang, 1920-an)',
+  benda: 'perahu',
+  gaya: 'ilustrasi',
   category: 'kendaraan-air',
   tags: ['perahu', 'prauw', 'kapal', 'layar', 'kajang', 'madura', 'bugis', 'pelabuhan', 'boat', 'sailing', 'nusantara', 'kolonial'],
   era: '1910-1940',

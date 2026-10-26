@@ -2,6 +2,7 @@
 // references, drawn in 2D and/or built in 3D, previewed, and registered so the next film finds it.
 // Read docs/scenes/ITEMS.md for the workflow.
 import type React from 'react';
+import type { GayaSlug } from '../styles';
 
 /** what an item is and where it came from; kept in the item's index.tsx and listed by `mk item find` */
 export type ItemMeta = {
@@ -18,8 +19,14 @@ export type ItemMeta = {
   variants?: string[];
   /** path of the item's refs.md, relative to the repo root */
   refs: string;
-  /** style pack the item belongs to, e.g. 'stik-polos' (items drawn for one look, see styles/) */
-  style?: string;
+  /** the thing: 'gedung', 'rumah-sakit'. id is `${benda}-${gaya}` (naming.ts) */
+  benda: string;
+  /** the look, a slug from styles/index.ts */
+  gaya: GayaSlug;
+  /** older ids that still resolve to this item, so a rename never breaks a film */
+  aliases?: string[];
+  /** names of the original components this item wraps; `mk aset peta` counts a scene that imports one as a user */
+  komponen?: string[];
   /** source file relative to the repo root, when it is not <category>/<id>/index.tsx */
   file?: string;
   /** parts drawn without a reference; say so on screen when it matters */

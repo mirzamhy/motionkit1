@@ -9,6 +9,8 @@ import type { Item2DProps, ItemMeta } from '../../types';
 export const meta: ItemMeta = {
   id: 'gudang-pelabuhan',
   name: 'Gudang pelabuhan kolonial (pakhuis, 1920-an)',
+  benda: 'gudang',
+  gaya: 'ilustrasi',
   category: 'bangunan',
   tags: ['gudang', 'pakhuis', 'warehouse', 'pelabuhan', 'harbour', 'kolonial', 'kade', 'bangunan', 'building', 'atap seng'],
   era: '1910-1940',
