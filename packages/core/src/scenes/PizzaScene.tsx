@@ -50,7 +50,7 @@ const steam = (x: number, y: number, t: number, ph: number, h = 90, amp = 9) => 
 };
 
 // ───────────────────────────────────────────── defs ─────────────────────────────────────────────
-const Defs: React.FC = () => (
+export const Defs: React.FC = () => (
   <defs>
     <linearGradient id="ps-wall" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stopColor="#2F4248" />
@@ -587,7 +587,7 @@ const PC = { x: 860, y: 600, r: 270 }; // pizza centre / radius
 const SL = { a0: 20, a1: 65 }; // the slice that gets pulled (degrees, y down)
 
 type PizzaData = ReturnType<typeof buildPizza>;
-const buildPizza = () => {
+export const buildPizza = () => {
   const r = rng(77);
   const inDisc = (rmax: number, rmin = 0): [number, number] => {
     const a = r() * Math.PI * 2;
@@ -620,7 +620,7 @@ const buildPizza = () => {
 };
 
 /** the whole pizza around (0, 0) */
-const Pizza: React.FC<{ d: PizzaData }> = ({ d }) => (
+export const Pizza: React.FC<{ d: PizzaData }> = ({ d }) => (
   <>
     {/* crust: rough edge, baked gradient, blisters */}
     <circle r={PC.r} fill="url(#ps-crust)" filter="url(#ps-rough)" />

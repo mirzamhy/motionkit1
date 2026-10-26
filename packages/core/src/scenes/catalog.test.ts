@@ -20,10 +20,10 @@ test('ids are unique', () => {
 test('Indonesian words find the right part first', () => {
   assert.equal(findKit('transisi tinta')[0].id, 'Shot.cut');
   assert.equal(findKit('caption kata')[0].id, 'Film.words');
-  // a library asset (pohon-poly3d) ranks first: "pustaka dulu"; the kit's Foliage must still be found right after it
-  assert.deepEqual(findKit('pohon').slice(0, 2).map((e) => e.id), ['pohon-poly3d', 'Foliage']);
-  assert.equal(findKit('semak')[0].id, 'Shrub');
-  assert.equal(findKit('bendera')[0].id, 'Flag');
+  // a library asset (pohon-poly3d) ranks first: "pustaka dulu"; the kit's Foliage must still be found right after them
+  assert.deepEqual(findKit('pohon').slice(0, 3).map((e) => e.id), ['pohon-poly3d', 'pohon-ilustrasi', 'Foliage']);
+  assert.deepEqual(findKit('semak').slice(0, 2).map((e) => e.id), ['semak-ilustrasi', 'Shrub']);
+  assert.deepEqual(findKit('bendera').slice(0, 2).map((e) => e.id), ['bendera-ilustrasi', 'Flag']);
   assert.equal(findKit('timing tahan')[0].id, 'beats');
 });
 

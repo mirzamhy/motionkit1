@@ -8,10 +8,14 @@ Cari dulu: `mk aset find <benda>`. Buat yang belum ada: `mk aset baru <benda> <g
 
 | benda | stik | poly3d | poly | model3d | flanel | ilustrasi |
 |---|---|---|---|---|---|---|
+| atap-limas | ✗ | ✗ | ✗ | ✗ | ✗ | ✔ `atap-limas-ilustrasi` |
+| awan | ✗ | ✗ | ✗ | ✗ | ✗ | ✔ `awan-ilustrasi` |
 | bangku | ✔ `bangku-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
+| bendera | ✗ | ✗ | ✗ | ✗ | ✗ | ✔ `bendera-ilustrasi` |
 | bumi | ✗ | ✔ `bumi-poly3d` | ✗ | ✗ | ✗ | ✗ |
 | bus | ✗ | ✔ `bus-poly3d` | ✗ | ✗ | ✗ | ✗ |
 | gedung | ✗ | ✔ `gedung-poly3d` | ✗ | ✗ | ✗ | ✗ |
+| gedung-nias | ✗ | ✗ | ✗ | ✗ | ✗ | ✔ `gedung-nias-ilustrasi` |
 | gudang | ✗ | ✗ | ✗ | ✗ | ✗ | ✔ `gudang-pelabuhan` |
 | gunung | ✔ `gunung-stik` | ✔ `gunung-poly3d` | ✗ | ✗ | ✗ | ✗ |
 | kos | ✔ `kos-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
@@ -19,27 +23,46 @@ Cari dulu: `mk aset find <benda>`. Buat yang belum ada: `mk aset baru <benda> <g
 | lampu-lalu-lintas | ✔ `lampu-lalu-lintas-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
 | mobil | ✔ `mobil-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
 | motor-ojol | ✔ `motor-ojol-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
+| murid | ✗ | ✗ | ✗ | ✗ | ✗ | ✔ `murid-ilustrasi` |
 | ojol | ✔ `ojol-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
-| orang | ✔ `orang-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
+| orang | ✔ `orang-stik` | ✗ | ✗ | ✗ | ✗ | ✔ `orang-ilustrasi` |
+| palem | ✗ | ✗ | ✗ | ✗ | ✗ | ✔ `palem-ilustrasi` |
 | pasangan-poncho | ✔ `pasangan-poncho-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
 | penjual-kopi | ✔ `penjual-kopi-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
 | perahu | ✗ | ✗ | ✗ | ✗ | ✗ | ✔ `perahu-kajang` |
-| pohon | ✗ | ✔ `pohon-poly3d` | ✗ | ✗ | ✗ | ✗ |
+| pizza | ✗ | ✗ | ✗ | ✗ | ✗ | ✔ `pizza-ilustrasi` |
+| pohon | ✗ | ✔ `pohon-poly3d` | ✗ | ✗ | ✗ | ✔ `pohon-ilustrasi` |
 | pos-ronda | ✗ | ✔ `pos-ronda-poly3d` | ✗ | ✗ | ✗ | ✗ |
 | rumah-kpr | ✔ `rumah-kpr-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
 | rumah-mewah | ✔ `rumah-mewah-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
 | rumah-petak | ✔ `rumah-petak-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
 | rumah-sakit | ✔ `rumah-sakit-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
 | rumput | ✗ | ✔ `rumput-poly3d` | ✗ | ✗ | ✗ | ✗ |
+| semak | ✗ | ✗ | ✗ | ✗ | ✗ | ✔ `semak-ilustrasi` |
 | tiang-tambat | ✗ | ✗ | ✗ | ✗ | ✗ | ✔ `tiang-tambat` |
 | warung-kopi | ✔ `warung-kopi-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
 
 ## Aset
 
+### atap-limas-ilustrasi
+- 2D · 12.5 × 8.5 × 10 m · varian: utama, kecil, jauh
+- dipakai: UnairShotsA
+- acuan: `packages/core/src/library/ilustrasi/refs.md`
+
+### awan-ilustrasi
+- 2D · 6.3 × 2.9 × 1 m · varian: putih, senja, kelabu
+- dipakai: PelabuhanProof, UnairScene, UnairShotsA, UnairShotsB
+- acuan: `packages/core/src/library/ilustrasi/refs.md`
+
 ### bangku-stik
 - 2D · 1.6 × 0.87 × 0.5 m · varian: sandaran, tanpa-sandaran
 - dipakai: -
 - acuan: `packages/core/src/library/stik-polos/refs.md`
+
+### bendera-ilustrasi
+- 2D · 1.3 × 4.7 × 0.1 m · varian: merah-putih, unair, putih
+- dipakai: UnairShotsA, UnairShotsB
+- acuan: `packages/core/src/library/ilustrasi/refs.md`
 
 ### bumi-poly3d
 - 3D · 2 × 2 × 2 m · varian: berawan, polos
@@ -50,6 +73,11 @@ Cari dulu: `mk aset find <benda>`. Buat yang belum ada: `mk aset baru <benda> <g
 - 3D · 11.5 × 3.1 × 2.65 m · varian: kuning
 - dipakai: aset-uji/AsetUji3D
 - acuan: `packages/core/src/library/poly3d/refs.md`
+
+### gedung-nias-ilustrasi
+- 2D · 48.5 × 16.7 × 20 m · varian: bernama, polos
+- dipakai: UnairShotsA, UnairShotsB
+- acuan: `packages/core/src/library/ilustrasi/refs.md`
 
 ### gedung-poly3d
 - 3D · 11 × 70 × 11 m · varian: rendah, sedang, menara
@@ -96,15 +124,30 @@ Cari dulu: `mk aset find <benda>`. Buat yang belum ada: `mk aset baru <benda> <g
 - dipakai: -
 - acuan: `packages/core/src/library/stik-polos/refs.md`
 
+### murid-ilustrasi
+- 2D · 0.6 × 1.7 × 0.3 m · varian: buku, topi, polos
+- dipakai: -
+- acuan: `packages/core/src/library/ilustrasi/refs.md`
+
 ### ojol-stik
 - 2D · 1.48 × 1.89 × 0.6 m · varian: dingin, impian
 - dipakai: -
 - acuan: `packages/core/src/library/stik-polos/refs.md`
 
+### orang-ilustrasi
+- 2D · 0.6 × 1.7 × 0.3 m · varian: kemeja-putih, hijab-merah-muda, kemeja-biru, jaket-unair, peci-1954, coklat-1954, sanggul-1954, peci-gelap-1954
+- dipakai: PelabuhanProof, UnairShotsA, UnairShotsB
+- acuan: `packages/core/src/library/ilustrasi/refs.md`
+
 ### orang-stik
 - 2D · 0.61 × 1.76 × 0.6 m · varian: berdiri, berjalan, duduk, menunduk, tertawa
 - dipakai: -
 - acuan: `packages/core/src/library/stik-polos/refs.md`
+
+### palem-ilustrasi
+- 2D · 6 × 8.8 × 6 m · varian: tinggi, sedang, pendek
+- dipakai: PelabuhanProof, UnairShotsA
+- acuan: `packages/core/src/library/ilustrasi/refs.md`
 
 ### pasangan-poncho-stik
 - 2D · 1.39 × 1.67 × 0.6 m · varian: dingin, tenang
@@ -120,6 +163,16 @@ Cari dulu: `mk aset find <benda>`. Buat yang belum ada: `mk aset baru <benda> <g
 - 2D+3D · 12.5 × 11.5 × 3 m · varian: tergulung, terkembang, darat
 - dipakai: PelabuhanProof
 - acuan: `packages/core/src/library/kendaraan-air/perahu-kajang/refs.md`
+
+### pizza-ilustrasi
+- 2D · 0.35 × 0.35 × 0.04 m · varian: utuh
+- dipakai: index
+- acuan: `packages/core/src/library/ilustrasi/refs.md`
+
+### pohon-ilustrasi
+- 2D · 3 × 6 × 3 m · varian: muda, rumpun
+- dipakai: UnairScene, UnairShotsA, UnairShotsB
+- acuan: `packages/core/src/library/ilustrasi/refs.md`
 
 ### pohon-poly3d
 - 3D · 2.6 × 3.7 × 2.6 m · varian: bulat, taman
@@ -155,6 +208,11 @@ Cari dulu: `mk aset find <benda>`. Buat yang belum ada: `mk aset baru <benda> <g
 - 3D · 10.5 × 0.8 × 10.5 m · varian: hijau
 - dipakai: WhatIfGravity, aset-uji/AsetUji3D
 - acuan: `packages/core/src/library/poly3d/refs.md`
+
+### semak-ilustrasi
+- 2D · 2.6 × 1.1 × 1.5 m · varian: besar, kecil
+- dipakai: PelabuhanProof
+- acuan: `packages/core/src/library/ilustrasi/refs.md`
 
 ### tiang-tambat
 - 2D+3D · 0.45 × 1.2 × 0.45 m · varian: kayu, besi

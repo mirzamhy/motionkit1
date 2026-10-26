@@ -21,7 +21,7 @@ export const GAYA: Gaya[] = [
   { slug: 'poly', nama: 'Low-poly 2D', dimensi: '2d', ringkas: 'Segitiga datar berwarna di SVG. Belum ada contoh.', folder: 'poly', contoh: [] },
   { slug: 'model3d', nama: 'Model GLB realistis', dimensi: '3d', ringkas: 'Model glTF (Poly Haven dsb.) dibungkus Item3D. Belum ada contoh.', folder: 'model3d', contoh: [] },
   { slug: 'flanel', nama: 'Kain flanel 3D (Jajan Dulu)', dimensi: '3d', ringkas: 'Tokoh dan benda dari kain flanel, rig badan di packages/three/src/jajan.', folder: 'flanel', contoh: ['TeaserTudung', 'TeaserLapak'] },
-  { slug: 'ilustrasi', nama: 'Ilustrasi SVG berlapis', dimensi: '2d', ringkas: 'Gambar SVG bersumber foto acuan: pelabuhan, kampus, pasar.', folder: null, contoh: ['PelabuhanIlustrasi', 'UnairScene'] },
+  { slug: 'ilustrasi', nama: 'Ilustrasi SVG berlapis', dimensi: '2d', ringkas: 'Gambar SVG bersumber foto acuan: pelabuhan, kampus, pasar.', folder: 'ilustrasi', contoh: ['PelabuhanIlustrasi', 'UnairScene'] },
 ];
 
 export const gayaBySlug = (s: string) => GAYA.find((g) => g.slug === s);

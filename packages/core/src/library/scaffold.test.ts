@@ -30,7 +30,7 @@ test('refuses duplicates, bad names and looks that have their own route', () => 
   assert.throws(() => kerangka('Gedung', 'poly3d', new Set()), /huruf/);
   assert.throws(() => kerangka('gedung', 'xx', new Set()), /gaya/);
   assert.throws(() => kerangka('gedung', 'stik', new Set()), /kerangkaStik/);
-  assert.throws(() => kerangka('gedung', 'ilustrasi', new Set()), /kategori/);
+  assert.equal(kerangka('gedung', 'ilustrasi', new Set()).folder, 'ilustrasi');
 });
 
 test('benda must start with a letter', () => {

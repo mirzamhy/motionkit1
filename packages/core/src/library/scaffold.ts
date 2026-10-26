@@ -60,7 +60,7 @@ export const kerangka = (benda: string, gaya: string, ada: Set<string>) => {
   const g = gayaBySlug(gaya);
   if (!g) throw new Error(`gaya "${gaya}" bukan slug terdaftar (mk gaya list)`);
   if (g.slug === 'stik') throw new Error('Stik Polos memakai kerangkaStik (part({...}) di library/stik-polos/index.tsx)');
-  if (!g.folder) throw new Error('ilustrasi memakai folder kategori lama (library/<kategori>/<id>/index.tsx, lihat docs/scenes/ITEMS.md)');
+  if (!g.folder) throw new Error(`gaya ${g.slug} belum punya folder di styles/index.ts`);
   const id = `${benda}-${g.slug}`;
   if (ada.has(id)) throw new Error(`aset "${id}" sudah ada`);
   const up = `ITEMS_${g.slug.toUpperCase()}`;
