@@ -16,7 +16,7 @@ import { sceneAudio, sceneList, sceneStills, sceneVideo, voCut } from './scene';
 import { sceneAgent } from './sceneAgent';
 import { gate } from './gate';
 import { itemFind, itemList, itemPreview } from './item';
-import { asetBaru, asetFind, asetPeta, gayaList, gayaShow } from './aset';
+import { asetBaru, asetFind, asetPeta, asetPrompt, gayaList, gayaShow } from './aset';
 import { decode, detectOnsets, snapShots } from './onsets';
 import { ambientcgFetch, ambientcgSearch, checkModel, listAssets, noteAsset, optimizeModel, polyhavenFetch, polyhavenSearch } from './asset';
 import { findKit, KIT } from '../../packages/core/src/scenes/catalog';
@@ -58,6 +58,7 @@ const HELP = `mk — Opus-grade Remotion launch videos from cheap models (Vikey 
   mk item list | find <words> | preview <id>   the item library: researched, reusable 2D/3D things
   mk gaya list | show <slug>   the looks (stik, poly3d, …) with their assets and example films
   mk aset find <kata> [--gaya <slug>]   which looks already have a thing (matrix per benda)
+  mk aset prompt <benda> <gaya> [--target kode|gambar|3d]   a ready-to-paste prompt for making that asset
   mk gate [--only A,B] [--no-render]     tsc + unit tests + two small stills of every scene → out/gate/index.html
   mk scene audio <Id>                    re-render only the sound and put it under that mp4 (voice / effects changed)
   mk vo-cut <file.mp3> [--pause 0.22]    list the pauses in a voice-over, to split it into passages
@@ -295,7 +296,13 @@ const main = async () => {
       if (sub === 'find' && words.length) asetFind(words.join(' '), gi >= 0 ? rest[gi + 1] : undefined);
       else if (sub === 'baru' && words.length === 2) asetBaru(words[0], words[1]);
       else if (sub === 'peta') asetPeta();
-      else throw new Error('usage: mk aset find <kata> [--gaya <slug>] | baru <benda> <gaya> | peta');
+      else if (sub === 'prompt') {
+        const flag = (n: string) => { const i = rest.indexOf(`--${n}`); return i >= 0 ? rest[i + 1] : undefined; };
+        const pos = rest.filter((x, i) => !x.startsWith('--') && !rest[i - 1]?.startsWith('--'));
+        if (pos.length !== 2) throw new Error('usage: mk aset prompt <benda> <gaya> [--target kode|gambar|3d] [--ukuran "<p> x <l> x <t> m"] [--catatan "<teks>"]');
+        asetPrompt(pos[0], pos[1], { target: flag('target'), ukuran: flag('ukuran'), catatan: flag('catatan') });
+      }
+      else throw new Error('usage: mk aset find <kata> [--gaya <slug>] | baru <benda> <gaya> | prompt <benda> <gaya> [--target kode|gambar|3d] | peta');
       break;
     }
     case 'gate': {

@@ -6,6 +6,7 @@ import { kerangka, kerangkaStik, rencanaStik, rencanaTulis } from '../../package
 import { GAYA, gayaBySlug, type GayaSlug } from '../../packages/core/src/styles';
 import { ITEMS } from '../../packages/core/src/library';
 import { cariAset } from '../../packages/core/src/library/matriks';
+import { susunPrompt, type TargetPrompt } from '../../packages/core/src/library/prompt';
 import { SCENES } from '../../packages/core/src/scenes/manifest';
 import { petaMd, type Berkas } from '../../packages/core/src/library/peta';
 
@@ -89,4 +90,9 @@ export const asetPeta = () => {
   mkdirSync(join(ROOT, 'docs', 'aset'), { recursive: true });
   writeFileSync(PETA, petaTerbaru());
   log(`  ✓ ${relative(ROOT, PETA)} (${ITEMS.length} aset)`);
+};
+
+export const asetPrompt = (benda: string, gaya: string, opt: { target?: string; ukuran?: string; catatan?: string }) => {
+  const serupa = ITEMS.filter((i) => i.meta.benda === benda && i.meta.gaya !== gaya);
+  log(susunPrompt({ benda, gaya, target: (opt.target ?? 'kode') as TargetPrompt, ukuran: opt.ukuran, catatan: opt.catatan, serupa }));
 };

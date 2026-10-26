@@ -57,7 +57,7 @@ Benda yang bisa dipakai ulang (kendaraan, bangunan, tanaman, orang, alam, proper
 
 1. Mulai tiap video dengan `node bin/mk.mjs gaya show <gaya>` dan buka film contoh gaya itu.
 2. Untuk tiap benda di storyboard: `node bin/mk.mjs aset find <benda>`. Jika gaya lain sudah punya benda itu, tiru proporsi dan variannya.
-3. Belum ada: `node bin/mk.mjs aset baru <benda> <gaya>`, gambar di `library/<gaya>/`, lihat lewat `node bin/mk.mjs item preview <id>`.
+3. Belum ada: `node bin/mk.mjs aset baru <benda> <gaya>`, gambar di `library/<gaya>/`, lihat lewat `node bin/mk.mjs item preview <id>`. Butuh prompt siap pakai untuk menggambar atau meminta model 3D: `node bin/mk.mjs aset prompt <benda> <gaya> --target kode|gambar|3d`.
 4. Film memakai aset lewat `<Aset id="..."/>` (2D, di dalam `<svg>`) atau `<Aset3D id="..."/>` (3D, di dalam `<ThreeCanvas>`). Id yang tidak terdaftar membuat render gagal.
 5. Sesudah menambah atau mengubah aset: `node bin/mk.mjs aset peta` (memperbarui `docs/aset/PETA.md`) dan `node bin/mk.mjs gate --no-render`.
 
