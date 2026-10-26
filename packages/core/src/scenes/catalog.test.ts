@@ -20,7 +20,8 @@ test('ids are unique', () => {
 test('Indonesian words find the right part first', () => {
   assert.equal(findKit('transisi tinta')[0].id, 'Shot.cut');
   assert.equal(findKit('caption kata')[0].id, 'Film.words');
-  assert.equal(findKit('pohon')[0].id, 'Foliage');
+  // a library asset (pohon-poly3d) ranks first: "pustaka dulu"; the kit's Foliage must still be found right after it
+  assert.deepEqual(findKit('pohon').slice(0, 2).map((e) => e.id), ['pohon-poly3d', 'Foliage']);
   assert.equal(findKit('semak')[0].id, 'Shrub');
   assert.equal(findKit('bendera')[0].id, 'Flag');
   assert.equal(findKit('timing tahan')[0].id, 'beats');
