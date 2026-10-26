@@ -8,6 +8,7 @@ Cari dulu: `mk aset find <benda>`. Buat yang belum ada: `mk aset baru <benda> <g
 
 | benda | stik | poly3d | poly | model3d | flanel | ilustrasi |
 |---|---|---|---|---|---|---|
+| bumi | ✗ | ✔ `bumi-poly3d` | ✗ | ✗ | ✗ | ✗ |
 | gudang | ✗ | ✗ | ✗ | ✗ | ✗ | ✔ `gudang-pelabuhan` |
 | kos | ✔ `kos-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
 | lampu-jalan | ✔ `lampu-jalan-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
@@ -27,6 +28,11 @@ Cari dulu: `mk aset find <benda>`. Buat yang belum ada: `mk aset baru <benda> <g
 | warung-kopi | ✔ `warung-kopi-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
 
 ## Aset
+
+### bumi-poly3d
+- 3D · 2 × 2 × 2 m · varian: berawan, polos
+- dipakai: WhatIfGravity
+- acuan: `packages/core/src/library/poly3d/refs.md`
 
 ### gudang-pelabuhan
 - 2D · 30 × 8.2 × 14 m · varian: panjang, pendek, tutup
