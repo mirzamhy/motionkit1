@@ -16,6 +16,7 @@ import { sceneAudio, sceneList, sceneStills, sceneVideo, voCut } from './scene';
 import { sceneAgent } from './sceneAgent';
 import { gate } from './gate';
 import { itemFind, itemList, itemPreview } from './item';
+import { asetFind, gayaList, gayaShow } from './aset';
 import { decode, detectOnsets, snapShots } from './onsets';
 import { ambientcgFetch, ambientcgSearch, checkModel, listAssets, noteAsset, optimizeModel, polyhavenFetch, polyhavenSearch } from './asset';
 import { findKit, KIT } from '../../packages/core/src/scenes/catalog';
@@ -55,6 +56,8 @@ const HELP = `mk — Opus-grade Remotion launch videos from cheap models (Vikey 
   mk asset check <model…> [--expect 0.08]   Khronos glTF-Validator + size in cm (flag > 2x off the expected metres)
   mk asset optimize <model.gltf|glb> [--ratio 0.5]   glTF-Transform: quantize + simplify to a GLB
   mk item list | find <words> | preview <id>   the item library: researched, reusable 2D/3D things
+  mk gaya list | show <slug>   the looks (stik, poly3d, …) with their assets and example films
+  mk aset find <kata> [--gaya <slug>]   which looks already have a thing (matrix per benda)
   mk gate [--only A,B] [--no-render]     tsc + unit tests + two small stills of every scene → out/gate/index.html
   mk scene audio <Id>                    re-render only the sound and put it under that mp4 (voice / effects changed)
   mk vo-cut <file.mp3> [--pause 0.22]    list the pauses in a voice-over, to split it into passages
@@ -276,6 +279,21 @@ const main = async () => {
       else if (sub === 'find' && rest.length) itemFind(rest.join(' '));
       else if (sub === 'preview' && rest[0]) itemPreview(rest[0]);
       else throw new Error('usage: mk item list | find <words> | preview <id>   (docs/scenes/ITEMS.md)');
+      break;
+    }
+    case 'gaya': {
+      const [, sub, slug2] = args;
+      if (sub === 'list') gayaList();
+      else if (sub === 'show' && slug2) gayaShow(slug2);
+      else throw new Error('usage: mk gaya list | show <slug>');
+      break;
+    }
+    case 'aset': {
+      const [, sub, ...rest] = args;
+      const gi = rest.indexOf('--gaya');
+      const words = rest.filter((x, i) => !x.startsWith('--') && rest[i - 1] !== '--gaya');
+      if (sub === 'find' && words.length) asetFind(words.join(' '), gi >= 0 ? rest[gi + 1] : undefined);
+      else throw new Error('usage: mk aset find <kata> [--gaya <slug>] | baru <benda> <gaya> | peta');
       break;
     }
     case 'gate': {
