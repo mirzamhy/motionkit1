@@ -2,6 +2,7 @@
 import React from 'react';
 import { UsageMeter, USAGE_METER_FRAMES } from './usage-meter/UsageMeter';
 import { WhatIfGravity, WHATIF_GRAVITY_FRAMES } from './whatif-gravity/Gravity';
+import { AsetUji3D, ASET_UJI_FRAMES } from './aset-uji/AsetUji3D';
 import { Composition } from 'remotion';
 import { SCENES } from './manifest';
 import { PIZZA_SCENE_FRAMES, PizzaScene } from './PizzaScene';
@@ -89,6 +90,7 @@ export const SceneCompositions: React.FC = () => (
     <Composition id="UsageMeterReels" component={UsageMeter} width={1080} height={1920} fps={30} durationInFrames={USAGE_METER_FRAMES} />
     {/* frame-accurate 30 fps film on the what-if-sim template */}
     <Composition id="WhatIfGravity" component={WhatIfGravity} width={1080} height={1920} fps={30} durationInFrames={WHATIF_GRAVITY_FRAMES} />
+    <Composition id="AsetUji3D" component={AsetUji3D} width={1280} height={720} fps={30} durationInFrames={ASET_UJI_FRAMES} />
     {SCENES.filter((s) => COMPONENTS[s.id]).map((s) => (
       <Composition key={s.id} id={s.id} component={COMPONENTS[s.id].component} width={s.width} height={s.height} fps={60} durationInFrames={COMPONENTS[s.id].frames} defaultProps={{ ...(s.props ?? {}), ...(s.vo ? { vo: null } : {}), ...(s.sfx ? { sfx: false } : {}) }} />
     ))}

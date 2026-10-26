@@ -6,6 +6,7 @@ export type SceneInfo = { id: string; about: string; width: number; height: numb
 
 export const SCENES: SceneInfo[] = [
   { id: 'WhatIfGravity', about: 'Template what-if-sim: "What if we lost gravity for 5 seconds?" 15 scenes, 106 s at 30 fps, portrait, loops. No audio.', width: 1080, height: 1920 },
+  { id: 'AsetUji3D', about: 'Test scene: all poly3d library assets placed with <Aset3D> (bus, gunung, pohon, rumput, gedung, bumi).', width: 1280, height: 720 },
   { id: 'StikAndaiOjol', about: 'Style "Stik Polos", format Rantai Andai: ojol, car, couple in a poncho, coffee stall, hospital patient who dreams of the ojol. Rain. 12 s, portrait.', width: 1080, height: 1920, project: 'stik-polos', sfx: true, props: { cuaca: 'hujan' } },
   { id: 'StikAndaiOjolGerimis', about: 'Same film under drizzle: weather is a parameter, not part of the style.', width: 1080, height: 1920, project: 'stik-polos', sfx: true, props: { cuaca: 'gerimis' } },
   { id: 'StikAndaiRumah', about: 'Style "Stik Polos", format Rantai Andai: kos, KPR house, empty mansion, warm rumah petak. Rain. 13 s, portrait.', width: 1080, height: 1920, project: 'stik-polos', sfx: true, props: { cuaca: 'hujan' } },

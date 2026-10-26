@@ -36,17 +36,17 @@ Cari dulu: `mk aset find <benda>`. Buat yang belum ada: `mk aset baru <benda> <g
 
 ### bumi-poly3d
 - 3D · 2 × 2 × 2 m · varian: berawan, polos
-- dipakai: WhatIfGravity
+- dipakai: WhatIfGravity, aset-uji/AsetUji3D
 - acuan: `packages/core/src/library/poly3d/refs.md`
 
 ### bus-poly3d
 - 3D · 11.5 × 3.1 × 2.65 m · varian: kuning
-- dipakai: -
+- dipakai: aset-uji/AsetUji3D
 - acuan: `packages/core/src/library/poly3d/refs.md`
 
 ### gedung-poly3d
 - 3D · 11 × 70 × 11 m · varian: rendah, sedang, menara
-- dipakai: WhatIfGravity, stik-polos/StikAndaiOjol, stik-polos/StikAndaiRumah
+- dipakai: WhatIfGravity, aset-uji/AsetUji3D, stik-polos/StikAndaiOjol, stik-polos/StikAndaiRumah
 - acuan: `packages/core/src/library/poly3d/refs.md`
 
 ### gudang-pelabuhan
@@ -56,7 +56,7 @@ Cari dulu: `mk aset find <benda>`. Buat yang belum ada: `mk aset baru <benda> <g
 
 ### gunung-poly3d
 - 3D · 660 × 170 × 660 m · varian: vesuvius, sakura, rainier
-- dipakai: -
+- dipakai: aset-uji/AsetUji3D
 - acuan: `packages/core/src/library/poly3d/refs.md`
 
 ### kos-stik
@@ -111,7 +111,7 @@ Cari dulu: `mk aset find <benda>`. Buat yang belum ada: `mk aset baru <benda> <g
 
 ### pohon-poly3d
 - 3D · 2.6 × 3.7 × 2.6 m · varian: bulat, taman
-- dipakai: WhatIfGravity
+- dipakai: WhatIfGravity, aset-uji/AsetUji3D
 - acuan: `packages/core/src/library/poly3d/refs.md`
 
 ### rumah-kpr-stik
@@ -136,7 +136,7 @@ Cari dulu: `mk aset find <benda>`. Buat yang belum ada: `mk aset baru <benda> <g
 
 ### rumput-poly3d
 - 3D · 10.5 × 0.8 × 10.5 m · varian: hijau
-- dipakai: WhatIfGravity
+- dipakai: WhatIfGravity, aset-uji/AsetUji3D
 - acuan: `packages/core/src/library/poly3d/refs.md`
 
 ### tiang-tambat
