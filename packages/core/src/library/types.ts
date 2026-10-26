@@ -25,8 +25,8 @@ export type ItemMeta = {
   gaya: GayaSlug;
   /** older ids that still resolve to this item, so a rename never breaks a film */
   aliases?: string[];
-  /** names of the original components this item wraps; `mk aset peta` counts a scene that imports one as a user */
-  komponen?: string[];
+  /** original components this item wraps; `mk aset peta` counts a scene as a user when it imports `nama` from a module whose path ends with `dari` (no extension) */
+  komponen?: { nama: string; dari: string }[];
   /** source file relative to the repo root, when it is not <category>/<id>/index.tsx */
   file?: string;
   /** parts drawn without a reference; say so on screen when it matters */

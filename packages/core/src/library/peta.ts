@@ -21,13 +21,16 @@ const label = (path: string, sceneIds: string[]) => {
   const dir = path.includes('/') ? path.split('/')[0] : '';
   return sceneIds.find((s) => dir && norm(s) === norm(dir)) ?? path.replace(/\.tsx?$/, '');
 };
-const imports = (text: string, name: string) => new RegExp(`import[^;]*\\{[^}]*\\b${name}\\b[^}]*\\}\\s*from`).test(text);
+const esc = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+/** true when text imports `nama` inside braces from a module specifier ending in `dari` (no extension) */
+const imports = (text: string, k: { nama: string; dari: string }) =>
+  new RegExp(`import[^;]*\\{[^}]*\\b${esc(k.nama)}\\b[^}]*\\}\\s*from\\s*['"][^'"]*${esc(k.dari)}['"]`).test(text);
 
 export const pemakai = (items: LibraryItem[], files: Berkas[], sceneIds: string[]) => {
   const res = new Map<string, string[]>();
   const add = (id: string, l: string) => res.set(id, [...new Set([...(res.get(id) ?? []), l])].sort());
   for (const u of idDipakai(files)) add(u.id, label(u.path, sceneIds));
-  for (const { meta } of items) for (const f of files) if (meta.komponen?.some((n) => imports(f.text, n))) add(meta.id, label(f.path, sceneIds));
+  for (const { meta } of items) for (const f of files) if (meta.komponen?.some((k) => imports(f.text, k))) add(meta.id, label(f.path, sceneIds));
   return res;
 };
 

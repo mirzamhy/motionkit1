@@ -19,7 +19,7 @@ export const meta: ItemMeta = {
   variants: ['bulat', 'taman'],
   refs: 'packages/core/src/library/poly3d/refs.md',
   file: 'packages/core/src/library/poly3d/pohon.tsx',
-  komponen: ['Trees'],
+  komponen: [{ nama: 'Trees', dari: 'whatif-sim/three/Park' }],
   invented: ['bentuk disederhanakan, tanpa acuan spesies'],
 };
 

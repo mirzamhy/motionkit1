@@ -50,7 +50,7 @@ export const meta: ItemMeta = {
   variants: ['rendah', 'sedang', 'menara'],
   refs: 'packages/core/src/library/poly3d/refs.md',
   file: 'packages/core/src/library/poly3d/gedung.tsx',
-  komponen: ['City'],
+  komponen: [{ nama: 'City', dari: 'whatif-sim/three/Park' }],
   invented: ['jendela satu pola, tanpa acuan bangunan nyata'],
 };
 

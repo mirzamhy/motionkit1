@@ -103,7 +103,7 @@ export const meta: ItemMeta = {
   variants: ['hijau'],
   refs: 'packages/core/src/library/poly3d/refs.md',
   file: 'packages/core/src/library/poly3d/rumput.tsx',
-  komponen: ['Grass'],
+  komponen: [{ nama: 'Grass', dari: 'whatif-sim/three/Grass' }],
   invented: ['warna dan tinggi bilah acak, tanpa acuan spesies'],
 };
 

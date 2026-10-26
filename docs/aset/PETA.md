@@ -46,7 +46,7 @@ Cari dulu: `mk aset find <benda>`. Buat yang belum ada: `mk aset baru <benda> <g
 
 ### gedung-poly3d
 - 3D · 11 × 70 × 11 m · varian: rendah, sedang, menara
-- dipakai: WhatIfGravity, aset-uji/AsetUji3D, stik-polos/StikAndaiOjol, stik-polos/StikAndaiRumah
+- dipakai: WhatIfGravity, aset-uji/AsetUji3D
 - acuan: `packages/core/src/library/poly3d/refs.md`
 
 ### gudang-pelabuhan

@@ -16,7 +16,7 @@ export const meta: ItemMeta = {
   variants: ['kuning'],
   refs: 'packages/core/src/library/poly3d/refs.md',
   file: 'packages/core/src/library/poly3d/bus.tsx',
-  komponen: ['SchoolBus'],
+  komponen: [{ nama: 'SchoolBus', dari: 'scenes/rainier' }],
   invented: ['proporsi dan tulisan SCHOOL BUS disederhanakan dari bus nyata (stilisasi asal volcano-whatif)'],
 };
 

@@ -16,7 +16,7 @@ export const meta: ItemMeta = {
   variants: ['berawan', 'polos'],
   refs: 'packages/core/src/library/poly3d/refs.md',
   file: 'packages/core/src/library/poly3d/bumi.tsx',
-  komponen: ['makeEarthTextures'],
+  komponen: [{ nama: 'makeEarthTextures', dari: 'whatif-sim/three/planet' }],
   invented: ['benua, es dan awan dibuat dari noise, bukan peta nyata'],
 };
 

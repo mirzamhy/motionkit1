@@ -17,7 +17,7 @@ export const meta: ItemMeta = {
   variants: ['vesuvius', 'sakura', 'rainier'],
   refs: 'packages/core/src/library/poly3d/refs.md',
   file: 'packages/core/src/library/poly3d/gunung.tsx',
-  komponen: ['Volcano'],
+  komponen: [{ nama: 'Volcano', dari: 'three/kit' }],
   invented: ['bentuk kerucut dengan jitter acak, bukan model medan nyata', 'skala film (ratusan meter), bukan skala gunung nyata'],
 };
 
