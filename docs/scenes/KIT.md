@@ -112,6 +112,14 @@ Tile pattern `url(#un-tile)`, wall / roof / lawn gradients and the stone, wood a
 | a monument plaza with a ring of flags | `Tugu` in `UnairShotsB.tsx` |
 | a browser / forum screen with typing and a click | `ScreenShot` in `PizzaScene.tsx` |
 
+## Styles: whole looks you can reuse
+
+A style is a look (palette, outline rules, camera, bubble) plus its parts library and the weather it can be shot in.
+
+| Style | What it is | Start here |
+|---|---|---|
+| `stik-polos` | Short reflective reels (9:16, 10–15 s): flat faceless stickmen, thick outlines, cold palette with one warm accent, camera hopping along one street, chained thought bubbles, word-by-word quote. Weather is a parameter (hujan, gerimis, cerah, kabut). 14 saved parts (`mk item find stik`). Films: `StikAndaiOjol`, `StikAndaiRumah`. | `packages/core/src/styles/stik-polos/README.md` |
+
 ## Fonts
 
 `FONTS` in `UnairScene.tsx` is a period set: Josefin Sans (signs), Special Elite (typewriter labels), Libre

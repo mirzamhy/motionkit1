@@ -18,6 +18,10 @@ export type ItemMeta = {
   variants?: string[];
   /** path of the item's refs.md, relative to the repo root */
   refs: string;
+  /** style pack the item belongs to, e.g. 'stik-polos' (items drawn for one look, see styles/) */
+  style?: string;
+  /** source file relative to the repo root, when it is not <category>/<id>/index.tsx */
+  file?: string;
   /** parts drawn without a reference; say so on screen when it matters */
   invented?: string[];
 };

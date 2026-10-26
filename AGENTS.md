@@ -71,6 +71,9 @@ Render one job at a time. Two renders at once starve each other and neither fini
 
 - `packages/core/src/scenes/` — scene mode: `film.tsx` (runner), `lib.ts` (everything reusable), `manifest.ts` +
   `index.tsx` (registry), the two example films.
+- `packages/core/src/templates/` — style templates with their own parts and README. `whatif-sim/`: portrait
+  "what if…" science shorts (serif HUD countdown, stamps, low-poly 3D, loop ending); example film
+  `scenes/whatif-gravity/` (`WhatIfGravity`).
 - `packages/core/src/{engine,engines,widgets,kinetic,archive,spec}` — spec mode engines and widgets.
 - `packages/qa`, `packages/dna` — spec-mode lint, motion energy, style analysis of reference videos.
 - `apps/cli` — the `mk` command. `prompts/` — spec-mode model prompts. `references/` — research on 168 reference
