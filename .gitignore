@@ -12,3 +12,4 @@ assets/sfx/
 .cache/
 packages/core/src/scenes/gen/*/
 references/repos/
+.claude/worktrees/

@@ -59,7 +59,7 @@ export const kerangka = (benda: string, gaya: string, ada: Set<string>) => {
   if (!/^[a-z][a-z0-9]*(-[a-z0-9]+)*$/.test(benda)) throw new Error(`benda "${benda}" harus diawali huruf, lalu huruf kecil/angka dengan strip`);
   const g = gayaBySlug(gaya);
   if (!g) throw new Error(`gaya "${gaya}" bukan slug terdaftar (mk gaya list)`);
-  if (g.slug === 'stik') throw new Error('Stik Polos: tambah part({...}) di library/stik-polos/index.tsx (resep: styles/stik-polos/README.md)');
+  if (g.slug === 'stik') throw new Error('Stik Polos memakai kerangkaStik (part({...}) di library/stik-polos/index.tsx)');
   if (!g.folder) throw new Error('ilustrasi memakai folder kategori lama (library/<kategori>/<id>/index.tsx, lihat docs/scenes/ITEMS.md)');
   const id = `${benda}-${g.slug}`;
   if (ada.has(id)) throw new Error(`aset "${id}" sudah ada`);
@@ -95,3 +95,34 @@ export const rencanaTulis = (k: ReturnType<typeof kerangka>, gaya: string, cur: 
   const refs = (cur.refs ?? `# ${gaya}: acuan\n`) + k.refsNote;
   return { top, idx, refs };
 };
+
+/** Stik Polos parts live in one index (`part({...})`), so a new one is an entry inserted at `// aset:daftar-stik`. */
+export const kerangkaStik = (benda: string, ada: Set<string>) => {
+  if (!/^[a-z][a-z0-9]*(-[a-z0-9]+)*$/.test(benda)) throw new Error(`benda "${benda}" harus diawali huruf, lalu huruf kecil/angka dengan strip`);
+  const id = `${benda}-stik`;
+  if (ada.has(id)) throw new Error(`aset "${id}" sudah ada`);
+  const entry = [
+    `part({`,
+    `    id: '${id}', nama: '${benda} (BELUM DIGAMBAR)', kategori: 'properti',`,
+    `    tags: ['${benda}'],`,
+    `    bbox: [-75, -150, 75, 0], anchor: [0, 0],`,
+    `    invented: ['BELUM DIGAMBAR: kotak penanda, ganti dengan gambar asli'],`,
+    `    draw: () => (`,
+    `      <g>`,
+    `        <rect x={-75} y={-150} width={150} height={150} fill="#cc3333" fillOpacity={0.3} stroke="#cc3333" strokeWidth={4} />`,
+    `        <text x={0} y={-70} textAnchor="middle" fontSize={20} fill="#cc3333">BELUM DIGAMBAR</text>`,
+    `      </g>`,
+    `    ),`,
+    `  }),`,
+  ].join('\n');
+  return {
+    id,
+    entry,
+    refsNote: `\n## ${id}\n\nBELUM ADA ACUAN. Tulis di sini foto/gambar yang dipakai, apa yang terlihat, ukuran nyata, dan bagian yang direka.\n`,
+  };
+};
+
+export const rencanaStik = (k: ReturnType<typeof kerangkaStik>, cur: { idx: string; refs: string }) => ({
+  idx: sisipkan(cur.idx, '// aset:daftar-stik', k.entry),
+  refs: cur.refs + k.refsNote,
+});

@@ -2,7 +2,7 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { ROOT } from './paths';
-import { kerangka, rencanaTulis } from '../../packages/core/src/library/scaffold';
+import { kerangka, kerangkaStik, rencanaStik, rencanaTulis } from '../../packages/core/src/library/scaffold';
 import { GAYA, gayaBySlug, type GayaSlug } from '../../packages/core/src/styles';
 import { ITEMS } from '../../packages/core/src/library';
 import { cariAset } from '../../packages/core/src/library/matriks';
@@ -34,7 +34,21 @@ export const asetFind = (q: string, gaya?: string) => {
 
 const LIB = join(ROOT, 'packages', 'core', 'src', 'library');
 
+const asetBaruStik = (benda: string) => {
+  const k = kerangkaStik(benda, new Set(ITEMS.map((i) => i.meta.id)));
+  const idx = join(LIB, 'stik-polos', 'index.tsx');
+  const refs = join(LIB, 'stik-polos', 'refs.md');
+  const plan = rencanaStik(k, { idx: readFileSync(idx, 'utf8'), refs: readFileSync(refs, 'utf8') });
+  writeFileSync(idx, plan.idx);
+  writeFileSync(refs, plan.refs);
+  log(`  ✓ ${k.id}
+    ${join('packages/core/src/library', 'stik-polos/index.tsx')}  (entri part({...}), ganti kotak penanda dengan gambar)
+    lihat: node bin/mk.mjs item preview ${k.id}
+    lalu isi refs.md, gambar, dan jalankan: node bin/mk.mjs aset peta`);
+};
+
 export const asetBaru = (benda: string, gaya: string) => {
+  if (gaya === 'stik') return asetBaruStik(benda);
   const k = kerangka(benda, gaya, new Set(ITEMS.map((i) => i.meta.id)));
   const dir = join(LIB, k.folder);
   const file = join(LIB, k.file);

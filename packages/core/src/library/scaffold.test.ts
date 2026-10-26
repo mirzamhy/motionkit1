@@ -1,7 +1,7 @@
 // npx tsx --test packages/core/src/library/scaffold.test.ts
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { kerangka, rencanaTulis, sisipkan } from './scaffold';
+import { kerangka, kerangkaStik, rencanaStik, rencanaTulis, sisipkan } from './scaffold';
 
 test('sisipkan puts a line above the marker with the marker indent', () => {
   assert.equal(sisipkan('a\n  // m\nb', '// m', 'X,'), 'a\n  X,\n  // m\nb');
@@ -29,7 +29,7 @@ test('refuses duplicates, bad names and looks that have their own route', () => 
   assert.throws(() => kerangka('gedung', 'poly3d', new Set(['gedung-poly3d'])), /sudah ada/);
   assert.throws(() => kerangka('Gedung', 'poly3d', new Set()), /huruf/);
   assert.throws(() => kerangka('gedung', 'xx', new Set()), /gaya/);
-  assert.throws(() => kerangka('gedung', 'stik', new Set()), /part\(/);
+  assert.throws(() => kerangka('gedung', 'stik', new Set()), /kerangkaStik/);
   assert.throws(() => kerangka('gedung', 'ilustrasi', new Set()), /kategori/);
 });
 
@@ -64,4 +64,15 @@ test('rencanaTulis leaves the top index alone when the look folder already exist
   const p = rencanaTulis(k, 'model3d', { top: 'tanpa marker', idx: '// aset:impor\n// aset:daftar\n', refs: '# r\n' });
   assert.equal(p.top, undefined);
   assert.ok(p.refs.startsWith('# r\n'));
+});
+
+test('stik scaffold is a part() entry inserted at its marker', () => {
+  const k = kerangkaStik('pagar', new Set());
+  assert.equal(k.id, 'pagar-stik');
+  assert.match(k.entry, /id: 'pagar-stik'/);
+  const r = rencanaStik(k, { idx: 'x\n  // aset:daftar-stik\n];', refs: '# r\n' });
+  assert.match(r.idx, /part\(\{[\s\S]*\/\/ aset:daftar-stik/);
+  assert.match(r.refs, /## pagar-stik/);
+  assert.throws(() => kerangkaStik('pagar', new Set(['pagar-stik'])), /sudah ada/);
+  assert.throws(() => kerangkaStik('3d', new Set()), /huruf/);
 });

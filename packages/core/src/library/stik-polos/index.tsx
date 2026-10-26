@@ -171,4 +171,5 @@ export const ITEMS_STIK_POLOS: LibraryItem[] = [
     bbox: [983, 407, 1029, 802], anchor: [1006, 800], variants: ['merah', 'hijau'],
     draw: ({ variant }) => <LampuLaluLintas red={variant === 'hijau' ? 0 : 1} />,
   }),
+  // aset:daftar-stik
 ];
