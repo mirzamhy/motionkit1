@@ -74,7 +74,7 @@ export const sceneFiles = (dir = SCENES_DIR, out: Berkas[] = []): Berkas[] => {
 };
 
 export const petaTerbaru = () => petaMd(ITEMS, sceneFiles(), SCENES.map((s) => s.id));
-export const petaDiRepo = () => (existsSync(PETA) ? readFileSync(PETA, 'utf8') : '');
+export const petaDiRepo = () => (existsSync(PETA) ? readFileSync(PETA, 'utf8').replace(/\r\n/g, '\n') : '');
 
 export const asetPeta = () => {
   mkdirSync(join(ROOT, 'docs', 'aset'), { recursive: true });

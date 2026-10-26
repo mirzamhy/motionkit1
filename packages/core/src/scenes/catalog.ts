@@ -53,7 +53,7 @@ export const KIT: KitEntry[] = [
 import { ITEMS } from '../library';
 const itemEntries: KitEntry[] = ITEMS.map(({ meta, Item2D, Item3D }) => ({
   id: meta.id,
-  file: meta.file ?? `../library/${meta.category}/${meta.id}/index.tsx`,
+  file: meta.file ? `../../../../${meta.file}` : `../library/${meta.category}/${meta.id}/index.tsx`,
   kind: 'item',
   role: `${meta.name}. ${meta.size.join(' × ')} m${meta.era ? `, ${meta.era}` : ''}.${meta.invented?.length ? ` Invented: ${meta.invented.join('; ')}.` : ''}`,
   use: `${[Item2D && '2D <Item2D x y s t variant />', Item3D && '3D <Item3D />'].filter(Boolean).join(' · ')}${meta.variants?.length ? ` · variants: ${meta.variants.join(', ')}` : ''} · refs: ${meta.refs}`,
