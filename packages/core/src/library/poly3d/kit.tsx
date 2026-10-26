@@ -12,7 +12,6 @@ export const flat = (color: string): THREE.MeshLambertMaterial => {
   return m;
 };
 
-
 export const signTexture = (bg: string, fg: string, lines: {text: string; size: number}[], w = 512, h = 192) => {
   const c = document.createElement('canvas');
   c.width = w;

@@ -17,7 +17,7 @@ export const meta: ItemMeta = {
   refs: 'packages/core/src/library/poly3d/refs.md',
   file: 'packages/core/src/library/poly3d/bus.tsx',
   komponen: ['SchoolBus'],
-  invented: ['proporsi dan tulisan SCHOOL BUS disederhanakan'],
+  invented: ['proporsi dan tulisan SCHOOL BUS disederhanakan dari bus nyata (stilisasi asal volcano-whatif)'],
 };
 
 const Bus: React.FC = () => {
