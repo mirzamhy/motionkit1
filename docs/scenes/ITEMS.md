@@ -27,7 +27,7 @@ references, and keep it in the library so the next film starts from it instead o
    - A 3D item made from a downloaded model wraps the GLB (`mk asset … get`, `mk asset check --expect <metres>`) and
      scales it to its real size.
 5. **Register it**: one line in `packages/core/src/library/index.ts`. The catalog picks it up, so `mk kit find` and
-   `mk item find` list it.
+   `mk item find` list it. Items are named `<benda>-<gaya>` and carry `benda` and `gaya` in `meta`; make the skeleton with `mk aset baru <benda> <gaya>`; films use items through `<Aset>`/`<Aset3D>`.
 6. **Preview and look.** `node bin/mk.mjs item preview <id>` renders `out/items/<id>/preview-2d.jpg` (every variant
    beside a 1.65 m person and a metre rule) and `preview-3d.jpg` (four angles, measured size). Open them, compare
    with the references, fix, render again.

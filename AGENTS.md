@@ -51,6 +51,18 @@ searches it).
 9. Never commit `.env`, `projects/`, `out/`, `node_modules/`, media files, or the user's reference photos.
    Commit locally only; never push or add a remote unless the user asks.
 
+## Pustaka dulu (aset per gaya)
+
+Benda yang bisa dipakai ulang (kendaraan, bangunan, tanaman, orang, alam, properti) tidak digambar di file scene. Alurnya:
+
+1. Mulai tiap video dengan `node bin/mk.mjs gaya show <gaya>` dan buka film contoh gaya itu.
+2. Untuk tiap benda di storyboard: `node bin/mk.mjs aset find <benda>`. Jika gaya lain sudah punya benda itu, tiru proporsi dan variannya.
+3. Belum ada: `node bin/mk.mjs aset baru <benda> <gaya>`, gambar di `library/<gaya>/`, lihat lewat `node bin/mk.mjs item preview <id>`.
+4. Film memakai aset lewat `<Aset id="..."/>` (2D, di dalam `<svg>`) atau `<Aset3D id="..."/>` (3D, di dalam `<ThreeCanvas>`). Id yang tidak terdaftar membuat render gagal.
+5. Sesudah menambah atau mengubah aset: `node bin/mk.mjs aset peta` (memperbarui `docs/aset/PETA.md`) dan `node bin/mk.mjs gate --no-render`.
+
+Nama aset: `<benda>-<gaya>` (`gedung-stik`, `gedung-poly3d`). Gaya: stik, poly, poly3d, model3d, flanel, ilustrasi (`node bin/mk.mjs gaya list`).
+
 ## Commands
 
 ```bash
@@ -61,6 +73,9 @@ node bin/mk.mjs scene video <Id>                 # the film → out/scenes/<Id>/
 node bin/mk.mjs vo-cut path/to/voice.mp3         # where the recording pauses (to cut it into passages)
 npx tsc --noEmit -p .                            # must be clean before every render
 node bin/mk.mjs item find <words>                # the item library (boats, buildings, props) before drawing one
+node bin/mk.mjs gaya list                        # visual styles (gaya); `gaya show <gaya>` = its assets and example films
+node bin/mk.mjs aset find <benda>                # one thing across all styles (bus: stik ✗ poly3d ✔ ...)
+node bin/mk.mjs aset baru <benda> <gaya>         # skeleton for a new asset; `aset peta` regenerates docs/aset/PETA.md
 node bin/mk.mjs kit find <words>                 # search the kit (Indonesian or English) before drawing a new part
 node bin/mk.mjs gate                             # tsc + unit tests + small stills of every scene → out/gate/index.html
 ```

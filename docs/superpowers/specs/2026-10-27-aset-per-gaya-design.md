@@ -1,6 +1,6 @@
 # Aset per gaya: MotionKit plug-and-play
 
-Tanggal: 2026-10-27. Status: menunggu review. Spec pertama dari empat (lihat "Urutan kerja").
+Tanggal: 2026-10-27. Status: disetujui; rencana di docs/superpowers/plans/2026-10-27-aset-per-gaya.md. Spec pertama dari empat (lihat "Urutan kerja").
 
 ## Masalah
 
@@ -72,6 +72,8 @@ tidak di kode, tetapi di `docs/aset/PETA.md` yang ter-generate, supaya benda yan
 benda: string;    // 'gedung'
 gaya: GayaSlug;   // 'poly3d'
 ```
+
+`ItemMeta` juga mendapat `aliases?: string[]` dan `komponen?: string[]` (nama komponen asli yang dibungkus; `mk aset peta` menganggap film yang meng-import salah satunya sebagai pemakai aset, karena film lama memakai komponen asli, bukan `<Aset3D>`). Tes memakai `node:test` (`npx tsx --test`), runner repo ini, bukan vitest. Varian pohon: `bulat` dan `taman`.
 
 `style?: string` yang ditambahkan untuk Stik Polos diganti `gaya`. Aturan gate: id harus sama dengan `benda` + `-` + `gaya`, kecuali id
 ada di `LEGACY_IDS`. Item Stik Polos yang ada sudah mengikuti aturan (`benda` = id tanpa akhiran `-stik`).
