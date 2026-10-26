@@ -1,12 +1,15 @@
 // mk gate: one command that says whether the scene kit still works. Idea from ali-abassi/remotion-templates'
 // acceptance gate (typecheck, one bundle, render smoke of every registry entry, a failures file); written fresh here
-// because that repo has no licence. Steps: tsc, unit tests, then two small stills of every registered scene, a
+// because that repo has no licence. Steps: library rules (names, refs.md, PETA.md, ids), tsc, unit tests, then two small stills of every registered scene, a
 // report and an HTML contact page to look at.
 import { spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { renderStill, selectComposition } from '@remotion/renderer';
+import { ITEMS } from '../../packages/core/src/library';
+import { periksaPustaka } from '../../packages/core/src/library/peta';
 import { SCENES } from '../../packages/core/src/scenes/manifest';
+import { petaDiRepo, sceneFiles } from './aset';
 import { ROOT } from './paths';
 import { getBundle } from './render';
 import { ensureSceneSfx } from './sceneSfx';
@@ -27,6 +30,19 @@ const testFiles = (dir: string, out: string[] = []) => {
 export const gate = async (opts: { only?: string[]; skipRender?: boolean } = {}) => {
   const outDir = join(ROOT, 'out', 'gate');
   mkdirSync(outDir, { recursive: true });
+
+  log('[gate] library rules (names, refs.md, PETA.md, ids used by films)');
+  const masalah = periksaPustaka({
+    items: ITEMS,
+    files: sceneFiles(),
+    sceneIds: SCENES.map((s) => s.id),
+    refsAda: (p) => existsSync(join(ROOT, p)),
+    petaRepo: petaDiRepo(),
+  });
+  if (masalah.length) {
+    log(masalah.map((m) => `  - ${m}`).join('\n'));
+    throw new Error('[gate] library rules failed');
+  }
 
   log('[gate] typecheck');
   const tsc = spawnSync('npx', ['tsc', '--noEmit', '-p', '.'], { cwd: ROOT, encoding: 'utf8', shell: true });

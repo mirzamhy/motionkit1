@@ -16,7 +16,7 @@ import { sceneAudio, sceneList, sceneStills, sceneVideo, voCut } from './scene';
 import { sceneAgent } from './sceneAgent';
 import { gate } from './gate';
 import { itemFind, itemList, itemPreview } from './item';
-import { asetBaru, asetFind, gayaList, gayaShow } from './aset';
+import { asetBaru, asetFind, asetPeta, gayaList, gayaShow } from './aset';
 import { decode, detectOnsets, snapShots } from './onsets';
 import { ambientcgFetch, ambientcgSearch, checkModel, listAssets, noteAsset, optimizeModel, polyhavenFetch, polyhavenSearch } from './asset';
 import { findKit, KIT } from '../../packages/core/src/scenes/catalog';
@@ -294,6 +294,7 @@ const main = async () => {
       const words = rest.filter((x, i) => !x.startsWith('--') && rest[i - 1] !== '--gaya');
       if (sub === 'find' && words.length) asetFind(words.join(' '), gi >= 0 ? rest[gi + 1] : undefined);
       else if (sub === 'baru' && words.length === 2) asetBaru(words[0], words[1]);
+      else if (sub === 'peta') asetPeta();
       else throw new Error('usage: mk aset find <kata> [--gaya <slug>] | baru <benda> <gaya> | peta');
       break;
     }
