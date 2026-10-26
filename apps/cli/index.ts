@@ -16,6 +16,8 @@ import { sceneAudio, sceneList, sceneStills, sceneVideo, voCut } from './scene';
 import { sceneAgent } from './sceneAgent';
 import { gate } from './gate';
 import { itemFind, itemList, itemPreview } from './item';
+import { filmList, filmShow } from './film';
+import { storyboard } from './storyboard';
 import { asetBaru, asetFind, asetPeta, asetPrompt, gayaList, gayaShow } from './aset';
 import { decode, detectOnsets, snapShots } from './onsets';
 import { ambientcgFetch, ambientcgSearch, checkModel, listAssets, noteAsset, optimizeModel, polyhavenFetch, polyhavenSearch } from './asset';
@@ -57,6 +59,8 @@ const HELP = `mk — Opus-grade Remotion launch videos from cheap models (Vikey 
   mk asset optimize <model.gltf|glb> [--ratio 0.5]   glTF-Transform: quantize + simplify to a GLB
   mk item list | find <words> | preview <id>   the item library: researched, reusable 2D/3D things
   mk gaya list | show <slug>   the looks (stik, poly3d, …) with their assets and example films
+  mk storyboard "<brief>" [--format 9:16|16:9] [--detik N] [--gaya <slug>]   a draft treatment.md from the library and finished films
+  mk film list | show <id>   registered films: look, rhythm, camera, assets used (notes in scenes/catatan.ts)
   mk aset find <kata> [--gaya <slug>]   which looks already have a thing (matrix per benda)
   mk aset prompt <benda> <gaya> [--target kode|gambar|3d]   a ready-to-paste prompt for making that asset
   mk gate [--only A,B] [--no-render]     tsc + unit tests + two small stills of every scene → out/gate/index.html
@@ -287,6 +291,20 @@ const main = async () => {
       if (sub === 'list') gayaList();
       else if (sub === 'show' && slug2) gayaShow(slug2);
       else throw new Error('usage: mk gaya list | show <slug>');
+      break;
+    }
+    case 'storyboard': {
+      const flag = (n: string) => { const i = args.indexOf(`--${n}`); return i >= 0 ? args[i + 1] : undefined; };
+      const brief = args.slice(1).filter((x, i, a) => !x.startsWith('--') && !a[i - 1]?.startsWith('--')).join(' ');
+      if (!brief) throw new Error('usage: mk storyboard "<brief>" [--format 9:16|16:9] [--detik N] [--gaya <slug>] [--slug <nama>] [--timpa]');
+      storyboard(brief, { format: flag('format'), detik: flag('detik'), gaya: flag('gaya'), slug: flag('slug'), timpa: args.includes('--timpa') });
+      break;
+    }
+    case 'film': {
+      const [, sub, id] = args;
+      if (sub === 'list') filmList();
+      else if (sub === 'show' && id) filmShow(id);
+      else throw new Error('usage: mk film list | show <id>');
       break;
     }
     case 'aset': {

@@ -27,10 +27,13 @@ export type CatatanFilm = {
   format: string;          // 'rantai-andai', 'teaser', 'explainer', 'uji', ...
   kamera: Kamera[];
   ritme: Ritme;
+  detik: number;           // panjang film; manifest.ts tidak menyimpannya
   pelajaran?: string;      // satu atau dua kalimat: apa yang berhasil atau gagal
 };
 export const CATATAN: Record<string, CatatanFilm> = { /* id film -> catatan */ };
 ```
+
+Film varian (`StikAndaiOjolGerimis`) mewarisi catatan film yang namanya menjadi awalannya (`catatanFilm`).
 
 Perintah baru `mk film`:
 
@@ -95,8 +98,9 @@ durasi berjumlah tepat sama dengan `--detik`, penandaan `BELUM ADA`, penolakan m
 
 1. `mk storyboard "ojol bertemu penjual kopi saat hujan" --detik 12` memilih gaya `stik`, memakai `ojol-stik` dan
    `penjual-kopi-stik`, dan merujuk `StikAndaiOjol`.
-2. `mk storyboard "gunung meletus di atas kota" --detik 20` memilih `poly3d`, memakai `gunung-poly3d` dan
-   `gedung-poly3d`, dan menandai benda yang belum ada sebagai `BELUM ADA`.
+2. `mk storyboard "gunung meletus di atas kota" --detik 20 --gaya stik` menandai `gedung` sebagai `BELUM ADA` di stik
+   dengan acuan `gedung-poly3d`. (Tanpa `--gaya`, gaya dipilih dari benda yang sudah ada; sejak `gunung-stik` ada,
+   stik dan poly3d seri untuk brief ini dan stik menang karena punya lebih banyak film.)
 3. `mk film list` menampilkan semua film di `manifest.ts`, dengan 10 film tercatat.
 4. Semua tes lulus; `mk aset peta` tidak membuat diff.
 

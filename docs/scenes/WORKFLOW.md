@@ -52,6 +52,8 @@ Gate: the user has read the script and said yes.
 
 One row per shot: time, what is in frame, what moves, the narration it carries, which reference it is drawn from.
 
+Start from a draft: `node bin/mk.mjs storyboard "<brief>" --format 9:16 --detik 15` writes `projects/<slug>/treatment.md` with a look, library assets per shot, rhythm and camera borrowed from the closest finished film (`mk film list`), and ISI where a person must fill in. Edit it; it is a draft, not a decision.
+
 Check the board against these before showing it:
 
 - Every shot has a subject doing something, not a title over a background.
@@ -95,7 +97,9 @@ node bin/mk.mjs scene video <Id>
 ```
 
 One render at a time. After it finishes, pull a few frames out of the mp4 and look at those too, then send the
-file with a list of what is still weak. The user's notes come back as specifics ("people pile up at the door",
+file with a list of what is still weak. Then record the film for the next storyboard: add an entry to `packages/core/src/scenes/catatan.ts` (look, format, camera, rhythm, seconds, one lesson). `mk gate` warns about films without one.
+
+The user's notes come back as specifics ("people pile up at the door",
 "the pen is not on the line"); fix each, re-check its stills, render again.
 
 ## 9. Voice-over

@@ -8,6 +8,7 @@ import { join, relative } from 'node:path';
 import { renderStill, selectComposition } from '@remotion/renderer';
 import { ITEMS } from '../../packages/core/src/library';
 import { periksaPustaka } from '../../packages/core/src/library/peta';
+import { catatanFilm } from '../../packages/core/src/scenes/catatan';
 import { SCENES } from '../../packages/core/src/scenes/manifest';
 import { petaDiRepo, sceneFiles } from './aset';
 import { ROOT } from './paths';
@@ -43,6 +44,9 @@ export const gate = async (opts: { only?: string[]; skipRender?: boolean } = {})
     log(masalah.map((m) => `  - ${m}`).join('\n'));
     throw new Error('[gate] library rules failed');
   }
+
+  const tanpaCatatan = SCENES.filter((s) => !catatanFilm(s.id)).map((s) => s.id);
+  if (tanpaCatatan.length) log(`[gate] peringatan: ${tanpaCatatan.length} film belum punya catatan (scenes/catatan.ts): ${tanpaCatatan.slice(0, 6).join(', ')}${tanpaCatatan.length > 6 ? ', ...' : ''}`);
 
   log('[gate] typecheck');
   const tsc = spawnSync('npx', ['tsc', '--noEmit', '-p', '.'], { cwd: ROOT, encoding: 'utf8', shell: true });
