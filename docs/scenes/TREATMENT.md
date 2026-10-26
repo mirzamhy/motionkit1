@@ -1,5 +1,7 @@
 # Scene mode: the treatment
 
+A first draft can be generated: `node bin/mk.mjs storyboard "<brief>" --format 9:16 --detik 15` fills this template with a look, assets and rhythm chosen from the library and finished films (`mk film list`), leaving ISI where a person must write. Edit the draft; do not treat it as decided.
+
 Copy this into `projects/<slug>/treatment.md` at step 3 of [WORKFLOW.md](WORKFLOW.md), before the script is final.
 It holds the brief, the shape of the story and one block per shot, so the storyboard, the code and the sound all
 come from one page. The three-layer form (brief → skeleton → per-scene treatment) is an idea from

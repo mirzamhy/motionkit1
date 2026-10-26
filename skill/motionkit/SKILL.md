@@ -8,6 +8,7 @@ description: Make a video with MotionKit (Remotion). Use when the user asks for 
 This skill is a pointer. The instructions live in the repository so every agent reads the same thing.
 
 1. Open the MotionKit repo and read `AGENTS.md`.
+1a. To start a new video, run `node bin/mk.mjs storyboard "<brief>" --format 9:16 --detik 15` for a draft treatment (look, assets per shot, rhythm and camera from finished films), and `node bin/mk.mjs aset find <benda>` / `aset prompt <benda> <gaya>` for assets. When the film is done, record it in `packages/core/src/scenes/catatan.ts`.
 2. For a story, history, explainer or lesson: follow `docs/scenes/WORKFLOW.md` step by step, with
    `docs/scenes/CRAFT.md` and `docs/scenes/KIT.md` open. Do not skip the gates (facts, references, script,
    storyboard, proof shot, look at stills).

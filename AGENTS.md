@@ -51,6 +51,14 @@ searches it).
 9. Never commit `.env`, `projects/`, `out/`, `node_modules/`, media files, or the user's reference photos.
    Commit locally only; never push or add a remote unless the user asks.
 
+## Alur video baru: dari brief sampai film tercatat
+
+1. **Draf storyboard.** `node bin/mk.mjs storyboard "<brief>" --format 9:16 --detik 15 [--gaya <slug>] [--slug <nama>]` menulis `projects/<slug>/treatment.md`: gaya yang paling sanggup dilayani pustaka, film acuan terdekat (ritme dan kamera), pembagian shot, aset per shot, dan `BELUM ADA` untuk benda yang belum ada di gaya itu. Bagian `ISI` harus dilengkapi manusia atau agen; ini draf, bukan keputusan. Dapatkan persetujuan pengguna (aturan 3).
+2. **Lihat film yang sudah ada.** `node bin/mk.mjs film list` (gaya, ritme, kamera, aset per film) dan `film show <id>`.
+3. **Siapkan aset** dengan alur "Pustaka dulu" di bawah. Aset ada per gaya; prompt siap pakai: `node bin/mk.mjs aset prompt <benda> <gaya> --target kode|gambar|3d`.
+4. **Bangun, lihat still, render** seperti di docs/scenes/WORKFLOW.md.
+5. **Catat film** di `packages/core/src/scenes/catatan.ts` (gaya, format, kamera, ritme, detik, satu pelajaran) supaya storyboard berikutnya belajar darinya. `mk gate` memperingatkan film tanpa catatan.
+
 ## Pustaka dulu (aset per gaya)
 
 Benda yang bisa dipakai ulang (kendaraan, bangunan, tanaman, orang, alam, properti) tidak digambar di file scene. Alurnya:
@@ -76,6 +84,9 @@ node bin/mk.mjs item find <words>                # the item library (boats, buil
 node bin/mk.mjs gaya list                        # visual styles (gaya); `gaya show <gaya>` = its assets and example films
 node bin/mk.mjs aset find <benda>                # one thing across all styles (bus: stik ✗ poly3d ✔ ...)
 node bin/mk.mjs aset baru <benda> <gaya>         # skeleton for a new asset; `aset peta` regenerates docs/aset/PETA.md
+node bin/mk.mjs aset prompt <benda> <gaya> [--target kode|gambar|3d]   # ready-to-paste prompt for making that asset
+node bin/mk.mjs storyboard "<brief>" [--format 9:16|16:9] [--detik N] [--gaya <slug>]   # draft treatment.md from library + finished films
+node bin/mk.mjs film list                        # finished films: look, rhythm, camera, assets; `film show <id>`
 node bin/mk.mjs kit find <words>                 # search the kit (Indonesian or English) before drawing a new part
 node bin/mk.mjs gate                             # tsc + unit tests + small stills of every scene → out/gate/index.html
 ```

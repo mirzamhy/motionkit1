@@ -121,7 +121,9 @@ A style is a look (palette, outline rules, camera, bubble) plus its parts librar
 | `stik-polos` | Short reflective reels (9:16, 10–15 s): flat faceless stickmen, thick outlines, cold palette with one warm accent, camera hopping along one street, chained thought bubbles, word-by-word quote. Weather is a parameter (hujan, gerimis, cerah, kabut). 14 saved parts (`mk item find stik`). Films: `StikAndaiOjol`, `StikAndaiRumah`. | `packages/core/src/styles/stik-polos/README.md` |
 | `poly3d` | Low-poly 3D look in metres, made of ThreeCanvas parts. Six saved assets: bus, gunung, pohon, rumput, gedung, bumi (`mk gaya show poly3d`). Film `WhatIfGravity`, test scene `AsetUji3D`. | `packages/core/src/library/poly3d/refs.md` |
 
-All looks and their assets: `docs/aset/PETA.md`.
+| `ilustrasi` | Layered SVG drawn from photo references (harbour, campus, market). Assets in `library/ilustrasi/` wrap the old kit and film parts: `orang-ilustrasi` (Walker), `murid-ilustrasi`, `gedung-nias-ilustrasi`, `atap-limas-ilustrasi`, `bendera-ilustrasi`, `awan-ilustrasi`, `pohon-ilustrasi` (Foliage), `palem-ilustrasi`, `semak-ilustrasi`, `pizza-ilustrasi`, plus the harbour items. Films `UnairScene`, `PizzaScene`, `PelabuhanIlustrasi`. | `mk gaya show ilustrasi` |
+
+All looks and their assets: `docs/aset/PETA.md`. Finished films and what each one used: `mk film list`.
 
 ## Fonts
 
