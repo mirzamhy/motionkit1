@@ -1,4 +1,8 @@
 // mk gaya / mk aset: the looks and their assets. Pure logic lives in packages/core/src/library; this file only prints and writes.
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { ROOT } from './paths';
+import { kerangka, sisipkan } from '../../packages/core/src/library/scaffold';
 import { GAYA, gayaBySlug, type GayaSlug } from '../../packages/core/src/styles';
 import { ITEMS } from '../../packages/core/src/library';
 import { cariAset } from '../../packages/core/src/library/matriks';
@@ -24,4 +28,33 @@ export const asetFind = (q: string, gaya?: string) => {
   const hits = cariAset(q, gaya as GayaSlug | undefined);
   if (!hits.length) return log(`  tidak ada benda untuk "${q}"${gaya ? ` di gaya ${gaya}` : ''}: gambar dulu di pustaka (mk aset baru <benda> <gaya>)`);
   for (const h of hits) log(`  ${h.baris}\n    ${Object.values(h.row).join(', ')}`);
+};
+
+const LIB = join(ROOT, 'packages', 'core', 'src', 'library');
+
+export const asetBaru = (benda: string, gaya: string) => {
+  const k = kerangka(benda, gaya, new Set(ITEMS.map((i) => i.meta.id)));
+  const dir = join(LIB, k.folder);
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(join(LIB, k.file), k.content);
+  const idx = join(dir, 'index.ts');
+  if (!existsSync(idx)) {
+    writeFileSync(idx, k.indexNew);
+    const top = join(LIB, 'index.ts');
+    let t = readFileSync(top, 'utf8');
+    t = sisipkan(t, '// aset:impor-gaya', k.indexImport);
+    t = sisipkan(t, '// aset:daftar-gaya', k.indexList);
+    writeFileSync(top, t);
+  }
+  let i = readFileSync(idx, 'utf8');
+  i = sisipkan(i, '// aset:impor', k.itemImport);
+  i = sisipkan(i, '// aset:daftar', `${k.itemName},`);
+  writeFileSync(idx, i);
+  const refs = join(dir, 'refs.md');
+  writeFileSync(refs, (existsSync(refs) ? readFileSync(refs, 'utf8') : `# ${gaya}: acuan
+`) + k.refsNote);
+  log(`  ✓ ${k.id}
+    ${join('packages/core/src/library', k.file)}
+    lihat: node bin/mk.mjs item preview ${k.id}
+    lalu isi refs.md, gambar, dan jalankan: node bin/mk.mjs aset peta`);
 };
