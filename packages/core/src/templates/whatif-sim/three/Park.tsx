@@ -2,41 +2,9 @@ import React, { useMemo } from 'react';
 import * as THREE from 'three';
 import { B, rng } from './util';
 import { PohonTaman as Tree } from '../../../library/poly3d/pohon';
+import { buildingGeometry, windowTexture } from '../../../library/poly3d/gedung';
 
 /* ---------- City: beige window-grid blocks + hazy towers ---------- */
-
-const windowTexture = () => {
-  const c = document.createElement('canvas');
-  c.width = 64;
-  c.height = 64;
-  const g = c.getContext('2d')!;
-  g.fillStyle = '#cdbb9e';
-  g.fillRect(0, 0, 64, 64);
-  g.fillStyle = '#6e6359';
-  g.fillRect(24, 18, 16, 26);
-  const t = new THREE.CanvasTexture(c);
-  t.wrapS = t.wrapT = THREE.RepeatWrapping;
-  t.colorSpace = THREE.SRGBColorSpace;
-  t.anisotropy = 4;
-  return t;
-};
-
-const buildingGeometry = (w: number, h: number, d: number) => {
-  const g = new THREE.BoxGeometry(w, h, d);
-  const uv = g.attributes.uv as THREE.BufferAttribute;
-  for (let face = 0; face < 6; face++) {
-    for (let j = face * 4; j < face * 4 + 4; j++) {
-      if (face === 2 || face === 3) {
-        uv.setXY(j, 0.05, 0.05); // roof / floor: plain wall colour
-      } else {
-        const su = (face < 2 ? d : w) / 0.9;
-        uv.setXY(j, uv.getX(j) * su, uv.getY(j) * (h / 1.1));
-      }
-    }
-  }
-  uv.needsUpdate = true;
-  return g;
-};
 
 export const City: React.FC = () => {
   const group = useMemo(() => {

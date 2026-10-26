@@ -10,6 +10,7 @@ Cari dulu: `mk aset find <benda>`. Buat yang belum ada: `mk aset baru <benda> <g
 |---|---|---|---|---|---|---|
 | bumi | ✗ | ✔ `bumi-poly3d` | ✗ | ✗ | ✗ | ✗ |
 | bus | ✗ | ✔ `bus-poly3d` | ✗ | ✗ | ✗ | ✗ |
+| gedung | ✗ | ✔ `gedung-poly3d` | ✗ | ✗ | ✗ | ✗ |
 | gudang | ✗ | ✗ | ✗ | ✗ | ✗ | ✔ `gudang-pelabuhan` |
 | gunung | ✗ | ✔ `gunung-poly3d` | ✗ | ✗ | ✗ | ✗ |
 | kos | ✔ `kos-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
@@ -27,6 +28,7 @@ Cari dulu: `mk aset find <benda>`. Buat yang belum ada: `mk aset baru <benda> <g
 | rumah-mewah | ✔ `rumah-mewah-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
 | rumah-petak | ✔ `rumah-petak-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
 | rumah-sakit | ✔ `rumah-sakit-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
+| rumput | ✗ | ✔ `rumput-poly3d` | ✗ | ✗ | ✗ | ✗ |
 | tiang-tambat | ✗ | ✗ | ✗ | ✗ | ✗ | ✔ `tiang-tambat` |
 | warung-kopi | ✔ `warung-kopi-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
 
@@ -40,6 +42,11 @@ Cari dulu: `mk aset find <benda>`. Buat yang belum ada: `mk aset baru <benda> <g
 ### bus-poly3d
 - 3D · 11.5 × 3.1 × 2.65 m · varian: kuning
 - dipakai: -
+- acuan: `packages/core/src/library/poly3d/refs.md`
+
+### gedung-poly3d
+- 3D · 11 × 70 × 11 m · varian: rendah, sedang, menara
+- dipakai: WhatIfGravity, stik-polos/StikAndaiOjol, stik-polos/StikAndaiRumah
 - acuan: `packages/core/src/library/poly3d/refs.md`
 
 ### gudang-pelabuhan
@@ -126,6 +133,11 @@ Cari dulu: `mk aset find <benda>`. Buat yang belum ada: `mk aset baru <benda> <g
 - 2D · 3.09 × 5.73 × 0.6 m · varian: lampu-merah, lampu-hijau, jendela-hangat
 - dipakai: -
 - acuan: `packages/core/src/library/stik-polos/refs.md`
+
+### rumput-poly3d
+- 3D · 10.5 × 0.8 × 10.5 m · varian: hijau
+- dipakai: WhatIfGravity
+- acuan: `packages/core/src/library/poly3d/refs.md`
 
 ### tiang-tambat
 - 2D+3D · 0.45 × 1.2 × 0.45 m · varian: kayu, besi

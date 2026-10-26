@@ -16,3 +16,9 @@ Dari `volcano-whatif/src/scenes/rainier.tsx` (`SchoolBus`). Hanya warna kuning d
 
 ## gunung-poly3d
 `Volcano` dari `volcano-whatif/src/three/kit.tsx`. Preset: `vesuvius` (Shot01, r 140 h 48), `sakura` (r 240 h 150), `rainier` (r 330 h 170 + tudung salju). `meta.size` memuat preset terbesar (rainier); ukuran terukur di preview adalah baris pertama (vesuvius).
+
+## rumput-poly3d
+`Grass` + `useGrass` dari simulif-gravity (`three/Grass.tsx`, kini di sini). Film taman memakai hamparan global (dua zona, dengan lubang untuk alas dan air mancur); item ini hamparan 10 × 10 m tanpa lubang, `time = t / 30`. Satu warna (hijau): warna kering tidak ada di shader.
+
+## gedung-poly3d
+Satu bangunan dari perulangan `City` (`three/Park.tsx`). Rentang ukuran: baris depan tinggi 6–10 dan 10–16 m, menara belakang 30–70 m.

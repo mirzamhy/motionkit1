@@ -4,6 +4,8 @@ import * as bumi from './bumi';
 import * as bus from './bus';
 import * as pohon from './pohon';
 import * as gunung from './gunung';
+import * as rumput from './rumput';
+import * as gedung from './gedung';
 // aset:impor
 
 export const ITEMS_POLY3D: LibraryItem[] = [
@@ -11,5 +13,7 @@ export const ITEMS_POLY3D: LibraryItem[] = [
   bus,
   pohon,
   gunung,
+  rumput,
+  gedung,
   // aset:daftar
 ];
