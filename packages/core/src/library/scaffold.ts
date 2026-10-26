@@ -52,10 +52,11 @@ export const Item3D: React.FC<Item3DProps> = () => (
 );
 `;
 
-const camel = (s: string) => s.replace(/-([a-z0-9])/g, (_, c: string) => c.toUpperCase());
+/** import identifier: prefixed so it is never a reserved word and never starts with a digit; '-' becomes '_' so names stay unique */
+const ident = (s: string) => `a_${s.replace(/-/g, '_')}`;
 
 export const kerangka = (benda: string, gaya: string, ada: Set<string>) => {
-  if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(benda)) throw new Error(`benda "${benda}" harus huruf kecil/angka dengan strip`);
+  if (!/^[a-z][a-z0-9]*(-[a-z0-9]+)*$/.test(benda)) throw new Error(`benda "${benda}" harus diawali huruf, lalu huruf kecil/angka dengan strip`);
   const g = gayaBySlug(gaya);
   if (!g) throw new Error(`gaya "${gaya}" bukan slug terdaftar (mk gaya list)`);
   if (g.slug === 'stik') throw new Error('Stik Polos: tambah part({...}) di library/stik-polos/index.tsx (resep: styles/stik-polos/README.md)');
@@ -72,8 +73,25 @@ export const kerangka = (benda: string, gaya: string, ada: Set<string>) => {
     indexNew: `// Assets of the "${g.nama}" look. \`mk aset baru\` inserts at the aset: markers.\nimport type { LibraryItem } from '../types';\n// aset:impor\n\nexport const ${up}: LibraryItem[] = [\n  // aset:daftar\n];\n`,
     indexImport: `import { ${up} } from './${g.folder}';`,
     indexList: `...${up},`,
-    itemImport: `import * as ${camel(benda)} from './${benda}';`,
-    itemName: camel(benda),
+    itemImport: `import * as ${ident(benda)} from './${benda}';`,
+    itemName: ident(benda),
     refsNote: `\n## ${id}\n\nBELUM ADA ACUAN. Tulis di sini foto/gambar yang dipakai, apa yang terlihat, ukuran nyata, dan bagian yang direka.\n`,
   };
+};
+
+/**
+ * All text edits for one `mk aset baru`, computed in memory before anything is written, so a missing marker throws
+ * while the disk is still untouched. `top`/`idx`/`refs` are the current file texts (undefined when the file does not exist yet).
+ */
+export const rencanaTulis = (k: ReturnType<typeof kerangka>, gaya: string, cur: { top: string; idx?: string; refs?: string }) => {
+  let top: string | undefined;
+  if (cur.idx === undefined) {
+    top = sisipkan(cur.top, '// aset:impor-gaya', k.indexImport);
+    top = sisipkan(top, '// aset:daftar-gaya', k.indexList);
+  }
+  let idx = cur.idx ?? k.indexNew;
+  idx = sisipkan(idx, '// aset:impor', k.itemImport);
+  idx = sisipkan(idx, '// aset:daftar', `${k.itemName},`);
+  const refs = (cur.refs ?? `# ${gaya}: acuan\n`) + k.refsNote;
+  return { top, idx, refs };
 };

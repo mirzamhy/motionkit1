@@ -2,7 +2,7 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { ROOT } from './paths';
-import { kerangka, sisipkan } from '../../packages/core/src/library/scaffold';
+import { kerangka, rencanaTulis } from '../../packages/core/src/library/scaffold';
 import { GAYA, gayaBySlug, type GayaSlug } from '../../packages/core/src/styles';
 import { ITEMS } from '../../packages/core/src/library';
 import { cariAset } from '../../packages/core/src/library/matriks';
@@ -37,24 +37,19 @@ const LIB = join(ROOT, 'packages', 'core', 'src', 'library');
 export const asetBaru = (benda: string, gaya: string) => {
   const k = kerangka(benda, gaya, new Set(ITEMS.map((i) => i.meta.id)));
   const dir = join(LIB, k.folder);
-  mkdirSync(dir, { recursive: true });
-  writeFileSync(join(LIB, k.file), k.content);
+  const file = join(LIB, k.file);
+  if (existsSync(file)) throw new Error(`file sudah ada, tidak ditimpa: ${k.file}`);
   const idx = join(dir, 'index.ts');
-  if (!existsSync(idx)) {
-    writeFileSync(idx, k.indexNew);
-    const top = join(LIB, 'index.ts');
-    let t = readFileSync(top, 'utf8');
-    t = sisipkan(t, '// aset:impor-gaya', k.indexImport);
-    t = sisipkan(t, '// aset:daftar-gaya', k.indexList);
-    writeFileSync(top, t);
-  }
-  let i = readFileSync(idx, 'utf8');
-  i = sisipkan(i, '// aset:impor', k.itemImport);
-  i = sisipkan(i, '// aset:daftar', `${k.itemName},`);
-  writeFileSync(idx, i);
   const refs = join(dir, 'refs.md');
-  writeFileSync(refs, (existsSync(refs) ? readFileSync(refs, 'utf8') : `# ${gaya}: acuan
-`) + k.refsNote);
+  const top = join(LIB, 'index.ts');
+  const rd = (p: string) => (existsSync(p) ? readFileSync(p, 'utf8') : undefined);
+  // every edit is computed first; a missing marker throws here, before anything is written
+  const plan = rencanaTulis(k, gaya, { top: readFileSync(top, 'utf8'), idx: rd(idx), refs: rd(refs) });
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(file, k.content, { flag: 'wx' });
+  writeFileSync(idx, plan.idx);
+  if (plan.top !== undefined) writeFileSync(top, plan.top);
+  writeFileSync(refs, plan.refs);
   log(`  ✓ ${k.id}
     ${join('packages/core/src/library', k.file)}
     lihat: node bin/mk.mjs item preview ${k.id}

@@ -22,6 +22,7 @@ test('masalahMeta flags a wrong id, a bad benda and a bad gaya', () => {
   assert.equal(masalahMeta(base).length, 0);
   assert.match(masalahMeta({ ...base, id: 'bus' })[0], /bus-poly3d/);
   assert.match(masalahMeta({ ...base, benda: 'Bus', id: 'Bus-poly3d' }).join(' '), /huruf kecil/);
+  assert.match(masalahMeta({ ...base, benda: '3d-box', id: '3d-box-poly3d' }).join(' '), /diawali huruf/);
   assert.match(masalahMeta({ ...base, gaya: 'xx' as never, id: 'bus-xx' }).join(' '), /gaya/);
 });
 
