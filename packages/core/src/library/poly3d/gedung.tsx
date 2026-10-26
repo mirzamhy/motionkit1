@@ -66,7 +66,7 @@ export const Item3D: React.FC<Item3DProps> = ({ variant = 'sedang', seed = 0 }) 
   const r = rng(seed + 11);
   const w = k.w[0] + r() * (k.w[1] - k.w[0]);
   const h = k.h[0] + r() * (k.h[1] - k.h[0]);
-  const map = useMemo(windowTexture, []);
+  const map = useMemo(() => (k.tower ? null : windowTexture()), [k.tower]);
   const geo = useMemo(() => (k.tower ? new THREE.BoxGeometry(w, h, w) : buildingGeometry(w, h, 6)), [k.tower, w, h]);
   return (
     <mesh geometry={geo} position={[0, h / 2, 0]}>

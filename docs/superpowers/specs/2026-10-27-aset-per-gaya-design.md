@@ -126,6 +126,8 @@ Semua baru kecuali `item preview`, yang tetap dipakai.
 
 Tanpa `--no-render`, gate juga merender `mk item preview` untuk item yang baru atau berubah.
 
+**Ditunda:** langkah render-preview pada gate belum dibuat; `gate.ts` baru menjalankan pemeriksaan statis. Langkah itu dikerjakan di spec berikutnya.
+
 ### 5. Aturan "pustaka dulu"
 
 Ditambahkan ke `AGENTS.md` (aturan scene mode): benda yang bisa dipakai ulang (kendaraan, bangunan, tanaman, orang, alam, properti)
