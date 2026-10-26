@@ -10,6 +10,7 @@ import type { Item2DProps, ItemMeta, LibraryItem } from '../types';
 import { SANS } from '../../styles/stik-polos/kit';
 import { OrangStik, POSE_ORANG } from './orang';
 import { Car, Couple, Hospital, Kiosk, KioskGuy, LampuLaluLintas, MotorOjol, Ojol } from './set-jalan';
+import { Bangku, Gunung } from './set-alam';
 import { Kos, KprHouse, Lamp, Mansion, Petak } from './set-rumah';
 
 export const STYLE_ID = 'stik-polos';
@@ -26,11 +27,16 @@ type Def = {
   /** the point that meets the ground, in the same world pixels */
   anchor: [number, number];
   variants?: string[];
+  /** units per metre of the drawing when it is not 150 (a mountain is drawn at 3) */
+  pxPerM?: number;
+  /** real depth in metres, default 0.6 */
+  depth?: number;
   invented?: string[];
   draw: (a: { t: number; variant: string }) => React.ReactNode;
 };
 
 const part = (d: Def): LibraryItem => {
+  const PX = d.pxPerM ?? PX_PER_M;
   const [x0, y0, x1, y1] = d.bbox;
   const meta: ItemMeta = {
     id: d.id,
@@ -39,14 +45,14 @@ const part = (d: Def): LibraryItem => {
     tags: ['stik polos', 'stickman', 'gaya', ...d.tags],
     benda: d.id.replace(/-stik$/, ''),
     gaya: 'stik',
-    size: [Math.round(((x1 - x0) / PX_PER_M) * 100) / 100, Math.round(((y1 - y0) / PX_PER_M) * 100) / 100, 0.6],
+    size: [Math.round(((x1 - x0) / PX) * 100) / 100, Math.round(((y1 - y0) / PX) * 100) / 100, d.depth ?? 0.6],
     variants: d.variants,
     refs: 'packages/core/src/library/stik-polos/refs.md',
     file: 'packages/core/src/library/stik-polos/index.tsx',
     invented: d.invented ?? ['seluruh gambar adalah stilisasi sendiri, bukan replika benda nyata'],
   };
   const Item2D: React.FC<Item2DProps> = ({ x, y, s, t = 0, variant, flip }) => {
-    const k = s / PX_PER_M;
+    const k = s / PX;
     return (
       <g transform={`translate(${x} ${y}) scale(${flip ? -k : k} ${k}) translate(${-d.anchor[0]} ${-d.anchor[1]})`}>
         {d.draw({ t, variant: variant ?? d.variants?.[0] ?? 'default' })}
@@ -133,6 +139,23 @@ export const ITEMS_STIK_POLOS: LibraryItem[] = [
     tags: ['rumah petak', 'kontrakan', 'sederhana', 'keluarga', 'hangat', 'tikar', 'cukup', 'family', 'warm', 'home'],
     bbox: [1610, 582, 1912, 802], anchor: [1761, 800],
     draw: ({ t }) => <Petak frame={t} glow={1} />,
+  }),
+
+  part({
+    id: 'bangku-stik', nama: 'Bangku taman panjang (1,6 m): bersandaran / tanpa sandaran', kategori: 'properti',
+    tags: ['bangku', 'bangku taman', 'kursi panjang', 'taman', 'duduk', 'bench', 'park bench', 'seat'],
+    bbox: [-120, -130, 120, 0], anchor: [0, 0], variants: ['sandaran', 'tanpa-sandaran'], depth: 0.5,
+    invented: ['bentuk dan ukuran bangku taman umum, tanpa acuan foto', 'warna kayu diredam agar sesuai palet dingin'],
+    draw: ({ variant }) => <Bangku variant={variant} />,
+  }),
+
+  // ── alam ──
+  part({
+    id: 'gunung-stik', nama: 'Gunung datar bergaris tebal (200 m): berpuncak salju / polos', kategori: 'alam',
+    tags: ['gunung', 'gunung berapi', 'pegunungan', 'puncak', 'salju', 'mountain', 'peak', 'snow', 'bukit'],
+    bbox: [-300, -330, 300, 0], anchor: [0, 0], pxPerM: 3, depth: 40, variants: ['salju', 'polos'],
+    invented: ['bukan gunung tertentu; dua puncak karangan', 'tinggi sekitar 110 m dan lebar 200 m dipilih agar terbaca di film, bukan ukuran nyata', 'bayangan hanya dua bidang gelap datar, arah matahari dari kiri atas'],
+    draw: ({ variant }) => <Gunung variant={variant} />,
   }),
 
   // ── properti ──

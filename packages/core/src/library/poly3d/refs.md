@@ -22,3 +22,16 @@ Dari `volcano-whatif/src/scenes/rainier.tsx` (`SchoolBus`). Hanya warna kuning d
 
 ## gedung-poly3d
 Satu bangunan dari perulangan `City` (`three/Park.tsx`). Rentang ukuran: baris depan tinggi 6–10 dan 10–16 m, menara belakang 30–70 m.
+
+## pos-ronda-poly3d
+Tidak ada foto acuan; dibuat dari pengetahuan umum tentang pos ronda / pos kamling kampung di Indonesia. Ukuran 3 x 3 x 3 m
+(terukur di preview 3,00 x 3,01 x 3,00 m): lantai panggung 2,2 x 2,2 m setinggi 0,63 m, tiang kayu, dinding papan setinggi
+0,62 m di tiga sisi, teralis di bagian atas dinding belakang, bangku di sepanjang dinding belakang, kentongan tergantung
+di bawah atap, dua anak tangga di sisi depan (+z) yang terbuka, atap limas.
+
+Varian: `kayu` (kayu cokelat, genteng tanah liat) dan `seng` (papan kelabu lapuk, atap seng).
+
+Rekaan (semuanya, tidak ada replika):
+- proporsi dan ukuran, bukan ukur dari satu bangunan nyata; pos ronda nyata amat beragam (ada yang berdinding penuh, beratap joglo, bercat merah-putih);
+- warna, jumlah papan, bentuk bangku dan kentongan (silinder polos dengan celah hitam);
+- tanpa tekstur, tanpa lampu atau papan nama.

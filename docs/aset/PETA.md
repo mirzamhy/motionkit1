@@ -8,11 +8,12 @@ Cari dulu: `mk aset find <benda>`. Buat yang belum ada: `mk aset baru <benda> <g
 
 | benda | stik | poly3d | poly | model3d | flanel | ilustrasi |
 |---|---|---|---|---|---|---|
+| bangku | ✔ `bangku-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
 | bumi | ✗ | ✔ `bumi-poly3d` | ✗ | ✗ | ✗ | ✗ |
 | bus | ✗ | ✔ `bus-poly3d` | ✗ | ✗ | ✗ | ✗ |
 | gedung | ✗ | ✔ `gedung-poly3d` | ✗ | ✗ | ✗ | ✗ |
 | gudang | ✗ | ✗ | ✗ | ✗ | ✗ | ✔ `gudang-pelabuhan` |
-| gunung | ✗ | ✔ `gunung-poly3d` | ✗ | ✗ | ✗ | ✗ |
+| gunung | ✔ `gunung-stik` | ✔ `gunung-poly3d` | ✗ | ✗ | ✗ | ✗ |
 | kos | ✔ `kos-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
 | lampu-jalan | ✔ `lampu-jalan-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
 | lampu-lalu-lintas | ✔ `lampu-lalu-lintas-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
@@ -24,6 +25,7 @@ Cari dulu: `mk aset find <benda>`. Buat yang belum ada: `mk aset baru <benda> <g
 | penjual-kopi | ✔ `penjual-kopi-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
 | perahu | ✗ | ✗ | ✗ | ✗ | ✗ | ✔ `perahu-kajang` |
 | pohon | ✗ | ✔ `pohon-poly3d` | ✗ | ✗ | ✗ | ✗ |
+| pos-ronda | ✗ | ✔ `pos-ronda-poly3d` | ✗ | ✗ | ✗ | ✗ |
 | rumah-kpr | ✔ `rumah-kpr-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
 | rumah-mewah | ✔ `rumah-mewah-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
 | rumah-petak | ✔ `rumah-petak-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
@@ -33,6 +35,11 @@ Cari dulu: `mk aset find <benda>`. Buat yang belum ada: `mk aset baru <benda> <g
 | warung-kopi | ✔ `warung-kopi-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
 
 ## Aset
+
+### bangku-stik
+- 2D · 1.6 × 0.87 × 0.5 m · varian: sandaran, tanpa-sandaran
+- dipakai: -
+- acuan: `packages/core/src/library/stik-polos/refs.md`
 
 ### bumi-poly3d
 - 3D · 2 × 2 × 2 m · varian: berawan, polos
@@ -58,6 +65,11 @@ Cari dulu: `mk aset find <benda>`. Buat yang belum ada: `mk aset baru <benda> <g
 - 3D · 660 × 170 × 660 m · varian: vesuvius, sakura, rainier
 - dipakai: aset-uji/AsetUji3D
 - acuan: `packages/core/src/library/poly3d/refs.md`
+
+### gunung-stik
+- 2D · 200 × 110 × 40 m · varian: salju, polos
+- dipakai: -
+- acuan: `packages/core/src/library/stik-polos/refs.md`
 
 ### kos-stik
 - 2D · 2.41 × 3.41 × 0.6 m · varian: -
@@ -112,6 +124,11 @@ Cari dulu: `mk aset find <benda>`. Buat yang belum ada: `mk aset baru <benda> <g
 ### pohon-poly3d
 - 3D · 2.6 × 3.7 × 2.6 m · varian: bulat, taman
 - dipakai: WhatIfGravity, aset-uji/AsetUji3D
+- acuan: `packages/core/src/library/poly3d/refs.md`
+
+### pos-ronda-poly3d
+- 3D · 3 × 3 × 3 m · varian: kayu, seng
+- dipakai: -
 - acuan: `packages/core/src/library/poly3d/refs.md`
 
 ### rumah-kpr-stik

@@ -6,6 +6,7 @@ import * as pohon from './pohon';
 import * as gunung from './gunung';
 import * as rumput from './rumput';
 import * as gedung from './gedung';
+import * as a_pos_ronda from './pos-ronda';
 // aset:impor
 
 export const ITEMS_POLY3D: LibraryItem[] = [
@@ -15,5 +16,6 @@ export const ITEMS_POLY3D: LibraryItem[] = [
   gunung,
   rumput,
   gedung,
+  a_pos_ronda,
   // aset:daftar
 ];
