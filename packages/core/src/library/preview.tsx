@@ -75,7 +75,7 @@ const Preview3D: React.FC<{ id: string }> = ({ id }) => {
   const span = Math.max(...meta.size) * 1.5;
   return (
     <AbsoluteFill style={{ background: '#EDE6D6' }}>
-      <ThreeCanvas width={W} height={H} shadows camera={{ fov: 30, near: 0.01, far: 2000 }}>
+      <ThreeCanvas width={W} height={H} shadows camera={{ fov: 30, near: 0.01, far: Math.max(2000, span * 60) }}>
         <color attach="background" args={['#EDE6D6']} />
         <hemisphereLight args={['#fff6e8', '#6d7364', 1.4]} />
         <directionalLight position={[-span * 3, span * 6, span * 4]} intensity={2.4} castShadow shadow-mapSize={[2048, 2048]} shadow-camera-left={-span * 6} shadow-camera-right={span * 6} shadow-camera-top={span * 6} shadow-camera-bottom={-span * 6} />

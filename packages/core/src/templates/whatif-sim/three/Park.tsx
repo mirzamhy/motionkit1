@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import * as THREE from 'three';
 import { B, rng } from './util';
+import { PohonTaman as Tree } from '../../../library/poly3d/pohon';
 
 /* ---------- City: beige window-grid blocks + hazy towers ---------- */
 
@@ -71,30 +72,6 @@ export const City: React.FC = () => {
 };
 
 /* ---------- Low-poly trees ---------- */
-
-const Tree: React.FC<{ p: [number, number, number]; s: number; seed: number }> = ({ p, s, seed }) => {
-  const r = rng(seed);
-  const greens = ['#2d6a2a', '#357a30', '#2a5f27'];
-  const blobs = [
-    [0, 2.3, 0, 1.0],
-    [0.55 * (r() - 0.3), 2.9, 0.2, 0.8],
-    [-0.5, 2.5 + r() * 0.3, -0.2, 0.75],
-  ];
-  return (
-    <group position={p} scale={s}>
-      <mesh position={[0, 0.9, 0]}>
-        <cylinderGeometry args={[0.1, 0.14, 1.8, 6]} />
-        <meshLambertMaterial color="#5b3c25" />
-      </mesh>
-      {blobs.map(([x, y, z, rad], i) => (
-        <mesh key={i} position={[x, y, z]}>
-          <icosahedronGeometry args={[rad, 1]} />
-          <meshLambertMaterial color={greens[i % 3]} flatShading />
-        </mesh>
-      ))}
-    </group>
-  );
-};
 
 const TREES = (() => {
   const r = rng(23);

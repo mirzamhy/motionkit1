@@ -9,7 +9,9 @@ Cari dulu: `mk aset find <benda>`. Buat yang belum ada: `mk aset baru <benda> <g
 | benda | stik | poly3d | poly | model3d | flanel | ilustrasi |
 |---|---|---|---|---|---|---|
 | bumi | ✗ | ✔ `bumi-poly3d` | ✗ | ✗ | ✗ | ✗ |
+| bus | ✗ | ✔ `bus-poly3d` | ✗ | ✗ | ✗ | ✗ |
 | gudang | ✗ | ✗ | ✗ | ✗ | ✗ | ✔ `gudang-pelabuhan` |
+| gunung | ✗ | ✔ `gunung-poly3d` | ✗ | ✗ | ✗ | ✗ |
 | kos | ✔ `kos-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
 | lampu-jalan | ✔ `lampu-jalan-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
 | lampu-lalu-lintas | ✔ `lampu-lalu-lintas-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
@@ -20,6 +22,7 @@ Cari dulu: `mk aset find <benda>`. Buat yang belum ada: `mk aset baru <benda> <g
 | pasangan-poncho | ✔ `pasangan-poncho-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
 | penjual-kopi | ✔ `penjual-kopi-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
 | perahu | ✗ | ✗ | ✗ | ✗ | ✗ | ✔ `perahu-kajang` |
+| pohon | ✗ | ✔ `pohon-poly3d` | ✗ | ✗ | ✗ | ✗ |
 | rumah-kpr | ✔ `rumah-kpr-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
 | rumah-mewah | ✔ `rumah-mewah-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
 | rumah-petak | ✔ `rumah-petak-stik` | ✗ | ✗ | ✗ | ✗ | ✗ |
@@ -34,10 +37,20 @@ Cari dulu: `mk aset find <benda>`. Buat yang belum ada: `mk aset baru <benda> <g
 - dipakai: WhatIfGravity
 - acuan: `packages/core/src/library/poly3d/refs.md`
 
+### bus-poly3d
+- 3D · 11.5 × 3.1 × 2.65 m · varian: kuning
+- dipakai: -
+- acuan: `packages/core/src/library/poly3d/refs.md`
+
 ### gudang-pelabuhan
 - 2D · 30 × 8.2 × 14 m · varian: panjang, pendek, tutup
 - dipakai: PelabuhanProof
 - acuan: `packages/core/src/library/bangunan/gudang-pelabuhan/refs.md`
+
+### gunung-poly3d
+- 3D · 660 × 170 × 660 m · varian: vesuvius, sakura, rainier
+- dipakai: -
+- acuan: `packages/core/src/library/poly3d/refs.md`
 
 ### kos-stik
 - 2D · 2.41 × 3.41 × 0.6 m · varian: -
@@ -88,6 +101,11 @@ Cari dulu: `mk aset find <benda>`. Buat yang belum ada: `mk aset baru <benda> <g
 - 2D+3D · 12.5 × 11.5 × 3 m · varian: tergulung, terkembang, darat
 - dipakai: PelabuhanProof
 - acuan: `packages/core/src/library/kendaraan-air/perahu-kajang/refs.md`
+
+### pohon-poly3d
+- 3D · 2.6 × 3.7 × 2.6 m · varian: bulat, taman
+- dipakai: WhatIfGravity
+- acuan: `packages/core/src/library/poly3d/refs.md`
 
 ### rumah-kpr-stik
 - 2D · 2.99 × 2.71 × 0.6 m · varian: -
