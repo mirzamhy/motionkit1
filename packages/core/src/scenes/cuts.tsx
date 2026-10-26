@@ -2,7 +2,7 @@
 // seeded blob outline and EffectLightLeak's screen-blended warm glows. Rewritten for the Film runner: pure functions
 // of the mix value, no animated filters (the leak's softness comes from its gradient, not a blur).
 import React from 'react';
-import { inOut, prog } from '../engine/util';
+import { inOut, prog } from './motion';
 import { n1, rng } from './kit';
 
 export type Cut = 'dissolve' | 'ink' | 'leak';

@@ -3,7 +3,7 @@
 import React from 'react';
 import { Composition, registerRoot } from 'remotion';
 import { Film, filmFrames, type Shot } from '../../packages/core/src/scenes/film';
-import { inOut, outE, prog } from '../../packages/core/src/engine/util';
+import { inOut, outE, prog } from '../../packages/core/src/scenes/motion';
 
 // The voice file is silence, so the rendered track is the bed alone and its level shows the duck.
 // Passages: 2–4 s in shot 1, 7–9 s in shot 2 (film seconds, 60 fps).

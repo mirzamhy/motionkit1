@@ -35,3 +35,29 @@ Rekaan (semuanya, tidak ada replika):
 - proporsi dan ukuran, bukan ukur dari satu bangunan nyata; pos ronda nyata amat beragam (ada yang berdinding penuh, beratap joglo, bercat merah-putih);
 - warna, jumlah papan, bentuk bangku dan kentongan (silinder polos dengan celah hitam);
 - tanpa tekstur, tanpa lampu atau papan nama.
+
+## tank-poly3d
+Tank era Pertempuran Surabaya 1945 (Sherman M4 / Stuart M3 style).
+Proporsi: panjang bodi ~6 m (dengan laras ~7 m), lebar 2,8 m, tinggi 2,6 m. Dua roda rantai (treads), bodi lapis baja tebal, kubah meriam putar dan laras meriam arah depan (+X).
+Varian: `sekutu` (warna hijau zaitun tentara Sekutu / British Indian Army dengan bintang identitas) dan `bkr` (warna cokelat usang hasil rampasan pejuang Surabaya dengan lambang Merah Putih).
+
+## bambu-runcing-poly3d
+Senjata rakyat pejuang arek-arek Suroboyo. Batang bambu beruas setinggi ~2 m dengan ujung potongan serong runcing tajam, diikat tali tambang dan pita Merah Putih.
+Varian: `ikatan` (5 batang kokoh saling silang dengan bendera Merah Putih) dan `tunggal` (satu bilah tegak).
+
+## jembatan-merah-poly3d
+Jembatan Merah Surabaya di atas Kali Mas, situs pertempuran utama Oktober-November 1945. Struktur pilar bata merah kolonial Belanda, trotoar batu, aspal hitam, pilar gerbang, dan pagar besi merah di kedua sisi.
+Ukuran: 16 m panjang x 3,6 m tinggi x 6 m lebar.
+Varian: `utuh` (kondisi awal) dan `perang` (dilengkapi barikade karung pasir dan pertahanan tempur).
+
+## pejuang-poly3d
+Karakter pemuda pejuang arek Suroboyo (laskar rakyat / BKR). Postur berdiri proporsi 7 kepala (~1,72 m). Memakai ikat kepala dwiwarna Merah Putih, kemeja khaki/cokelat pejuang kemerdekaan, celana katun, selempang tas amunisi, dan bambu runcing.
+Varian: `siap` (berdiri sigap memegang bambu runcing tegak) dan `serang` (pose maju menusukkan bambu runcing ke depan).
+
+## tentara-sekutu-poly3d
+Prajurit militer Sekutu (British Indian Army / brigade ke-49 di bawah Brigadir Mallaby). Memakai helm baja piringan Brodie khas tentara Persemakmuran Inggris (Commonwealth), seragam militer drill hijau zaitun, sabuk perlengkapan webbing, sepatu lars hitam, dan senapan Lee-Enfield dengan bayonet baja.
+Varian: `siap` (senapan tersandang di bahu) dan `bidik` (senapan diangkat membidik ke arah depan).
+
+
+
+

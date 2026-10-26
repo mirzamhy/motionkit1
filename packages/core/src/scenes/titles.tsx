@@ -3,7 +3,7 @@
 // letterbox-reveal. Those are fixed demos; these take content and a style, use the beat clock `u`, and exit faster
 // than they enter.
 import React from 'react';
-import { inOut, outE, prog } from '../engine/util';
+import { inOut, outE, prog } from './motion';
 
 export type TitleStyle = 'modern' | 'arsip';
 const INK = { modern: { bar: 'rgba(16,18,20,0.86)', accent: '#F2C14E', text: '#F6F1E6', sub: '#C9C2B2' }, arsip: { bar: '#EFE4C8', accent: '#8C2F1E', text: '#2A2118', sub: '#5E4E3A' } };

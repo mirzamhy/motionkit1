@@ -7,8 +7,8 @@
 // Everything is layered SVG: gradients for form, seeded procedural detail, a static grain filter, parallax by depth.
 import React, { useMemo } from 'react';
 import { AbsoluteFill, useCurrentFrame } from 'remotion';
-import { fontsFor, useFontsReady } from '../engine/fonts';
-import { inOut, outE, prog, typed } from '../engine/util';
+import { inOut, outE, prog, typed } from './motion';
+import { useEditorialFonts } from './fonts';
 
 const TURN_AT = 150; // room → screen
 const TURN_HOLD = 170; // frames the room clock is paused for the screen shot
@@ -997,8 +997,7 @@ const CAPS: { a: number; b: number; text: string }[] = [
 
 export const PizzaScene: React.FC<{ portrait?: boolean }> = ({ portrait: P = false }) => {
   const t = useCurrentFrame();
-  const f = fontsFor('editorial');
-  useFontsReady(f);
+  const f = useEditorialFonts();
   const room = useMemo(buildRoom, []);
   const pizza = useMemo(buildPizza, []);
   const FW = P ? 1080 : W;

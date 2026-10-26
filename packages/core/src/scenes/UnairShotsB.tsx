@@ -1,6 +1,6 @@
 // UNAIR film, shots 5–7 and 9: the gate through the 1940s, the 1954 decree and map, the statue, the campus today.
 import React from 'react';
-import { inOut, outE, prog, typed } from '../engine/util';
+import { inOut, outE, prog, typed } from './motion';
 import { Cloud, Foliage, bump, lerp, n1, rng } from './kit';
 import { Arca, Flag, GOLD, JAR, MERAH_PUTIH, OUTFITS, OUTFITS_1954, UNAIR_BANDS, Walker } from './UnairParts';
 import { JavaMap } from './UnairMap';

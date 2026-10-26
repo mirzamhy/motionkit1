@@ -7,6 +7,9 @@ export { camAt, project3D, Billboard3D, Particles3D, Floor3D, focusWeight, type 
 export { useHits, Grain, Burst, Whip, Confetti, type Hit } from './fx';
 export { Mark, Phone, Window, Cursor, Notification } from './ui';
 export { FONT_NAMES, type FontRequest } from './fonts';
+export { defineAsset, type AssetType, type MotionKitAsset } from './assets';
+export { ATMOSPHERE_PRESETS, getAtmosphere, type AtmospherePreset } from './atmosphere';
+export { AtmosphereLayer } from './atmosphere-layer';
 
 /** frames → seconds helpers */
 export const sec = (frames: number, fps = 60) => frames / fps;

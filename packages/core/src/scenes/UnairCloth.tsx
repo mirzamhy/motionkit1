@@ -4,7 +4,7 @@
 // rest follows: it slides off the stone, ripples, and settles on the ground. The whole run is computed once and
 // cached, so every frame is a pure lookup (Remotion renders frames in any order).
 import React from 'react';
-import { inOut } from '../engine/util';
+import { inOut } from './motion';
 import { BLUE, YELLOW } from './UnairParts';
 
 const RAD = 500; // the sheet is a disc: its hem hangs level all round, and colour rings stay clean circles

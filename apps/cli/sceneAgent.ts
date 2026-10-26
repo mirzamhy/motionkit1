@@ -67,8 +67,20 @@ const guideOverlay = (dir: string, extra: string[]) => {
     execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'lavfi', '-i', `color=c=black@0:s=${W}x${H},format=rgba`, '-vf', `geq=r='0':g='220':b='255':a='if(gt(${terms.join('+')},0),230,0)'`, '-frames:v', '1', out]);
   return out;
 };
+/** ukuran gambar sebenarnya, supaya grid juga benar untuk film potret (1080×1920), bukan hanya 1920×1080 */
+const ukuranGambar = (file: string): [number, number] => {
+  try {
+    const [w, h] = execFileSync('ffprobe', ['-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=width,height', '-of', 'csv=p=0', file]).toString().trim().split(',').map(Number);
+    if (w > 0 && h > 0) return [w, h];
+  } catch {
+    /* jatuh ke ukuran lanskap bawaan */
+  }
+  return [1920, 1080];
+};
+
 export const gridView = (file: string, region?: number[], outW = 1600, guides: string[] = ['thirds', 'phi']) => {
-  const [x, y, w, h] = region && region.length === 4 ? region.map((v) => Math.max(0, Math.round(v))) : [0, 0, 1920, 1080];
+  const [FW, FH] = ukuranGambar(file);
+  const [x, y, w, h] = region && region.length === 4 ? region.map((v) => Math.max(0, Math.round(v))) : [0, 0, FW, FH];
   const major = [10, 20, 50, 100, 200].find((m) => w / m <= 12) ?? 200;
   const minor = major / 5;
   const k = Math.max(1, Math.round((outW / w) * minor)) / minor; // so a minor cell is a whole number of output pixels
@@ -84,8 +96,8 @@ export const gridView = (file: string, region?: number[], outW = 1600, guides: s
     ...marks(y, h).map((v) => label(v, 4, (v - y) * k + 4, 'cyan')),
     // composition guides over the whole film frame: thirds (green) and golden-ratio lines (magenta)
     ...[
-      ...(guides.includes('thirds') ? [1 / 3, 2 / 3].map((p) => ({ X: 1920 * p, Y: 1080 * p, c: 'lime@0.8' })) : []),
-      ...(guides.includes('phi') ? [0.382, 0.618].map((p) => ({ X: 1920 * p, Y: 1080 * p, c: 'magenta@0.8' })) : []),
+      ...(guides.includes('thirds') ? [1 / 3, 2 / 3].map((p) => ({ X: FW * p, Y: FH * p, c: 'lime@0.8' })) : []),
+      ...(guides.includes('phi') ? [0.382, 0.618].map((p) => ({ X: FW * p, Y: FH * p, c: 'magenta@0.8' })) : []),
     ].flatMap((g) => [
       ...(g.X > x && g.X < x + w ? [`drawbox=x=${Math.round((g.X - x) * k) - 1}:y=0:w=3:h=ih:color=${g.c}:t=fill`] : []),
       ...(g.Y > y && g.Y < y + h ? [`drawbox=x=0:y=${Math.round((g.Y - y) * k) - 1}:w=iw:h=3:color=${g.c}:t=fill`] : []),

@@ -1,7 +1,7 @@
 // Named beats instead of loose frame numbers. Idea from codeverbojan/remotion-cinematic (MIT), whose camera keys
 // say { scene: 'intro', at: 'end' } and are resolved to frames once. Here a shot lists its beats in order with a
 // length and a gap after the previous beat (negative = overlaps it); lengthening one beat moves every later beat.
-import { inOut, prog } from '../engine/util';
+import { inOut, prog } from './motion';
 
 /** [name, length in frames, gap after the previous beat's end (negative overlaps it; for the first beat, its start)] */
 export type BeatSpec<K extends string> = readonly [K, number, number?];

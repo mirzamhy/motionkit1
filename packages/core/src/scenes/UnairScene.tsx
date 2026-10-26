@@ -6,7 +6,7 @@ import React from 'react';
 import { loadFont as josefin } from '@remotion/google-fonts/JosefinSans';
 import { loadFont as baskerville } from '@remotion/google-fonts/LibreBaskerville';
 import { loadFont as elite } from '@remotion/google-fonts/SpecialElite';
-import { inOut, prog } from '../engine/util';
+import { inOut, prog } from './motion';
 import { Cloud, Foliage, lerp, n1, rng } from './kit';
 
 export const W = 1920;

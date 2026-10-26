@@ -7,7 +7,7 @@
 //       whatever the retiming does (flags, leaves, footsteps, blinking).
 import React from 'react';
 import { AbsoluteFill, Audio, Sequence, staticFile, useCurrentFrame } from 'remotion';
-import { inOut, outE, prog, typed } from '../engine/util';
+import { inOut, outE, prog, typed } from './motion';
 import { CUT_SPAN, InkClip, Leak, type Cut } from './cuts';
 import { n1 } from './kit';
 import { WordCaps, type Word } from './wordcaps';

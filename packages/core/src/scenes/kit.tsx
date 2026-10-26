@@ -1,6 +1,6 @@
 // Shared helpers for hand-built illustrated scenes: seeded randomness, small maths, and a few drawn atoms.
 import React from 'react';
-import { prog } from '../engine/util';
+import { prog } from './motion';
 
 export const rng = (seed: number) => () => {
   seed |= 0;

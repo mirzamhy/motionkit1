@@ -3,7 +3,7 @@
 // written by apps/cli/edge_say.py), mapped to film frames through each shot's `vo` passages; every change eases over
 // several frames (the repo's themes switch colour in one frame and rely on CSS transitions, which do not render).
 import React from 'react';
-import { inOut, outE, prog } from '../engine/util';
+import { inOut, outE, prog } from './motion';
 import type { Shot } from './film';
 
 /** [word, start s, end s] in the recording */

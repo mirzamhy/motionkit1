@@ -2,7 +2,7 @@
 // (about sixty around Java, plus Madura and the west end of Bali), projected flat; volcanoes, the two great rivers
 // of East Java, province lines, towns, graticule, compass and scale are drawn on top.
 import React from 'react';
-import { inOut, outE, prog, typed } from '../engine/util';
+import { inOut, outE, prog, typed } from './motion';
 import type { F } from './UnairScene';
 
 /** lon / lat → map units (150 per degree); origin at 105°E, 5.6°S */

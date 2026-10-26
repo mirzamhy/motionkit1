@@ -3,7 +3,7 @@
 // Composition: horizon on the golden line (y 412); the pier runs from the lower left towards the right third and
 // leads the eye to the moored boat; palms and warehouse frame the left; people walk out along the pier.
 import React from 'react';
-import { inOut, prog } from '../engine/util';
+import { inOut, prog } from './motion';
 import { Film, filmFrames, type Shot } from './film';
 import { Cloud, Palm, Shrub, n1, rng } from './kit';
 import { OUTFITS_1954, Walker } from './UnairParts';
